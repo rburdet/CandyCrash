@@ -8,10 +8,30 @@
 using std::cin;
 using std::string;
 
+/** threads_create: crea los threads de escucha para los distintos puertos.
+ * @param [out] threads lista de threads de escucha
+ * @param [in] thread_str str usado para la creacion del thread (define el puerto)
+ * @return cantidad de errores
+ */
 int threads_create(Lista<ThreadListen*> & threads, char* thread_str);
+
+/** threads_shutdown: manda se~nal de shutdown a los threads.
+ * @param [in] threads lista de threads de escucha
+ */
 void threads_shutdown(Lista<ThreadListen*> & threads);
+
+/** threads_join: manda se~nal de join a los threads.
+ * @param [in] threads lista de threads de escucha
+ */
 void threads_join(Lista<ThreadListen*> & threads);
 
+/** Main de server.
+ * Recibe como unico argumento de argv: puerto de escucha.
+ * Se puede cerrar haciendo click en q.
+ * @param [in] argc cantidad de argumentos (0 es el nombre del programa)
+ * @param [in] argv parametros.
+ * @return codigo de error.
+ */
 int main(int argc, char* argv[]){
 	if(argc != 2)
 		return 1;
