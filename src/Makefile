@@ -23,6 +23,9 @@ extension = cpp
 # Si usa funciones de SDL2, descomenta '#'
 sdl2 = si
 
+# Si usa funciones de SDL2_image, descomenta '#'
+sdl2_image = si
+
 # Si usa funciones de math.h, descomentá (quitale el '#' a) la siguiente línea.
 #math = si
 
@@ -73,6 +76,11 @@ CXXSTD = c++98
 ifdef sdl2
 CFLAGS += $(shell pkg-config --cflags sdl2)
 LDFLAGS += $(shell pkg-config --libs sdl2)
+endif
+
+ifdef sdl2_image
+CFLAGS += $(shell pkg-config --cflags SDL2_image)
+LDFLAGS += $(shell pkg-config --libs SDL2_image)
 endif
 
 # Agrego flags y libs de GTK+ de ser necesario.
