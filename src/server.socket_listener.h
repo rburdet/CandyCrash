@@ -1,5 +1,6 @@
 #ifndef __SERVER_SOCKET_LISTENER_H__
 #define __SERVER_SOCKET_LISTENER_H__
+
 #include "common.socket.h"
 #include "common.socket_io.h"
 #include <string>
