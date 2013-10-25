@@ -39,29 +39,34 @@ void* ThreadListen::run(){
 	stringstream ss;
 	ss << "PUERTO " << this->port;
 
-	Json::Value root;
+	Json::Value connect_msj;
 	Json::Reader reader;
 
-	reader.parse("{\"msg\":\"conectado\"}", root, false);
+	reader.parse("{\"msj\":\"conectado\"}", connect_msj, false);
 
 	while((fd = this->sock.accept())){
-		if(fd->write(root, "")){
+		if(fd->write(connect_msj, "")){
 			Logger::log(ss.str()+". Error escribiendo mensaje de bienvenida.");
 		}else{
-			root.clear();
+			Json::Value root;
 			Logger::log(ss.str()+". Conexión aceptada.");
 			string msg = "";
 			if(!fd->read(root, msg, false)){
-				Json::Value def = "default";
+				Json::StaticString def("default");
 				Json::Value user = root.get("user", def);
 				Json::Value pass = root.get("pass", def);
 
 				stringstream ll;
 				string ans = "Usuario '"+user.asString()+"' pass: '"+pass.asString()+"'";
-				ll << msg.length();
-				//if(fd->write(ans+ll.str()+"."))
-				//	Logger::log(ss.str()+". Error escribiendo mensaje de verificacion.");
-				//Logger::log(ss.str()+". Recibidos "+ll.str()+" bytes.");
+				Logger::log(ans);
+
+				Json::Value send_data;
+				send_data["msj"] = string("Autenticacion correcta");
+				send_data["code"] = 400;
+				if(fd->write(send_data, pass.asString())){
+					Logger::log("Errorrorororor");
+				}
+
 			}
 		}
 

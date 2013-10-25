@@ -4,10 +4,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <sstream>
 #include "common.md5.h"
 
 // http://en.wikipedia.org/wiki/MD5
 using std::string;
+using std::stringstream;
 
 // Constants are the integer part of the sines of integers (in radians) * 2^32.
 const uint32_t k[64] = {
@@ -151,9 +153,15 @@ void md5_digest(const string & initial_msg, string &digest) {
 	size_t len;
 	uint8_t result[17] = {0};
 
-	len = strlen(initial_msg.c_str());
+	len = initial_msg.size();
 
 	md5((uint8_t*) initial_msg.c_str(), len, result);
 
-	digest = (char*) result;
+	{
+		stringstream ss;
+		for(int i=0; i < MD5_BYTE_LENGTH ; i++)
+			ss << result[i];
+
+		digest = ss.str();
+	}
 }

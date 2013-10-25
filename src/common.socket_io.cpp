@@ -32,6 +32,7 @@ int SocketIO::read(Json::Value &data, const std::string& key, bool check){
 	if(((uint32_t) recv(this->fd, (void*) str, len, 0)) != len){
 		msg = "";
 		delete[] str;
+		//std::cout << "error leyendo msje" << std::endl;
 		return -1;
 	}
 
@@ -47,7 +48,9 @@ int SocketIO::read(Json::Value &data, const std::string& key, bool check){
 
 	str = new char[HMAC_LENGTH];
 
-	if(((uint32_t) recv(this->fd, (void*) str, HMAC_LENGTH, 0)) != HMAC_LENGTH){
+	uint32_t hmac_size;
+	if((hmac_size = (uint32_t) recv(this->fd, (void*) str, HMAC_LENGTH, 0)) != HMAC_LENGTH){
+		//std::cout << "error leyendo HMAC '" << str << "' size " << hmac_size << " HMAC_LENGTH  " << HMAC_LENGTH <<  std::endl;
 		delete[] str;
 		return -1;
 	}
@@ -66,12 +69,13 @@ int SocketIO::read(Json::Value &data, const std::string& key, bool check){
 
 	hmac_msje(key, msg, hmac_key);
 
-	if(hmac_key != hmac_key_rec){ // Fallo validacion
+	if(check && (hmac_key != hmac_key_rec)){ // Fallo validacion
+		//std::cout << "error verificacion" << std::endl;
 		return -1;
 	}
 
 	Json::Reader reader;
-	if(check && ! reader.parse(msg, data, false)){
+	if(! reader.parse(msg, data, false)){
 		return -1;
 	}
 
@@ -79,7 +83,8 @@ int SocketIO::read(Json::Value &data, const std::string& key, bool check){
 }
 
 int SocketIO::write(const Json::Value &data, const string& key){
-	string msg = data.asString();
+	Json::FastWriter writer;
+	string msg = writer.write(data);
 	uint32_t len = htonl(msg.length());
 	string hmac_key;
 
