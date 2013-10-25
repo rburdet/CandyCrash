@@ -11,3 +11,7 @@
 *.lai
 *.la
 *.a
+
+# Mierdas mac
+*.DS_Store
+*sublime*
