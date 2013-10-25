@@ -18,3 +18,9 @@
 
 #pruebas
 prueba*
+
+# deps
+*.deps
+
+# archvios de vim
+*.sw*

@@ -1,11 +1,8 @@
 #include <iostream>
 #include <string>
 
-//#include "server.thread_listen.h"
-#include "server.thread_usuario.h"
-#include "server.socket_listener.h"
-//#include "common.lista.h"
 #include "common.logger.h"
+#include "server.server.h"
 
 using std::cin;
 using std::string;
@@ -41,30 +38,16 @@ int main(int argc, char* argv[]){
 
 	int port = str2number(argv[1]);
 
+
 	if(port == 0){
 		cout << "Puerto ingresado invalido" << endl;
 		return 1;
 	}
-
-	TCPSocketListener sock;
-
-	if(sock.listen(port)){
-		cout << "Error poniendo el socket a la escucha" << endl;
-		return 1;
-	}
 	Logger::init();
 
-	cout << "Servidor escuchando en puerto '" << port << "'" << endl;
+	Server server(port);
 
-
-	// TODO hacer select o algo para poder cerrar de manera linda
-	
-	SocketIO* fd;
-	while( (fd = sock.accept()) ){
-		//TODO: guardar Threadusuario
-		ThreadUsuario* tu =  new ThreadUsuario(fd);
-		tu->start();
-	}
+	server.main();
 
 	//int errors;
 	//char c;

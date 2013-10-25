@@ -4,6 +4,7 @@
 #include <sstream>
 #include <jsoncpp/json/json.h>
 #include "cliente.socket_connect.h"
+#include "common.events.h"
 
 using std::string;
 using std::stringstream;
@@ -47,6 +48,7 @@ int main(int argc, char*argv[]){
 	//msj.clear();
 
 	Json::Value sendData;
+	sendData["event"] = (int) EVENT_LOGIN;
 	sendData["user"] = user;
 	sendData["pass"] = pass;
 
