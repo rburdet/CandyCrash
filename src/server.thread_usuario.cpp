@@ -117,5 +117,17 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 }
 
 int ThreadUsuario::eventFirmado(Value& data){
+	StaticString def("");
+	CommonEvents event = EVENT_NONE;
+
+	if(data.get("event", def).isNumeric())
+		event = (CommonEvents) data.get("event", def).asInt();
+
+	switch(event){
+		default:
+			Logger::log("["+this->myId+"] Evento desconocido");
+			break;
+	}
+
 	return 0;
 }
