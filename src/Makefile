@@ -43,7 +43,7 @@ CFLAGS = -Wall -Werror -pedantic -pedantic-errors
 CFLAGS += -ggdb -DDEBUG -fno-inline
 
 # Opciones del enlazador.
-LDFLAGS =
+LDFLAGS = -ljson
 
 # Estandar de C a usar
 CSTD = c99

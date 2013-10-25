@@ -1,5 +1,6 @@
 #include "server.thread_listen.h"
 
+#include <jsoncpp/json/json.h>
 #include <sstream>
 #include <string>
 #include "common.logger.h"
@@ -38,19 +39,29 @@ void* ThreadListen::run(){
 	stringstream ss;
 	ss << "PUERTO " << this->port;
 
+	Json::Value root;
+	Json::Reader reader;
+
+	reader.parse("{\"msg\":\"conectado\"}", root, false);
+
 	while((fd = this->sock.accept())){
-		if(fd->write(ss.str()+" Aceptado. Recibiendo datos...")){
+		if(fd->write(root, "")){
 			Logger::log(ss.str()+". Error escribiendo mensaje de bienvenida.");
 		}else{
+			root.clear();
 			Logger::log(ss.str()+". Conexión aceptada.");
-			string msg;
-			if(!fd->read(msg)){
+			string msg = "";
+			if(!fd->read(root, msg, false)){
+				Json::Value def = "default";
+				Json::Value user = root.get("user", def);
+				Json::Value pass = root.get("pass", def);
+
 				stringstream ll;
-				string ans = "Datos recibidos exitosamente. Cantidad de bytes recibidos: ";
+				string ans = "Usuario '"+user.asString()+"' pass: '"+pass.asString()+"'";
 				ll << msg.length();
-				if(fd->write(ans+ll.str()+"."))
-					Logger::log(ss.str()+". Error escribiendo mensaje de verificacion.");
-				Logger::log(ss.str()+". Recibidos "+ll.str()+" bytes.");
+				//if(fd->write(ans+ll.str()+"."))
+				//	Logger::log(ss.str()+". Error escribiendo mensaje de verificacion.");
+				//Logger::log(ss.str()+". Recibidos "+ll.str()+" bytes.");
 			}
 		}
 
