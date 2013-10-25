@@ -71,12 +71,12 @@ int SocketIO::read(Json::Value &data, const std::string& key, bool check){
 
 	if(check && (hmac_key != hmac_key_rec)){ // Fallo validacion
 		//std::cout << "error verificacion" << std::endl;
-		return -1;
+		return 1;
 	}
 
 	Json::Reader reader;
 	if(! reader.parse(msg, data, false)){
-		return -1;
+		return 2;
 	}
 
 	return 0;
