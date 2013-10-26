@@ -27,6 +27,7 @@ class Server : public ServerInterface {
 
 		int main();
 		void removeClient(Thread* cli);
+		void end();
 };
 
 #endif

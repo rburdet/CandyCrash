@@ -15,7 +15,7 @@ class SocketIO : public virtual Socket {
 
 		/** read: lee mensaje.
 		 * Lee mensaje de socket. Primero lee prefijo de longitud, dependiendo de eso, lee el mensaje, y despues lee la firma, la validacion de la misma es opcional, pero siempre se la leera. El metodo se encarga de la transformacion de la data json entrante en objeto.
-		 * En el caso de haber una firma invalida, se saldra con error.
+		 * En el caso de haber una firma invalida, se saldra con error, pero se devolvera por data el json recibido.
 		 * @param [out] data informacion proveniente del socket.
 		 * @param [in] key llave usada para la comprobacion de la firma.
 		 * @param [in] check opcional, (true por defecto) si es verdadero se chequeara la firma.

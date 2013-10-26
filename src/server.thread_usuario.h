@@ -27,6 +27,9 @@ class ThreadUsuario : public Thread {
 	public:
 		ThreadUsuario(ServerInterface* s, SocketIO* fd);
 		~ThreadUsuario();
+
+		int shutdown(int how);
+		int shutdown();
 };
 
 #endif

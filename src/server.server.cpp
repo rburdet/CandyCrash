@@ -5,7 +5,6 @@ Server::Server(int port) : port(port) {
 }
 
 
-// TODO: eliminar clientes conectados
 Server::~Server() {
 }
 
@@ -18,8 +17,8 @@ int Server::main(){
 	Logger::log("Escuchando en puerto especificado");
 
 	SocketIO* fd;
+	// TODO: fijarse como implementar con select
 	while( (fd = this->sock.accept()) ){
-		//TODO: guardar Threadusuario
 		ThreadUsuario* cli =  new ThreadUsuario(this, fd);
 		cli->start();
 		this->addClient(cli);
@@ -44,5 +43,16 @@ void Server::removeClient(Thread* cli){
 		}
 	}
 
+	this->clientesLock.unlock();
+}
+
+void Server::end(){
+	this->clientesLock.lock();
+	for(unsigned int i=0; i < clientes.size(); i++){
+		this->clientes[i]->shutdown();
+		this->clientes[i]->join();
+		delete this->clientes[i];
+		this->clientes.erase(this->clientes.begin() + i);
+	}
 	this->clientesLock.unlock();
 }

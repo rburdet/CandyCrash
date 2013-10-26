@@ -7,6 +7,7 @@
 #include <unistd.h>
 
 #include "common.logger.h"
+#include "common.user_manager.h"
 
 using Json::Value;
 using Json::StaticString;
@@ -17,6 +18,14 @@ ThreadUsuario::ThreadUsuario(ServerInterface* s, SocketIO* fd) : server(s), fd(f
 ThreadUsuario::~ThreadUsuario(){
 	Logger::log("["+this->myId+"] Cerrando thread");
 	delete this->fd;
+}
+
+int ThreadUsuario::shutdown(){
+	return this->fd->shutdown();
+}
+
+int ThreadUsuario::shutdown(int how){
+	return this->fd->shutdown(how);
 }
 
 void* ThreadUsuario::run(){
@@ -31,11 +40,13 @@ void* ThreadUsuario::run(){
 		return NULL;
 
 	int ret_read;
-	while((ret_read = this->read(false)) > 0);
+	while(!(ret_read = this->read(false)));
 
-	Logger::log("["+this->myId+"] Escuchando evento cifrado");
+	if(ret_read == -1){
+		Logger::log("["+this->myId+"] Escuchando evento cifrado");
 
-	while(! this->read());
+		while(! this->read());
+	}
 
 	Logger::log("["+this->myId+"] Termino coneccion");
 	this->server->removeClient(this);
@@ -84,23 +95,35 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 		event = (CommonEvents) data.get("event", def).asInt();
 
 	switch(event){
-		case EVENT_LOGIN: {
+		case EVENT_LOGIN: { // TODO: se podria pasar a una funcion
 			Value connect_msje;
+			int ret = 0;
 
 			this->user = data.get("user", def).asString();
 			this->pass = data.get("pass", def).asString();
 
 			Logger::log("["+this->myId+"] Evento Login '"+this->user+"' '"+this->pass+"'");
+			Value userData;
+			UserManager::get(this->user, userData);
+			if(userData["user"] != this->user || userData["pass"] != this->pass){
+				Logger::log("["+this->myId+"] Error Login ");
 
-			connect_msje["event"] = (int) EVENT_LOGIN;
-			connect_msje["msj"] = "login correcto";
-			connect_msje["code"] = "0";
+				connect_msje["event"] = (int) EVENT_LOGIN;
+				connect_msje["msj"] = "login error";
+				connect_msje["code"] = "1";
+				ret = 0;
+			}else{
+				connect_msje["event"] = (int) EVENT_LOGIN;
+				connect_msje["msj"] = "login correcto";
+				connect_msje["code"] = "0";
+				ret = -1;
+			}
 
 			if(this->fd->write(connect_msje, this->pass)){
 				Logger::log("["+this->myId+"] Error escribiendo el mensaje de confirmacion de login");
 				return 1;
 			}
-			return -1;
+			return ret;
 			break;
 		 }
 

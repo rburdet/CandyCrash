@@ -30,7 +30,6 @@ int SocketIO::read(Json::Value &data, const std::string& key, bool check){
 	char *str = new char[len];
 
 	if(((uint32_t) recv(this->fd, (void*) str, len, 0)) != len){
-		msg = "";
 		delete[] str;
 		//std::cout << "error leyendo msje" << std::endl;
 		return -1;
@@ -55,30 +54,30 @@ int SocketIO::read(Json::Value &data, const std::string& key, bool check){
 		return -1;
 	}
 
-	string hmac_key_rec;
-	string hmac_key;
-	{
-		stringstream ss;
-		for(uint32_t i=0; i < HMAC_LENGTH; i++)
-			ss << str[i];
-
-		hmac_key_rec = ss.str();
-	}
-
-	delete[] str;
-
-	hmac_msje(key, msg, hmac_key);
-
-	if(check && (hmac_key != hmac_key_rec)){ // Fallo validacion
-		//std::cout << "error verificacion" << std::endl;
-		return 1;
-	}
-
 	Json::Reader reader;
 	if(! reader.parse(msg, data, false)){
 		return 2;
 	}
 
+	if(check){
+		string hmac_key_rec;
+		string hmac_key;
+		stringstream ss;
+
+		for(uint32_t i=0; i < HMAC_LENGTH; i++)
+			ss << str[i];
+
+		hmac_key_rec = ss.str();
+		hmac_msje(key, msg, hmac_key);
+
+		if(hmac_key != hmac_key_rec){ // Fallo validacion
+			//std::cout << "error verificacion" << std::endl;
+			delete[] str;
+			return 1;
+		}
+	}
+
+	delete[] str;
 	return 0;
 }
 

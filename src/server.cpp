@@ -2,6 +2,7 @@
 #include <string>
 
 #include "common.logger.h"
+#include "common.user_manager.h"
 #include "server.server.h"
 
 using std::cin;
@@ -14,16 +15,6 @@ using std::endl;
  * @return numero
  */
 int str2number(char* str);
-
-/** threads_shutdown: manda se~nal de shutdown a los threads.
- * @param [in] threads lista de threads de escucha
- */
-//void threads_shutdown(Lista<ThreadListen*> & threads);
-
-/** threads_join: manda se~nal de join a los threads.
- * @param [in] threads lista de threads de escucha
- */
-//void threads_join(Lista<ThreadListen*> & threads);
 
 /** Main de server.
  * Recibe como unico argumento de argv: puerto de escucha.
@@ -45,18 +36,16 @@ int main(int argc, char* argv[]){
 	}
 	Logger::init();
 
+	UserManager::init(string("./user_data.json"));
+
 	Server server(port);
 
 	server.main();
 
-	//int errors;
-	//char c;
-	//errors = threads_create(threads, argv[1]);
-	//while ( (c = cin.get()) != 'q') {}
-	//threads_shutdown(threads);
-	//threads_join(threads);
+	server.end();
 
 	Logger::destroy();
+	UserManager::destroy();
 
 	//return errors;
 	return 0;
@@ -88,32 +77,3 @@ int str2number(char* str){
 
 	return port;
 }
-
-/*
-void threads_shutdown(Lista<ThreadListen*> & threads){
-	ThreadListen* thread;
-	~threads;
-
-	if(!threads)
-		return;
-
-	do {
-		threads >> thread;
-		thread->shutdown();
-	} while (threads++);
-}
-
-void threads_join(Lista<ThreadListen*> & threads){
-	ThreadListen* thread;
-	~threads;
-
-	if(!threads)
-		return;
-
-	do {
-		threads >> thread;
-		thread->join();
-		delete thread;
-	} while (threads++);
-}
-*/
