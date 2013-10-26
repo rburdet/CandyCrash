@@ -161,13 +161,7 @@ o_server_files = $(patsubst %.$(extension),%.o,$(fuentes_server)) $(o_common_fil
 
 #o_files = $(patsubst %.$(extension),%.o,$(fuentes))
 
-%.deps: %.$(extension)
-	@set -e; rm -f $@; \
-		$(old) -MM -MG -MP $(CXXFLAGS) $(CFLAGS) $< -MF $@.$$$$; \
-		sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
-		rm -f $@.$$$$
-
--include $(o_files:.o=.deps)
+-include $(o_files:.o)
 
 #$(target): $(o_files)
 #	@if [ -z "$(o_files)" ]; \
