@@ -12,6 +12,7 @@
 using Json::Value;
 using Json::StaticString;
 using std::stringstream;
+using std::string;
 
 ThreadUsuario::ThreadUsuario(ServerInterface* s, SocketIO* fd) : server(s), fd(fd), user(""), pass(""), myId("") {}
 
@@ -104,18 +105,17 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 
 			Logger::log("["+this->myId+"] Evento Login '"+this->user+"' '"+this->pass+"'");
 			Value userData;
+			connect_msje["event"] = (int) EVENT_LOGIN;
 			UserManager::get(this->user, userData);
 			if(userData["user"] != this->user || userData["pass"] != this->pass){
 				Logger::log("["+this->myId+"] Error Login ");
 
-				connect_msje["event"] = (int) EVENT_LOGIN;
 				connect_msje["msj"] = "login error";
-				connect_msje["code"] = "1";
+				connect_msje["code"] = 1;
 				ret = 0;
 			}else{
-				connect_msje["event"] = (int) EVENT_LOGIN;
 				connect_msje["msj"] = "login correcto";
-				connect_msje["code"] = "0";
+				connect_msje["code"] = 0;
 				ret = -1;
 			}
 
@@ -127,9 +127,44 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 			break;
 		 }
 
-		case EVENT_NEW_USER:
-			Logger::log("["+this->myId+"] Evento new user");
+		case EVENT_NEW_USER:{
+			Logger::log("["+this->myId+"] Evento new user '"+this->user+"' '"+this->pass+"'");
+			Value retMsj;
+			int ret = 0;
+			retMsj["event"] = EVENT_NEW_USER;
+
+			this->user = data.get("user", def).asString();
+			this->pass = data.get("pass", def).asString();
+
+			Value userData;
+			UserManager::get(this->user, userData);
+			if(userData.isNull() && this->user != string("") && this->pass != string("")){ // No existe usuario, se puede crear
+				Value newUser;
+				newUser["user"] = this->user;
+				newUser["pass"] = this->pass;
+				newUser["nivel"] = 1;
+				UserManager::set(newUser);
+
+				retMsj["msj"] = "usuario creado correctamente";
+				retMsj["code"] = 0;
+				retMsj["user"] = this->user;;
+				retMsj["pass"] = this->pass;
+				ret = -1;
+			}else{
+				retMsj["msj"] = "error creando usuario";
+				retMsj["code"] = 1;
+				ret = 0;
+			}
+
+			if(this->fd->write(retMsj, this->pass)){
+				Logger::log("["+this->myId+"] Error escribiendo el mensaje de confirmacion de login");
+				return 1;
+			}
+			return ret;
 			break;
+		}
+
+
 
 		default:
 			Logger::log("["+this->myId+"] Evento desconocido");

@@ -7,6 +7,10 @@
 #include "common.events.h"
 
 /** Para usarlo se le pasa ip:puerto <archivo.json1> <archivo.json2>
+ * Manda los archivos de manera secuencial.
+ * La primera linea del archivo json tiene qe tener la clave qe se usara para firmar (SI O SI TIENE QE ESTAR ESTA CLAVE).
+ * Si se pasa "wait" de archivo, el programa esperara hasta que se toque enter cuando llego a ese archivo.
+ * Al finalizar la lista de archivos, el programa se qeda leyendo del stdin por mas archivos
  * Manda los archivos como mensajes de forma secuencial. El primero debe ser si o si un login!.
  * Recordar que la clave para cifrado la pide por stdin y no toma la del primer archivo
  */
@@ -18,12 +22,14 @@ using std::cout;
 using std::cin;
 using std::getline;
 using std::endl;
+using std::getline;
 using Json::Value;
 using Json::Reader;
 using Json::StyledWriter;
 
-int read_file(const char* path, string &str);
+int read_file(const char* path, string &pass, string &str);
 int get_port(const string &ipport, string &port);
+void send_json(TCPSocketConnect & sock, const string& path);
 int print_json(const Value& val);
 
 int main(int argc, char*argv[]){
@@ -41,42 +47,28 @@ int main(int argc, char*argv[]){
 		return 1;
 
 	Value data;
-	string pass;
-	cout << "ingrese clave usada para cifrar" << endl;
-	cin >> pass;
-	cout << "Se cifrara con la siguiente clave: '" << pass << "'" << endl;
 
-	if(sock.read(data, pass, false))
+	if(sock.read(data, string(""), false))
 		return 2;
 
 	print_json(data);
 
 	for(int i=2; i < argc; i++){
-		string msj;
-		Value send;
-		if(read_file(argv[i], msj)){
-			cout << "error leyendo '" << argv[i] << "'" << endl;
+		string path = argv[i];
+		if(path == "wait"){
+			getline(cin, path);
 			continue;
 		}
 
-		Reader reader;
-		if(! reader.parse(msj, send)){
-			cout << "error parseando '" << argv[i] << "'" << endl;
-			continue;
-		}
+		send_json(sock, path);
+	}
 
-		if(sock.write(send, pass)){
-			cout << "error mandando '" << argv[i] << "'" << endl;
-			continue;
-		}
-
-		if(sock.read(data, pass)){
-			cout << "error leyendo rta socket '" << argv[i] << "'" << endl;
-			continue;
-		}
-
-		print_json(data);
-
+	while(1){
+		string path;
+		getline(cin, path);
+		if(path == "")
+			break;
+		send_json(sock, path);
 	}
 
 	return 0;
@@ -94,10 +86,12 @@ void read_all(istream& in, string &str){
 	str = ss.str();
 }
 
-int read_file(const char* path, string &str){
+int read_file(const char* path, string &pass, string &str){
 	ifstream ifs(path);
 	if(!ifs.is_open())
 		return -1;
+
+	getline(ifs, pass);
 
 	read_all(ifs, str);
 
@@ -122,4 +116,43 @@ int print_json(const Value& val){
 	cout << output << endl;
 
 	return 0;
+}
+
+void send_json(TCPSocketConnect & sock, const string& path){
+	string pass;
+	string msj;
+	Value send;
+	Value data;
+
+	cout << " == Archivo: '" << path << "' ==" << endl;
+	if(read_file(path.c_str(), pass, msj)){
+		cout << "\t[ERROR] leyendo" << endl;
+		return;
+	}
+
+	cout << "=> Clave: '" << pass << "'" << endl;
+
+	Reader reader;
+	if(! reader.parse(msj, send)){
+		cout << "\t[ERROR] parseando" << endl;
+		return;
+	}
+
+	if(sock.write(send, pass)){
+		cout << "\t[ERROR] mandando" << endl;
+		return;
+	}
+
+	int ret = sock.read(data, pass);
+	if(ret == 2){
+		cout << "\t[ERROR] parseando json rta" << endl;
+		return;
+	}else if(ret == 1){
+		cout << "\t[ERROR]  firma" << endl;
+	}else if(ret < 0 || ret > 0){
+		cout << "\t[ERROR] leyendo de socket ret:'" << ret << "'" << endl;
+		return;
+	}
+
+	print_json(data);
 }
