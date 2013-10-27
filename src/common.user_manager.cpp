@@ -35,7 +35,7 @@ void UserManager::get(const std::string & user, Json::Value& data){
 
 void UserManager::_get(const std::string & user, Json::Value& data){
 	this->mut.lock();
-	data = users[user];
+	data = this->users[user];
 	this->mut.unlock();
 }
 

@@ -1,42 +1,25 @@
 #include "server.thread_usuario.h"
 
 #include <jsoncpp/json/json.h>
-#include <sstream>
 #include <string>
-#include <pthread.h>
-#include <unistd.h>
 
 #include "common.logger.h"
 #include "common.user_manager.h"
 
 using Json::Value;
 using Json::StaticString;
-using std::stringstream;
 using std::string;
 
-ThreadUsuario::ThreadUsuario(ServerInterface* s, SocketIO* fd) : server(s), fd(fd), user(""), pass(""), myId("") {}
+ThreadUsuario::ThreadUsuario(ServerInterface* s, SocketIO* fd) : ThreadSocket(fd), server(s), partida(NULL), user("") {}
 
 ThreadUsuario::~ThreadUsuario(){
 	Logger::log("["+this->myId+"] Cerrando thread");
-	delete this->fd;
+	if(this->partida)
+		this->partida->rmUsuario(this);
 }
 
-int ThreadUsuario::shutdown(){
-	return this->fd->shutdown();
-}
 
-int ThreadUsuario::shutdown(int how){
-	return this->fd->shutdown(how);
-}
-
-void* ThreadUsuario::run(){
-
-	{
-		stringstream ss;
-		ss << (uint64_t) pthread_self();
-		ss >> this->myId;
-	}
-
+void* ThreadUsuario::subRun(){
 	if(this->welcome())
 		return NULL;
 
@@ -52,9 +35,6 @@ void* ThreadUsuario::run(){
 	Logger::log("["+this->myId+"] Termino coneccion");
 	this->server->removeClient(this);
 
-	// XXX: me auto elmino?, vale esto?,, jajaja
-	delete this;
-
 	return NULL;
 }
 
@@ -63,29 +43,12 @@ int ThreadUsuario::welcome(){
 	connect_msje["msj"] = "conectado";
 	connect_msje["code"] = 0;
 
-	if(this->fd->write(connect_msje, this->pass)){
+	//if(this->fd->write(connect_msje, this->pass)){
+	if(this->write(connect_msje)){
 		Logger::log("["+this->myId+"] Error escribiendo el mensaje de bienvenida");
 		return 1;
 	}
 	return 0;
-}
-
-int ThreadUsuario::read(bool check){
-	Value get_data;
-
-	if(fd->read(get_data, this->pass, check)){
-		Logger::log("["+this->myId+"] Error recibiendo informacion");
-		return 1;
-	}
-
-	int ret = 0;
-
-	if(check)
-		return this->eventFirmado(get_data);
-	else
-		return this->eventNoFirmado(get_data);
-
-	return ret;
 }
 
 int ThreadUsuario::eventNoFirmado(Value& data){
@@ -101,13 +64,13 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 			int ret = 0;
 
 			this->user = data.get("user", def).asString();
-			this->pass = data.get("pass", def).asString();
+			this->key = data.get("pass", def).asString();
 
-			Logger::log("["+this->myId+"] Evento Login '"+this->user+"' '"+this->pass+"'");
+			Logger::log("["+this->myId+"] Evento Login '"+this->user+"' '"+this->key+"'");
 			Value userData;
 			connect_msje["event"] = (int) EVENT_LOGIN;
 			UserManager::get(this->user, userData);
-			if(userData["user"] != this->user || userData["pass"] != this->pass){
+			if(userData["user"] != this->user || userData["pass"] != this->key){
 				Logger::log("["+this->myId+"] Error Login ");
 
 				connect_msje["msj"] = "login error";
@@ -119,44 +82,7 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 				ret = -1;
 			}
 
-			if(this->fd->write(connect_msje, this->pass)){
-				Logger::log("["+this->myId+"] Error escribiendo el mensaje de confirmacion de login");
-				return 1;
-			}
-			return ret;
-			break;
-		 }
-
-		case EVENT_NEW_USER:{
-			Logger::log("["+this->myId+"] Evento new user '"+this->user+"' '"+this->pass+"'");
-			Value retMsj;
-			int ret = 0;
-			retMsj["event"] = EVENT_NEW_USER;
-
-			this->user = data.get("user", def).asString();
-			this->pass = data.get("pass", def).asString();
-
-			Value userData;
-			UserManager::get(this->user, userData);
-			if(userData.isNull() && this->user != string("") && this->pass != string("")){ // No existe usuario, se puede crear
-				Value newUser;
-				newUser["user"] = this->user;
-				newUser["pass"] = this->pass;
-				newUser["nivel"] = 1;
-				UserManager::set(newUser);
-
-				retMsj["msj"] = "usuario creado correctamente";
-				retMsj["code"] = 0;
-				retMsj["user"] = this->user;;
-				retMsj["pass"] = this->pass;
-				ret = -1;
-			}else{
-				retMsj["msj"] = "error creando usuario";
-				retMsj["code"] = 1;
-				ret = 0;
-			}
-
-			if(this->fd->write(retMsj, this->pass)){
+			if(this->write(connect_msje)){
 				Logger::log("["+this->myId+"] Error escribiendo el mensaje de confirmacion de login");
 				return 1;
 			}
@@ -164,7 +90,42 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 			break;
 		}
 
+		case EVENT_NEW_USER:{ // TODO: se podria pasar a una funcion
+			Value retMsj;
+			int ret = 0;
+			retMsj["event"] = EVENT_NEW_USER;
 
+			this->user = data.get("user", def).asString();
+			this->key = data.get("pass", def).asString();
+			Logger::log("["+this->myId+"] Evento new user '"+this->user+"' '"+this->key+"'");
+
+			Value userData;
+			UserManager::get(this->user, userData);
+			if(userData.isNull() && this->user != string("") && this->key != string("")){ // No existe usuario, se puede crear
+				Value newUser;
+				newUser["user"] = this->user;
+				newUser["pass"] = this->key;
+				newUser["nivel"] = 1;
+				UserManager::set(newUser);
+
+				retMsj["msj"] = "usuario creado correctamente";
+				retMsj["code"] = 0;
+				retMsj["user"] = this->user;;
+				retMsj["pass"] = this->key;
+				ret = -1;
+			}else{
+				retMsj["msj"] = "error creando usuario";
+				retMsj["code"] = 1;
+				ret = 0;
+			}
+
+			if(this->write(retMsj)){
+				Logger::log("["+this->myId+"] Error escribiendo el mensaje de confirmacion de login");
+				return 1;
+			}
+			return ret;
+			break;
+		}
 
 		default:
 			Logger::log("["+this->myId+"] Evento desconocido");
@@ -181,7 +142,60 @@ int ThreadUsuario::eventFirmado(Value& data){
 	if(data.get("event", def).isNumeric())
 		event = (CommonEvents) data.get("event", def).asInt();
 
+	Value userData;
+	UserManager::get(this->user, userData);
+
 	switch(event){
+		case EVENT_LIST_GAMES:{ // -> Listar partidas
+			Logger::log("["+this->myId+"] Evento listar partidas");
+			Value partidasList;
+			this->server->listPartidas(userData["nivel"].asInt(), partidasList);
+			Value retMsj;
+			retMsj["event"] = EVENT_NEW_GAME;
+			retMsj["msj"] = "Ok";
+			retMsj["code"] = 0;
+			retMsj["partidas"] = partidasList;
+			if(this->write(retMsj)){
+				Logger::log("["+this->myId+"] Error escribiendo el mensaje de nueva partida");
+				return 1;
+			}
+			return 0;
+			break;
+		}
+
+		case EVENT_NEW_GAME:{ // -> Crear partida
+			Logger::log("["+this->myId+"] Evento new game");
+			Value retMsj;
+			int ret = 0;
+			retMsj["event"] = EVENT_NEW_GAME;
+			retMsj["msj"] = "Ok";
+			retMsj["code"] = 0;
+
+			if(! data["nivel"].isNumeric()) {
+				// TODO: Error
+			}
+
+			int nivel = data["nivel"].asInt();
+
+			if(nivel > userData["nivel"].asInt()){
+				// TODO: error
+			}
+
+			this->partida = this->server->newPartida(nivel);
+			this->partida->addUsuario(this);
+
+			if(this->write(retMsj)){
+				Logger::log("["+this->myId+"] Error escribiendo el mensaje de nueva partida");
+				return 1;
+			}
+			return ret;
+			break;
+		}
+
+		case EVENT_JOIN_GAME: // -> Unirse a partida
+			Logger::log("["+this->myId+"] Evento desconocido");
+			break;
+
 		default:
 			Logger::log("["+this->myId+"] Evento desconocido");
 			break;

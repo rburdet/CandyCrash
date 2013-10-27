@@ -10,6 +10,7 @@
  * Manda los archivos de manera secuencial.
  * La primera linea del archivo json tiene qe tener la clave qe se usara para firmar (SI O SI TIENE QE ESTAR ESTA CLAVE).
  * Si se pasa "wait" de archivo, el programa esperara hasta que se toque enter cuando llego a ese archivo.
+ * Si se pasa "read" lee
  * Al finalizar la lista de archivos, el programa se qeda leyendo del stdin por mas archivos
  * Manda los archivos como mensajes de forma secuencial. El primero debe ser si o si un login!.
  * Recordar que la clave para cifrado la pide por stdin y no toma la del primer archivo
@@ -30,6 +31,7 @@ using Json::StyledWriter;
 int read_file(const char* path, string &pass, string &str);
 int get_port(const string &ipport, string &port);
 void send_json(TCPSocketConnect & sock, const string& path);
+void read_json(TCPSocketConnect & sock, const string& key);
 int print_json(const Value& val);
 
 int main(int argc, char*argv[]){
@@ -46,17 +48,16 @@ int main(int argc, char*argv[]){
 	if(sock.connect(ip_port))
 		return 1;
 
-	Value data;
-
-	if(sock.read(data, string(""), false))
-		return 2;
-
-	print_json(data);
+	read_json(sock, string(""));
 
 	for(int i=2; i < argc; i++){
 		string path = argv[i];
 		if(path == "wait"){
 			getline(cin, path);
+			continue;
+		}
+		if(path == "read"){
+			read_json(sock, string(""));
 			continue;
 		}
 
@@ -68,6 +69,11 @@ int main(int argc, char*argv[]){
 		getline(cin, path);
 		if(path == "")
 			break;
+		if(path == "read"){
+			read_json(sock, string(""));
+			continue;
+		}
+
 		send_json(sock, path);
 	}
 
@@ -122,7 +128,6 @@ void send_json(TCPSocketConnect & sock, const string& path){
 	string pass;
 	string msj;
 	Value send;
-	Value data;
 
 	cout << " == Archivo: '" << path << "' ==" << endl;
 	if(read_file(path.c_str(), pass, msj)){
@@ -143,7 +148,12 @@ void send_json(TCPSocketConnect & sock, const string& path){
 		return;
 	}
 
-	int ret = sock.read(data, pass);
+	read_json(sock, pass);
+}
+
+void read_json(TCPSocketConnect & sock, const string& key){
+	Value data;
+	int ret = sock.read(data, key);
 	if(ret == 2){
 		cout << "\t[ERROR] parseando json rta" << endl;
 		return;

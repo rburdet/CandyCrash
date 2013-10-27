@@ -46,6 +46,40 @@ void Server::removeClient(Thread* cli){
 	this->clientesLock.unlock();
 }
 
+PartidaInterface* Server::newPartida(int nivel){
+	Partida *p = new Partida(this, nivel);
+	this->partidasLock.lock();
+	this->partidas.push_back(p);
+	this->partidasLock.unlock();
+	return p;
+}
+
+void Server::removePartida(PartidaInterface* p){
+	this->partidasLock.lock();
+
+	for(unsigned int i=0; i < partidas.size(); i++){
+		if((void*) p == (void*) (this->partidas[i])){
+			this->partidas.erase(this->partidas.begin() + i);
+			break;
+		}
+	}
+
+	this->partidasLock.unlock();
+}
+
+void Server::listPartidas(int nivel, Json::Value& parts){
+	this->partidasLock.lock();
+	int i = 0;
+	for(unsigned int j=0; j < this->partidas.size(); j++){
+		if(this->partidas[j]->getNivel() <= nivel){
+			//TODO:
+			parts[i++] = (uint32_t) this->partidas[j];
+		}
+	}
+	
+	this->partidasLock.unlock();
+}
+
 void Server::end(){
 	this->clientesLock.lock();
 	for(unsigned int i=0; i < clientes.size(); i++){

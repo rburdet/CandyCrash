@@ -3,33 +3,29 @@
 #include <string>
 #include <jsoncpp/json/json.h>
 
-//#include "server.server.h"
 #include "server.server_interface.h"
+#include "server.partida_interface.h"
 #include "common.thread.h"
 #include "common.socket_io.h"
 #include "common.events.h"
+#include "common.mutex.h"
 
-class ThreadUsuario : public Thread {
+class ThreadUsuario : public ThreadSocket {
 	protected:
-		virtual void* run();
 		ServerInterface* server;
-		SocketIO* fd;
+		PartidaInterface* partida;
 		std::string user;
-		std::string pass;
-		std::string myId;
+		//std::string pass;
 
-		int read(bool check=true);
+		virtual int eventNoFirmado(Json::Value& data);
+		virtual int eventFirmado(Json::Value& data);
+		virtual void* subRun();
+
 		int welcome();
-
-		int eventNoFirmado(Json::Value& data);
-		int eventFirmado(Json::Value& data);
 
 	public:
 		ThreadUsuario(ServerInterface* s, SocketIO* fd);
 		~ThreadUsuario();
-
-		int shutdown(int how);
-		int shutdown();
 };
 
 #endif

@@ -9,13 +9,16 @@
 #include "server.thread_usuario.h"
 #include "server.socket_listener.h"
 #include "common.mutex.h"
+#include "server.partida.h"
 
 class Server : public ServerInterface {
 	protected:
 		int port;
 		std::vector<ThreadUsuario*> clientes;
+		std::vector<Partida*> partidas;
 		TCPSocketListener sock;
 		Mutex clientesLock;
+		Mutex partidasLock;
 
 		void addClient(ThreadUsuario* cli);
 
@@ -27,6 +30,10 @@ class Server : public ServerInterface {
 
 		int main();
 		void removeClient(Thread* cli);
+		PartidaInterface* newPartida(int nivel);
+		void removePartida(PartidaInterface* p);
+		//TODO:
+		virtual void listPartidas(int nivel, Json::Value& parts);
 		void end();
 };
 
