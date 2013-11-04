@@ -7,7 +7,9 @@
 MainWindow::MainWindow(){
 	this->builder = Gtk::Builder::create_from_file("Editor.glade");
 	this->builder->get_widget("window1",mainWindow);
-	BoxOpcionesBasicas* boxOpcionesBasicas = new BoxOpcionesBasicas(this->builder);
+	this->tablero = new Tablero(this->builder);
+	this->boxOpcionesBasicas = new BoxOpcionesBasicas(this->builder,this->tablero);
+	
 	//this->builder->get_widget("e_maxjug",s_maxjug);
 	//this->builder->get_widget("s_puntaje",s_puntaje);
 	//this->builder->get_widget("e_nombre",e_nombre);
@@ -19,6 +21,11 @@ Gtk::Window* MainWindow::getMainWindow(){
 	return this->mainWindow;
 }
 
+//Gtk::Fixed* MainWindow::getTablero(){
+//	return this->tablero;
+//}
+
+//
 //MainWindow::MainWindow()
 //: m_table(6, 4),
 //  m_button("JSonear"),

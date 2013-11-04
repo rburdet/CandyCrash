@@ -1,7 +1,7 @@
 #include "boxopcionesbasicas.h"
 
 
-BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder){
+BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,Tablero* tablero){
 	builder->get_widget("e_maxjug",s_maxjug);
 	builder->get_widget("s_puntaje",s_puntaje);
 	builder->get_widget("e_nombre",e_nombre);
@@ -11,9 +11,8 @@ BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder){
 	Glib::RefPtr<Gtk::Adjustment> adjustment_cordx = 
 	Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object("adjustment_cordx"));
 	button_json->signal_clicked().connect(sigc::mem_fun(*this, &BoxOpcionesBasicas::on_button_clicked));
-	adjustment_cordx->signal_value_changed().connect(sigc::mem_fun(*this,&BoxOpcionesBasicas::on_cordx_changed));
+	adjustment_cordx->signal_value_changed().connect(sigc::mem_fun(tablero,&Tablero::on_cordx_changed()));
 }
-
 
 std::string BoxOpcionesBasicas::getNombre(){
 	return (e_nombre->get_text());
@@ -27,17 +26,14 @@ double BoxOpcionesBasicas::getJugadoresMax(){
 	return (s_maxjug->get_value());
 }
 
-double BoxOpcionesBasicas::getDimX(){
-	return (spin_x->get_value());
+int BoxOpcionesBasicas::getDimX(){
+	return (spin_x->get_value_as_int());
 }
 
 double BoxOpcionesBasicas::getDimY(){
 	return (spin_y->get_value());
 }
 
-void BoxOpcionesBasicas::on_cordx_changed(){
-	std::cout<< "cambio" << std::endl;
-}
 
 void BoxOpcionesBasicas::on_button_clicked(){
 	Json::Value nombre_nivel = getNombre();

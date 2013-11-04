@@ -2039,7 +2039,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <child>
-                  <object class="GtkFixed" id="fixed1">
+                  <object class="GtkFixed" id="f_tablero">
                     <property name="width_request">4</property>
                     <property name="height_request">171</property>
                     <property name="visible">True</property>

@@ -6,11 +6,17 @@
 #include <iostream>
 #include <gtkmm.h>
 #include <string>
+#include "tablero.h"
 
-class BoxOpcionesBasicas {
+class BoxOpcionesBasicas{
 	public:
-		BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder);
+		BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,Tablero* tablero);
 		~BoxOpcionesBasicas();
+
+		//TODO: encapsular bien
+		Glib::RefPtr<Gtk::Adjustment> adjustment_cordx;
+
+
 	private:
 		Gtk::Button * button_json;
 		Gtk::Entry * e_nombre;
@@ -18,17 +24,15 @@ class BoxOpcionesBasicas {
 		Gtk::SpinButton * s_puntaje;
 		Gtk::SpinButton * spin_x;
 		Gtk::SpinButton * spin_y;
-		Glib::RefPtr<Gtk::Adjustment> adjustment_cordx;
 
 		//Handlers
 		void on_button_clicked();
-		void on_cordx_changed();
 
 		//Metodos
 		std::string getNombre();
 		double getPuntaje();
 		double getJugadoresMax();
-		double getDimX();
+		int getDimX();
 		double getDimY();
 };
 
