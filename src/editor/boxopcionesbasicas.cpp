@@ -17,7 +17,7 @@ BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,Table
 
 	//Senales para spin button, cuando cambia le avisa al tablero que cambio y le informa sobre su nuevo valor
 	adjustment_cordx->signal_value_changed().connect(sigc::bind(sigc::mem_fun(tablero,&Tablero::on_cordx_changed),spin_x));
-	adjustment_cordy->signal_value_changed().connect(sigc::bind(sigc::mem_fun(tablero,&Tablero::on_cordx_changed),spin_y));
+	adjustment_cordy->signal_value_changed().connect(sigc::bind(sigc::mem_fun(tablero,&Tablero::on_cordy_changed),spin_y));
 }
 
 std::string BoxOpcionesBasicas::getNombre(){
