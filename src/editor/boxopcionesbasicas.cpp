@@ -10,8 +10,14 @@ BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,Table
 	builder->get_widget("spin_y",spin_y);
 	Glib::RefPtr<Gtk::Adjustment> adjustment_cordx = 
 	Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object("adjustment_cordx"));
+	Glib::RefPtr<Gtk::Adjustment> adjustment_cordy = 
+	Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object("adjustment_cordy"));
+
 	button_json->signal_clicked().connect(sigc::mem_fun(*this, &BoxOpcionesBasicas::on_button_clicked));
-	adjustment_cordx->signal_value_changed().connect(sigc::mem_fun(tablero,&Tablero::on_cordx_changed()));
+
+	//Senales para spin button, cuando cambia le avisa al tablero que cambio y le informa sobre su nuevo valor
+	adjustment_cordx->signal_value_changed().connect(sigc::bind(sigc::mem_fun(tablero,&Tablero::on_cordx_changed),spin_x));
+	adjustment_cordy->signal_value_changed().connect(sigc::bind(sigc::mem_fun(tablero,&Tablero::on_cordx_changed),spin_y));
 }
 
 std::string BoxOpcionesBasicas::getNombre(){
@@ -30,8 +36,8 @@ int BoxOpcionesBasicas::getDimX(){
 	return (spin_x->get_value_as_int());
 }
 
-double BoxOpcionesBasicas::getDimY(){
-	return (spin_y->get_value());
+int BoxOpcionesBasicas::getDimY(){
+	return (spin_y->get_value_as_int());
 }
 
 

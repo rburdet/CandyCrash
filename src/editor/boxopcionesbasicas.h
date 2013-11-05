@@ -15,6 +15,7 @@ class BoxOpcionesBasicas{
 
 		//TODO: encapsular bien
 		Glib::RefPtr<Gtk::Adjustment> adjustment_cordx;
+		Glib::RefPtr<Gtk::Adjustment> adjustment_cordy;
 
 
 	private:
@@ -33,7 +34,7 @@ class BoxOpcionesBasicas{
 		double getPuntaje();
 		double getJugadoresMax();
 		int getDimX();
-		double getDimY();
+		int getDimY();
 };
 
 #endif

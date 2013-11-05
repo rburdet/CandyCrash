@@ -8,13 +8,12 @@ class Tablero{
 	public:
 		Tablero(Glib::RefPtr<Gtk::Builder>& builder);
 		~Tablero();
-		Gtk::Fixed* getTablero();
-		void on_cordx_changed();
+		void on_cordx_changed(Gtk::SpinButton* spin_x);
+		void on_cordy_changed(Gtk::SpinButton* spin_y);
 
 	private:
 		//Handlers
 		Gtk::Fixed* tablero;
-		void on_cordy_changed();
 };
 
 #endif
