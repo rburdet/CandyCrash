@@ -15,9 +15,6 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 }
 
 Tablero::~Tablero(){}
-//Gtk::Fixed* Tablero::getTablero(){
-//	return this->tablero;
-//}
 
 void Tablero::on_cordx_changed(Gtk::SpinButton* spin_x){
 	//std::cout<< "cambio: " << spin_x->get_value_as_int() << std::endl;

@@ -71,7 +71,11 @@ Gtk::Window* MainWindow::getMainWindow(){
 //  show_all_children();
 //}
 
-MainWindow::~MainWindow(){}
+MainWindow::~MainWindow(){
+	delete boxOpcionesBasicas;
+	delete noteProb;
+}
+
 
 //std::string MainWindow::getNombre(){
 //	return (e_nombre->get_text());

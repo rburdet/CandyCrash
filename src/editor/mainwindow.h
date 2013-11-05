@@ -4,6 +4,7 @@
 #include <gtkmm.h>
 #include "boxopcionesbasicas.h"
 #include "tablero.h"
+#include "noteprobabilidades.h"
 
 class MainWindow : public Gtk::Window{
 	public:
@@ -17,6 +18,8 @@ class MainWindow : public Gtk::Window{
 	private:
 		Glib::RefPtr<Gtk::Builder> builder;
 		BoxOpcionesBasicas* boxOpcionesBasicas;
+		NoteProbabilidades* noteProb;
+
 		Tablero* tablero;
 		//Gtk::Button * button_json;
 		//Gtk::Entry * e_nombre;
