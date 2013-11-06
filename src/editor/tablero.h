@@ -1,9 +1,9 @@
 #ifndef TABLERO_H
 #define TABLERO_H
 
+#include <glibmm/listhandle.h>
 #include <gtkmm.h>
 #include <iostream>
-//#include <algorithm>
 #include <vector>
 
 class Tablero{
@@ -16,17 +16,18 @@ class Tablero{
 
 	private:
 		Gtk::Fixed* tablero;
+		Gtk::EventBox* eventos_tablero;
+
+		virtual bool on_click_tablero(GdkEventButton* event);
+
 		int alto;
 		int ancho;
 		int cantColumnas;
 		int cantFilas;
-
 		void agregarFilas(int X);
 		void agregarColumnas(int Y);
 		
-		//TODO: NO ESTA FUNCIONANDO
-		void borrarFilas(int X);
-		void borrarColumnas(int Y);
+		void borrarSeps();
 };
 
 #endif

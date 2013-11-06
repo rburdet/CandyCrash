@@ -9,6 +9,7 @@ MainWindow::MainWindow(){
 	this->builder->get_widget("window1",mainWindow);
 	this->tablero = new Tablero(this->builder);
 	this->boxOpcionesBasicas = new BoxOpcionesBasicas(this->builder,this->tablero);
+	this->noteProb = new NoteProbabilidades(this->builder);
 	
 	//this->builder->get_widget("e_maxjug",s_maxjug);
 	//this->builder->get_widget("s_puntaje",s_puntaje);

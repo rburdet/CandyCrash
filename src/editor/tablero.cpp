@@ -1,5 +1,7 @@
 #include "tablero.h"
 
+#include <gtkmm.h>
+
 #define MAX_COLS 14
 #define MAX_FILAS 14
 #define SIZE 40
@@ -8,8 +10,11 @@
 
 Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 	builder->get_widget("f_tablero",tablero);
-	alto = tablero->get_height();
-	ancho = tablero->get_width();
+	builder->get_widget("event_tablero",eventos_tablero);
+	this->eventos_tablero->set_events(Gdk::BUTTON_PRESS_MASK);
+	this->eventos_tablero->signal_button_press_event().connect(sigc::mem_fun(*this,&Tablero::on_click_tablero));
+	//alto = tablero->get_height();
+	//ancho = tablero->get_width();
 	cantFilas=0;
 	cantColumnas=0;
 }
@@ -18,21 +23,21 @@ Tablero::~Tablero(){}
 
 void Tablero::on_cordx_changed(Gtk::SpinButton* spin_x){
 	//std::cout<< "cambio: " << spin_x->get_value_as_int() << std::endl;
-	int X = spin_x->get_value_as_int();
+	int X = spin_x->get_value_as_int() + 1;
 	if 	( X > cantFilas ){
 		agregarFilas(X);
 	}else if( X < cantFilas ){
-		borrarFilas(X);
+		borrarSeps();
 	}
 	cantFilas=X;
 }
 
 void Tablero::on_cordy_changed(Gtk::SpinButton* spin_y){
-	int Y = spin_y->get_value_as_int();
+	int Y = spin_y->get_value_as_int() + 1;
 	if ( Y > cantColumnas ) {
 		agregarColumnas(Y);
 	}else if ( Y < cantColumnas ) {
-		borrarColumnas(Y);
+		borrarSeps();
 	}
 }
 
@@ -54,19 +59,18 @@ void Tablero::agregarColumnas(int Y){
 	} 
 }
 
-//TODO: NO ESTA BORRANDO LAS LINITAS
-void Tablero::borrarFilas(int X){
-	//std::cout<<"BORRAR"<<std::endl;
-	//std::vector<Gtk::Widget*> separadores = this->tablero->get_children();
-	//for ( int i=cantFilas ; i < X ; i++ ){
-	//	this->tablero->remove(*separadores.at(i));
-	//}
+//TODO: BORRA T0D0, ver si se puede mejorar para que solo borre lo que agrego
+void Tablero::borrarSeps(){
+	Glib::ListHandle<Gtk::Widget*> separadores = this->tablero->get_children();
+	Glib::ListHandle<Gtk::Widget*>::iterator it = separadores.begin();
+	for ( ; it != separadores.end() ; it++) {
+		this->tablero->remove(*(*it));
+	}
+}	     
+
+
+bool Tablero::on_click_tablero(GdkEventButton* event){
+	std::cout<<"CLICKKK"<<std::endl;
+	return true;
 }
 
-void Tablero::borrarColumnas(int Y){
-	//std::cout<<"BORRAR"<<std::endl;
-	//std::vector<Gtk::Widget*> separadores = this->tablero->get_children();
-	//for ( int i=cantColumnas ; i < Y ; i++ ){
-	//	this->tablero->remove(*separadores.at(i));
-	//}
-}

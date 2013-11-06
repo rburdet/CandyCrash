@@ -8,6 +8,7 @@ class ProbColumnas{
 		ProbColumnas(Glib::RefPtr<Gtk::Builder>& builder);
 	private:
 		Gtk::Frame * frameProbColumnas;
+		Gtk::Image * redbutton;
 
 };
 
