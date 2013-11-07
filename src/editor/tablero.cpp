@@ -44,7 +44,7 @@ void Tablero::on_cordy_changed(Gtk::SpinButton* spin_y){
 void Tablero::agregarFilas(int X){
 	for ( int i= 0 ; i < X ; i++ ){
 		Gtk::HSeparator* sep_horizontal = new Gtk::HSeparator();
-		sep_horizontal->set_size_request(SIZE*X,SIZE_CELDA);
+		sep_horizontal->set_size_request(SIZE*X,SIZE);
 		this->tablero->put(*sep_horizontal,0,i*SIZE);
 		this->tablero->show_all();
 	} 
@@ -53,7 +53,7 @@ void Tablero::agregarFilas(int X){
 void Tablero::agregarColumnas(int Y){
 	for ( int i = 0 ; i < Y ; i++ ){
 		Gtk::VSeparator* sep_vertical = new Gtk::VSeparator();
-		sep_vertical->set_size_request(SIZE_CELDA,SIZE*Y);
+		sep_vertical->set_size_request(SIZE,SIZE*Y);
 		this->tablero->put(*sep_vertical,i*SIZE,0);
 		this->tablero->show_all();
 	} 
@@ -70,7 +70,10 @@ void Tablero::borrarSeps(){
 
 
 bool Tablero::on_click_tablero(GdkEventButton* event){
-	std::cout<<"CLICKKK"<<std::endl;
+	int x,y;
+	this->tablero->get_pointer(x,y);
+	std::cout<<"CLICKKK"<< x << "," << y <<std::endl;
+
 	return true;
 }
 

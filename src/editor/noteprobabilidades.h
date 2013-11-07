@@ -3,7 +3,7 @@
 
 #include <gtkmm.h>
 #include "probcolumnas.h"
-//#include "probceldas.h"
+#include "probceldas.h"
 
 class NoteProbabilidades{
 	public:
@@ -12,7 +12,7 @@ class NoteProbabilidades{
 	private:
 		Gtk::Notebook* noteprob;
 		ProbColumnas * probcolumnas;
-		//ProbCeldas * probceldas;
+		ProbCeldas * probceldas;
 };
 
 #endif

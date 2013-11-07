@@ -1,6 +1,7 @@
 #include <jsoncpp/json/json.h>
 #include <jsoncpp/json/writer.h>
 #include "mainwindow.h"
+#include "probsetter.h"
 #include <iostream>
 
 
@@ -10,6 +11,7 @@ MainWindow::MainWindow(){
 	this->tablero = new Tablero(this->builder);
 	this->boxOpcionesBasicas = new BoxOpcionesBasicas(this->builder,this->tablero);
 	this->noteProb = new NoteProbabilidades(this->builder);
+		ProbSetter probsetter(this->tablero,this->noteProb);
 	
 	//this->builder->get_widget("e_maxjug",s_maxjug);
 	//this->builder->get_widget("s_puntaje",s_puntaje);

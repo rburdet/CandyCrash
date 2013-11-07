@@ -108,7 +108,7 @@
   </object>
   <object class="GtkWindow" id="window1">
     <property name="width_request">800</property>
-    <property name="height_request">600</property>
+    <property name="height_request">650</property>
     <property name="can_focus">False</property>
     <child>
       <object class="GtkVPaned" id="vpaned1">
@@ -271,12 +271,12 @@
           </packing>
         </child>
         <child>
-          <object class="GtkHPaned" id="hpaned1">
+          <object class="GtkHBox" id="hbox1">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
+            <property name="can_focus">False</property>
             <child>
-              <object class="GtkVBox" id="vbox1">
-                <property name="width_request">2</property>
+              <object class="GtkVBox" id="vbox2">
+                <property name="width_request">306</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
@@ -564,7 +564,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkVBox" id="vbox2">
+                      <object class="GtkVBox" id="vbox3">
+                        <property name="height_request">65</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
@@ -574,7 +575,7 @@
                             <property name="can_focus">True</property>
                             <child>
                               <object class="GtkFrame" id="framecolumnas">
-                                <property name="height_request">199</property>
+                                <property name="height_request">220</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label_xalign">0</property>
@@ -585,28 +586,30 @@
                                     <property name="can_focus">False</property>
                                     <property name="left_padding">12</property>
                                     <child>
-                                      <object class="GtkVBox" id="vbox3">
+                                      <object class="GtkVBox" id="vbox4">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <child>
-                                          <object class="GtkHBox" id="hbox1">
+                                          <object class="GtkHBox" id="hbox2">
                                             <property name="height_request">45</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
-                                              <object class="GtkVBox" id="vbox4">
+                                              <object class="GtkVBox" id="vbox5">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image1">
+                                                    <property name="width_request">50</property>
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
-                                                    <property name="position">0</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
+                                                    <property name="position">-1</property>
                                                   </packing>
                                                 </child>
                                                 <child>
@@ -614,6 +617,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -638,18 +642,19 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox5">
+                                              <object class="GtkVBox" id="vbox6">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image2">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -658,6 +663,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -678,18 +684,19 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox6">
+                                              <object class="GtkVBox" id="vbox7">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image3">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -698,6 +705,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -718,18 +726,19 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox7">
+                                              <object class="GtkVBox" id="vbox8">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image4">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -738,6 +747,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -758,18 +768,19 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox8">
+                                              <object class="GtkVBox" id="vbox9">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image5">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -778,6 +789,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -805,23 +817,24 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkHBox" id="hbox2">
+                                          <object class="GtkHBox" id="hbox3">
                                             <property name="height_request">108</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
-                                              <object class="GtkVBox" id="vbox9">
+                                              <object class="GtkVBox" id="vbox10">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image10">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -830,6 +843,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -850,18 +864,19 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox10">
+                                              <object class="GtkVBox" id="vbox11">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image9">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -870,6 +885,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -895,13 +911,14 @@
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image8">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -910,6 +927,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -935,13 +953,14 @@
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image7">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -950,6 +969,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -975,13 +995,14 @@
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image6">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -990,6 +1011,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -1017,23 +1039,24 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkHBox" id="hbox3">
+                                          <object class="GtkHBox" id="hbox8">
                                             <property name="height_request">53</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
-                                              <object class="GtkVBox" id="vbox11">
+                                              <object class="GtkVBox" id="vbox12">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image11">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -1042,6 +1065,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -1067,13 +1091,14 @@
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image12">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -1082,6 +1107,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -1107,13 +1133,14 @@
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image13">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -1122,6 +1149,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -1147,13 +1175,14 @@
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image14">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -1162,6 +1191,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -1187,13 +1217,14 @@
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image15">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -1202,6 +1233,7 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="invisible_char">●</property>
+                                                    <property name="invisible_char_set">True</property>
                                                     <property name="primary_icon_activatable">False</property>
                                                     <property name="secondary_icon_activatable">False</property>
                                                     <property name="primary_icon_sensitive">True</property>
@@ -1229,18 +1261,19 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkVBox" id="vbox12">
+                                          <object class="GtkVBox" id="vbox20">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
                                               <object class="GtkImage" id="image16">
+                                                <property name="height_request">65</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <property name="stock">gtk-missing-image</property>
                                               </object>
                                               <packing>
-                                                <property name="expand">True</property>
-                                                <property name="fill">True</property>
+                                                <property name="expand">False</property>
+                                                <property name="fill">False</property>
                                                 <property name="padding">12</property>
                                                 <property name="position">0</property>
                                               </packing>
@@ -1250,6 +1283,7 @@
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">True</property>
                                                 <property name="invisible_char">●</property>
+                                                <property name="invisible_char_set">True</property>
                                                 <property name="primary_icon_activatable">False</property>
                                                 <property name="secondary_icon_activatable">False</property>
                                                 <property name="primary_icon_sensitive">True</property>
@@ -1305,20 +1339,21 @@
                                     <property name="can_focus">False</property>
                                     <property name="left_padding">12</property>
                                     <child>
-                                      <object class="GtkVBox" id="vbox20">
+                                      <object class="GtkVBox" id="vbox21">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <child>
-                                          <object class="GtkHBox" id="hbox8">
+                                          <object class="GtkHBox" id="hbox9">
                                             <property name="height_request">45</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
-                                              <object class="GtkVBox" id="vbox21">
+                                              <object class="GtkVBox" id="vbox22">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image17">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1354,11 +1389,12 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox22">
+                                              <object class="GtkVBox" id="vbox23">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image18">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1394,11 +1430,12 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox23">
+                                              <object class="GtkVBox" id="vbox24">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image19">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1434,11 +1471,12 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox24">
+                                              <object class="GtkVBox" id="vbox25">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image20">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1474,11 +1512,12 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox25">
+                                              <object class="GtkVBox" id="vbox26">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image21">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1521,16 +1560,17 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkHBox" id="hbox9">
+                                          <object class="GtkHBox" id="hbox10">
                                             <property name="height_request">108</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
-                                              <object class="GtkVBox" id="vbox26">
+                                              <object class="GtkVBox" id="vbox27">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image22">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1566,11 +1606,12 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox27">
+                                              <object class="GtkVBox" id="vbox28">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image23">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1606,11 +1647,12 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox28">
+                                              <object class="GtkVBox" id="vbox29">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image24">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1646,11 +1688,12 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox29">
+                                              <object class="GtkVBox" id="vbox30">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image25">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1686,11 +1729,12 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox30">
+                                              <object class="GtkVBox" id="vbox31">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image26">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1733,16 +1777,17 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkHBox" id="hbox10">
+                                          <object class="GtkHBox" id="hbox11">
                                             <property name="height_request">53</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
-                                              <object class="GtkVBox" id="vbox31">
+                                              <object class="GtkVBox" id="vbox32">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image27">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1778,11 +1823,12 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox32">
+                                              <object class="GtkVBox" id="vbox33">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image28">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1818,11 +1864,12 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox33">
+                                              <object class="GtkVBox" id="vbox34">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image29">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1858,11 +1905,12 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox34">
+                                              <object class="GtkVBox" id="vbox35">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image30">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1898,11 +1946,12 @@
                                               </packing>
                                             </child>
                                             <child>
-                                              <object class="GtkVBox" id="vbox35">
+                                              <object class="GtkVBox" id="vbox36">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkImage" id="image31">
+                                                    <property name="height_request">65</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="stock">gtk-missing-image</property>
@@ -1945,11 +1994,12 @@
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkVBox" id="vbox36">
+                                          <object class="GtkVBox" id="vbox37">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
                                               <object class="GtkImage" id="image32">
+                                                <property name="height_request">65</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <property name="stock">gtk-missing-image</property>
@@ -2034,12 +2084,13 @@
                 </child>
               </object>
               <packing>
-                <property name="resize">True</property>
-                <property name="shrink">True</property>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
-              <object class="GtkVBox" id="vbox37">
+              <object class="GtkVBox" id="vbox38">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
@@ -2048,8 +2099,8 @@
                     <property name="can_focus">False</property>
                     <child>
                       <object class="GtkFixed" id="f_tablero">
-                        <property name="width_request">4</property>
-                        <property name="height_request">171</property>
+                        <property name="width_request">6</property>
+                        <property name="height_request">190</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                       </object>
@@ -2075,8 +2126,9 @@
                 </child>
               </object>
               <packing>
-                <property name="resize">True</property>
-                <property name="shrink">True</property>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
               </packing>
             </child>
           </object>
