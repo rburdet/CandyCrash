@@ -5,6 +5,8 @@
 #include <gtkmm.h>
 #include <iostream>
 #include <vector>
+#include "celda.h"
+//#include "probsetter.h"
 
 class Tablero{
 	public:
@@ -13,21 +15,27 @@ class Tablero{
 		//Handlers accedidos desde la configuracion basica
 		void on_cordx_changed(Gtk::SpinButton* spin_x);
 		void on_cordy_changed(Gtk::SpinButton* spin_y);
-
+		//TODO: HACERLO PRIVADO Y PONERLE GETTER
+		Celda* celdaInteres;
 	private:
 		Gtk::Fixed* tablero;
 		Gtk::EventBox* eventos_tablero;
-
+		std::vector<std::vector<Celda*> > matrizCeldas;
 		virtual bool on_click_tablero(GdkEventButton* event);
 
 		int alto;
 		int ancho;
 		int cantColumnas;
 		int cantFilas;
+		//Para tener una referencia de lo ultimo que se toco y no volver a pedir informacion:
+		int ultFilClick;
+		int ultColClick;
+
 		void agregarFilas(int X);
 		void agregarColumnas(int Y);
-		
 		void borrarSeps();
+		
+		void actualizarMatriz(int cantFilas,int cantColumnas);
 };
 
 #endif

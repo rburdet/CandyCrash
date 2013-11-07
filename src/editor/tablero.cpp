@@ -3,9 +3,12 @@
 #include <gtkmm.h>
 
 #define MAX_COLS 14
+#define MIN_COLS 8
+#define MIN_FILAS 8
 #define MAX_FILAS 14
 #define SIZE 40
 #define SIZE_CELDA 10
+#define OFFSET 20
 
 
 Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
@@ -13,16 +16,14 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 	builder->get_widget("event_tablero",eventos_tablero);
 	this->eventos_tablero->set_events(Gdk::BUTTON_PRESS_MASK);
 	this->eventos_tablero->signal_button_press_event().connect(sigc::mem_fun(*this,&Tablero::on_click_tablero));
-	//alto = tablero->get_height();
-	//ancho = tablero->get_width();
-	cantFilas=0;
-	cantColumnas=0;
+	cantFilas=MIN_FILAS;
+	cantColumnas=MIN_COLS;
+	//this->setter=aSetter;
 }
 
 Tablero::~Tablero(){}
 
 void Tablero::on_cordx_changed(Gtk::SpinButton* spin_x){
-	//std::cout<< "cambio: " << spin_x->get_value_as_int() << std::endl;
 	int X = spin_x->get_value_as_int() + 1;
 	if 	( X > cantFilas ){
 		agregarFilas(X);
@@ -30,6 +31,7 @@ void Tablero::on_cordx_changed(Gtk::SpinButton* spin_x){
 		borrarSeps();
 	}
 	cantFilas=X;
+	actualizarMatriz(cantFilas,cantColumnas);
 }
 
 void Tablero::on_cordy_changed(Gtk::SpinButton* spin_y){
@@ -39,6 +41,8 @@ void Tablero::on_cordy_changed(Gtk::SpinButton* spin_y){
 	}else if ( Y < cantColumnas ) {
 		borrarSeps();
 	}
+	cantColumnas=Y;
+	actualizarMatriz(cantFilas,cantColumnas);
 }
 
 void Tablero::agregarFilas(int X){
@@ -69,11 +73,39 @@ void Tablero::borrarSeps(){
 }	     
 
 
+//XXX: OJO QUE X E Y DEL GET_POINTER  ESTAN INTERCAMBIADOS, X REFIERE A "longitud", ancho, e Y a "latitud" o largo. un (8,2) para gtk es para mi (2,8)
 bool Tablero::on_click_tablero(GdkEventButton* event){
 	int x,y;
+	int fila,columna;
 	this->tablero->get_pointer(x,y);
-	std::cout<<"CLICKKK"<< x << "," << y <<std::endl;
+	fila = (y-OFFSET)/SIZE;
+	columna = (x-OFFSET)/SIZE;
+	if (ultFilClick==fila && ultColClick==columna){
+		return false;
+		//No hago nada
+	}else{
+		celdaInteres = new Celda(fila,columna);
+		//this->setter->completar(celdaInteres);
+		this->matrizCeldas[fila][columna]=celdaInteres;
+	}
+	ultFilClick=fila;
+	ultColClick=columna;
 
+	std::cout << "estoy en : " << (int)((y-OFFSET)/SIZE) << " , " << (int)((x-OFFSET)/SIZE)<< std::endl;
+	//std::cout << "tengo:  " <<  << " , " << (int)y/SIZE << std::endl;
 	return true;
+}
+
+
+void Tablero::actualizarMatriz(int x, int y){
+	matrizCeldas.resize(x);
+	for ( int i = 0 ; i < x ; i++ ) {
+		matrizCeldas[i].resize(y);
+	}
+	for ( int i = 0 ; i < x ; i++){
+		for ( int j = 0 ; j < y ; j++ ){
+			matrizCeldas[i][j] = new Celda(i,j);
+		}
+	}
 }
 

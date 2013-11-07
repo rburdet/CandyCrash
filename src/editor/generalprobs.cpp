@@ -18,7 +18,7 @@ Probs::Probs(Glib::RefPtr<Gtk::Builder>& builder, int startNumber , int finalNum
 	std::vector<std::string> dirArray;
 	std::string str;
 	builder->get_widget(frameName,aFrame);
-	//Creo un vector de 16 nombres con imageN (del 1 al 16)
+	//Creo un vector de 16 nombres con imageN ( con N del 1 al 16 o del 17 al 32)
 	std::ostringstream ss;
 	for (int i=startNumber ; i <= finalNumber ; i++){
 		ss << WIDGETNAME << i ; 

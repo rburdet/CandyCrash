@@ -1,17 +1,18 @@
 #include <jsoncpp/json/json.h>
 #include <jsoncpp/json/writer.h>
 #include "mainwindow.h"
-#include "probsetter.h"
+#include "probceldas.h"
 #include <iostream>
 
 
 MainWindow::MainWindow(){
 	this->builder = Gtk::Builder::create_from_file("Editor.glade");
 	this->builder->get_widget("window1",mainWindow);
+	//ProbSetter* setter = new ProbSetter();
 	this->tablero = new Tablero(this->builder);
 	this->boxOpcionesBasicas = new BoxOpcionesBasicas(this->builder,this->tablero);
-	this->noteProb = new NoteProbabilidades(this->builder);
-		ProbSetter probsetter(this->tablero,this->noteProb);
+	ProbCeldas * probCeldas = new ProbCeldas(this->builder,this->tablero);
+	//this->noteProb = new NoteProbabilidades(this->builder,this->tablero);
 	
 	//this->builder->get_widget("e_maxjug",s_maxjug);
 	//this->builder->get_widget("s_puntaje",s_puntaje);
@@ -76,7 +77,6 @@ Gtk::Window* MainWindow::getMainWindow(){
 
 MainWindow::~MainWindow(){
 	delete boxOpcionesBasicas;
-	delete noteProb;
 }
 
 

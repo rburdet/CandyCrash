@@ -7,7 +7,7 @@
 
 class NoteProbabilidades{
 	public:
-		NoteProbabilidades(Glib::RefPtr<Gtk::Builder>& builder);
+		NoteProbabilidades(Glib::RefPtr<Gtk::Builder>& builder,Tablero* tablero);
 
 	private:
 		Gtk::Notebook* noteprob;
