@@ -17,6 +17,8 @@ class Tablero{
 		void on_cordy_changed(Gtk::SpinButton* spin_y);
 		//TODO: HACERLO PRIVADO Y PONERLE GETTER
 		Celda* celdaInteres;
+		void on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id);
+
 	private:
 		Gtk::Fixed* tablero;
 		Gtk::EventBox* eventos_tablero;

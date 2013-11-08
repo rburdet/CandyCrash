@@ -12,6 +12,7 @@
 
 
 Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
+	celdaInteres=NULL;
 	builder->get_widget("f_tablero",tablero);
 	builder->get_widget("event_tablero",eventos_tablero);
 	this->eventos_tablero->set_events(Gdk::BUTTON_PRESS_MASK);
@@ -84,8 +85,8 @@ bool Tablero::on_click_tablero(GdkEventButton* event){
 		return false;
 		//No hago nada
 	}else{
+		std::cout << "entre a ca **************************************************************" << std::endl;
 		celdaInteres = new Celda(fila,columna);
-		//this->setter->completar(celdaInteres);
 		this->matrizCeldas[fila][columna]=celdaInteres;
 	}
 	ultFilClick=fila;
@@ -109,3 +110,6 @@ void Tablero::actualizarMatriz(int x, int y){
 	}
 }
 
+void Tablero::on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id){
+	this->celdaInteres->on_adj_changed(spinbutton, id);
+}

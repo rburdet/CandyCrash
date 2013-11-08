@@ -2,6 +2,7 @@
 #include <jsoncpp/json/writer.h>
 #include "mainwindow.h"
 #include "probceldas.h"
+#include "probcolumnas.h"
 #include <iostream>
 
 
@@ -11,14 +12,9 @@ MainWindow::MainWindow(){
 	//ProbSetter* setter = new ProbSetter();
 	this->tablero = new Tablero(this->builder);
 	this->boxOpcionesBasicas = new BoxOpcionesBasicas(this->builder,this->tablero);
+	ProbColumnas * probColumnas = new ProbColumnas(this->builder,this->tablero);
 	ProbCeldas * probCeldas = new ProbCeldas(this->builder,this->tablero);
 	//this->noteProb = new NoteProbabilidades(this->builder,this->tablero);
-	
-	//this->builder->get_widget("e_maxjug",s_maxjug);
-	//this->builder->get_widget("s_puntaje",s_puntaje);
-	//this->builder->get_widget("e_nombre",e_nombre);
-	//this->builder->get_widget("button_json",button_json);
-	//button_json->signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_button_clicked));
 }
 
 Gtk::Window* MainWindow::getMainWindow(){

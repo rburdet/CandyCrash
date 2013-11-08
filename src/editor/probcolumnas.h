@@ -3,10 +3,11 @@
 
 #include <gtkmm.h>
 #include "generalprobs.h"
+#include "tablero.h"
 
 class ProbColumnas : public Probs{
 	public:
-		ProbColumnas(Glib::RefPtr<Gtk::Builder>& builder);
+		ProbColumnas(Glib::RefPtr<Gtk::Builder>& builder,Tablero* tablero);
 	private:
 		Gtk::Frame * frameProbColumnas;
 };
