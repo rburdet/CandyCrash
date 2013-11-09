@@ -24,8 +24,9 @@ class Tablero{
 		Gtk::EventBox* eventos_tablero;
 		std::vector<std::vector<Celda*> > matrizCeldas;
 		std::vector< Gtk::SpinButton* > butonsCambiados;
+		std::vector< Gtk::Button* > botones;
 		virtual bool on_click_tablero(GdkEventButton* event);
-
+		void on_click_boton(unsigned idx);
 		int alto;
 		int ancho;
 		int cantColumnas;

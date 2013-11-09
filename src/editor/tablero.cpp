@@ -23,6 +23,9 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 	//this->tablero->show_all();
 	actualizarMatriz(cantFilas,cantColumnas);
 	this->eventos_tablero->signal_button_press_event().connect(sigc::mem_fun(*this,&Tablero::on_click_tablero));
+	for ( unsigned int i = 0 ; i < botones.size() ; i++ ) {
+		botones[i]->signal_clicked().connect(sigc::bind(sigc::mem_fun(*this,&Tablero::on_click_boton),i));
+	}
 }
 
 Tablero::~Tablero(){}
@@ -89,6 +92,7 @@ void Tablero::agregarColumnas(int Y){
 			this->tablero->show_all();
 			break;
 		}
+		botones.push_back(button);
 		this->tablero->put(*button,(i+1)*SIZE,0);
 	} 
 }
@@ -149,4 +153,8 @@ void Tablero::cambiarButons(){
 		butonsCambiados[i]->set_value(0.00);
 	}
 	butonsCambiados.clear();
+}
+
+void Tablero::on_click_boton(unsigned i){
+
 }
