@@ -5,38 +5,21 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include "tablero.h"
 
 class Probs{
 	public:
-		Probs(Glib::RefPtr<Gtk::Builder>& builder, int startNumber, int finalNumber,std::string frameName);
+		Probs(Tablero* tablero, Glib::RefPtr<Gtk::Builder>& builder, int startNumber, int finalNumber,std::string frameName);
 
+	protected: 
+		void cargarBotones(Glib::RefPtr<Gtk::Builder>& builder, int firstbutton,int lastbutton);
+		Tablero* tablero;
 	private:
 		Gtk::Frame * aFrame;
+		std::vector< Gtk::Image * >candys;
+		std::vector<Gtk::SpinButton *> spinbuttons;
+		std::vector< Glib::RefPtr< Gtk::Adjustment > > adjustments;
 
-		//Botones
-		Gtk::Image * red_button;
-		Gtk::Image * blue_button;
-		Gtk::Image * green_button;
-		Gtk::Image * purple_button;
-		Gtk::Image * yellow_button;
-
-		//Minibars
-		//Horizontales
-		Gtk::Image * red_minibar_hor;
-		Gtk::Image * blue_minibar_hor;
-		Gtk::Image * green_minibar_hor;
-		Gtk::Image * purple_minibar_hor;
-		Gtk::Image * yellow_minibar_hor;
-
-		//Verticales
-		Gtk::Image * red_minibar_ver;
-		Gtk::Image * blue_minibar_ver;
-		Gtk::Image * green_minibar_ver;
-		Gtk::Image * purple_minibar_ver;
-		Gtk::Image * yellow_minibar_ver;
-
-		//Estrella
-		Gtk::Image * star;
 
 };
 

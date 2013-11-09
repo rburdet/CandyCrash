@@ -22,5 +22,8 @@ prueba*
 # deps
 *.deps
 
+#fuse_hidden
+.fuse_hidden*
+
 # archvios de vim
 *.sw*

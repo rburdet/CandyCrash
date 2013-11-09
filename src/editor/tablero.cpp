@@ -16,10 +16,13 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 	builder->get_widget("f_tablero",tablero);
 	builder->get_widget("event_tablero",eventos_tablero);
 	this->eventos_tablero->set_events(Gdk::BUTTON_PRESS_MASK);
-	this->eventos_tablero->signal_button_press_event().connect(sigc::mem_fun(*this,&Tablero::on_click_tablero));
 	cantFilas=MIN_FILAS;
+	//agregarFilas(cantFilas);
 	cantColumnas=MIN_COLS;
-	//this->setter=aSetter;
+	//agregarColumnas(cantColumnas);
+	//this->tablero->show_all();
+	actualizarMatriz(cantFilas,cantColumnas);
+	this->eventos_tablero->signal_button_press_event().connect(sigc::mem_fun(*this,&Tablero::on_click_tablero));
 }
 
 Tablero::~Tablero(){}
@@ -27,7 +30,9 @@ Tablero::~Tablero(){}
 void Tablero::on_cordx_changed(Gtk::SpinButton* spin_x){
 	int X = spin_x->get_value_as_int() + 1;
 	if 	( X > cantFilas ){
+		cantFilas=X;
 		agregarFilas(X);
+		alargarColumnas(X);
 	}else if( X < cantFilas ){
 		borrarSeps();
 	}
@@ -38,7 +43,9 @@ void Tablero::on_cordx_changed(Gtk::SpinButton* spin_x){
 void Tablero::on_cordy_changed(Gtk::SpinButton* spin_y){
 	int Y = spin_y->get_value_as_int() + 1;
 	if ( Y > cantColumnas ) {
+		cantColumnas=Y;
 		agregarColumnas(Y);
+		alargarFilas(Y);
 	}else if ( Y < cantColumnas ) {
 		borrarSeps();
 	}
@@ -46,21 +53,43 @@ void Tablero::on_cordy_changed(Gtk::SpinButton* spin_y){
 	actualizarMatriz(cantFilas,cantColumnas);
 }
 
+void Tablero::alargarFilas(int Y){
+	for (int i = 0 ; i < cantFilas ; i++){
+		Gtk::HSeparator* sep_horizontal = new Gtk::HSeparator();
+		sep_horizontal->set_size_request(SIZE*Y,SIZE);
+		this->tablero->put(*sep_horizontal,0,i*SIZE);
+		this->tablero->show_all();
+	}
+}
+
+void Tablero::alargarColumnas(int X){
+	for ( int i = 0 ; i < cantColumnas ; i++ ){
+		Gtk::VSeparator* sep_vertical = new Gtk::VSeparator();
+		sep_vertical->set_size_request(SIZE,SIZE*X);
+		this->tablero->put(*sep_vertical,i*SIZE,0);
+		this->tablero->show_all();
+	}
+}
+
 void Tablero::agregarFilas(int X){
 	for ( int i= 0 ; i < X ; i++ ){
 		Gtk::HSeparator* sep_horizontal = new Gtk::HSeparator();
-		sep_horizontal->set_size_request(SIZE*X,SIZE);
+		sep_horizontal->set_size_request(SIZE*cantColumnas,SIZE);
 		this->tablero->put(*sep_horizontal,0,i*SIZE);
-		this->tablero->show_all();
 	} 
 }
 
 void Tablero::agregarColumnas(int Y){
 	for ( int i = 0 ; i < Y ; i++ ){
 		Gtk::VSeparator* sep_vertical = new Gtk::VSeparator();
-		sep_vertical->set_size_request(SIZE,SIZE*Y);
+		sep_vertical->set_size_request(SIZE,SIZE*cantFilas);
 		this->tablero->put(*sep_vertical,i*SIZE,0);
-		this->tablero->show_all();
+		Gtk::Button * button = new Gtk::Button();
+		if ( i == Y-1){
+			this->tablero->show_all();
+			break;
+		}
+		this->tablero->put(*button,(i+1)*SIZE,0);
 	} 
 }
 
@@ -85,7 +114,6 @@ bool Tablero::on_click_tablero(GdkEventButton* event){
 		return false;
 		//No hago nada
 	}else{
-		std::cout << "entre a ca **************************************************************" << std::endl;
 		celdaInteres = new Celda(fila,columna);
 		this->matrizCeldas[fila][columna]=celdaInteres;
 	}
@@ -94,6 +122,7 @@ bool Tablero::on_click_tablero(GdkEventButton* event){
 
 	std::cout << "estoy en : " << (int)((y-OFFSET)/SIZE) << " , " << (int)((x-OFFSET)/SIZE)<< std::endl;
 	//std::cout << "tengo:  " <<  << " , " << (int)y/SIZE << std::endl;
+	cambiarButons();
 	return true;
 }
 
@@ -112,4 +141,12 @@ void Tablero::actualizarMatriz(int x, int y){
 
 void Tablero::on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id){
 	this->celdaInteres->on_adj_changed(spinbutton, id);
+	butonsCambiados.push_back(spinbutton);
+}
+
+void Tablero::cambiarButons(){
+	for ( unsigned int i = 0 ; i < butonsCambiados.size() ; i++ ){
+		butonsCambiados[i]->set_value(0.00);
+	}
+	butonsCambiados.clear();
 }

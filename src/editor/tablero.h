@@ -23,6 +23,7 @@ class Tablero{
 		Gtk::Fixed* tablero;
 		Gtk::EventBox* eventos_tablero;
 		std::vector<std::vector<Celda*> > matrizCeldas;
+		std::vector< Gtk::SpinButton* > butonsCambiados;
 		virtual bool on_click_tablero(GdkEventButton* event);
 
 		int alto;
@@ -36,8 +37,11 @@ class Tablero{
 		void agregarFilas(int X);
 		void agregarColumnas(int Y);
 		void borrarSeps();
+		void alargarFilas(int Y);
+		void alargarColumnas(int X);
 		
 		void actualizarMatriz(int cantFilas,int cantColumnas);
+		void cambiarButons();
 };
 
 #endif

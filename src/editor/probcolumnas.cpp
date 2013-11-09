@@ -3,5 +3,5 @@
 #define FIRSTIMAGE 1 
 #define LASTIMAGE 16
 
-ProbColumnas::ProbColumnas(Glib::RefPtr<Gtk::Builder>& builder,Tablero* tablero) : Probs(builder,FIRSTIMAGE,LASTIMAGE,"framecolumnas"){
+ProbColumnas::ProbColumnas(Tablero* tablero ,Glib::RefPtr<Gtk::Builder>& builder) : Probs(tablero, builder,FIRSTIMAGE,LASTIMAGE,"framecolumnas"){
 }
