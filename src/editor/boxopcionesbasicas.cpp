@@ -58,3 +58,5 @@ void BoxOpcionesBasicas::on_button_clicked(){
 	nivel[""]["Y:"] = dimY;
 	std::cout<<nivel<<std::endl;
 }
+
+BoxOpcionesBasicas::~BoxOpcionesBasicas(){}

@@ -1,20 +1,20 @@
 #include <jsoncpp/json/json.h>
 #include <jsoncpp/json/writer.h>
 #include "mainwindow.h"
+#include "probceldas.h"
+#include "probcolumnas.h"
 #include <iostream>
 
 
 MainWindow::MainWindow(){
 	this->builder = Gtk::Builder::create_from_file("Editor.glade");
 	this->builder->get_widget("window1",mainWindow);
+	//ProbSetter* setter = new ProbSetter();
 	this->tablero = new Tablero(this->builder);
 	this->boxOpcionesBasicas = new BoxOpcionesBasicas(this->builder,this->tablero);
-	
-	//this->builder->get_widget("e_maxjug",s_maxjug);
-	//this->builder->get_widget("s_puntaje",s_puntaje);
-	//this->builder->get_widget("e_nombre",e_nombre);
-	//this->builder->get_widget("button_json",button_json);
-	//button_json->signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_button_clicked));
+	ProbColumnas * probColumnas = new ProbColumnas(this->builder,this->tablero);
+	ProbCeldas * probCeldas = new ProbCeldas(this->builder,this->tablero);
+	//this->noteProb = new NoteProbabilidades(this->builder,this->tablero);
 }
 
 Gtk::Window* MainWindow::getMainWindow(){
@@ -71,7 +71,10 @@ Gtk::Window* MainWindow::getMainWindow(){
 //  show_all_children();
 //}
 
-MainWindow::~MainWindow(){}
+MainWindow::~MainWindow(){
+	delete boxOpcionesBasicas;
+}
+
 
 //std::string MainWindow::getNombre(){
 //	return (e_nombre->get_text());
