@@ -13,11 +13,11 @@ class Celda{
 		int getX();
 		int getY();
 		void on_adj_changed(Gtk::SpinButton* spinbutton,int id);
+		int prob_piezas[NUMEROPIEZAS];
 
 	private:
 		int x;
 		int y;
-		int prob_piezas[NUMEROPIEZAS];
 		std::string img;
 		void inicializarVector();
 };

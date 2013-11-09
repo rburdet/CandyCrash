@@ -21,13 +21,14 @@ class Tablero{
 		Columna* colInteres;
 		void on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id);
 		void on_adjCols_changed_tablero(Gtk::SpinButton* spinbutton,int id);
+		void getProbCeldas();
 
+		std::vector<std::vector<Celda*> > matrizCeldas;
+		std::vector< Columna* > columnas;
 	private:
 		Gtk::Fixed* tablero;
 		Gtk::EventBox* eventos_tablero;
-		std::vector<std::vector<Celda*> > matrizCeldas;
 		std::vector< Gtk::SpinButton* > butonsCambiados;
-		std::vector< Columna* > columnas;
 		virtual bool on_click_tablero(GdkEventButton* event);
 		void on_click_boton_tablero(int id);
 		int alto;
@@ -46,6 +47,7 @@ class Tablero{
 		
 		void actualizarMatriz(int cantFilas,int cantColumnas);
 		void cambiarButons();
+
 };
 
 #endif

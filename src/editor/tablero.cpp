@@ -23,6 +23,8 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 	//this->tablero->show_all();
 	ultFilClick=MAX_FILAS;
 	ultColClick=MAX_COLS;
+	celdaInteres=NULL;
+	colInteres=NULL;
 	actualizarMatriz(cantFilas,cantColumnas);
 	this->eventos_tablero->signal_button_press_event().connect(sigc::mem_fun(*this,&Tablero::on_click_tablero));
 	
@@ -121,6 +123,8 @@ bool Tablero::on_click_tablero(GdkEventButton* event){
 	}else{
 		celdaInteres = new Celda(fila,columna);
 		this->matrizCeldas[fila][columna]=celdaInteres;
+		std::cout << "probs aca " << std::endl;
+		getProbCeldas();
 	}
 	ultFilClick=fila;
 	ultColClick=columna;
@@ -145,7 +149,10 @@ void Tablero::actualizarMatriz(int x, int y){
 }
 
 void Tablero::on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id){
+	if (!celdaInteres)
+		return;
 	this->celdaInteres->on_adj_changed(spinbutton, id);
+	std::cout<< " llame al evneto : " << matrizCeldas[0][0]->prob_piezas[0];
 	butonsCambiados.push_back(spinbutton);
 }
 
@@ -161,5 +168,20 @@ void Tablero::on_click_boton_tablero(int id){
 }
 
 void Tablero::on_adjCols_changed_tablero(Gtk::SpinButton* spinbutton, int id){
+	if (!colInteres)
+		return;
 	this->colInteres->on_adj_changed(spinbutton,id);	
 }
+
+void Tablero::getProbCeldas(){
+//	for ( int i = 0 ; i < cantFilas ; i++ ) {
+//		for ( int j = 0 ; j < cantColumnas ; j++ ){
+//			for ( int k = 0 ; k < 16 ; k ++ ){
+				std::cout << matrizCeldas[0][0]->prob_piezas[0] << "," ;
+//			}
+//			std::cout<< " " ;
+//		}
+//		std::cout<<std::endl;
+//	}
+}
+

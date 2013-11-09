@@ -25,6 +25,7 @@ class BoxOpcionesBasicas{
 		Gtk::SpinButton * s_puntaje;
 		Gtk::SpinButton * spin_x;
 		Gtk::SpinButton * spin_y;
+		Tablero* tablero;
 
 		//Handlers
 		void on_button_clicked();

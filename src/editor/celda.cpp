@@ -26,5 +26,8 @@ void Celda::inicializarVector(){
 
 void Celda::on_adj_changed(Gtk::SpinButton * spinbutton, int id){
 	prob_piezas[id]=spinbutton->get_value_as_int();
+	for (int i = 0 ; i < 15 ; i++ ){
+		std::cout << prob_piezas[i] << "\t";
+	}
 }
 

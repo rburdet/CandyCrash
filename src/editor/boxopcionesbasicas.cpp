@@ -48,6 +48,7 @@ void BoxOpcionesBasicas::on_button_clicked(){
 	Json::Value nivel;
 	Json::Value dimX = (int)getDimX();
 	Json::Value dimY= (int)getDimY();
+	this->tablero->getProbCeldas();
 	//Json::Value imagen_fondo = getImagenFondo();
 	//Json::Value filas = getNFilas();
 	//Json::Value columnas;
