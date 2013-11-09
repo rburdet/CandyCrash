@@ -34,6 +34,7 @@ class Server : public ServerInterface {
 		void removePartida(PartidaInterface* p);
 		//TODO:
 		virtual void listPartidas(int nivel, Json::Value& parts);
+		virtual PartidaInterface* connectPartidas(uint32_t id, std::string& user);
 		void end();
 };
 

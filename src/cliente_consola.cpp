@@ -5,6 +5,8 @@
 #include <jsoncpp/json/json.h>
 #include "cliente.socket_connect.h"
 #include "common.events.h"
+#include "common.thread_socket.h"
+#include "common.logger.h"
 
 /** Para usarlo se le pasa ip:puerto <archivo.json1> <archivo.json2>
  * Manda los archivos de manera secuencial.
@@ -34,10 +36,42 @@ void send_json(TCPSocketConnect & sock, const string& path);
 void read_json(TCPSocketConnect & sock, const string& key);
 int print_json(const Value& val);
 
+class clientThread : public ThreadSocket {
+	protected:
+		virtual void* subRun(){
+			cout << "Estoy corriendo" << endl;
+			while(1){
+				this->read();
+			}
+
+			cout << "Mori" << endl;
+			return NULL;
+		}
+
+		virtual int eventNoFirmado(Json::Value& data){
+			cout << "evento no firmado" << endl;
+			print_json(data);
+			return 0;
+		}
+		virtual int eventFirmado(Json::Value& data){
+			cout << "evento firmado" << endl;
+			print_json(data);
+			return 0;
+		};
+	public:
+		void setKey(string &str){
+			this->key = str;
+		}
+		clientThread(SocketIO* fd) : ThreadSocket(fd) {}
+		~clientThread() {}
+} ;
+
 int main(int argc, char*argv[]){
-	if(argc < 3)
+	//if(argc < 3)
+	if(argc < 2)
 		return 1;
 
+	Logger::init();
 	TCPSocketConnect sock;
 	string ip_port = argv[1];
 	string port;
@@ -50,31 +84,66 @@ int main(int argc, char*argv[]){
 
 	read_json(sock, string(""));
 
-	for(int i=2; i < argc; i++){
-		string path = argv[i];
-		if(path == "wait"){
-			getline(cin, path);
-			continue;
-		}
-		if(path == "read"){
-			read_json(sock, string(""));
-			continue;
-		}
+	//for(int i=2; i < argc; i++){
+	//	string path = argv[i];
+	//	if(path == "wait"){
+	//		getline(cin, path);
+	//		continue;
+	//	}
+	//	if(path == "read"){
+	//		read_json(sock, string(""));
+	//		continue;
+	//	}
 
-		send_json(sock, path);
-	}
+	//	send_json(sock, path);
+	//}
+
+	//while(1){
+	//	string path;
+	//	getline(cin, path);
+	//	if(path == "")
+	//		break;
+	//	if(path == "read"){
+	//		read_json(sock, string(""));
+	//		continue;
+	//	}
+
+	//	send_json(sock, path);
+	//}
+
+	clientThread myThread(&sock);
+	myThread.start();
 
 	while(1){
 		string path;
 		getline(cin, path);
 		if(path == "")
 			break;
-		if(path == "read"){
-			read_json(sock, string(""));
+
+		string pass;
+		string msj;
+		Value send;
+
+		cout << " == Archivo: '" << path << "' ==" << endl;
+		if(read_file(path.c_str(), pass, msj)){
+			cout << "\t[ERROR] leyendo" << endl;
 			continue;
 		}
 
-		send_json(sock, path);
+		cout << "=> Clave: '" << pass << "'" << endl;
+
+		Reader reader;
+		if(! reader.parse(msj, send)){
+			cout << "\t[ERROR] parseando" << endl;
+			continue;
+		}
+
+		myThread.setKey(pass);
+
+		if(myThread.write(send)){
+			cout << "\t[ERROR] mandando" << endl;
+			continue;
+		}
 	}
 
 	return 0;

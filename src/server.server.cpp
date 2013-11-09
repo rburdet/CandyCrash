@@ -73,7 +73,9 @@ void Server::listPartidas(int nivel, Json::Value& parts){
 	for(unsigned int j=0; j < this->partidas.size(); j++){
 		if(this->partidas[j]->getNivel() <= nivel){
 			//TODO:
-			parts[i++] = (uint32_t) this->partidas[j];
+			parts[i]["id"] = (uint32_t) this->partidas[j];
+			parts[i]["nivel"] = this->partidas[j]->getNivel();
+			i++;
 		}
 	}
 	

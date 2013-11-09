@@ -4,7 +4,7 @@
 
 #include "server.server_interface.h"
 #include "server.partida_interface.h"
-#include "server.thread_socket.h"
+#include "common.thread_socket.h"
 #include "common.mutex.h"
 
 class Partida : public PartidaInterface {
