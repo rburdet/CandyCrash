@@ -10,7 +10,6 @@ class ProbCeldas : public Probs{
 	public:
 
 		ProbCeldas(Tablero* tablero,Glib::RefPtr<Gtk::Builder>& builder);
-
 };
 
 #endif

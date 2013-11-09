@@ -21,11 +21,11 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 	cantColumnas=MIN_COLS;
 	//agregarColumnas(cantColumnas);
 	//this->tablero->show_all();
+	ultFilClick=MAX_FILAS;
+	ultColClick=MAX_COLS;
 	actualizarMatriz(cantFilas,cantColumnas);
 	this->eventos_tablero->signal_button_press_event().connect(sigc::mem_fun(*this,&Tablero::on_click_tablero));
-	for ( unsigned int i = 0 ; i < botones.size() ; i++ ) {
-		botones[i]->signal_clicked().connect(sigc::bind(sigc::mem_fun(*this,&Tablero::on_click_boton),i));
-	}
+	
 }
 
 Tablero::~Tablero(){}
@@ -88,11 +88,13 @@ void Tablero::agregarColumnas(int Y){
 		sep_vertical->set_size_request(SIZE,SIZE*cantFilas);
 		this->tablero->put(*sep_vertical,i*SIZE,0);
 		Gtk::Button * button = new Gtk::Button();
+		Columna* col = new Columna(Y, button);
 		if ( i == Y-1){
 			this->tablero->show_all();
 			break;
 		}
-		botones.push_back(button);
+		this->columnas.push_back(col);
+		columnas[i]->get_boton()->signal_clicked().connect(bind(sigc::mem_fun(*this,&Tablero::on_click_boton_tablero),i));
 		this->tablero->put(*button,(i+1)*SIZE,0);
 	} 
 }
@@ -111,8 +113,7 @@ void Tablero::borrarSeps(){
 bool Tablero::on_click_tablero(GdkEventButton* event){
 	int x,y;
 	int fila,columna;
-	this->tablero->get_pointer(x,y);
-	fila = (y-OFFSET)/SIZE;
+	this->tablero->get_pointer(x,y); fila = (y-OFFSET)/SIZE;
 	columna = (x-OFFSET)/SIZE;
 	if (ultFilClick==fila && ultColClick==columna){
 		return false;
@@ -155,6 +156,10 @@ void Tablero::cambiarButons(){
 	butonsCambiados.clear();
 }
 
-void Tablero::on_click_boton(unsigned i){
+void Tablero::on_click_boton_tablero(int id){
+	colInteres = columnas[id];
+}
 
+void Tablero::on_adjCols_changed_tablero(Gtk::SpinButton* spinbutton, int id){
+	this->colInteres->on_adj_changed(spinbutton,id);	
 }

@@ -14,11 +14,11 @@ class Probs{
 	protected: 
 		void cargarBotones(Glib::RefPtr<Gtk::Builder>& builder, int firstbutton,int lastbutton);
 		Tablero* tablero;
+		std::vector<Gtk::SpinButton *> spinbuttons;
+		std::vector< Glib::RefPtr< Gtk::Adjustment > > adjustments;
 	private:
 		Gtk::Frame * aFrame;
 		std::vector< Gtk::Image * >candys;
-		std::vector<Gtk::SpinButton *> spinbuttons;
-		std::vector< Glib::RefPtr< Gtk::Adjustment > > adjustments;
 
 
 };

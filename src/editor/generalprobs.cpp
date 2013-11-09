@@ -56,7 +56,6 @@ void Probs::cargarBotones(Glib::RefPtr<Gtk::Builder>& builder,int primerBoton, i
 		std::stringstream ss2;
 		ss2 << ADJUSTMENT << i;
 		aux2= Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object(ss2.str()));
-		aux2->signal_value_changed().connect(sigc::bind(sigc::mem_fun(tablero,&Tablero::on_adj_changed_tablero),spinbuttons[i-21],i-21));
 		adjustments.push_back(aux2);
 	}
 }

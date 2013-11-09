@@ -18,10 +18,6 @@ class Celda{
 		int x;
 		int y;
 		int prob_piezas[NUMEROPIEZAS];
-		//int prob_red_button , prob_blue_button , prob_green_button , prob_purple_button , prob_yellow_button;
-		//int prob_red_barhor , prob_blue_barhor , prob_green_barhor , prob_purple_barhor , prob_yellow_barhor;
-		//int prob_red_barver , prob_blue_barver , prob_green_barver , prob_purple_barver , prob_yellow_barver;
-		//int prob_star;
 		std::string img;
 		void inicializarVector();
 };

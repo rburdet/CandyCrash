@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include "celda.h"
+#include "columna.h"
 //#include "probsetter.h"
 
 class Tablero{
@@ -17,16 +18,18 @@ class Tablero{
 		void on_cordy_changed(Gtk::SpinButton* spin_y);
 		//TODO: HACERLO PRIVADO Y PONERLE GETTER
 		Celda* celdaInteres;
+		Columna* colInteres;
 		void on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id);
+		void on_adjCols_changed_tablero(Gtk::SpinButton* spinbutton,int id);
 
 	private:
 		Gtk::Fixed* tablero;
 		Gtk::EventBox* eventos_tablero;
 		std::vector<std::vector<Celda*> > matrizCeldas;
 		std::vector< Gtk::SpinButton* > butonsCambiados;
-		std::vector< Gtk::Button* > botones;
+		std::vector< Columna* > columnas;
 		virtual bool on_click_tablero(GdkEventButton* event);
-		void on_click_boton(unsigned idx);
+		void on_click_boton_tablero(int id);
 		int alto;
 		int ancho;
 		int cantColumnas;
