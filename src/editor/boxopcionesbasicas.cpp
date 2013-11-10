@@ -8,6 +8,7 @@ BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,Table
 	builder->get_widget("button_json",button_json);
 	builder->get_widget("spin_x",spin_x);
 	builder->get_widget("spin_y",spin_y);
+	this->tablero=tablero;
 	Glib::RefPtr<Gtk::Adjustment> adjustment_cordx = 
 	Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object("adjustment_cordx"));
 	Glib::RefPtr<Gtk::Adjustment> adjustment_cordy = 

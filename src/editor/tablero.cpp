@@ -33,6 +33,8 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 Tablero::~Tablero(){}
 
 void Tablero::on_cordx_changed(Gtk::SpinButton* spin_x){
+	//El +1 aca es xq se dibuja un pedazo afuera
+	//el tama;o real es sin ese +1 
 	int X = spin_x->get_value_as_int() + 1;
 	if 	( X > cantFilas ){
 		cantFilas=X;
@@ -42,7 +44,7 @@ void Tablero::on_cordx_changed(Gtk::SpinButton* spin_x){
 		borrarSeps();
 	}
 	cantFilas=X;
-	actualizarMatriz(cantFilas,cantColumnas);
+	actualizarMatriz(cantFilas-1,cantColumnas-1);
 }
 
 void Tablero::on_cordy_changed(Gtk::SpinButton* spin_y){
@@ -55,7 +57,7 @@ void Tablero::on_cordy_changed(Gtk::SpinButton* spin_y){
 		borrarSeps();
 	}
 	cantColumnas=Y;
-	actualizarMatriz(cantFilas,cantColumnas);
+	actualizarMatriz(cantFilas-1,cantColumnas-1);
 }
 
 void Tablero::alargarFilas(int Y){
@@ -152,7 +154,10 @@ void Tablero::on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id){
 	if (!celdaInteres)
 		return;
 	this->celdaInteres->on_adj_changed(spinbutton, id);
-	std::cout<< " llame al evneto : " << matrizCeldas[0][0]->prob_piezas[0];
+	//std::cout<< " llame al evneto : " << matrizCeldas[0][0]->prob_piezas[0];
+	std::cout << this << " THIS pre boton" <<std::endl;
+	getProbCeldas();
+	std::cout << this << " THIS post boton" <<std::endl;
 	butonsCambiados.push_back(spinbutton);
 }
 
@@ -174,9 +179,14 @@ void Tablero::on_adjCols_changed_tablero(Gtk::SpinButton* spinbutton, int id){
 }
 
 void Tablero::getProbCeldas(){
+	std::cout << this << " THIS en boton " <<std::endl;
+	//std::cout << matrizCeldas[0].size() << std::endl;
+	std::cout << matrizCeldas.size() << std::endl;
 //	for ( int i = 0 ; i < cantFilas ; i++ ) {
 //		for ( int j = 0 ; j < cantColumnas ; j++ ){
 //			for ( int k = 0 ; k < 16 ; k ++ ){
+				if ( matrizCeldas[0][0]==NULL)
+					std::cout<< "NULLLL " << std::endl;
 				std::cout << matrizCeldas[0][0]->prob_piezas[0] << "," ;
 //			}
 //			std::cout<< " " ;

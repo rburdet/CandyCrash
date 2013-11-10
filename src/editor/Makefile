@@ -21,10 +21,10 @@ extension = cpp
 #fuentes = entrada.cpp
 
 # Si usa funciones de SDL2, descomenta '#'
-sdl2 = si
+#sdl2 = si
 
 # Si usa funciones de SDL2_image, descomenta '#'
-sdl2_image = si
+#sdl2_image = si
 
 # Si usa funciones de math.h, descomentá (quitale el '#' a) la siguiente línea.
 #math = si
