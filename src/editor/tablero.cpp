@@ -227,3 +227,12 @@ void Tablero::jsonCeldas(Json::Value& nivel,const std::string& nombre){
 	}
 }
 
+
+void Tablero::on_image_changed_tablero(Gtk::FileChooser* fileChooser){
+	std::cout<<fileChooser->get_filename() <<std::endl;
+	this->celdaInteres->setImage(fileChooser->get_filename());
+	Gtk::Image* img = new Gtk::Image(fileChooser->get_filename());
+	img->set_size_request(SIZE,SIZE);
+	this->tablero->put(*img,this->celdaInteres->getX()*SIZE+OFFSET,this->celdaInteres->getY()*SIZE+OFFSET);
+	this->tablero->show_all();
+}

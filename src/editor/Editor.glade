@@ -216,7 +216,7 @@
   </object>
   <object class="GtkWindow" id="window1">
     <property name="width_request">900</property>
-    <property name="height_request">650</property>
+    <property name="height_request">700</property>
     <property name="can_focus">False</property>
     <child>
       <object class="GtkVPaned" id="vpaned1">
@@ -673,7 +673,6 @@
                     </child>
                     <child>
                       <object class="GtkVBox" id="vbox3">
-                        <property name="height_request">65</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
@@ -683,7 +682,7 @@
                             <property name="can_focus">True</property>
                             <child>
                               <object class="GtkFrame" id="framecolumnas">
-                                <property name="height_request">220</property>
+                                <property name="height_request">650</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label_xalign">0</property>
@@ -699,7 +698,7 @@
                                         <property name="can_focus">False</property>
                                         <child>
                                           <object class="GtkHBox" id="hbox2">
-                                            <property name="height_request">65</property>
+                                            <property name="height_request">90</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
@@ -926,7 +925,7 @@
                                         </child>
                                         <child>
                                           <object class="GtkHBox" id="hbox3">
-                                            <property name="height_request">80</property>
+                                            <property name="height_request">90</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
@@ -1148,7 +1147,7 @@
                                         </child>
                                         <child>
                                           <object class="GtkHBox" id="hbox8">
-                                            <property name="height_request">65</property>
+                                            <property name="height_request">90</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
@@ -1370,12 +1369,12 @@
                                         </child>
                                         <child>
                                           <object class="GtkVBox" id="vbox20">
-                                            <property name="height_request">80</property>
+                                            <property name="height_request">160</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
                                               <object class="GtkImage" id="image16">
-                                                <property name="height_request">71</property>
+                                                <property name="height_request">110</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <property name="stock">gtk-missing-image</property>
@@ -1407,9 +1406,9 @@
                                             </child>
                                           </object>
                                           <packing>
-                                            <property name="expand">True</property>
-                                            <property name="fill">True</property>
-                                            <property name="position">3</property>
+                                            <property name="expand">False</property>
+                                            <property name="fill">False</property>
+                                            <property name="position">4</property>
                                           </packing>
                                         </child>
                                       </object>
@@ -1438,6 +1437,7 @@
                             </child>
                             <child>
                               <object class="GtkFrame" id="frame2">
+                                <property name="height_request">100</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label_xalign">0</property>
@@ -1453,7 +1453,7 @@
                                         <property name="can_focus">False</property>
                                         <child>
                                           <object class="GtkHBox" id="hbox9">
-                                            <property name="height_request">100</property>
+                                            <property name="height_request">90</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
@@ -1486,8 +1486,8 @@
                                                     <property name="adjustment">adjustment21</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">False</property>
-                                                    <property name="fill">False</property>
+                                                    <property name="expand">True</property>
+                                                    <property name="fill">True</property>
                                                     <property name="position">1</property>
                                                   </packing>
                                                 </child>
@@ -1675,7 +1675,7 @@
                                         </child>
                                         <child>
                                           <object class="GtkHBox" id="hbox10">
-                                            <property name="height_request">100</property>
+                                            <property name="height_request">90</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
@@ -1690,8 +1690,8 @@
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -1732,8 +1732,8 @@
                                                     <property name="stock">gtk-missing-image</property>
                                                   </object>
                                                   <packing>
-                                                    <property name="expand">True</property>
-                                                    <property name="fill">True</property>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
                                                     <property name="position">0</property>
                                                   </packing>
                                                 </child>
@@ -1897,7 +1897,7 @@
                                         </child>
                                         <child>
                                           <object class="GtkHBox" id="hbox11">
-                                            <property name="height_request">100</property>
+                                            <property name="height_request">90</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
@@ -2119,18 +2119,19 @@
                                         </child>
                                         <child>
                                           <object class="GtkVBox" id="vbox37">
+                                            <property name="height_request">160</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <child>
                                               <object class="GtkImage" id="image32">
-                                                <property name="height_request">65</property>
+                                                <property name="height_request">110</property>
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <property name="stock">gtk-missing-image</property>
                                               </object>
                                               <packing>
-                                                <property name="expand">True</property>
-                                                <property name="fill">True</property>
+                                                <property name="expand">False</property>
+                                                <property name="fill">False</property>
                                                 <property name="position">0</property>
                                               </packing>
                                             </child>
@@ -2154,9 +2155,20 @@
                                             </child>
                                           </object>
                                           <packing>
-                                            <property name="expand">True</property>
-                                            <property name="fill">True</property>
+                                            <property name="expand">False</property>
+                                            <property name="fill">False</property>
                                             <property name="position">3</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkFileChooserButton" id="filechooser">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">False</property>
+                                            <property name="position">4</property>
                                           </packing>
                                         </child>
                                       </object>

@@ -1,0 +1,7 @@
+FALTA:
+	Guardar
+	Abrir
+	Cerrar
+	StatusBar
+
+

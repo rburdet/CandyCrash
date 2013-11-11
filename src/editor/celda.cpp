@@ -28,3 +28,7 @@ Info* Celda::getInfo(){
 Celda::~Celda(){
 	delete this->probs;
 }
+
+void Celda::setImage(const std::string& fileName){
+	this->imgPath=fileName;
+}

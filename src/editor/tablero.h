@@ -25,8 +25,7 @@ class Tablero{
 		Columna* colInteres;
 		void on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id);
 		void on_adjCols_changed_tablero(Gtk::SpinButton* spinbutton,int id);
-
-
+		void on_image_changed_tablero(Gtk::FileChooser* fileChooser);
 		//void getProbCeldas();
 		//void getProbColumnas();
 

@@ -19,8 +19,6 @@ class Probs{
 	private:
 		Gtk::Frame * aFrame;
 		std::vector< Gtk::Image * >candys;
-
-
 };
 
 #endif
