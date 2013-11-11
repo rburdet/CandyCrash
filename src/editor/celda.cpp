@@ -32,3 +32,7 @@ Celda::~Celda(){
 void Celda::setImage(const std::string& fileName){
 	this->imgPath=fileName;
 }
+
+std::string Celda::getImage(){
+	return this->imgPath;
+} 

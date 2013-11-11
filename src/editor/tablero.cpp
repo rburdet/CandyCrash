@@ -219,8 +219,8 @@ void Tablero::jsonCeldas(Json::Value& nivel,const std::string& nombre){
 			for ( int k = 0 ; k < 16 ; k ++ ){
 				aux.append(matrizCeldas[i][j]->getInfo()->getProb_piezas(k));
 			}
-			nivel[nombre]["celdas"][streamFila.str()][streamColumna.str()] = aux;
-			std::cout << "Celdas " << streamFila.str()<< " , " << streamColumna.str() << std::endl;
+			nivel[nombre]["celdas"][streamFila.str()][streamColumna.str()]["probabilidades"] = aux;
+			nivel[nombre]["celdas"][streamFila.str()][streamColumna.str()]["fondo"] = matrizCeldas[i][j]->getImage();
 			streamColumna.str("");
 		}
 		streamFila.str("");
@@ -233,6 +233,6 @@ void Tablero::on_image_changed_tablero(Gtk::FileChooser* fileChooser){
 	this->celdaInteres->setImage(fileChooser->get_filename());
 	Gtk::Image* img = new Gtk::Image(fileChooser->get_filename());
 	img->set_size_request(SIZE,SIZE);
-	this->tablero->put(*img,this->celdaInteres->getX()*SIZE+OFFSET,this->celdaInteres->getY()*SIZE+OFFSET);
+	this->tablero->put(*img,this->celdaInteres->getY()*SIZE+OFFSET,this->celdaInteres->getX()*SIZE+OFFSET);
 	this->tablero->show_all();
 }

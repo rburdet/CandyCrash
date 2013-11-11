@@ -18,6 +18,7 @@ class Celda{
 		Info* getInfo();
 		void on_adj_changed(Gtk::SpinButton* spinbutton,int id);
 		void setImage(const std::string& fileName);
+		std::string getImage();
 	private:
 		int x;
 		int y;
