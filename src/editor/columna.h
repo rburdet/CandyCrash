@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <gtkmm.h>
+#include "info.h"
 
-#define NUMEROPIEZAS 16
 
 class Columna{
 	public:
@@ -12,10 +12,11 @@ class Columna{
 		~Columna();
 		void on_adj_changed(Gtk::SpinButton* spinbutton,int id);
 		Gtk::Button* get_boton();
+		Info* getInfo();
 	private:
 		Gtk::Button* boton;
 		int pos;
-		int prob_piezas[NUMEROPIEZAS];
+		Info* probs;
 };
 
 #endif 

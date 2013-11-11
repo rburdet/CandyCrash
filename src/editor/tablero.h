@@ -1,9 +1,13 @@
 #ifndef TABLERO_H
 #define TABLERO_H
 
+
+#include <jsoncpp/json/json.h>
+#include <jsoncpp/json/writer.h>
 #include <glibmm/listhandle.h>
 #include <gtkmm.h>
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include "celda.h"
 #include "columna.h"
@@ -21,7 +25,13 @@ class Tablero{
 		Columna* colInteres;
 		void on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id);
 		void on_adjCols_changed_tablero(Gtk::SpinButton* spinbutton,int id);
-		void getProbCeldas();
+
+
+		//void getProbCeldas();
+		//void getProbColumnas();
+
+		void jsonCeldas(Json::Value& nivel,const std::string& nombre);
+		void jsonColumnas(Json::Value& nivel,const std::string& nombre);
 
 		std::vector<std::vector<Celda*> > matrizCeldas;
 		std::vector< Columna* > columnas;

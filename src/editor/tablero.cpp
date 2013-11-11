@@ -125,14 +125,9 @@ bool Tablero::on_click_tablero(GdkEventButton* event){
 	}else{
 		celdaInteres = new Celda(fila,columna);
 		this->matrizCeldas[fila][columna]=celdaInteres;
-		std::cout << "probs aca " << std::endl;
-		getProbCeldas();
 	}
 	ultFilClick=fila;
 	ultColClick=columna;
-
-	std::cout << "estoy en : " << (int)((y-OFFSET)/SIZE) << " , " << (int)((x-OFFSET)/SIZE)<< std::endl;
-	//std::cout << "tengo:  " <<  << " , " << (int)y/SIZE << std::endl;
 	cambiarButons();
 	return true;
 }
@@ -154,10 +149,6 @@ void Tablero::on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id){
 	if (!celdaInteres)
 		return;
 	this->celdaInteres->on_adj_changed(spinbutton, id);
-	//std::cout<< " llame al evneto : " << matrizCeldas[0][0]->prob_piezas[0];
-	std::cout << this << " THIS pre boton" <<std::endl;
-	getProbCeldas();
-	std::cout << this << " THIS post boton" <<std::endl;
 	butonsCambiados.push_back(spinbutton);
 }
 
@@ -178,20 +169,61 @@ void Tablero::on_adjCols_changed_tablero(Gtk::SpinButton* spinbutton, int id){
 	this->colInteres->on_adj_changed(spinbutton,id);	
 }
 
-void Tablero::getProbCeldas(){
-	std::cout << this << " THIS en boton " <<std::endl;
-	//std::cout << matrizCeldas[0].size() << std::endl;
-	std::cout << matrizCeldas.size() << std::endl;
-//	for ( int i = 0 ; i < cantFilas ; i++ ) {
-//		for ( int j = 0 ; j < cantColumnas ; j++ ){
+//void Tablero::getProbColumnas(){
+//	 for (unsigned int i = 0 ; i < columnas.size() ; i++ ) {
+//		 std::cout << "col " << i<<" \t";
+//		 for ( int j = 0 ; j < 16 ; j++ ) {
+//			std::cout << columnas[i]->getInfo()->getProb_piezas(j)<< "," ;
+//		 }
+//		 std::cout<<std::endl;
+//	 }
+//}
+
+//void Tablero::getProbCeldas(){
+//	for (unsigned  int i = 0 ; i < matrizCeldas.size() ; i++ ) {
+//		for ( unsigned int j = 0 ; j < matrizCeldas[0].size() ; j++ ){
 //			for ( int k = 0 ; k < 16 ; k ++ ){
-				if ( matrizCeldas[0][0]==NULL)
-					std::cout<< "NULLLL " << std::endl;
-				std::cout << matrizCeldas[0][0]->prob_piezas[0] << "," ;
+//				if ( matrizCeldas[i][j]==NULL)
+//					std::cout<< "NULLLL " << std::endl;
+//				std::cout << matrizCeldas[i][j]->getInfo()->getProb_piezas(j)<< "," ;
 //			}
 //			std::cout<< " " ;
 //		}
 //		std::cout<<std::endl;
 //	}
+//}
+
+void Tablero::jsonColumnas(Json::Value& nivel,const std::string& nombre){
+	std::stringstream ss;
+	for ( unsigned i = 0 ; i < columnas.size() ; i++ ) {
+		Json::Value aux(Json::arrayValue);
+		for ( int j = 0 ; j < 16 ; j++ ){
+			 aux.append(columnas[i]->getInfo()->getProb_piezas(j));
+		}
+		ss<<i ;
+		std::cout << "i en jsONcolumnas " << ss.str()<< std::endl;
+		nivel[nombre]["columnas"][ss.str()] = aux;
+		ss.str("");
+	}
+}
+
+void Tablero::jsonCeldas(Json::Value& nivel,const std::string& nombre){
+	std::cout << " entre aca " << std::endl;
+	std::stringstream streamFila;
+	std::stringstream streamColumna;
+	for (unsigned  int i = 0 ; i < matrizCeldas.size() ; i++ ) {
+		streamFila << i ;
+		for ( unsigned int j = 0 ; j < matrizCeldas[0].size() ; j++ ){
+			streamColumna << j ;
+			Json::Value aux(Json::arrayValue);
+			for ( int k = 0 ; k < 16 ; k ++ ){
+				aux.append(matrizCeldas[i][j]->getInfo()->getProb_piezas(k));
+			}
+			nivel[nombre]["celdas"][streamFila.str()][streamColumna.str()] = aux;
+			std::cout << "Celdas " << streamFila.str()<< " , " << streamColumna.str() << std::endl;
+			streamColumna.str("");
+		}
+		streamFila.str("");
+	}
 }
 

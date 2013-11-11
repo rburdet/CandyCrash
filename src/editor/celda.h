@@ -4,22 +4,26 @@
 #include <string>
 #include <vector>
 #include <gtkmm.h>
+#include "info.h"
 
 #define NUMEROPIEZAS 16
 
 class Celda{
 	public:
 		Celda(int x, int y);
+		~Celda();
 		int getX();
 		int getY();
+
+		Info* getInfo();
 		void on_adj_changed(Gtk::SpinButton* spinbutton,int id);
-		int prob_piezas[NUMEROPIEZAS];
 
 	private:
 		int x;
 		int y;
+		Info* probs;
 		std::string img;
-		void inicializarVector();
+		int prob_piezas[NUMEROPIEZAS];
 };
 
 #endif
