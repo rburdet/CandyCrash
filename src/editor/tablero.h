@@ -18,44 +18,58 @@ class Tablero{
 		Tablero(Glib::RefPtr<Gtk::Builder>& builder);
 		~Tablero();
 		//Handlers accedidos desde la configuracion basica
+		void on_adjCols_changed_tablero(Gtk::SpinButton* spinbutton,int id);
 		void on_cordx_changed(Gtk::SpinButton* spin_x);
 		void on_cordy_changed(Gtk::SpinButton* spin_y);
-		//TODO: HACERLO PRIVADO Y PONERLE GETTER
-		Celda* celdaInteres;
-		Columna* colInteres;
 		void on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id);
-		void on_adjCols_changed_tablero(Gtk::SpinButton* spinbutton,int id);
 		void on_image_changed_tablero(Gtk::FileChooser* fileChooser);
-		//void getProbCeldas();
-		//void getProbColumnas();
 
+		//Metodos serializadores
 		void jsonCeldas(Json::Value& nivel,const std::string& nombre);
 		void jsonColumnas(Json::Value& nivel,const std::string& nombre);
 
-		std::vector<std::vector<Celda*> > matrizCeldas;
-		std::vector< Columna* > columnas;
 	private:
+		//**************************************************//
+		//					ATRIBUTOS						//
+		//Elementos importantes al hacer un click
+		Celda* celdaInteres;
+		Columna* colInteres;
+		//Matriz que maneja el tablero
+		std::vector<std::vector<Celda*> > matrizCeldas;
+
+		//Columnas para la probabilidad seteada
+		std::vector< Columna* > columnas;
+		
+		//Tablero con su respectivo event box (fue necesario para tomar los clicks hechos sobre el mismo)
 		Gtk::Fixed* tablero;
 		Gtk::EventBox* eventos_tablero;
+
+		//Spinbuttons que cambiaron cada vez que se eligio una celda
 		std::vector< Gtk::SpinButton* > butonsCambiados;
-		virtual bool on_click_tablero(GdkEventButton* event);
-		void on_click_boton_tablero(int id);
-		int alto;
-		int ancho;
+
+		//Datos del tablero
 		int cantColumnas;
 		int cantFilas;
+
 		//Para tener una referencia de lo ultimo que se toco y no volver a pedir informacion:
 		int ultFilClick;
 		int ultColClick;
+		
 
+		// ***************************************************************//
+		//								METODOS							  //
+		//Metodos propios 
 		void agregarFilas(int X);
 		void agregarColumnas(int Y);
 		void borrarSeps();
 		void alargarFilas(int Y);
 		void alargarColumnas(int X);
-		
 		void actualizarMatriz(int cantFilas,int cantColumnas);
 		void cambiarButons();
+
+		//Handlers propios
+		virtual bool on_click_tablero(GdkEventButton* event);
+		void on_click_boton_tablero(int id);
 
 };
 
