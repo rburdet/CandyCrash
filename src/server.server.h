@@ -29,12 +29,12 @@ class Server : public ServerInterface {
 		~Server();
 
 		int main();
-		void removeClient(Thread* cli);
+		void removeClient(ThreadSocket* cli);
 		PartidaInterface* newPartida(int nivel);
 		void removePartida(PartidaInterface* p);
 		//TODO:
 		virtual void listPartidas(int nivel, Json::Value& parts);
-		virtual PartidaInterface* connectPartidas(uint32_t id, std::string& user);
+		virtual PartidaInterface* connectPartidas(long id);
 		void end();
 };
 

@@ -19,7 +19,7 @@ class Partida : public PartidaInterface {
 		Partida(ServerInterface* server, int nivel);
 		~Partida();
 
-		void addUsuario(ThreadSocket* u);
+		void addUsuario(ThreadSocket* u, std::string& user);
 		void rmUsuario(ThreadSocket* u);
 
 		int getNivel();

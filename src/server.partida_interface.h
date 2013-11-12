@@ -4,7 +4,7 @@
 
 class PartidaInterface {
 	public:
-		virtual void addUsuario(ThreadSocket* u) = 0;
+		virtual void addUsuario(ThreadSocket* u, std::string& user) = 0;
 		virtual void rmUsuario(ThreadSocket* u) = 0;
 
 };

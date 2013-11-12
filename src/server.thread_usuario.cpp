@@ -2,6 +2,7 @@
 
 #include <jsoncpp/json/json.h>
 #include <string>
+#include <sstream>
 
 #include "common.logger.h"
 #include "common.user_manager.h"
@@ -9,6 +10,7 @@
 using Json::Value;
 using Json::StaticString;
 using std::string;
+using std::stringstream;
 
 ThreadUsuario::ThreadUsuario(ServerInterface* s, SocketIO* fd) : ThreadSocket(fd), server(s), partida(NULL), user("") {}
 
@@ -182,7 +184,7 @@ int ThreadUsuario::eventFirmado(Value& data){
 			}
 
 			this->partida = this->server->newPartida(nivel);
-			this->partida->addUsuario(this);
+			this->partida->addUsuario(this, this->user);
 
 			if(this->write(retMsj)){
 				Logger::log("["+this->myId+"] Error escribiendo el mensaje de nueva partida");
@@ -192,9 +194,38 @@ int ThreadUsuario::eventFirmado(Value& data){
 			break;
 		}
 
-		case EVENT_JOIN_GAME: // -> Unirse a partida
-			Logger::log("["+this->myId+"] Evento desconocido");
+		case EVENT_JOIN_GAME:{ // -> Unirse a partida
+			int ret = 0;
+			Logger::log("["+this->myId+"] Evento Join game");
+			Value retMsj;
+			retMsj["event"] = EVENT_JOIN_GAME;
+			retMsj["msj"] = "Error";
+			retMsj["code"] = -1;
+
+			string id = data["id"].asString();
+			Logger::log(id);
+			long id_n;
+			stringstream ss(id);
+			ss >> id_n;
+
+			PartidaInterface* part = this->server->connectPartidas(id_n);
+
+			if(part){
+				this->partida = part;
+				part->addUsuario(this, user);
+				// Todo: mandar mas data
+				retMsj["msj"] = "Coneccion correcta";
+				retMsj["code"] = 0;
+			}
+
+			if(this->write(retMsj)){
+				Logger::log("["+this->myId+"] Error escribiendo el mensaje de conexion de partida");
+				return 1;
+			}
+
+			return ret;
 			break;
+		}
 
 		default:
 			Logger::log("["+this->myId+"] Evento desconocido");

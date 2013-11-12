@@ -1,5 +1,8 @@
 #include "server.server.h"
 #include "common.logger.h"
+#include <sstream>
+
+using std::stringstream;
 
 Server::Server(int port) : port(port) {
 }
@@ -33,7 +36,7 @@ void Server::addClient(ThreadUsuario* cli){
 	this->clientesLock.unlock();
 }
 
-void Server::removeClient(Thread* cli){
+void Server::removeClient(ThreadSocket* cli){
 	this->clientesLock.lock();
 
 	for(unsigned int i=0; i < clientes.size(); i++){
@@ -73,13 +76,33 @@ void Server::listPartidas(int nivel, Json::Value& parts){
 	for(unsigned int j=0; j < this->partidas.size(); j++){
 		if(this->partidas[j]->getNivel() <= nivel){
 			//TODO:
-			parts[i]["id"] = (uint32_t) this->partidas[j];
+			stringstream ss;
+			ss << (long) this->partidas[j];
+			Logger::log(ss.str());
+			parts[i]["id"] = ss.str();
 			parts[i]["nivel"] = this->partidas[j]->getNivel();
 			i++;
 		}
 	}
 	
 	this->partidasLock.unlock();
+}
+
+PartidaInterface* Server::connectPartidas(long id){
+	PartidaInterface* part = NULL;
+	this->partidasLock.lock();
+	for(unsigned int j=0; j < this->partidas.size(); j++){
+		if((long) this->partidas[j] == id){
+			std::cout << this->partidas[j] << std::endl;
+			Logger::log("encontre partidaaa");
+			part = this->partidas[j];
+			break;
+		}
+	}
+
+	this->partidasLock.unlock();
+
+	return part;
 }
 
 void Server::end(){
