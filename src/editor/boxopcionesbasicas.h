@@ -18,6 +18,7 @@ class BoxOpcionesBasicas{
 		//TODO: encapsular bien
 		Glib::RefPtr<Gtk::Adjustment> adjustment_cordx;
 		Glib::RefPtr<Gtk::Adjustment> adjustment_cordy;
+		Glib::RefPtr<Gtk::Adjustment> adjustment_nivel;
 
 
 	private:
@@ -27,6 +28,7 @@ class BoxOpcionesBasicas{
 		Gtk::SpinButton * s_puntaje;
 		Gtk::SpinButton * spin_x;
 		Gtk::SpinButton * spin_y;
+		Gtk::SpinButton * spin_nivel;
 		Tablero* tablero;
 
 		//Handlers
@@ -38,6 +40,7 @@ class BoxOpcionesBasicas{
 		double getJugadoresMax();
 		int getDimX();
 		int getDimY();
+		int getNivel();
 };
 
 #endif
