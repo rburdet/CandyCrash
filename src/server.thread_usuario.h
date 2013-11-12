@@ -21,6 +21,9 @@ class ThreadUsuario : public ThreadSocket {
 		virtual int eventFirmado(Json::Value& data);
 		virtual void* subRun();
 
+		int onJoinGame(Json::Value& data, Json::Value& userData);
+		int onNewGame(Json::Value& data, Json::Value& userData);
+
 		int welcome();
 
 	public:

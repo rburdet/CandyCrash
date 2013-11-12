@@ -1,5 +1,4 @@
 #include "server.partida.h"
-#include <jsoncpp/json/json.h>
 #include "common.events.h"
 #include "common.logger.h"
 
@@ -19,11 +18,12 @@ Partida::~Partida() {
 
 
 void Partida::addUsuario(ThreadSocket* u, string& user){
-	this->usuariosLock.lock();
 	Value retMsj;
 	retMsj["event"] = EVENT_GAME_MISC;
 	retMsj["msj"] = "Se conecto "+user;
 	retMsj["code"] = 0;
+
+	this->usuariosLock.lock();
 	// TODO: Dar msje de bievenida a la partida
 	for(unsigned int j=0; j < this->usuarios.size(); j++){
 		if(this->usuarios[j]->write(retMsj)){
@@ -35,11 +35,19 @@ void Partida::addUsuario(ThreadSocket* u, string& user){
 }
 
 void Partida::rmUsuario(ThreadSocket* u){
+	Value retMsj;
+	retMsj["event"] = EVENT_GAME_MISC;
+	retMsj["msj"] = "Usuario desconectado (te debo el nombre)";
+	retMsj["code"] = 0;
+
 	this->usuariosLock.lock();
 	for(unsigned int i=0; i < usuarios.size(); i++){
 		if((void*) u == (void*) (this->usuarios[i])){
 			this->usuarios.erase(this->usuarios.begin() + i);
-			break;
+		}else{
+			if(this->usuarios[i]->write(retMsj)){
+				Logger::log("[Partida] Error broadcasteando mensjae de nuevo usuario");
+			}
 		}
 	}
 	this->usuariosLock.unlock();
@@ -48,3 +56,12 @@ void Partida::rmUsuario(ThreadSocket* u){
 int Partida::getNivel(){
 	return this->nivel;
 }
+
+int Partida::getUsuarios(){
+	return this->usuarios.size();
+}
+
+int Partida::mensaje(Json::Value& m){
+	return 0;
+}
+

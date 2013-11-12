@@ -167,65 +167,20 @@ int ThreadUsuario::eventFirmado(Value& data){
 
 		case EVENT_NEW_GAME:{ // -> Crear partida
 			Logger::log("["+this->myId+"] Evento new game");
-			Value retMsj;
-			int ret = 0;
-			retMsj["event"] = EVENT_NEW_GAME;
-			retMsj["msj"] = "Ok";
-			retMsj["code"] = 0;
-
-			if(! data["nivel"].isNumeric()) {
-				// TODO: Error
-			}
-
-			int nivel = data["nivel"].asInt();
-
-			if(nivel > userData["nivel"].asInt()){
-				// TODO: error
-			}
-
-			this->partida = this->server->newPartida(nivel);
-			this->partida->addUsuario(this, this->user);
-
-			if(this->write(retMsj)){
-				Logger::log("["+this->myId+"] Error escribiendo el mensaje de nueva partida");
-				return 1;
-			}
-			return ret;
+			return this->onNewGame(data, userData);
 			break;
 		}
 
-		case EVENT_JOIN_GAME:{ // -> Unirse a partida
-			int ret = 0;
-			Logger::log("["+this->myId+"] Evento Join game");
-			Value retMsj;
-			retMsj["event"] = EVENT_JOIN_GAME;
-			retMsj["msj"] = "Error";
-			retMsj["code"] = -1;
-
-			string id = data["id"].asString();
-			Logger::log(id);
-			long id_n;
-			stringstream ss(id);
-			ss >> id_n;
-
-			PartidaInterface* part = this->server->connectPartidas(id_n);
-
-			if(part){
-				this->partida = part;
-				part->addUsuario(this, user);
-				// Todo: mandar mas data
-				retMsj["msj"] = "Coneccion correcta";
-				retMsj["code"] = 0;
-			}
-
-			if(this->write(retMsj)){
-				Logger::log("["+this->myId+"] Error escribiendo el mensaje de conexion de partida");
-				return 1;
-			}
-
-			return ret;
+		case EVENT_JOIN_GAME: // -> Unirse a partida
+			return this->onJoinGame(data, userData);
 			break;
-		}
+
+		case EVENT_GAME_MISC:
+			if(this->partida && this->partida->mensaje(data)){
+				this->partida = NULL;
+			}
+			return 0;
+			break;
 
 		default:
 			Logger::log("["+this->myId+"] Evento desconocido");
@@ -233,4 +188,70 @@ int ThreadUsuario::eventFirmado(Value& data){
 	}
 
 	return 0;
+}
+
+int ThreadUsuario::onJoinGame(Json::Value& data, Json::Value& userData){
+	int ret = 0;
+	Logger::log("["+this->myId+"] Evento Join game");
+	Value retMsj;
+	retMsj["event"] = EVENT_JOIN_GAME;
+	retMsj["msj"] = "Error";
+	retMsj["code"] = -1;
+	if(this->partida){
+		retMsj["msj"] = "Ya estas conectado a una partida";
+		retMsj["code"] = 1;
+	}else{
+		string id = data["id"].asString();
+		long id_n;
+		stringstream ss(id);
+		ss >> id_n;
+
+		PartidaInterface* part = this->server->connectPartidas(id_n);
+
+		if(part){
+			this->partida = part;
+			part->addUsuario(this, user);
+			// Todo: mandar mas data
+			retMsj["msj"] = "Coneccion correcta";
+			retMsj["code"] = 0;
+		}
+	}
+
+	if(this->write(retMsj)){
+		Logger::log("["+this->myId+"] Error escribiendo el mensaje de conexion de partida");
+		return 1;
+	}
+	return ret;
+}
+
+int ThreadUsuario::onNewGame(Json::Value& data, Json::Value& userData){
+	Value retMsj;
+	int ret = 0;
+	retMsj["event"] = EVENT_NEW_GAME;
+	retMsj["msj"] = "Ok";
+	retMsj["code"] = 0;
+
+	if(this->partida){
+		retMsj["msj"] = "Ya estas conectado a una partida";
+		retMsj["code"] = 1;
+	}else{
+		if(! data["nivel"].isNumeric()) {
+			// TODO: Error
+		}
+
+		int nivel = data["nivel"].asInt();
+
+		if(nivel > userData["nivel"].asInt()){
+			// TODO: error
+		}
+
+		this->partida = this->server->newPartida(nivel);
+		this->partida->addUsuario(this, this->user);
+	}
+
+	if(this->write(retMsj)){
+		Logger::log("["+this->myId+"] Error escribiendo el mensaje de nueva partida");
+		return 1;
+	}
+	return ret;
 }

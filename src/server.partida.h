@@ -23,6 +23,9 @@ class Partida : public PartidaInterface {
 		void rmUsuario(ThreadSocket* u);
 
 		int getNivel();
+		int getUsuarios();
+
+		virtual int mensaje(Json::Value& m);
 
 };
 

@@ -5,9 +5,9 @@ using std::string;
 
 Ipwindow::Ipwindow()
 	: m_VBox(Gtk::ORIENTATION_VERTICAL),
-	m_Button_conectar("Conectar") {
+	m_Button_conectar("Conectar"), m_check("Registrarse?") {
 	set_size_request(200, 100);
-	set_title("Gtk::Entry");
+	set_title("Conectate");
 
 	add(m_VBox);
 

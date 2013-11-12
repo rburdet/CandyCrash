@@ -80,6 +80,7 @@ void Server::listPartidas(int nivel, Json::Value& parts){
 			ss << (long) this->partidas[j];
 			parts[i]["id"] = ss.str();
 			parts[i]["nivel"] = this->partidas[j]->getNivel();
+			parts[i]["users"] = this->partidas[j]->getUsuarios();
 			i++;
 		}
 	}
