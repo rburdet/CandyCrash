@@ -20,13 +20,14 @@ class Cliente : public ClienteInterface {
 		void conectar(std::string ip, std::string user, std::string pass, bool check);
 		virtual void nuevoMensaje(Json::Value& msj);
 	private:
-		TCPSocketConnect sd;
 		Gtk::Window* ventanaActual;
 		ThreadListener *listener;
 		std::queue<Json::Value> mensajes;
 		Mutex mensajesMutex;
 		sigc::connection connTimeout;
 		bool onTimeout();
+
+		void onLogin(int code, Json::Value& data);
 };
 
 #endif

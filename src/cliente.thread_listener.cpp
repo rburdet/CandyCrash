@@ -14,7 +14,6 @@ ThreadListener::ThreadListener(ClienteInterface* s, SocketIO* fd) : ThreadSocket
 
 ThreadListener::~ThreadListener(){
 	Logger::log("["+this->myId+"] Cerrando thread");
-	this->fd = NULL;
 }
 
 void* ThreadListener::subRun(){

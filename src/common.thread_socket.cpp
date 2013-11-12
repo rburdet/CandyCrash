@@ -16,6 +16,7 @@ ThreadSocket::ThreadSocket(SocketIO* fd) : fd(fd), myId(""), key("") {}
 
 ThreadSocket::~ThreadSocket() {
 	delete this->fd;
+	this->fd = NULL;
 }
 
 int ThreadSocket::shutdown(){
