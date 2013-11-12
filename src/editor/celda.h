@@ -18,11 +18,14 @@ class Celda{
 		Info* getInfo();
 		void on_adj_changed(Gtk::SpinButton* spinbutton,int id);
 		void setImage(const std::string& fileName);
+		void setHueco();
+		bool isHueco();
 		std::string getImage();
 	private:
 		int x;
 		int y;
 		Info* probs;
+		bool hueco;
 		std::string imgPath;
 		int prob_piezas[NUMEROPIEZAS];
 };

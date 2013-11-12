@@ -56,7 +56,8 @@ void BoxOpcionesBasicas::on_button_clicked(){
 	nivel[nombre]["max_jugadores"]=max_jugadores;
 	nivel[nombre]["DIM"]["X"] = dimX;
 	nivel[nombre]["DIM"]["Y"] = dimY;
-	std::cout<<nivel<<std::endl;
+	Persistidor::persistir(nivel,nombre);
+	//std::cout<<nivel<<std::endl;
 }
 
 BoxOpcionesBasicas::~BoxOpcionesBasicas(){}

@@ -14,7 +14,7 @@ class ProbCeldas : public Probs{
 	private:
 
 		Gtk::FileChooser* fileChooser;
-
+		Gtk::Button* huecoButton;
 };
 
 #endif

@@ -8,6 +8,7 @@
 #include <string>
 #include <sstream>
 #include "tablero.h"
+#include "persistidor.h"
 
 class BoxOpcionesBasicas{
 	public:

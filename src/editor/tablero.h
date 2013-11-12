@@ -23,10 +23,15 @@ class Tablero{
 		void on_cordy_changed(Gtk::SpinButton* spin_y);
 		void on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id);
 		void on_image_changed_tablero(Gtk::FileChooser* fileChooser);
+		void on_check_button_tablero();
 
 		//Metodos serializadores
 		void jsonCeldas(Json::Value& nivel,const std::string& nombre);
 		void jsonColumnas(Json::Value& nivel,const std::string& nombre);
+		
+		//Senal del que conectara el checkbutton
+		typedef sigc::signal< void > type_signal_uncheck;
+		type_signal_uncheck signal_uncheck();
 
 	private:
 		//**************************************************//
@@ -70,6 +75,11 @@ class Tablero{
 		//Handlers propios
 		virtual bool on_click_tablero(GdkEventButton* event);
 		void on_click_boton_tablero(int id);
+
+
+		//Senal a emitir para el checkbutton cuando hago un click
+		type_signal_uncheck m_signal_uncheck;
+
 
 };
 

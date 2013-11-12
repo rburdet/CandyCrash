@@ -7,6 +7,7 @@ Celda::Celda(int x, int y){
 	this->x = x;
 	this->y = y;
 	this->probs = new Info();
+	this->hueco=false;
 }
 
 int Celda::getX(){
@@ -36,3 +37,11 @@ void Celda::setImage(const std::string& fileName){
 std::string Celda::getImage(){
 	return this->imgPath;
 } 
+
+void Celda::setHueco(){
+	this->hueco=true;
+}
+
+bool Celda::isHueco(){
+	return this->hueco;
+}

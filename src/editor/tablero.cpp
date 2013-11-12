@@ -17,10 +17,9 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 	builder->get_widget("event_tablero",eventos_tablero);
 	this->eventos_tablero->set_events(Gdk::BUTTON_PRESS_MASK);
 	cantFilas=MIN_FILAS;
-	//agregarFilas(cantFilas);
 	cantColumnas=MIN_COLS;
-	//agregarColumnas(cantColumnas);
-	//this->tablero->show_all();
+	agregarFilas(cantFilas);
+	agregarColumnas(cantColumnas);
 	ultFilClick=MAX_FILAS;
 	ultColClick=MAX_COLS;
 	celdaInteres=NULL;
@@ -30,7 +29,14 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 	
 }
 
-Tablero::~Tablero(){}
+Tablero::~Tablero(){
+	this->borrarSeps();
+	for ( unsigned int i = 0 ; i < matrizCeldas.size() ; i++){
+		for ( unsigned int j = 0 ; j < matrizCeldas[0].size() ; j++ ){
+			delete matrizCeldas[i][j];
+		}
+	}
+}
 
 void Tablero::on_cordx_changed(Gtk::SpinButton* spin_x){
 	//El +1 aca es xq se dibuja un pedazo afuera
@@ -87,6 +93,7 @@ void Tablero::agregarFilas(int X){
 }
 
 void Tablero::agregarColumnas(int Y){
+	columnas.clear();
 	for ( int i = 0 ; i < Y ; i++ ){
 		Gtk::VSeparator* sep_vertical = new Gtk::VSeparator();
 		sep_vertical->set_size_request(SIZE,SIZE*cantFilas);
@@ -125,6 +132,7 @@ bool Tablero::on_click_tablero(GdkEventButton* event){
 	}else{
 		celdaInteres = new Celda(fila,columna);
 		this->matrizCeldas[fila][columna]=celdaInteres;
+		m_signal_uncheck.emit();
 	}
 	ultFilClick=fila;
 	ultColClick=columna;
@@ -201,25 +209,27 @@ void Tablero::jsonColumnas(Json::Value& nivel,const std::string& nombre){
 			 aux.append(columnas[i]->getInfo()->getProb_piezas(j));
 		}
 		ss<<i ;
-		std::cout << "i en jsONcolumnas " << ss.str()<< std::endl;
 		nivel[nombre]["columnas"][ss.str()] = aux;
 		ss.str("");
 	}
 }
 
 void Tablero::jsonCeldas(Json::Value& nivel,const std::string& nombre){
-	std::cout << " entre aca " << std::endl;
 	std::stringstream streamFila;
 	std::stringstream streamColumna;
 	for (unsigned  int i = 0 ; i < matrizCeldas.size() ; i++ ) {
 		streamFila << i ;
 		for ( unsigned int j = 0 ; j < matrizCeldas[0].size() ; j++ ){
 			streamColumna << j ;
-			Json::Value aux(Json::arrayValue);
-			for ( int k = 0 ; k < 16 ; k ++ ){
-				aux.append(matrizCeldas[i][j]->getInfo()->getProb_piezas(k));
+			if ( matrizCeldas[i][j]->isHueco() ){
+				nivel[nombre]["celdas"][streamFila.str()][streamColumna.str()]["probabilidades"] = -1;
+			}else{
+				Json::Value aux(Json::arrayValue);
+				for ( int k = 0 ; k < 16 ; k ++ ){
+					aux.append(matrizCeldas[i][j]->getInfo()->getProb_piezas(k));
+				}
+				nivel[nombre]["celdas"][streamFila.str()][streamColumna.str()]["probabilidades"] = aux;
 			}
-			nivel[nombre]["celdas"][streamFila.str()][streamColumna.str()]["probabilidades"] = aux;
 			nivel[nombre]["celdas"][streamFila.str()][streamColumna.str()]["fondo"] = matrizCeldas[i][j]->getImage();
 			streamColumna.str("");
 		}
@@ -236,3 +246,9 @@ void Tablero::on_image_changed_tablero(Gtk::FileChooser* fileChooser){
 	this->tablero->put(*img,this->celdaInteres->getY()*SIZE+OFFSET,this->celdaInteres->getX()*SIZE+OFFSET);
 	this->tablero->show_all();
 }
+
+void Tablero::on_check_button_tablero(){
+	if (this->celdaInteres)
+		this->celdaInteres->setHueco();
+}
+
