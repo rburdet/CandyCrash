@@ -6,7 +6,9 @@
 #include <iostream>
 #include <gtkmm.h>
 #include <string>
+#include <sstream>
 #include "tablero.h"
+#include "persistidor.h"
 
 class BoxOpcionesBasicas{
 	public:

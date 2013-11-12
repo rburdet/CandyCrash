@@ -49,7 +49,7 @@ gtkmm = si
 ###########################
 
 # Opciones para el compilador C/C++ en modo ansi.
-CFLAGS = -Wall -pedantic -pedantic-errors
+CFLAGS = -Wall -pedantic -pedantic-errors -fpermissive
 
 # Para que explote lo mas posible
 CFLAGS += -O3 -DNDEBUG

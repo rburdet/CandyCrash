@@ -8,6 +8,7 @@ BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,Table
 	builder->get_widget("button_json",button_json);
 	builder->get_widget("spin_x",spin_x);
 	builder->get_widget("spin_y",spin_y);
+	this->tablero=tablero;
 	Glib::RefPtr<Gtk::Adjustment> adjustment_cordx = 
 	Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object("adjustment_cordx"));
 	Glib::RefPtr<Gtk::Adjustment> adjustment_cordy = 
@@ -42,22 +43,21 @@ int BoxOpcionesBasicas::getDimY(){
 
 
 void BoxOpcionesBasicas::on_button_clicked(){
-	Json::Value nombre_nivel = getNombre();
+
+	const std::string& nombre = getNombre();
 	Json::Value puntaje_para_ganar = (int)getPuntaje();
 	Json::Value max_jugadores = (int)getJugadoresMax();
 	Json::Value nivel;
 	Json::Value dimX = (int)getDimX();
 	Json::Value dimY= (int)getDimY();
-	this->tablero->getProbCeldas();
-	//Json::Value imagen_fondo = getImagenFondo();
-	//Json::Value filas = getNFilas();
-	//Json::Value columnas;
-	nivel["nombre_nivel"]=nombre_nivel;
-	nivel["puntaje_para_ganar"]=puntaje_para_ganar;
-	nivel["max_jugadores"]=max_jugadores;
-	nivel[""]["X:"] = dimX;
-	nivel[""]["Y:"] = dimY;
-	std::cout<<nivel<<std::endl;
+	this->tablero->jsonCeldas(nivel,nombre);
+	this->tablero->jsonColumnas(nivel,nombre);
+	nivel[nombre]["puntaje_para_ganar"]=puntaje_para_ganar;
+	nivel[nombre]["max_jugadores"]=max_jugadores;
+	nivel[nombre]["DIM"]["X"] = dimX;
+	nivel[nombre]["DIM"]["Y"] = dimY;
+	Persistidor::persistir(nivel,nombre);
+	//std::cout<<nivel<<std::endl;
 }
 
 BoxOpcionesBasicas::~BoxOpcionesBasicas(){}
