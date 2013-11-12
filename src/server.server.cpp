@@ -78,7 +78,6 @@ void Server::listPartidas(int nivel, Json::Value& parts){
 			//TODO:
 			stringstream ss;
 			ss << (long) this->partidas[j];
-			Logger::log(ss.str());
 			parts[i]["id"] = ss.str();
 			parts[i]["nivel"] = this->partidas[j]->getNivel();
 			i++;
@@ -93,8 +92,6 @@ PartidaInterface* Server::connectPartidas(long id){
 	this->partidasLock.lock();
 	for(unsigned int j=0; j < this->partidas.size(); j++){
 		if((long) this->partidas[j] == id){
-			std::cout << this->partidas[j] << std::endl;
-			Logger::log("encontre partidaaa");
 			part = this->partidas[j];
 			break;
 		}

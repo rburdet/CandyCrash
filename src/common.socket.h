@@ -12,7 +12,7 @@ class Socket {
 		struct sockaddr_in* ip2struct(const std::string& ipport);
 	public:
 		Socket();
-		~Socket();
+		virtual ~Socket();
 
 		int shutdown();
 		int shutdown(int how);
