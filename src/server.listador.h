@@ -6,53 +6,64 @@
 #include <sstream>
 #include <string>
 #include <fstream>
+#include "common.logger.h"
 
 class Listador{
 	public:
-		static Json::Value listar();
-		static int getNivel(char* fileName);
-};
-
-//Si el nivel es -1 es xq no se pudo abrir, esto no deberia pasar.
-int Listador::getNivel(char* fileName){
-	int nivel=-1;
-	std::string auxStr = "../Mapas/" + std::string(fileName);
-	std::ifstream ifs;
-	ifs.open(auxStr.c_str());
-	if (ifs.is_open()){
-		std::stringstream ss;
-		Json::Value mapa;
-		Json::Reader reader;
-		std::string str((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
-		reader.parse(str, mapa);
-		std::string nombre = std::string(fileName);
-		std::string level = nombre.substr(0,nombre.find(".map"));
-		ss<<mapa[level]["nivel"];
-		ss>>nivel;
-		std::cout << "numero nivel : " << nivel << std::endl;
-		ifs.close();
-	}
-	ifs.close();
-	return nivel;
-}
-
-
-Json::Value Listador::listar(){
-	DIR* dir;
-	struct dirent * ent;
-	Json::Value file;
-	if ((dir = opendir("../Mapas/")) != NULL ) {
-		while (( ent = readdir(dir)) != NULL){
-			std::string fname = std::string(ent->d_name);
-			if (fname.find(".map") != std::string::npos){
-				file[ent->d_name] = getNivel(ent->d_name);
+		static Json::Value listar(){
+			DIR* dir;
+			struct dirent * ent;
+			Json::Value file;
+			if ((dir = opendir("../Mapas/")) != NULL ) {
+				while (( ent = readdir(dir)) != NULL){
+					std::string fname = std::string(ent->d_name);
+					if(fname.find(".map") != std::string::npos){
+						std::string fileName(ent->d_name);
+						file[fileName] = getNivel(fileName);
+					}
+				}
+				closedir(dir);
+			}else{
+				Logger::log(" No se pudo abrir el directorio de mapas! ");
 			}
-		}
-		closedir(dir);
-	}else{
-		std::cerr << " No se pudo abrir ! " << std::endl;
-	}
-	return file;
-}
 
+			return file;
+		}
+
+		//Si el nivel es -1 es xq no se pudo abrir, esto no deberia pasar.
+		static int getNivel(std::string& fileName){
+			int nivel = -1;
+			Json::Value mapa;
+
+			if(Listador::getMapa(fileName, mapa) == 0){
+				Json::Value::Members keys = mapa.getMemberNames();
+				if(keys.size()){
+					std::string nMapa = keys[0];
+
+					std::stringstream ss;
+					ss << mapa[nMapa]["nivel"];
+					ss >> nivel;
+				}
+			}
+
+			return nivel;
+		}
+
+		// Devuelve 0 si salio bien, o algun numero si error (ponele qe no exista el mapa)
+		static int getMapa(std::string& fileName, Json::Value& mapa){
+			int ret = -1;
+			std::string auxStr = "../Mapas/" + fileName;
+			std::ifstream ifs;
+			ifs.open(auxStr.c_str());
+			if (ifs.is_open()){
+				std::stringstream ss;
+				Json::Reader reader;
+				std::string str((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
+				reader.parse(str, mapa);
+				ret = 0;
+			}
+			ifs.close();
+			return ret;
+		}
+};
 #endif 

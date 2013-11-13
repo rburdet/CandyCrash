@@ -9,7 +9,7 @@
 class ServerInterface {
 	public:
 		virtual void removeClient(ThreadSocket* cli) = 0;
-		virtual PartidaInterface* newPartida(int nivel) = 0;
+		virtual PartidaInterface* newPartida(int nivel, std::string& nombre) = 0;
 		virtual void removePartida(PartidaInterface* p) = 0;
 		//TODO:
 		virtual void listPartidas(int nivel, Json::Value& parts) = 0;

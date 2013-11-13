@@ -256,7 +256,8 @@ int ThreadUsuario::onNewGame(Json::Value& data, Json::Value& userData){
 			// TODO: error
 		}
 
-		this->partida = this->server->newPartida(nivel);
+		std::string nombre = data["nombre"].asString();
+		this->partida = this->server->newPartida(nivel, nombre);
 		this->partida->addUsuario(this, this->user);
 	}
 

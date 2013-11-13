@@ -30,7 +30,7 @@ class Server : public ServerInterface {
 
 		int main();
 		void removeClient(ThreadSocket* cli);
-		PartidaInterface* newPartida(int nivel);
+		PartidaInterface* newPartida(int nivel, std::string& nombre);
 		void removePartida(PartidaInterface* p);
 		//TODO:
 		virtual void listPartidas(int nivel, Json::Value& parts);

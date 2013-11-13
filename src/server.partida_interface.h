@@ -3,6 +3,11 @@
 #include "common.thread_socket.h"
 #include <jsoncpp/json/json.h>
 
+typedef enum {
+	PARTIDA_ABIERTA=0,
+	PARTIDA_JUGANDO
+} PartidaEstado;
+
 class PartidaInterface {
 	public:
 		virtual void addUsuario(ThreadSocket* u, std::string& user) = 0;

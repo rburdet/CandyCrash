@@ -118,7 +118,8 @@ void MainWindow::join_partidas(){
 	unsigned int nivel;
 	long id;
 	int conectados, percentage;
-	this->m_TreeView.getSelected(nivel, id, conectados, percentage);
+	std::string nombre;
+	this->m_TreeView.getSelected(nivel, id, nombre, conectados, percentage);
 	val["event"] = EVENT_JOIN_GAME;
 	stringstream ss;
 	ss << id;
@@ -184,14 +185,18 @@ void MainWindow::onListGames(int code, Json::Value& data){
 		string id;
 		unsigned long id_n;
 		int users;
+		std::string nombre;
+		int max_users;
 		for(int i =0; i < partidas.size(); i++){
 			id = partidas[i]["id"].asString();
 			stringstream ss(id);
 			ss >> id_n;
 			nivel = partidas[i]["nivel"].asInt();
 			users = partidas[i]["users"].asInt();
+			max_users = partidas[i]["max_users"].asInt();
+			nombre = partidas[i]["nombre"].asString();
 
-			this->m_TreeView.addRow(nivel, id_n, users, 0);
+			this->m_TreeView.addRow(nivel, id_n, nombre, users, max_users ? users*100/max_users: 0);
 		}
 	}
 }

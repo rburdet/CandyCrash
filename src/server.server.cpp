@@ -49,8 +49,8 @@ void Server::removeClient(ThreadSocket* cli){
 	this->clientesLock.unlock();
 }
 
-PartidaInterface* Server::newPartida(int nivel){
-	Partida *p = new Partida(this, nivel);
+PartidaInterface* Server::newPartida(int nivel, std::string& nombre){
+	Partida *p = new Partida(this, nivel, nombre);
 	this->partidasLock.lock();
 	this->partidas.push_back(p);
 	this->partidasLock.unlock();
@@ -74,13 +74,15 @@ void Server::listPartidas(int nivel, Json::Value& parts){
 	this->partidasLock.lock();
 	int i = 0;
 	for(unsigned int j=0; j < this->partidas.size(); j++){
-		if(this->partidas[j]->getNivel() <= nivel){
+		if(this->partidas[j]->getEstado() == PARTIDA_ABIERTA && this->partidas[j]->getNivel() <= nivel){
 			//TODO:
 			stringstream ss;
 			ss << (long) this->partidas[j];
 			parts[i]["id"] = ss.str();
 			parts[i]["nivel"] = this->partidas[j]->getNivel();
+			parts[i]["nombre"] = this->partidas[j]->getNombre();
 			parts[i]["users"] = this->partidas[j]->getUsuarios();
+			parts[i]["max_users"] = this->partidas[j]->getMaxUsuarios();
 			i++;
 		}
 	}

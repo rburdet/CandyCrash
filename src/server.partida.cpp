@@ -1,10 +1,22 @@
 #include "server.partida.h"
 #include "common.events.h"
 #include "common.logger.h"
+#include "server.listador.h"
 
 using std::string;
 using Json::Value;
-Partida::Partida(ServerInterface* server, int nivel) : server(server), nivel(nivel), estado(PARTIDA_ABIERTA) { }
+Partida::Partida(ServerInterface* server, int nivel, string& nombre) : server(server), nivel(nivel), nombre(nombre), estado(PARTIDA_ABIERTA) {
+	Json::Value val;
+	Listador::getMapa(this->nombre, val);
+	Json::Value::Members keys = val.getMemberNames();
+
+	if(keys.size()){
+		std::string nMapa = keys[0];
+		this->mapa = val[nMapa];
+	}
+	this->maxUsuarios = this->mapa["max_jugadores"].asInt();
+
+}
 
 Partida::~Partida() {
 	this->usuariosLock.lock();
@@ -61,7 +73,18 @@ int Partida::getUsuarios(){
 	return this->usuarios.size();
 }
 
+PartidaEstado Partida::getEstado(){
+	return this->estado;
+}
+
 int Partida::mensaje(Json::Value& m){
 	return 0;
 }
 
+std::string Partida::getNombre(){
+	return this->nombre;
+}
+
+int Partida::getMaxUsuarios(){
+	return this->maxUsuarios;
+}

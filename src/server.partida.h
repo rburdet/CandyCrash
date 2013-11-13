@@ -7,22 +7,20 @@
 #include "common.thread_socket.h"
 #include "common.mutex.h"
 
-typedef enum {
-	PARTIDA_ABIERTA,
-	PARTIDA_JUGANDO
-} PartidaEstado;
-
 class Partida : public PartidaInterface {
 	protected:
 		ServerInterface* server;
 		std::vector<ThreadSocket*> usuarios;
 		int nivel;
+		std::string nombre;
 		Mutex usuariosLock;
 		PartidaEstado estado;
+		Json::Value mapa;
+		int maxUsuarios;
 
 
 	public:
-		Partida(ServerInterface* server, int nivel);
+		Partida(ServerInterface* server, int nivel, std::string& nombre);
 		~Partida();
 
 		void addUsuario(ThreadSocket* u, std::string& user);
@@ -30,6 +28,9 @@ class Partida : public PartidaInterface {
 
 		int getNivel();
 		int getUsuarios();
+		int getMaxUsuarios();
+		PartidaEstado getEstado();
+		std::string getNombre();
 
 		virtual int mensaje(Json::Value& m);
 
