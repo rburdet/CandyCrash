@@ -97,19 +97,21 @@ bool Cliente::onTimeout(){
 	return true;
 }
 
-void Cliente::sendMsj(std::string str){
-	Json::Reader reader;
-	Json::Value data;
-	if(!reader.parse(str, data, false)){
-		Logger::log("error parseando json");
-		return;
-	}
+void Cliente::sendMsj(Json::Value data){
+	//Json::Reader reader;
+	//Json::Value data;
+	//if(!reader.parse(str, data, false)){
+	//	Logger::log("error parseando json");
+	//	return;
+	//}
 
 	this->listener->write(data);
 }
 
 void Cliente::onLogin(int code, Json::Value& data){
 	if(!code){
+		this->userData = data["user"];
+		std::cout << this->userData["nivel"].asInt() << std::endl;
 		ventanaActual->hide();
 		delete ventanaActual;
 		MainWindow* ventana = new MainWindow;

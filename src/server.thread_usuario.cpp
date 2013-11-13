@@ -79,8 +79,12 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 				connect_msje["code"] = 1;
 				ret = 0;
 			}else{
+				Value ud;
+				ud["user"] = userData["user"];
+				ud["nivel"] = userData["nivel"];
 				connect_msje["msj"] = "login correcto";
 				connect_msje["code"] = 0;
+				connect_msje["user"] = ud;
 				ret = -1;
 			}
 
