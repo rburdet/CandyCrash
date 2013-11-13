@@ -42,14 +42,14 @@ pthreads = si
 gtkmm = si
 
 # Descomentar si se quiere ver como se invoca al compilador
-#verbose = si
+verbose = si
 
 
 # CONFIGURACION "AVANZADA"
 ###########################
 
 # Opciones para el compilador C/C++ en modo ansi.
-CFLAGS = -Wall -pedantic -pedantic-errors -fpermissive
+CFLAGS = #-Wall -pedantic -pedantic-errors -fpermissive -Wlong-long
 
 # Para que explote lo mas posible
 CFLAGS += -O3 -DNDEBUG
@@ -65,6 +65,8 @@ CSTD = c99
 
 # Estandar de C++ a usar
 CXXSTD = c++98
+
+LIBS := -ljsoncpp
 
 # Si se quiere compilar estaticamente, descomentar la siguiente linea
 #static = si
@@ -179,7 +181,7 @@ client: $(o_client_files)
 		echo "No hay archivos de entrada para el cliente (archivos client*.$(extension))."; \
 		false; \
 	fi >&2
-	$(LD) $(LDFLAGS) $(o_client_files) $(LOADLIBES) $(LDLIBS) -o client $(LDADD)
+	$(LD) $(o_client_files) $(LDFLAGS) -o client
 
 server: $(o_server_files)
 	@if [ -z "$(o_server_files)" ]; \
@@ -187,7 +189,7 @@ server: $(o_server_files)
 		echo "No hay archivos de entrada para el servidor (archivos server*.$(extension))."; \
 		false; \
 	fi >&2
-	$(LD) $(LDFLAGS) $(o_server_files) $(LOADLIBES) $(LDLIBS) -o server $(LDADD)
+	$(LD) $(o_server_files) $(LDFLAGS) -o server
 
 clean:
 	#$(RM) $(o_files) $(o_files:.o=.deps) $(target)

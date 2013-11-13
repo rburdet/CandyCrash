@@ -66,11 +66,7 @@ void Ipwindow::set_editable(bool is_editable){
 	this->m_user.set_editable(is_editable);
 	this->m_pass.set_editable(is_editable);
 
-	if(is_editable)
-		this->m_Button_conectar.show();
-	else
-		this->m_Button_conectar.hide();
-
+	this->m_Button_conectar.set_sensitive(is_editable);
 }
 
 void Ipwindow::set_text(std::string& str){

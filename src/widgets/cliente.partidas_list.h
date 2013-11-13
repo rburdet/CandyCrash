@@ -24,7 +24,7 @@ class ListaPartidas : public Gtk::TreeView {
 
 			//This number will be shown with the default numeric formatting.
 			this->append_column("Nivel", m_Columns.m_col_nivel);
-			this->append_column_numeric("Id", m_Columns.m_col_id, "%010u");  /* 10 digits, using leading zeroes. */
+			this->append_column_numeric("Id", m_Columns.m_col_id, "%010d");  /* 10 digits, using leading zeroes. */
 			this->append_column("Conectados", m_Columns.m_col_conectados);
 
 			//Display a progress bar instead of a decimal number:

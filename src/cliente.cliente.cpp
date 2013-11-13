@@ -28,10 +28,11 @@ void Cliente::conectar(string ip, string user, string pass, bool check){
 
 	TCPSocketConnect* sd = new TCPSocketConnect;
 	if(sd->connect(ip) != 0){
-		string str = "Servidor inexistente!";
-		Ipwindow* ventana = this->ventanaActual;
-		ventana->set_editable(true);
-		ventana->set_text(str);
+		Json::Value val;
+		val["msj"] = "Servidor inexistente!";
+		//Ipwindow* ventana = this->ventanaActual;
+		//ventana->set_editable(true);
+		this->ventanaActual->mensaje(val);
 		delete sd;
 		return;
 	}
