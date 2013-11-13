@@ -7,6 +7,8 @@
 #include "common.logger.h"
 #include "common.user_manager.h"
 
+#include "server.listador.h"
+
 using Json::Value;
 using Json::StaticString;
 using std::string;
@@ -187,6 +189,7 @@ int ThreadUsuario::eventFirmado(Value& data){
 			break;
 
 		case EVENT_GET_MAPS:
+			Logger::log("Evento get maps");
 			return this->onGetMaps(data, userData);
 			break;
 
@@ -270,6 +273,8 @@ int ThreadUsuario::onGetMaps(Json::Value& data, Json::Value& userData){
 	retMsj["event"] = EVENT_GET_MAPS;
 	retMsj["msj"] = "Ok";
 	retMsj["code"] = 0;
+
+	retMsj["mapas"] = Listador::listar();
 
 	if(this->write(retMsj)){
 		Logger::log("["+this->myId+"] Error escribiendo el mensaje de nueva partida");

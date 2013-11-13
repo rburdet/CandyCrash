@@ -73,8 +73,8 @@ MainWindow::MainWindow()
 	button_mapas_cre.set_label(string("Crear Partida"));
 	m_HBox_mapas_buttons.pack_start(button_mapas_cre);
 
-	button_mapas_cre.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_mapas));
-	button_mapas_act.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_crear_partida));
+	button_mapas_act.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_mapas));
+	button_mapas_cre.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_crear_partida));
 
 	tabs.prepend_page(m_VBox_mapas, labelMapas);
 
@@ -114,11 +114,17 @@ void MainWindow::on_partidas(){
 }
 
 void MainWindow::join_partidas(){
+	Value val;
 	unsigned int nivel;
 	long id;
 	int conectados, percentage;
 	this->m_TreeView.getSelected(nivel, id, conectados, percentage);
-	std::cout << "Join data: " << nivel << " " << id << " " << conectados << std::endl;
+	val["event"] = EVENT_JOIN_GAME;
+	stringstream ss;
+	ss << id;
+	val["id"] = ss.str();
+	std::cout << "Join data: " << nivel << " " << id << " " << ss.str() << std::endl;
+	m_signal_mensaje.emit(val);
 }
 
 void MainWindow::on_mapas(){
@@ -128,8 +134,14 @@ void MainWindow::on_mapas(){
 }
 
 void MainWindow::on_crear_partida(){
-	//TODO: usar event
-	//m_signal_mensaje.emit(string("{\"event\":"+EVENT_LIST_GAMES+"}"));
+	Value val;
+	string name;
+	int nivel;
+	this->m_TreeViewMapas.getSelected(nivel, name);
+	val["event"] = EVENT_NEW_GAME;
+	val["nivel"] = nivel;
+	val["nombre"] = name;
+	m_signal_mensaje.emit(val);
 }
 
 void MainWindow::setText(std::string& str){
@@ -186,21 +198,16 @@ void MainWindow::onListGames(int code, Json::Value& data){
 
 void MainWindow::onListMaps(int code, Json::Value& data){
 	this->m_TreeViewMapas.clearRows();
-	//if(data["partidas"].isArray()){
-	//	Json::Value partidas = data["partidas"];
-	//	int nivel;
-	//	string id;
-	//	unsigned long id_n;
-	//	int users;
-	//	for(int i =0; i < partidas.size(); i++){
-	//		id = partidas[i]["id"].asString();
-	//		stringstream ss(id);
-	//		ss >> id_n;
-	//		nivel = partidas[i]["nivel"].asInt();
-	//		users = partidas[i]["users"].asInt();
-
-	//		this->m_TreeView.addRow(nivel, id_n, users, 0);
-	//	}
-	//}
+	if(data["mapas"].isObject()){
+		Json::Value mapas = data["mapas"];
+		Json::Value::Members nombres = mapas.getMemberNames();
+		string key;
+		int value;
+		for(int i =0; i < nombres.size(); i++){
+			key = nombres[i];
+			value = mapas[key].asInt();
+			this->m_TreeViewMapas.addRow(value, key);
+		}
+	}
 
 }
