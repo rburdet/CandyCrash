@@ -2,6 +2,7 @@
 #include "common.events.h"
 #include "common.logger.h"
 #include "cliente.main_window.h"
+#include "cliente.game.h"
 #include <sstream>
 
 using std::string;
@@ -78,6 +79,10 @@ bool Cliente::onTimeout(){
 	if(data.get("code", def).isNumeric())
 		code = (CommonEvents) data.get("code", def).asInt();
 
+	Json::StyledWriter writer;
+	string output = writer.write(data);
+	std::cout << output << std::endl;
+
 	switch(event){
 		case EVENT_LOGIN:
 			this->onLogin(code, data);
@@ -87,9 +92,14 @@ bool Cliente::onTimeout(){
 			this->ventanaActual->mensaje(data);
 			break;
 
+		case EVENT_JOIN_GAME:
+		case EVENT_NEW_GAME:
+			this->onGame(code, data);
+			break;
+
 		case EVENT_LIST_GAMES:
 		default:
-			Logger::log("No se que evento me pasaste");
+			Logger::log("Default. Redirecciono a ventana");
 			this->ventanaActual->mensaje(data);
 			break;
 	}
@@ -104,6 +114,9 @@ void Cliente::sendMsj(Json::Value data){
 	//	Logger::log("error parseando json");
 	//	return;
 	//}
+	//Json::StyledWriter writer;
+	//string output = writer.write(data);
+	//std::cout << output << std::endl;
 
 	this->listener->write(data);
 }
@@ -111,7 +124,6 @@ void Cliente::sendMsj(Json::Value data){
 void Cliente::onLogin(int code, Json::Value& data){
 	if(!code){
 		this->userData = data["user"];
-		std::cout << this->userData["nivel"].asInt() << std::endl;
 		ventanaActual->hide();
 		delete ventanaActual;
 		MainWindow* ventana = new MainWindow;
@@ -128,3 +140,18 @@ void Cliente::onLogin(int code, Json::Value& data){
 		this->ventanaActual->mensaje(data);
 	}
 }
+
+void Cliente::onGame(int code, Json::Value& data){
+	if(code){
+		this->ventanaActual->mensaje(data);
+	}else{
+		this->ventanaActual->hide();
+		delete this->ventanaActual;
+
+		GameWindow* gwin = new GameWindow;
+		this->ventanaActual = gwin;
+		gwin->signal_mensaje().connect(sigc::mem_fun(this, &Cliente::sendMsj));
+
+	}
+}
+

@@ -59,6 +59,10 @@ class MainWindow : public Window {
 		Gtk::ScrolledWindow m_ScrolledMapas;
 		ListaMapas m_TreeViewMapas;
 
+
+		Gtk::VBox mainV;
+		Gtk::Label statusLabel;
+
 };
 
 #endif 

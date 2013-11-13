@@ -182,6 +182,7 @@ int ThreadUsuario::eventFirmado(Value& data){
 			break;
 
 		case EVENT_GAME_MISC:
+			Logger::log("["+this->myId+"] Evento game misc");
 			if(this->partida && this->partida->mensaje(data)){
 				this->partida = NULL;
 			}
@@ -239,8 +240,8 @@ int ThreadUsuario::onNewGame(Json::Value& data, Json::Value& userData){
 	Value retMsj;
 	int ret = 0;
 	retMsj["event"] = EVENT_NEW_GAME;
-	retMsj["msj"] = "Ok";
-	retMsj["code"] = 0;
+	retMsj["msj"] = "Error";
+	retMsj["code"] = 1;
 
 	if(this->partida){
 		retMsj["msj"] = "Ya estas conectado a una partida";
@@ -253,12 +254,14 @@ int ThreadUsuario::onNewGame(Json::Value& data, Json::Value& userData){
 		int nivel = data["nivel"].asInt();
 
 		if(nivel > userData["nivel"].asInt()){
-			// TODO: error
+			retMsj["msj"] = "Tu nivel es bajo";
+		}else{
+			retMsj["msj"] = "Conectado satisfactoriamnte";
+			retMsj["code"] = 0;
+			std::string nombre = data["nombre"].asString();
+			this->partida = this->server->newPartida(nivel, nombre);
+			this->partida->addUsuario(this, this->user);
 		}
-
-		std::string nombre = data["nombre"].asString();
-		this->partida = this->server->newPartida(nivel, nombre);
-		this->partida->addUsuario(this, this->user);
 	}
 
 	if(this->write(retMsj)){

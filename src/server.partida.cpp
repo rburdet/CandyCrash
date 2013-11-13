@@ -5,6 +5,7 @@
 
 using std::string;
 using Json::Value;
+using Json::StaticString;
 Partida::Partida(ServerInterface* server, int nivel, string& nombre) : server(server), nivel(nivel), nombre(nombre), estado(PARTIDA_ABIERTA) {
 	Json::Value val;
 	Listador::getMapa(this->nombre, val);
@@ -77,7 +78,31 @@ PartidaEstado Partida::getEstado(){
 	return this->estado;
 }
 
-int Partida::mensaje(Json::Value& m){
+int Partida::mensaje(Json::Value& data){
+	StaticString def("");
+	CommonEvents event = EVENT_NONE;
+	int code;
+
+	if(data.get("ev-game", def).isNumeric())
+		event = (CommonEvents) data.get("ev-game", def).asInt();
+
+	if(data.get("code", def).isNumeric())
+		code = (CommonEvents) data.get("code", def).asInt();
+
+	switch(event){
+		case EVENT_GAME_CHAT:{
+			string str = data["line"].asString();
+			Json::Value send;
+			send["event"] = EVENT_GAME_CHAT;
+			send["line"] = str;
+			this->broadcastMsj(send);
+			break;
+		}
+
+		default:
+			break;
+	}
+
 	return 0;
 }
 
@@ -87,4 +112,13 @@ std::string Partida::getNombre(){
 
 int Partida::getMaxUsuarios(){
 	return this->maxUsuarios;
+}
+
+void Partida::broadcastMsj(Json::Value& msj){
+	this->usuariosLock.lock();
+	for(unsigned int i=0; i < this->usuarios.size(); i++){
+		if(this->usuarios[i]->write(msj))
+			Logger::log("[Partida] Error broadcasteando mensaje.");
+	}
+	this->usuariosLock.unlock();
 }

@@ -17,6 +17,7 @@ class Partida : public PartidaInterface {
 		PartidaEstado estado;
 		Json::Value mapa;
 		int maxUsuarios;
+		void broadcastMsj(Json::Value& msj);
 
 
 	public:

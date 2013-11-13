@@ -16,7 +16,10 @@ MainWindow::MainWindow()
 	set_border_width(5);
 	set_default_size(400, 200);
 
-	add(tabs);
+	mainV.pack_start(tabs);
+	mainV.pack_start(statusLabel);
+
+	add(mainV);
 	//add(m_VBox);
 
 	// ----------
@@ -160,9 +163,12 @@ void MainWindow::mensaje(Json::Value& data){
 	if(data.get("code", def).isNumeric())
 		code = (CommonEvents) data.get("code", def).asInt();
 
+	// para debug
 	Json::StyledWriter writer;
 	string output = writer.write(data);
 	this->setText(output);
+
+	this->statusLabel.set_text(data["msj"].asString());
 
 	switch(event){
 		case EVENT_LIST_GAMES:

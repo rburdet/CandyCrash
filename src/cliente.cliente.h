@@ -30,6 +30,7 @@ class Cliente : public ClienteInterface {
 		bool onTimeout();
 
 		void onLogin(int code, Json::Value& data);
+		void onGame(int code, Json::Value& data);
 };
 
 #endif
