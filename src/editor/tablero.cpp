@@ -7,7 +7,6 @@
 #define MIN_FILAS 8
 #define MAX_FILAS 14
 #define SIZE 40
-#define SIZE_CELDA 10
 #define OFFSET 20
 
 
