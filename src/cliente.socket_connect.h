@@ -4,6 +4,8 @@
 #include "common.socket_io.h"
 #include <string>
 
+/** Socket TCP que permite hacer una coneccion.
+ */
 class TCPSocketConnect : public TCPSocket, public SocketIO {
 	//using TCPSocket::fd;
 	public:

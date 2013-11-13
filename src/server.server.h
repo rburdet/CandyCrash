@@ -11,14 +11,20 @@
 #include "common.mutex.h"
 #include "server.partida.h"
 
+/** Clase de servidor.
+ * Esta bloqueada escuchando, cada vez que se conecta un cliente se lanza un nuevo thread con el socket creado (se lanza un ThreadUsuario)
+ */
 class Server : public ServerInterface {
 	protected:
 		int port;
+
+		/** Guarda todos los threads de los usuarios corriendo
+		 */
 		std::vector<ThreadUsuario*> clientes;
-		std::vector<Partida*> partidas;
-		TCPSocketListener sock;
-		Mutex clientesLock;
-		Mutex partidasLock;
+		std::vector<Partida*> partidas; // -> Partidas activas
+		TCPSocketListener sock; // -> socket usado para la recepcion de conecciones
+		Mutex clientesLock; // -> Mutex para el std::vector de los usuarios
+		Mutex partidasLock; // Mutex para el std::Vector de las partidas
 
 		void addClient(ThreadUsuario* cli);
 
@@ -31,9 +37,17 @@ class Server : public ServerInterface {
 		int main();
 		void removeClient(ThreadSocket* cli);
 		PartidaInterface* newPartida(int nivel, std::string& nombre);
+
+		/** Remueve partida de la lista
+		 */
 		void removePartida(PartidaInterface* p);
-		//TODO:
+
+		/** Devuelve un JSON con las partidas de nivel menor o igual al especificado.
+		 */
 		virtual void listPartidas(int nivel, Json::Value& parts);
+
+		/** 
+		 */
 		virtual PartidaInterface* connectPartidas(long id);
 		void end();
 };

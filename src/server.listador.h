@@ -8,8 +8,12 @@
 #include <fstream>
 #include "common.logger.h"
 
+/** Clase que se encarga de proveer metodos para traer informacion acerca de los mapas.
+ */
 class Listador{
 	public:
+		/** Devuelve un objeto (hash) con: { nombre de archivo : nivel del mapa, }
+		 */
 		static Json::Value listar(){
 			DIR* dir;
 			struct dirent * ent;

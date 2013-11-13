@@ -3,11 +3,15 @@
 #include "common.thread_socket.h"
 #include <jsoncpp/json/json.h>
 
+/** Estado de la partida
+ */
 typedef enum {
 	PARTIDA_ABIERTA=0,
 	PARTIDA_JUGANDO
 } PartidaEstado;
 
+/** Interface de partida, para evitar referencia circular.
+ */
 class PartidaInterface {
 	public:
 		virtual void addUsuario(ThreadSocket* u, std::string& user) = 0;

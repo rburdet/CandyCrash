@@ -7,6 +7,8 @@
 #include "common.thread_socket.h"
 #include "common.mutex.h"
 
+/** Entidad que representa una partida.
+ */
 class Partida : public PartidaInterface {
 	protected:
 		ServerInterface* server;
@@ -21,18 +23,36 @@ class Partida : public PartidaInterface {
 
 
 	public:
+		/** Creador de la partida.
+		 * @param server[in]: instancia de servidor
+		 * @param nivel[in]: nivel de la partida
+		 * @param nombre[in]: nombre del mapa
+		 */
 		Partida(ServerInterface* server, int nivel, std::string& nombre);
 		~Partida();
 
+		/** Agrega un usuario a la partida.
+		 * @param u[in]: threadsocket del usuario
+		 * @param user[in]: nombre de usuario
+		 */
 		void addUsuario(ThreadSocket* u, std::string& user);
+
+		/** Borra un usuario de la partida
+		 * @param u[in]: threasocket del usuario
+		 */
 		void rmUsuario(ThreadSocket* u);
 
+		/** Metodos que devuelven informacion acerca de la partida
+		 */
 		int getNivel();
 		int getUsuarios();
 		int getMaxUsuarios();
 		PartidaEstado getEstado();
 		std::string getNombre();
 
+		/** Metodo usado para mandarle mensajes a la partida.
+		 * @param m[in]: mensaje encondeado en JSON que recibe la partida
+		 */
 		virtual int mensaje(Json::Value& m);
 
 };
