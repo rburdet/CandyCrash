@@ -186,6 +186,10 @@ int ThreadUsuario::eventFirmado(Value& data){
 			return 0;
 			break;
 
+		case EVENT_GET_MAPS:
+			return this->onGetMaps(data, userData);
+			break;
+
 		default:
 			Logger::log("["+this->myId+"] Evento desconocido");
 			break;
@@ -252,6 +256,20 @@ int ThreadUsuario::onNewGame(Json::Value& data, Json::Value& userData){
 		this->partida = this->server->newPartida(nivel);
 		this->partida->addUsuario(this, this->user);
 	}
+
+	if(this->write(retMsj)){
+		Logger::log("["+this->myId+"] Error escribiendo el mensaje de nueva partida");
+		return 1;
+	}
+	return ret;
+}
+
+int ThreadUsuario::onGetMaps(Json::Value& data, Json::Value& userData){
+	Value retMsj;
+	int ret = 0;
+	retMsj["event"] = EVENT_GET_MAPS;
+	retMsj["msj"] = "Ok";
+	retMsj["code"] = 0;
 
 	if(this->write(retMsj)){
 		Logger::log("["+this->myId+"] Error escribiendo el mensaje de nueva partida");

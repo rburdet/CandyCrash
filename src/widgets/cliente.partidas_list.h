@@ -55,6 +55,17 @@ class ListaPartidas : public Gtk::TreeView {
 			row[m_Columns.m_col_percentage] = m_col_percentage;
 		}
 
+		void getSelected(unsigned int & nivel, long& id, int &conectados, int &percentage){
+			Glib::RefPtr<Gtk::TreeSelection> select = this->get_selection();
+			Gtk::TreeModel::iterator store_iter = select->get_selected();
+			Gtk::TreeModel::Row row = *store_iter;
+			nivel = row[m_Columns.m_col_nivel];
+			id = row[m_Columns.m_col_id];
+			conectados = row[m_Columns.m_col_conectados];
+			percentage = row[m_Columns.m_col_percentage];
+
+		}
+
 		void clearRows(){
 			m_refTreeModel->clear();
 		}

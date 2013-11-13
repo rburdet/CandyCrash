@@ -10,7 +10,7 @@ using Json::Value;
 
 MainWindow::MainWindow()
 	: m_VBox(Gtk::ORIENTATION_VERTICAL),
-	m_button_send("_Send", true), button_partidas("Refrescar", true)
+	m_button_send("_Send", true)
 {
 	set_title("Pantalla principal");
 	set_border_width(5);
@@ -50,10 +50,15 @@ MainWindow::MainWindow()
 	// ----- Partidas ----
 	labelPartidas.set_text("Partidas");
 	m_ScrolledPartidas.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+	button_partidas_act.set_label("Actualizar");
+	button_partidas_con.set_label("Conectar");
+	m_HBox_partidas_buttons.pack_start(button_partidas_act);
+	m_HBox_partidas_buttons.pack_start(button_partidas_con);
 	m_VBox_partidas.pack_start(m_ScrolledPartidas);
-	m_VBox_partidas.pack_start(button_partidas);
+	m_VBox_partidas.pack_start(m_HBox_partidas_buttons);
 
-	button_partidas.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_partidas));
+	button_partidas_act.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_partidas));
+	button_partidas_con.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::join_partidas));
 	tabs.prepend_page(m_VBox_partidas, labelPartidas);
 
 	m_ScrolledPartidas.add(m_TreeView);
@@ -94,14 +99,26 @@ MainWindow::~MainWindow(){
 }
 
 void MainWindow::on_mensaje(){
-	string data = m_refTextBuffer2->get_text();
-	m_signal_mensaje.emit(data);
+	string str = m_refTextBuffer2->get_text();
+	Json::Value data;
+	Json::Reader reader;
+	if(reader.parse(str, data, false)){
+		m_signal_mensaje.emit(data);
+	}
 }
 
 void MainWindow::on_partidas(){
 	Json::Value msj;
 	msj["event"] = EVENT_LIST_GAMES;
 	m_signal_mensaje.emit(msj);
+}
+
+void MainWindow::join_partidas(){
+	unsigned int nivel;
+	long id;
+	int conectados, percentage;
+	this->m_TreeView.getSelected(nivel, id, conectados, percentage);
+	std::cout << "Join data: " << nivel << " " << id << " " << conectados << std::endl;
 }
 
 void MainWindow::on_mapas(){
@@ -138,6 +155,9 @@ void MainWindow::mensaje(Json::Value& data){
 		case EVENT_LIST_GAMES:
 			this->onListGames(code, data);
 			break;
+		case EVENT_GET_MAPS:
+			this->onListMaps(code, data);
+			break;
 
 		default:
 			break;
@@ -162,5 +182,25 @@ void MainWindow::onListGames(int code, Json::Value& data){
 			this->m_TreeView.addRow(nivel, id_n, users, 0);
 		}
 	}
+}
+
+void MainWindow::onListMaps(int code, Json::Value& data){
+	this->m_TreeViewMapas.clearRows();
+	//if(data["partidas"].isArray()){
+	//	Json::Value partidas = data["partidas"];
+	//	int nivel;
+	//	string id;
+	//	unsigned long id_n;
+	//	int users;
+	//	for(int i =0; i < partidas.size(); i++){
+	//		id = partidas[i]["id"].asString();
+	//		stringstream ss(id);
+	//		ss >> id_n;
+	//		nivel = partidas[i]["nivel"].asInt();
+	//		users = partidas[i]["users"].asInt();
+
+	//		this->m_TreeView.addRow(nivel, id_n, users, 0);
+	//	}
+	//}
 
 }
