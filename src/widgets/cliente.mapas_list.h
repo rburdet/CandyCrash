@@ -43,6 +43,14 @@ class ListaMapas : public Gtk::TreeView {
 			row[m_Columns.m_col_nombre] = m_col_nombre;
 		}
 
+		void getSelected(unsigned int & nivel, std::string& name){
+			Glib::RefPtr<Gtk::TreeSelection> select = this->get_selection();
+			Gtk::TreeModel::iterator store_iter = select->get_selected();
+			Gtk::TreeModel::Row row = *store_iter;
+			nivel = row[m_Columns.m_col_nivel];
+			nane = row[m_Columns.m_col_nombre];
+		}
+
 		void clearRows(){
 			m_refTreeModel->clear();
 		}

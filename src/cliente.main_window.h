@@ -21,10 +21,12 @@ class MainWindow : public Window {
 
 	protected:
 		void onListGames(int code, Json::Value& data);
+		void onListMaps(int code, Json::Value& data);
 
 		//Signal handlers:
 		void on_mensaje();
 		void on_partidas();
+		void join_partidas();
 		void on_mapas();
 		void on_crear_partida();
 
@@ -43,7 +45,9 @@ class MainWindow : public Window {
 
 		Gtk::Label labelPartidas;
 		Gtk::VBox m_VBox_partidas;
-		Gtk::Button button_partidas;
+		Gtk::HBox m_HBox_partidas_buttons;
+		Gtk::Button button_partidas_act;
+		Gtk::Button button_partidas_con;
 		Gtk::ScrolledWindow m_ScrolledPartidas;
 		ListaPartidas m_TreeView;
 

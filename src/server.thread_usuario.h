@@ -23,6 +23,7 @@ class ThreadUsuario : public ThreadSocket {
 
 		int onJoinGame(Json::Value& data, Json::Value& userData);
 		int onNewGame(Json::Value& data, Json::Value& userData);
+		int onGetMaps(Json::Value& data, Json::Value& userData);
 
 		int welcome();
 
