@@ -7,7 +7,8 @@ typedef enum {
 	EVENT_LIST_GAMES, // -> Listar partidas
 	EVENT_NEW_GAME, // -> Crear partida
 	EVENT_JOIN_GAME, // -> Unirse a partida
-	EVENT_GAME_MISC // -> Jsons que se pasan directamente al juego
+	EVENT_GAME_MISC, // -> Jsons que se pasan directamente al juego
+	EVENT_GET_MAPS // -> Lista de mapas para crear
 } CommonEvents;
 
 #endif

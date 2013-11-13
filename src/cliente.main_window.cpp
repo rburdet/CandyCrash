@@ -46,8 +46,8 @@ MainWindow::MainWindow()
 	fill_buffers();
 	m_TextView1.set_buffer(m_refTextBuffer1);
 	m_TextView2.set_buffer(m_refTextBuffer2);
-	// ---------
 
+	// ----- Partidas ----
 	labelPartidas.set_text("Partidas");
 	m_ScrolledPartidas.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
 	m_VBox_partidas.pack_start(m_ScrolledPartidas);
@@ -57,6 +57,24 @@ MainWindow::MainWindow()
 	tabs.prepend_page(m_VBox_partidas, labelPartidas);
 
 	m_ScrolledPartidas.add(m_TreeView);
+
+	// ----- Mapas ----
+	labelMapas.set_text("Crear Partida");
+	m_ScrolledMapas.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+	m_VBox_mapas.pack_start(m_ScrolledMapas);
+	m_VBox_mapas.pack_start(m_HBox_mapas_buttons);
+	button_mapas_act.set_label(string("Actualizar"));
+	m_HBox_mapas_buttons.pack_start(button_mapas_act);
+	button_mapas_cre.set_label(string("Crear Partida"));
+	m_HBox_mapas_buttons.pack_start(button_mapas_cre);
+
+	button_mapas_cre.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_mapas));
+	button_mapas_act.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_crear_partida));
+
+	tabs.prepend_page(m_VBox_mapas, labelMapas);
+
+	m_ScrolledMapas.add(m_TreeViewMapas);
+	// ----------------
 
 
 	show_all_children();
@@ -81,20 +99,24 @@ void MainWindow::on_mensaje(){
 }
 
 void MainWindow::on_partidas(){
-	//TODO: usar event
-	m_signal_mensaje.emit(string("{\"event\":3}"));
+	Json::Value msj;
+	msj["event"] = EVENT_LIST_GAMES;
+	m_signal_mensaje.emit(msj);
 }
 
-MainWindow::type_signal_mensaje MainWindow::signal_mensaje(){
-	return m_signal_mensaje;
+void MainWindow::on_mapas(){
+	Json::Value msj;
+	msj["event"] = EVENT_GET_MAPS;
+	m_signal_mensaje.emit(msj);
 }
+
+void MainWindow::on_crear_partida(){
+	//TODO: usar event
+	//m_signal_mensaje.emit(string("{\"event\":"+EVENT_LIST_GAMES+"}"));
+}
+
 void MainWindow::setText(std::string& str){
 	m_refTextBuffer1->set_text(str);
-}
-
-
-void MainWindow::addRow(unsigned int m_col_nivel, unsigned long m_col_id, short m_col_conectados, int m_col_percentage){
-	this->m_TreeView.addRow(m_col_nivel, m_col_id, m_col_conectados, m_col_percentage);
 }
 
 void MainWindow::mensaje(Json::Value& data){
@@ -136,7 +158,8 @@ void MainWindow::onListGames(int code, Json::Value& data){
 			ss >> id_n;
 			nivel = partidas[i]["nivel"].asInt();
 			users = partidas[i]["users"].asInt();
-			this->addRow(nivel, id_n, users, 0);
+
+			this->m_TreeView.addRow(nivel, id_n, users, 0);
 		}
 	}
 

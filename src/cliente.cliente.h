@@ -17,10 +17,11 @@ class Cliente : public ClienteInterface {
 		Cliente();
 		~Cliente();
 		void mostrarVentanaIP();
-		void sendMsj(std::string str);
+		void sendMsj(Json::Value data);
 		void conectar(std::string ip, std::string user, std::string pass, bool check);
 		virtual void nuevoMensaje(Json::Value& msj);
 	private:
+		Json::Value userData;
 		Window* ventanaActual;
 		ThreadListener *listener;
 		std::queue<Json::Value> mensajes;
