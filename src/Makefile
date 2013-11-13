@@ -42,7 +42,7 @@ pthreads = si
 gtkmm = si
 
 # Descomentar si se quiere ver como se invoca al compilador
-verbose = si
+#verbose = no
 
 
 # CONFIGURACION "AVANZADA"
