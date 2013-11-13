@@ -5,6 +5,9 @@
 #include "common.socket_io.h"
 #include "common.thread.h"
 
+/** Thread encargado del manejo de un socket.
+ * Posee un metodo de escritura protegida con mutex, la lectura siempre se hace dentro del thread.
+ */
 class ThreadSocket : public Thread {
 	protected:
 		virtual void* run();

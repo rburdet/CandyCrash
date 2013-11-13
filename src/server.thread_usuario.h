@@ -10,6 +10,8 @@
 #include "common.events.h"
 #include "common.mutex.h"
 
+/** Thread usado para cada usuario que se conecta
+ */
 class ThreadUsuario : public ThreadSocket {
 	protected:
 		ServerInterface* server;

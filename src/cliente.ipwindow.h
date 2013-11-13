@@ -7,11 +7,15 @@
 
 #include "widgets/cliente.label_entry.h"
 
+/** Ventana de login y seleccionar servidor.
+ */
 class Ipwindow : public Window {
 
 	public:
 		Ipwindow();
 		virtual ~Ipwindow();
+		/** Signal para que el Cliente realice la coneccion con el servidor
+		 */
 		typedef sigc::signal<void, std::string, std::string, std::string, bool> type_signal_conectar;
 		type_signal_conectar signal_conectar();
 		void set_editable(bool is_editable);

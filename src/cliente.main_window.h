@@ -9,6 +9,8 @@
 #include "widgets/cliente.partidas_list.h"
 #include "widgets/cliente.mapas_list.h"
 
+/** Ventana de Seleccionar y/o crear partida
+ */
 class MainWindow : public Window {
 
 	public:
@@ -24,15 +26,16 @@ class MainWindow : public Window {
 		void onListMaps(int code, Json::Value& data);
 
 		//Signal handlers:
-		void on_mensaje();
-		void on_partidas();
-		void join_partidas();
-		void on_mapas();
-		void on_crear_partida();
+		void on_mensaje(); //-> es para debug, hay q esacarlo
+		void on_partidas(); // -> handler del actualizador de la lista de partidas
+		void join_partidas(); // -> ... unirse a partida
+		void on_mapas(); // -> actualizador de lista de mapas
+		void on_crear_partida(); // -> crear partida
 
 		//Child widgets:
 		Gtk::Notebook tabs;
 
+		// ----- Para el debug ----
 		Gtk::Box m_VBox;
 		Gtk::Label label1;
 		Gtk::ScrolledWindow m_ScrolledWindow1;
@@ -42,6 +45,7 @@ class MainWindow : public Window {
 		Glib::RefPtr<Gtk::TextBuffer> m_refTextBuffer1, m_refTextBuffer2;
 		Gtk::Button m_button_send;
 		void fill_buffers();
+		// ------------------
 
 		Gtk::Label labelPartidas;
 		Gtk::VBox m_VBox_partidas;
@@ -59,10 +63,8 @@ class MainWindow : public Window {
 		Gtk::ScrolledWindow m_ScrolledMapas;
 		ListaMapas m_TreeViewMapas;
 
-
 		Gtk::VBox mainV;
 		Gtk::Label statusLabel;
-
 };
 
 #endif 
