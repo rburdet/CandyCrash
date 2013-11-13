@@ -3,8 +3,11 @@
 
 #include <gtkmm.h>
 #include <string>
+#include "cliente.window.h"
 
-class Ipwindow : public Gtk::Window{
+#include "widgets/cliente.label_entry.h"
+
+class Ipwindow : public Window {
 
 	public:
 		Ipwindow();
@@ -13,6 +16,7 @@ class Ipwindow : public Gtk::Window{
 		type_signal_conectar signal_conectar();
 		void set_editable(bool is_editable);
 		void set_text(std::string& str);
+		virtual void mensaje(Json::Value& data);
 
 	protected:
 		//Signal handlers:
@@ -21,9 +25,11 @@ class Ipwindow : public Gtk::Window{
 		//Child widgets:
 		Gtk::Box m_HBox;
 		Gtk::Box m_VBox;
-		Gtk::Entry m_host;
-		Gtk::Entry m_user;
-		Gtk::Entry m_pass;
+
+		LabelEntry m_host;
+		LabelEntry m_user;
+		LabelEntry m_pass;
+
 		Gtk::Label m_text;
 		Gtk::CheckButton m_check;
 		Gtk::Button m_Button_conectar;

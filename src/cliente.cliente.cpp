@@ -2,10 +2,12 @@
 #include "common.events.h"
 #include "common.logger.h"
 #include "cliente.main_window.h"
+#include <sstream>
 
 using std::string;
 using Json::Value;
 using Json::StaticString;
+using std::stringstream;
 
 Cliente::Cliente() : ventanaActual(NULL), listener(NULL){
 	sigc::slot<bool> my_slot = sigc::mem_fun(*this, &Cliente::onTimeout);
@@ -64,10 +66,6 @@ bool Cliente::onTimeout(){
 	this->mensajes.pop();
 	this->mensajesMutex.unlock();
 
-	Json::StyledWriter writer;
-	string output = writer.write(data);
-	Logger::log(output);
-
 	// TODO: se podria pasar a una funcion
 	StaticString def("");
 	CommonEvents event = EVENT_NONE;
@@ -84,27 +82,15 @@ bool Cliente::onTimeout(){
 			this->onLogin(code, data);
 			break;
 
-		case EVENT_NEW_USER:{
-			Ipwindow* ventana = this->ventanaActual;
-			ventana->set_editable(true);
-			string str;
-			if(!code){
-				str = "Usuario creado. Conectese";
-				ventana->set_text(str);
-			}else{
-				str = "Error";
-				ventana->set_text(str);
-			}
-
+		case EVENT_NEW_USER:
+			this->ventanaActual->mensaje(data);
 			break;
-		}
 
-		default:{
+		case EVENT_LIST_GAMES:
+		default:
 			Logger::log("No se que evento me pasaste");
-			MainWindow* ventana = (MainWindow*) this->ventanaActual;
-			ventana->setText(output);
+			this->ventanaActual->mensaje(data);
 			break;
-		}
 	}
 
 	return true;
@@ -136,9 +122,6 @@ void Cliente::onLogin(int code, Json::Value& data){
 		//delete this->listener;
 		//this->listener = NULL;
 
-		string str = "Error login";
-		Ipwindow* ventana = this->ventanaActual;
-		ventana->set_editable(true);
-		ventana->set_text(str);
+		this->ventanaActual->mensaje(data);
 	}
 }

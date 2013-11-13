@@ -4,7 +4,7 @@
 
 using std::string;
 using Json::Value;
-Partida::Partida(ServerInterface* server, int nivel) : server(server), nivel(nivel) { }
+Partida::Partida(ServerInterface* server, int nivel) : server(server), nivel(nivel), estado(PARTIDA_ABIERTA) { }
 
 Partida::~Partida() {
 	this->usuariosLock.lock();

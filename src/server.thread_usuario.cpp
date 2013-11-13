@@ -153,7 +153,7 @@ int ThreadUsuario::eventFirmado(Value& data){
 			Value partidasList;
 			this->server->listPartidas(userData["nivel"].asInt(), partidasList);
 			Value retMsj;
-			retMsj["event"] = EVENT_NEW_GAME;
+			retMsj["event"] = EVENT_LIST_GAMES;
 			retMsj["msj"] = "Ok";
 			retMsj["code"] = 0;
 			retMsj["partidas"] = partidasList;

@@ -10,6 +10,7 @@
 #include "cliente.cliente_interface.h"
 #include "cliente.thread_listener.h"
 #include "common.mutex.h"
+#include "cliente.window.h"
 
 class Cliente : public ClienteInterface {
 	public: 
@@ -20,7 +21,7 @@ class Cliente : public ClienteInterface {
 		void conectar(std::string ip, std::string user, std::string pass, bool check);
 		virtual void nuevoMensaje(Json::Value& msj);
 	private:
-		Gtk::Window* ventanaActual;
+		Window* ventanaActual;
 		ThreadListener *listener;
 		std::queue<Json::Value> mensajes;
 		Mutex mensajesMutex;
