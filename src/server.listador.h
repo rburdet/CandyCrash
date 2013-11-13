@@ -16,7 +16,9 @@ class Listador{
 //Si el nivel es -1 es xq no se pudo abrir, esto no deberia pasar.
 int Listador::getNivel(char* fileName){
 	int nivel=-1;
-	std::ifstream ifs(fileName);
+	std::string auxStr = "../Mapas/" + std::string(fileName);
+	std::ifstream ifs;
+	ifs.open(auxStr.c_str());
 	if (ifs.is_open()){
 		std::stringstream ss;
 		Json::Value mapa;
@@ -27,8 +29,10 @@ int Listador::getNivel(char* fileName){
 		std::string level = nombre.substr(0,nombre.find(".map"));
 		ss<<mapa[level]["nivel"];
 		ss>>nivel;
+		std::cout << "numero nivel : " << nivel << std::endl;
 		ifs.close();
 	}
+	ifs.close();
 	return nivel;
 }
 
