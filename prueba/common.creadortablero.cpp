@@ -47,15 +47,11 @@ void CreadorTablero::efectivizarCelda(Json::Value& celda){
 		for ( int i = 0 ; i < MAXELEMENTOS ; i++ ){
 			ss << celda[i];
 			ss >> aux;
-			auxArr[i] = aux;
+			auxArr[i] = aux*rand();
 			total += aux ;
 			ss.str("");
 		}
 		if (total){
-			for ( int i = 0 ; i < MAXELEMENTOS ; i++ ){
-				std::cout << auxArr[i]<< " " ;
-			}
-			std::cout << std::endl;
 			getMax(auxArr,max,pos);
 			celda = pos;
 		}else{

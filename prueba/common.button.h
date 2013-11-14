@@ -5,7 +5,7 @@
 
 class Button : public Caramelo {
 	public:
-		Button(int idCaramelo) : Caramelo(idCaramelo){}
+		Button(int idCaramelo,const std::string& imageName) : Caramelo(idCaramelo,imageName){}
 		~Button(){}
 		bool mover(){return false;}
 };

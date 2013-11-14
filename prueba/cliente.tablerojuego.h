@@ -18,9 +18,11 @@ class TableroJuego : public Window {
 		~TableroJuego(){}
 		void dibujar(){}
 		virtual void mensaje(Json::Value& data){}
+		static std::string getNMapa(Json::Value mapa);
 
 	private:
 		Gtk::Fixed tablero;
+		Gtk::AspectFrame frameTablero;
 		int dimX;
 		int dimY;
 		Json::Value mapa;
@@ -32,7 +34,6 @@ class TableroJuego : public Window {
 		void crearMatrices();
 		int getX();
 		int getY();
-		std::string getNMapa();
 		void dibujarLineas();
 		void llenar();
 };

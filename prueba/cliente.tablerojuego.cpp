@@ -1,24 +1,31 @@
 #include "cliente.tablerojuego.h"
 
 TableroJuego::TableroJuego(Json::Value mapa)
-	: tablero()
+	:	tablero(),
+		frameTablero(getNMapa(mapa),
+		Gtk::ALIGN_CENTER,
+		Gtk::ALIGN_END, //Eje y
+		1.0, //Aspecto
+		false //ignorar el aspect del hijo
+		)
 	{
 	//set_size_request(800,600);
 	set_title("CandyCrush");
 	this->mapa = mapa;
-	this->nMapa = getNMapa();
+	this->nMapa = getNMapa(mapa);
 	dimX = getX();
 	dimY = getY();
 	set_size_request(dimY*SIZE,dimX*SIZE);
 	this->tablero.set_size_request(dimY*SIZE,dimX*SIZE);
-	this->dibujarLineas();
+	frameTablero.add(this->tablero);
+	//this->dibujarLineas();
 	this->crearMatrices();
 	this->llenar();
-	this->add(tablero);
+	this->add(frameTablero);
 	show_all();
 }
 
-std::string TableroJuego::getNMapa(){
+std::string TableroJuego::getNMapa(Json::Value mapa){
 	Json::Value::Members keys = mapa.getMemberNames();
 	return keys[0];
 }
@@ -68,7 +75,7 @@ void TableroJuego::llenar(){
 				Caramelo* caramelo = CandyFactory::crearCaramelo(idPieza);
 				caramelo->show_all();
 				//std::cout << "BORDE PEDORRO" << this->tablero.get_margin_left()<<std::endl;
-				this->tablero.put(*(dynamic_cast<Gtk::Image*>(caramelo)),j*SIZEIMAGEN+30,i*SIZEIMAGEN+30);
+				this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),j*SIZE+20,i*SIZE+20);
 				matrizCaramelos[i][j] = caramelo;
 			}
 			sy.str("");

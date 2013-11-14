@@ -5,7 +5,7 @@
 
 class Star : public Caramelo{
 	public:
-		Star(int idCaramelo) : Caramelo(idCaramelo){}
+		Star(int idCaramelo,const std::string& imageName) : Caramelo(idCaramelo,imageName){}
 		~Star(){}
 		bool mover(){return false;}
 };
