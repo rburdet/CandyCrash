@@ -183,7 +183,7 @@ int ThreadUsuario::eventFirmado(Value& data){
 
 		case EVENT_GAME_MISC:
 			Logger::log("["+this->myId+"] Evento game misc");
-			if(this->partida && this->partida->mensaje(data)){
+			if(this->partida && this->partida->mensaje(data, this)){
 				this->partida = NULL;
 			}
 			return 0;
@@ -221,11 +221,23 @@ int ThreadUsuario::onJoinGame(Json::Value& data, Json::Value& userData){
 		PartidaInterface* part = this->server->connectPartidas(id_n);
 
 		if(part){
-			this->partida = part;
-			part->addUsuario(this, user);
-			// Todo: mandar mas data
-			retMsj["msj"] = "Coneccion correcta";
-			retMsj["code"] = 0;
+			if(part->getEstado() != PARTIDA_ABIERTA){
+				retMsj["msj"] = "Partida no esta en estado abierta";
+			}else if(part->getUsuarios() >= part->getMaxUsuarios()){
+				retMsj["msj"] = "Partida llena";
+			}else{
+				Json::Value::Members keys = userData.getMemberNames();
+				Json::Value yo;
+				for(int i=0; i < keys.size(); i++){
+					if(keys[i] != string("pass"))
+						yo[keys[i]] = userData[keys[i]];
+				}
+
+				this->partida = part;
+				part->addUsuario(this, yo);
+				retMsj["msj"] = "Coneccion correcta";
+				retMsj["code"] = 0;
+			}
 		}
 	}
 
@@ -258,9 +270,15 @@ int ThreadUsuario::onNewGame(Json::Value& data, Json::Value& userData){
 		}else{
 			retMsj["msj"] = "Conectado satisfactoriamnte";
 			retMsj["code"] = 0;
+			Json::Value::Members keys = userData.getMemberNames();
+				Json::Value yo;
+				for(int i=0; i < keys.size(); i++){
+					if(keys[i] != string("pass"))
+						yo[keys[i]] = userData[keys[i]];
+				}
 			std::string nombre = data["nombre"].asString();
 			this->partida = this->server->newPartida(nivel, nombre);
-			this->partida->addUsuario(this, this->user);
+			this->partida->addUsuario(this, yo);
 		}
 	}
 

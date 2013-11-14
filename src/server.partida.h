@@ -13,6 +13,7 @@ class Partida : public PartidaInterface {
 	protected:
 		ServerInterface* server;
 		std::vector<ThreadSocket*> usuarios;
+		std::vector<Json::Value> usuarios_data;
 		int nivel;
 		std::string nombre;
 		Mutex usuariosLock;
@@ -35,7 +36,7 @@ class Partida : public PartidaInterface {
 		 * @param u[in]: threadsocket del usuario
 		 * @param user[in]: nombre de usuario
 		 */
-		void addUsuario(ThreadSocket* u, std::string& user);
+		void addUsuario(ThreadSocket* u, Json::Value& user);
 
 		/** Borra un usuario de la partida
 		 * @param u[in]: threasocket del usuario
@@ -52,8 +53,9 @@ class Partida : public PartidaInterface {
 
 		/** Metodo usado para mandarle mensajes a la partida.
 		 * @param m[in]: mensaje encondeado en JSON que recibe la partida
+		 * @param u[in]: ThreadSocket que le envio el mensaje
 		 */
-		virtual int mensaje(Json::Value& m);
+		virtual int mensaje(Json::Value& m, ThreadSocket* u);
 
 };
 

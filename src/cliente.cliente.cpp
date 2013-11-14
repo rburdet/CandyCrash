@@ -152,6 +152,10 @@ void Cliente::onGame(int code, Json::Value& data){
 		this->ventanaActual = gwin;
 		gwin->signal_mensaje().connect(sigc::mem_fun(this, &Cliente::sendMsj));
 
+		Json::Value msj;
+		msj["event"] = EVENT_GAME_MISC;
+		msj["ev-game"] = EVENT_GAME_INFO;
+		this->sendMsj(msj);
 	}
 }
 

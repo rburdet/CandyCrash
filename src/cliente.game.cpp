@@ -57,8 +57,18 @@ void GameWindow::mensaje(Json::Value& data){
 		case EVENT_GAME_CHAT:{
 			string str = this->m_refTextBuffer1->get_text();
 			string line = data["line"].asString();
-			this->m_refTextBuffer1->set_text(" >> "+str+"\n"+line);
+			this->m_refTextBuffer1->set_text(str+"\n >> "+line);
 			break;
+		}
+		case EVENT_GAME_USER_ADD:{
+			string str = this->m_refTextBuffer1->get_text();
+			string line = data["line"].asString();
+			this->m_refTextBuffer1->set_text(str+"\n >> Se conecto "+data["user"]["user"].asString());
+			break;
+		}
+
+		case EVENT_GAME_USER_RM:{
+			 break;
 		}
 
 		default:
