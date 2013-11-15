@@ -2,10 +2,13 @@
 #include "common.events.h"
 #include "common.logger.h"
 #include "server.listador.h"
+#include <sstream>
 
 using std::string;
 using Json::Value;
 using Json::StaticString;
+using std::stringstream;
+
 Partida::Partida(ServerInterface* server, int nivel, string& nombre) : server(server), nivel(nivel), nombre(nombre), estado(PARTIDA_ABIERTA) {
 	Json::Value val;
 	Listador::getMapa(this->nombre, val);
@@ -42,17 +45,27 @@ void Partida::addUsuario(ThreadSocket* u, Json::Value& user){
 	this->usuariosLock.lock();
 	this->usuarios.push_back(u);
 	user["puntos"] = 0;
+	stringstream ss;
+	ss << (long) u;
+	user["id"] = ss.str();
 	this->usuarios_data.push_back(user);
 	this->usuariosLock.unlock();
 }
 
 void Partida::rmUsuario(ThreadSocket* u){
 	Value retMsj;
+	this->usuariosLock.lock();
+
+	for(unsigned int i=0; i < usuarios.size(); i++){
+		if((void*) u == (void*) (this->usuarios[i])){
+			retMsj["user"] = this->usuarios_data[i];
+			break;
+		}
+	}
 	retMsj["event"] = EVENT_GAME_USER_RM;
-	retMsj["msj"] = "Usuario desconectado (te debo el nombre)";
+	retMsj["msj"] = "Usuario desconectado "+retMsj["user"]["user"].asString();
 	retMsj["code"] = 0;
 
-	this->usuariosLock.lock();
 	for(unsigned int i=0; i < usuarios.size(); i++){
 		if((void*) u == (void*) (this->usuarios[i])){
 			this->usuarios.erase(this->usuarios.begin() + i);
@@ -111,7 +124,18 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 			u->write(send);
 			break;
 		}
-
+		case EVENT_GAME_START:{
+			if(u != usuarios[0]){
+				Json::Value send;
+				send["event"] = EVENT_GAME_MSG;
+				send["msg"] = "No sos el administrador";
+				send["code"] = 0;
+				u->write(send);
+				break;
+			}
+			Logger::log("Debo empezar partida!");
+			break;
+		}
 
 		default:
 			break;

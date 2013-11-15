@@ -15,8 +15,10 @@ typedef enum {
 	EVENT_GET_MAPS, // -> Lista de mapas para crear
 	EVENT_GAME_CHAT, // -> Lista de mapas para crear
 	EVENT_GAME_INFO,
+	EVENT_GAME_MSG,
 	EVENT_GAME_USER_ADD,
-	EVENT_GAME_USER_RM
+	EVENT_GAME_USER_RM,
+	EVENT_GAME_START
 } CommonEvents;
 
 #endif
