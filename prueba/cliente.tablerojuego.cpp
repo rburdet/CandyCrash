@@ -23,6 +23,8 @@ TableroJuego::TableroJuego(Json::Value mapa)
 	this->llenar();
 	this->add(frameTablero);
 	show_all();
+	this->conectarCaramelos();
+	clicks=0;
 }
 
 std::string TableroJuego::getNMapa(Json::Value mapa){
@@ -91,4 +93,81 @@ void TableroJuego::crearMatrices(){
 		matrizFondos[i].resize(dimY);
 		matrizCaramelos[i].resize(dimY);
 	}
+}
+
+void TableroJuego::conectarCaramelos(){
+	for ( int i = 0 ; i < dimX ; i++ ) {
+		for ( int j = 0 ; j < dimY ; j++ ) {
+			if ( matrizCaramelos[i][j] )
+				matrizCaramelos[i][j]->signal_clicked().connect(sigc::bind(sigc::mem_fun(this,&TableroJuego::mover),i,j));
+		}
+	}
+}
+
+void TableroJuego::mover(int x , int y){
+	clicks++;
+	int x1,y1;
+	if (!(clicks % 2 )){
+	std::cout << x << " " << y << " \t<-\t " << old_x << " " << old_y<< std::endl;
+		matrizCaramelos[x][y]->set_relief(Gtk::RELIEF_NONE);
+		matrizCaramelos[old_x][old_y]->set_relief(Gtk::RELIEF_NONE);
+		if ( (x == old_x) && (y == old_y) )
+			return;
+		if ( x == old_x ){
+			if ( ( (y-old_y)*(y-old_y) ) <= 1 ){
+				y1 = old_y;
+				mover2Piezas(y ,y1);
+			}
+		}else if ( y == old_y){
+			if ( ( (x-old_x)*(x-old_x) ) <= 1 ){
+				x = x*SIZE;
+				x1 = old_x*SIZE;
+				mover2Piezas(x , x1);
+			}
+		}
+	}else{
+		old_x = x ; 
+		old_y = y ;
+		matrizCaramelos[old_x][old_y]->set_relief(Gtk::RELIEF_NONE);
+		matrizCaramelos[x][y]->set_relief(Gtk::RELIEF_NORMAL);
+	}
+}
+
+void TableroJuego::mover2Piezas(int x,int y){
+	std::cout << "valido" << std::endl;
+	sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onTimeout),x,y);
+	this->conTimeout = Glib::signal_timeout().connect(my_slot,10);
+}
+
+bool TableroJuego::onTimeout(int& x , int& y){
+	x*SIZE;
+	y*SIZE;
+	old_x*=SIZE;
+	old_y*=SIZE;
+	if ( (x - old_x ) < 0 ){
+		std::cout << "arriba " << std::endl;
+		std::cout << "old y : " << old_y << std::endl;
+		std::cout << "old x : " << old_x << std::endl;
+		std::cout << " x : " << x << std::endl;
+		std::cout << " y : " << y << std::endl;
+		if ( x == y ){
+		this->tablero.move(*(dynamic_cast<Gtk::Button*>(matrizCaramelos[old_x][old_y])),old_y,x1--);
+		this->tablero.move(*(dynamic_cast<Gtk::Button*>(matrizCaramelos[][old_y])),old_y,aux2++);
+		return true;
+		}
+
+	}
+	if ( (x - old_x) > 0)
+		std::cout << "abajo " << std::endl;
+	if ( (y - old_y) > 0 )
+		std::cout << "derecha" << std::endl;
+	if ( (y - old_y) < 0 ) 
+		std::cout << " izquierda " <<std::endl;
+	//if ((x!=old_x) && (y==old_y)){
+	//if ( x==old_x ){
+	//	this->tablero.move(*(dynamic_cast<Gtk::Button*>(matrizCaramelos[x][y])),old_y++,x);
+	//	this->tablero.move(*(dynamic_cast<Gtk::Button*>(matrizCaramelos[old_x][old_y])),old_y--,x);
+	//	return true;
+	//}
+	return false;
 }

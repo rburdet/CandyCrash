@@ -19,6 +19,7 @@ class TableroJuego : public Window {
 		void dibujar(){}
 		virtual void mensaje(Json::Value& data){}
 		static std::string getNMapa(Json::Value mapa);
+		int clicks;
 
 	private:
 		Gtk::Fixed tablero;
@@ -30,12 +31,19 @@ class TableroJuego : public Window {
 
 		std::vector<std::vector<Gtk::Image*> > matrizFondos;
 		std::vector<std::vector<Caramelo*> > matrizCaramelos;
+		int old_x;
+		int old_y;
 
 		void crearMatrices();
 		int getX();
 		int getY();
 		void dibujarLineas();
 		void llenar();
+		void conectarCaramelos();
+		void mover(int x , int y);
+		void mover2Piezas(int pos1, int pos2);
+		bool onTimeout(int& x,int& y);
+		sigc::connection conTimeout; 
 };
 
 #endif
