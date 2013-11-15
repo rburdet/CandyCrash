@@ -104,9 +104,11 @@ void TableroJuego::conectarCaramelos(){
 	}
 }
 
+
 void TableroJuego::mover(int x , int y){
+		matrizCaramelos[x][y]->hablar();
+	std::cout << x << " " << y << std::endl;
 	clicks++;
-	int x1,y1;
 	if (!(clicks % 2 )){
 	std::cout << x << " " << y << " \t<-\t " << old_x << " " << old_y<< std::endl;
 		matrizCaramelos[x][y]->set_relief(Gtk::RELIEF_NONE);
@@ -115,14 +117,13 @@ void TableroJuego::mover(int x , int y){
 			return;
 		if ( x == old_x ){
 			if ( ( (y-old_y)*(y-old_y) ) <= 1 ){
-				y1 = old_y;
-				mover2Piezas(y ,y1);
+				mover2Piezas(y ,old_y);
 			}
 		}else if ( y == old_y){
 			if ( ( (x-old_x)*(x-old_x) ) <= 1 ){
-				x = x*SIZE;
-				x1 = old_x*SIZE;
-				mover2Piezas(x , x1);
+				step1 = x * SIZE;
+				step2 = old_x * SIZE;
+				mover2Piezas(old_x , x);
 			}
 		}
 	}else{
@@ -133,35 +134,31 @@ void TableroJuego::mover(int x , int y){
 	}
 }
 
-void TableroJuego::mover2Piezas(int x,int y){
+void TableroJuego::mover2Piezas(int posI,int posF){
 	std::cout << "valido" << std::endl;
-	sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onTimeout),x,y);
-	this->conTimeout = Glib::signal_timeout().connect(my_slot,10);
+	sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onTimeout),posI,posF);
+	this->conTimeout = Glib::signal_timeout().connect(my_slot,150);
+	std::cout << "contador: " << this->conTimeout << std::endl;
 }
 
-bool TableroJuego::onTimeout(int& x , int& y){
-	x*SIZE;
-	y*SIZE;
-	old_x*=SIZE;
-	old_y*=SIZE;
-	if ( (x - old_x ) < 0 ){
+bool TableroJuego::onTimeout(int posI , int posF){
+	if ( (posF - old_y ) > 0 ){
 		std::cout << "arriba " << std::endl;
-		std::cout << "old y : " << old_y << std::endl;
-		std::cout << "old x : " << old_x << std::endl;
-		std::cout << " x : " << x << std::endl;
-		std::cout << " y : " << y << std::endl;
-		if ( x == y ){
-		this->tablero.move(*(dynamic_cast<Gtk::Button*>(matrizCaramelos[old_x][old_y])),old_y,x1--);
-		this->tablero.move(*(dynamic_cast<Gtk::Button*>(matrizCaramelos[][old_y])),old_y,aux2++);
+		//std::cout << "old y : " << old_y << std::endl;
+		//std::cout << "old x : " << old_x << std::endl;
+		//std::cout << " posI : " << posI << std::endl;
+		//std::cout << " posF : " << posF << std::endl;
+		if ( posF*SIZE == step1 ){
+		this->tablero.move(*(dynamic_cast<Gtk::Button*>(matrizCaramelos[old_x][old_y])),old_y*SIZE+20,20+step1++);
+		this->tablero.move(*(dynamic_cast<Gtk::Button*>(matrizCaramelos[posF][old_y])),old_y*SIZE+20,20+step2--);
 		return true;
 		}
-
 	}
-	if ( (x - old_x) > 0)
+	if ( (posI - old_x) > 0)
 		std::cout << "abajo " << std::endl;
-	if ( (y - old_y) > 0 )
-		std::cout << "derecha" << std::endl;
-	if ( (y - old_y) < 0 ) 
+	//if ( (posF - old_y) > 0 )
+	//	std::cout << "derecha" << std::endl;
+	if ( (posF - old_y) < 0 ) 
 		std::cout << " izquierda " <<std::endl;
 	//if ((x!=old_x) && (y==old_y)){
 	//if ( x==old_x ){
@@ -169,5 +166,6 @@ bool TableroJuego::onTimeout(int& x , int& y){
 	//	this->tablero.move(*(dynamic_cast<Gtk::Button*>(matrizCaramelos[old_x][old_y])),old_y--,x);
 	//	return true;
 	//}
+	std::cout << "llegue aca " << std::endl;
 	return false;
 }

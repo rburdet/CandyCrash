@@ -9,6 +9,7 @@ class Caramelo : public Gtk::Button{
 		Caramelo(int idCaramelo, const std::string& imageName);
 		virtual ~Caramelo(){};
 		virtual bool mover()=0;
+		void hablar(){ std::cout << idCaramelo << std::endl; }
 		//virtual void mostrar()=0;
 	private:
 		int idCaramelo;

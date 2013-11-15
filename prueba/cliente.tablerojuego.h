@@ -33,6 +33,8 @@ class TableroJuego : public Window {
 		std::vector<std::vector<Caramelo*> > matrizCaramelos;
 		int old_x;
 		int old_y;
+		int step1;
+		int step2;
 
 		void crearMatrices();
 		int getX();
@@ -42,7 +44,7 @@ class TableroJuego : public Window {
 		void conectarCaramelos();
 		void mover(int x , int y);
 		void mover2Piezas(int pos1, int pos2);
-		bool onTimeout(int& x,int& y);
+		bool onTimeout(int x,int y);
 		sigc::connection conTimeout; 
 };
 
