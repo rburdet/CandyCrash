@@ -14,8 +14,10 @@
 #define SIZEIMAGEN 40
 
 typedef enum {
-	VERTICAL=0,
-	HORIZONTAL=1
+	ARRIBA=0,
+	ABAJO=1,
+	DERECHA,
+	IZQUIERDA
 } Direccion;
 
 class TableroJuego : public Window {
@@ -25,7 +27,6 @@ class TableroJuego : public Window {
 		void dibujar(){}
 		virtual void mensaje(Json::Value& data){}
 		static std::string getNMapa(Json::Value mapa);
-		int clicks;
 
 	private:
 		Gtk::Fixed tablero;
@@ -37,11 +38,13 @@ class TableroJuego : public Window {
 
 		std::vector<std::vector<Gtk::Image*> > matrizFondos;
 		std::vector<std::vector<Caramelo*> > matrizCaramelos;
-		std::vector<std::vector<sigc::connection> > m_senal;
-		int old_x;
-		int old_y;
+
+		int clicks;
+		int originX;
+		int originY;
 		int step1;
 		int step2;
+		Caramelo* carameloOrigen;
 
 		void crearMatrices();
 		int getX();
@@ -49,10 +52,11 @@ class TableroJuego : public Window {
 		void dibujarLineas();
 		void llenar();
 		void conectarCaramelos();
-		void desconectarCaramelos();
-		void mover(int x , int y);
+		void click(Caramelo* caramelo);
 		void mover2Piezas(int pos1, int pos2, int DIRECCION);
 		bool onTimeout(int x,int y,int DIRECCION);
+		bool swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION);
+		void swapMatriz (Caramelo* Origen,Caramelo* Final);
 		sigc::connection conTimeout; 
 };
 
