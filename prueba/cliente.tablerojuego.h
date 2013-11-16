@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <gtkmm.h>
+#include <glibmm/signalproxy.h>
 #include <jsoncpp/json/json.h>
 #include "cliente.window.h"
 #include "common.factory_caramelos.h"
@@ -11,6 +12,11 @@
 #define MAXELEMENTOS 16
 #define SIZE 50
 #define SIZEIMAGEN 40
+
+typedef enum {
+	VERTICAL=0,
+	HORIZONTAL=1
+} Direccion;
 
 class TableroJuego : public Window {
 	public:
@@ -31,6 +37,7 @@ class TableroJuego : public Window {
 
 		std::vector<std::vector<Gtk::Image*> > matrizFondos;
 		std::vector<std::vector<Caramelo*> > matrizCaramelos;
+		std::vector<std::vector<sigc::connection> > m_senal;
 		int old_x;
 		int old_y;
 		int step1;
@@ -42,9 +49,10 @@ class TableroJuego : public Window {
 		void dibujarLineas();
 		void llenar();
 		void conectarCaramelos();
+		void desconectarCaramelos();
 		void mover(int x , int y);
-		void mover2Piezas(int pos1, int pos2);
-		bool onTimeout(int x,int y);
+		void mover2Piezas(int pos1, int pos2, int DIRECCION);
+		bool onTimeout(int x,int y,int DIRECCION);
 		sigc::connection conTimeout; 
 };
 
