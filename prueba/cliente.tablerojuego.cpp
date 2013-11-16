@@ -110,7 +110,7 @@ void TableroJuego::conectarCaramelos(){
 
 
 void TableroJuego::click(Caramelo* caramelo){
-	std::cout << "click en : " << caramelo->getX() << " " << caramelo->getY() << std::endl;
+	bool movimientoInvalido = true;
 	clicks++;
 	if (!(clicks % 2 )){
 		int finalX = caramelo->getX();
@@ -121,24 +121,18 @@ void TableroJuego::click(Caramelo* caramelo){
 		if ( finalX == originX ){
 			step1 = finalY * SIZE +20;
 			step2 = originY * SIZE +20;
-			if ( (finalY - originY) == 1){ //DERECHA
-				mover2Piezas(originY,finalY,DERECHA);
+			if ( (finalY - originY) == 1){ 
+				mover2Piezas(originY,finalY,DERECHA,movimientoInvalido);
 			}else if (finalY - originY == -1){
-				mover2Piezas(originY,finalY,IZQUIERDA);
+				mover2Piezas(originY,finalY,IZQUIERDA,movimientoInvalido);
 			}
-			//if ( ( (y-originY)*(y-originY) ) <= 1 ){
-			//	//mover2Piezas(y ,originY);
-			//}
 		}else if ( finalY == originY){
 			step1 = (finalX * SIZE) +20;
 			step2 = (originX * SIZE) +20;
 			if ( (finalX-originX)  == -1 ){
-				mover2Piezas(originX , finalX,ARRIBA); // movimietno vertical
-				//swapMatriz (matrizCaramelos[finalX][originY],matrizCaramelos[originX][originY]);
-				//matrizCaramelos[originX][originY]->setX(originX);
-				//matrizCaramelos[finalX][originY]->setX(finalX);
+				mover2Piezas(originX , finalX,ARRIBA,movimientoInvalido); // movimietno vertical
 			}else if ( (finalX-originX) == 1){
-				mover2Piezas(originX, finalX , ABAJO);
+				mover2Piezas(originX, finalX , ABAJO,movimientoInvalido);
 			}
 		}
 	}else{
@@ -151,9 +145,9 @@ void TableroJuego::click(Caramelo* caramelo){
 	}
 }
 
-void TableroJuego::mover2Piezas(int posI,int posF,int DIRECCION){
-	sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onTimeout),posI,posF,DIRECCION);
-	this->conTimeout = Glib::signal_timeout().connect(my_slot,7);
+void TableroJuego::mover2Piezas(int posI,int posF,int DIRECCION,bool volver){
+		sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onTimeout),posI,posF,DIRECCION,volver);
+		this->conTimeout = Glib::signal_timeout().connect(my_slot,7);
 }
 
 bool TableroJuego::swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION){
@@ -197,37 +191,16 @@ bool TableroJuego::swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION){
 	}
 }
 
-void TableroJuego::swapMatriz(Caramelo* Origen, Caramelo* Final){
-	//switch (DIRECCION){
-		//case ARRIBA:
-			Caramelo* aux = Final;
-			Final = Origen;
-			Origen = aux;
-}
 
-bool TableroJuego::onTimeout(int posI , int posF , int DIRECCION){
+bool TableroJuego::onTimeout(int posI , int posF , int DIRECCION,bool volver){
 	switch ( DIRECCION ){
 		case ARRIBA:
-		//if ( (posI - posF ) > 0 ){				//ARRIBA
-			//if ( posF*SIZE != step2 ){
-				//int constante = originY*SIZE+20;
-				//int variable1 = 20+step1;
-				//int variable2 = 20+step2;
-
 			if (swapBoton(matrizCaramelos[posF][originY],matrizCaramelos[originX][originY],DIRECCION))
 				return true;
-				//swapMatriz (matrizCaramelos[posF][originY],matrizCaramelos[originX][originY]);
-				//matrizCaramelos[posI][originY]->setX(posI);
-				//matrizCaramelos[posF][originY]->setX(posF);
-				//this->tablero.move(*(dynamic_cast<Gtk::Button*>(matrizCaramelos[posF][originY])),originY*SIZE+20,20+step1++);
-				//this->tablero.move(*(dynamic_cast<Gtk::Button*>(matrizCaramelos[originX][originY])),originY*SIZE+20,20+step2--);
-				//return true;
-			//}
-			//swapMatriz (matrizCaramelos[posF][originY],matrizCaramelos[posI][originY]);
-			//Caramelo* aux = matrizCaramelos[posF][originY];
-			//matrizCaramelos[posF][originY] = matrizCaramelos[posI][originY];
-			//matrizCaramelos[posI][originY] = aux;
-			std::cout << "arriba @@@@@@@@@ " <<std::endl;
+			if (volver){
+				swapBoton(matrizCaramelos[originX][originY],matrizCaramelos[posF][originY],ABAJO);
+				return false;
+			}
 			std::swap(matrizCaramelos[posF][originY], matrizCaramelos[posI][originY]);
 			matrizCaramelos[posI][originY]->setX(posI);
 			matrizCaramelos[posF][originY]->setX(posF);
@@ -236,7 +209,10 @@ bool TableroJuego::onTimeout(int posI , int posF , int DIRECCION){
 		case ABAJO:
 			if (swapBoton(matrizCaramelos[posF][originY],matrizCaramelos[originX][originY],DIRECCION))
 				return true;
-			std::cout << "abajo @@@@@@@@@ " <<std::endl;
+			if (volver){
+				swapBoton(matrizCaramelos[originX][originY],matrizCaramelos[posF][originY],ARRIBA);
+				return false;
+			}
 			std::swap(matrizCaramelos[posF][originY], matrizCaramelos[posI][originY]);
 			matrizCaramelos[posI][originY]->setX(posI);
 			matrizCaramelos[posF][originY]->setX(posF);
@@ -245,6 +221,10 @@ bool TableroJuego::onTimeout(int posI , int posF , int DIRECCION){
 		case DERECHA:
 			if (swapBoton(matrizCaramelos[originX][posF],matrizCaramelos[originX][originY],DIRECCION))
 				return true;
+			if (volver){
+				swapBoton(matrizCaramelos[originX][originY],matrizCaramelos[originX][posF],IZQUIERDA);
+				return false;
+			}
 			std::swap(matrizCaramelos[originX][posF], matrizCaramelos[originX][posI]);
 			matrizCaramelos[originX][posI]->setY(posI);
 			matrizCaramelos[originX][posF]->setY(posF);
@@ -253,26 +233,16 @@ bool TableroJuego::onTimeout(int posI , int posF , int DIRECCION){
 		case IZQUIERDA:
 			if (swapBoton(matrizCaramelos[originX][posF],matrizCaramelos[originX][originY],DIRECCION))
 				return true;
+			if (volver){
+				swapBoton(matrizCaramelos[originX][originY],matrizCaramelos[originX][posF],DERECHA);
+				return false;
+			}
 			std::swap(matrizCaramelos[originX][posF], matrizCaramelos[originX][posI]);
 			matrizCaramelos[originX][posI]->setY(posI);
 			matrizCaramelos[originX][posF]->setY(posF);
 			return false;
 			break;
-
-		//}
-	//}
-	//if ( (posI - originX) > 0)
-	//	std::cout << "abajo " << std::endl;
-	////if ( (posF - originY) > 0 )
-	////	std::cout << "derecha" << std::endl;
-	//if ( (posF - originY) < 0 ) 
-	//	std::cout << " izquierda " <<std::endl;
-	//if ((x!=originX) && (y==originY)){
-	//if ( x==originX ){
-	//	this->tablero.move(*(dynamic_cast<Gtk::Button*>(matrizCaramelos[x][y])),originY++,x);
-	//	this->tablero.move(*(dynamic_cast<Gtk::Button*>(matrizCaramelos[originX][originY])),originY--,x);
-	//	return true;
-	//}
-				return false;
+		default:
+			return false;
 	}
 }

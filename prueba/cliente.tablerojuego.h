@@ -15,8 +15,8 @@
 
 typedef enum {
 	ARRIBA=0,
-	ABAJO=1,
-	DERECHA,
+	DERECHA=1,
+	ABAJO=2,
 	IZQUIERDA
 } Direccion;
 
@@ -53,10 +53,9 @@ class TableroJuego : public Window {
 		void llenar();
 		void conectarCaramelos();
 		void click(Caramelo* caramelo);
-		void mover2Piezas(int pos1, int pos2, int DIRECCION);
-		bool onTimeout(int x,int y,int DIRECCION);
+		void mover2Piezas(int pos1, int pos2, int DIRECCION, bool volver);
+		bool onTimeout(int x,int y,int DIRECCION,bool volver);
 		bool swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION);
-		void swapMatriz (Caramelo* Origen,Caramelo* Final);
 		sigc::connection conTimeout; 
 };
 
