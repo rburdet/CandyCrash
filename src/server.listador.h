@@ -8,6 +8,9 @@
 #include <fstream>
 #include "common.logger.h"
 
+#define MAPA_PATH "../Mapas/"
+#define MAPA_EXT ".map"
+
 /** Clase que se encarga de proveer metodos para traer informacion acerca de los mapas.
  */
 class Listador{
@@ -18,10 +21,10 @@ class Listador{
 			DIR* dir;
 			struct dirent * ent;
 			Json::Value file;
-			if ((dir = opendir("../Mapas/")) != NULL ) {
+			if ((dir = opendir(MAPA_PATH)) != NULL ) {
 				while (( ent = readdir(dir)) != NULL){
 					std::string fname = std::string(ent->d_name);
-					if(fname.find(".map") != std::string::npos){
+					if(fname.find(MAPA_EXT) != std::string::npos){
 						std::string fileName(ent->d_name);
 						file[fileName] = getNivel(fileName);
 					}
@@ -56,7 +59,7 @@ class Listador{
 		// Devuelve 0 si salio bien, o algun numero si error (ponele qe no exista el mapa)
 		static int getMapa(std::string& fileName, Json::Value& mapa){
 			int ret = -1;
-			std::string auxStr = "../Mapas/" + fileName;
+			std::string auxStr = MAPA_PATH + fileName;
 			std::ifstream ifs;
 			ifs.open(auxStr.c_str());
 			if (ifs.is_open()){
