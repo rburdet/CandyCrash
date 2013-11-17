@@ -49,6 +49,7 @@ class Tablero{
 		Gtk::Fixed* tablero;
 		Gtk::EventBox* eventos_tablero;
 
+		Gtk::Image* point;
 		//Spinbuttons que cambiaron cada vez que se eligio una celda
 		std::vector< Gtk::SpinButton* > butonsCambiados;
 
@@ -71,6 +72,7 @@ class Tablero{
 		void alargarColumnas(int X);
 		void actualizarMatriz(int cantFilas,int cantColumnas);
 		void cambiarButons();
+		void ponerPunto(int x , int y);
 
 		//Handlers propios
 		virtual bool on_click_tablero(GdkEventButton* event);

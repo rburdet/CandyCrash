@@ -5,7 +5,7 @@
 #define FIRSTBUTTON 21
 #define LASTBUTTON 36
 
-ProbCeldas::ProbCeldas(Tablero* tablero, Glib::RefPtr<Gtk::Builder>& builder) : Probs(tablero ,builder,FIRSTIMAGE,LASTIMAGE,"frameceldas"){
+ProbCeldas::ProbCeldas(Tablero* tablero, Glib::RefPtr<Gtk::Builder>& builder) : Probs(tablero ,builder,FIRSTIMAGE,LASTIMAGE,"framecelda"){
 	builder->get_widget("filechooser",fileChooser);
 	builder->get_widget("huecobutton",huecoButton);
 	fileChooser->signal_selection_changed().connect(sigc::bind(sigc::mem_fun(tablero,&Tablero::on_image_changed_tablero),fileChooser));

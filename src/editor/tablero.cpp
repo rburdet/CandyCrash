@@ -24,6 +24,8 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 	celdaInteres=NULL;
 	colInteres=NULL;
 	actualizarMatriz(cantFilas,cantColumnas);
+	point = new Gtk::Image("../../imagenes/dot.png");
+	this->tablero->put(*point,100000,100000);
 	this->eventos_tablero->signal_button_press_event().connect(sigc::mem_fun(*this,&Tablero::on_click_tablero));
 	
 }
@@ -123,7 +125,8 @@ void Tablero::borrarSeps(){
 bool Tablero::on_click_tablero(GdkEventButton* event){
 	int x,y;
 	int fila,columna;
-	this->tablero->get_pointer(x,y); fila = (y-OFFSET)/SIZE;
+	this->tablero->get_pointer(x,y); 
+	fila = (y-OFFSET)/SIZE;
 	columna = (x-OFFSET)/SIZE;
 	if (ultFilClick==fila && ultColClick==columna){
 		return false;
@@ -136,9 +139,18 @@ bool Tablero::on_click_tablero(GdkEventButton* event){
 	ultFilClick=fila;
 	ultColClick=columna;
 	cambiarButons();
+	ponerPunto(x,y);
+	point->show();
 	return true;
 }
 
+void Tablero::ponerPunto(int x, int y){
+	int fila = (y-OFFSET)/SIZE;
+	int columna = (x-OFFSET)/SIZE;
+	int centered_x = columna * SIZE+OFFSET-2+SIZE/2;
+	int centered_y = fila * SIZE+OFFSET-2+SIZE/2;
+	this->tablero->move(*point,centered_x,centered_y);
+}
 
 void Tablero::actualizarMatriz(int x, int y){
 	matrizCeldas.resize(x);
@@ -175,30 +187,6 @@ void Tablero::on_adjCols_changed_tablero(Gtk::SpinButton* spinbutton, int id){
 		return;
 	this->colInteres->on_adj_changed(spinbutton,id);	
 }
-
-//void Tablero::getProbColumnas(){
-//	 for (unsigned int i = 0 ; i < columnas.size() ; i++ ) {
-//		 std::cout << "col " << i<<" \t";
-//		 for ( int j = 0 ; j < 16 ; j++ ) {
-//			std::cout << columnas[i]->getInfo()->getProb_piezas(j)<< "," ;
-//		 }
-//		 std::cout<<std::endl;
-//	 }
-//}
-
-//void Tablero::getProbCeldas(){
-//	for (unsigned  int i = 0 ; i < matrizCeldas.size() ; i++ ) {
-//		for ( unsigned int j = 0 ; j < matrizCeldas[0].size() ; j++ ){
-//			for ( int k = 0 ; k < 16 ; k ++ ){
-//				if ( matrizCeldas[i][j]==NULL)
-//					std::cout<< "NULLLL " << std::endl;
-//				std::cout << matrizCeldas[i][j]->getInfo()->getProb_piezas(j)<< "," ;
-//			}
-//			std::cout<< " " ;
-//		}
-//		std::cout<<std::endl;
-//	}
-//}
 
 void Tablero::jsonColumnas(Json::Value& nivel,const std::string& nombre){
 	std::stringstream ss;
