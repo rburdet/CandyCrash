@@ -5,7 +5,7 @@
 
 class Bar : public Caramelo{
 	public:
-		Bar(int idCaramelo,bool acostado,const std::string& imageName) : Caramelo(idCaramelo,imageName){
+		Bar(int idCaramelo,bool acostado,const std::string& imageName,int i, int j) : Caramelo(idCaramelo,imageName,i,j){
 			this->acostado = acostado;
 		}
 		~Bar(){}
