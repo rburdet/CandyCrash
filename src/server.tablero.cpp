@@ -427,10 +427,30 @@ void Tablero::rellenarTablero(Json::Value& movimientos){
 				this->tablero[this->num2str(y)][this->num2str(x)] = celda;
 				movimientos.append(this->newMov(x, y, CARAMELO_MOV_NEW));
 			}else{
-				car = (Caramelos) this->tablero[this->num2str(y-1)][this->num2str(x)].asInt();
-				this->tablero[this->num2str(y)][this->num2str(x)] = car;
-				this->tablero[this->num2str(y-1)][this->num2str(x)] = RELLENAR;
-				movimientos.append(this->newMov(x, y-1, CARAMELO_MOV_ABAJO));
+				int y_rem = y--;
+				car = (Caramelos) this->tablero[this->num2str(y_rem)][this->num2str(x)].asInt();
+				if(car == HUECO || car == RELLENAR){
+					while( y_rem > 0 && (car == HUECO || car == RELLENAR))
+						car = (Caramelos) this->tablero[this->num2str(--y_rem)][this->num2str(x)].asInt();
+
+					if(y_rem == 0 && (car == HUECO || car == RELLENAR)){
+						Json::Value celda = this->probabilidades[this->num2str(x)];
+						this->efectivizarCelda(celda);
+						this->tablero[this->num2str(y)][this->num2str(x)] = celda;
+						movimientos.append(this->newMov(x, y_rem, CARAMELO_MOV_NEW));
+					}else{
+						this->tablero[this->num2str(y)][this->num2str(x)] = car;
+						this->tablero[this->num2str(y_rem)][this->num2str(x)] = RELLENAR;
+					}
+
+					for(int y_mov = y_rem; y_mov < y ; y_mov++)
+						movimientos.append(this->newMov(x, y_mov, CARAMELO_MOV_ABAJO));
+
+				}else{
+					this->tablero[this->num2str(y)][this->num2str(x)] = car;
+					this->tablero[this->num2str(y_rem)][this->num2str(x)] = RELLENAR;
+					movimientos.append(this->newMov(x, y_rem, CARAMELO_MOV_ABAJO));
+				}
 			}
 		}
 	}
