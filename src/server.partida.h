@@ -23,9 +23,16 @@ class Partida : public PartidaInterface {
 		int maxUsuarios;
 		Mutex tableroLock;
 		Tablero* tablero;
+
+		/** Envia msj a todos los usuarios de la partida
+		 */
 		void broadcastMsj(Json::Value& msj);
 		int puntosMax;
 
+		/** Envia un mensaje a u, (EVENT_GAME_MSG).
+		 */
+		void msjError(ThreadSocket* u, char* msj);
+		void msjError(ThreadSocket* u, std::string& msj);
 
 	public:
 		/** Creador de la partida.

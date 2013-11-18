@@ -138,9 +138,15 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 				u->write(send);
 				break;
 			}
+			this->tableroLock.lock();
+			if(this->estado != PARTIDA_ABIERTA){
+				this->msjError(u, "La partida no esta abierta");
+				this->tableroLock.unlock();
+				break;
+			}
+			this->estado = PARTIDA_JUGANDO;
 			Logger::log("Debo empezar partida!");
 			send["event"] = EVENT_GAME_START;
-			this->tableroLock.lock();
 			this->tablero = new Tablero(nombre);
 			send["tablero"] = this->tablero->getTablero();
 			this->tableroLock.unlock();
@@ -150,7 +156,8 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 
 		case EVENT_GAME_MOV:{
 			this->tableroLock.lock();
-			if(this->estado != PARTIDA_JUGANDO){ //TODO: mandar msj de error
+			if(this->estado != PARTIDA_JUGANDO){
+				this->msjError(u, "La partida no esta activa");
 				this->tableroLock.unlock();
 				break;
 			}
@@ -205,4 +212,17 @@ void Partida::broadcastMsj(Json::Value& msj){
 			Logger::log("[Partida] Error broadcasteando mensaje.");
 	}
 	this->usuariosLock.unlock();
+}
+
+void Partida::msjError(ThreadSocket* u, char* msj){
+	std::string str(msj);
+	this->msjError(u, str);
+}
+
+void Partida::msjError(ThreadSocket* u, std::string& msj){
+	Json::Value send;
+	send["event"] = EVENT_GAME_MSG;
+	send["msg"] = msj;
+	send["code"] = 0;
+	u->write(send);
 }
