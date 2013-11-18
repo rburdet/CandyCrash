@@ -1,10 +1,8 @@
 #include "cliente.tablerojuego.h"
-#include "common.hueco.h"
 #include <algorithm>
 
 TableroJuego::TableroJuego(Json::Value mapa)
 	:	tablero(),
-		//imagenFondo("../imagenes/fondo.png"),
 		frameTablero(getNMapa(mapa),
 		Gtk::ALIGN_CENTER,
 		Gtk::ALIGN_END, //Eje y
@@ -21,8 +19,6 @@ TableroJuego::TableroJuego(Json::Value mapa)
 	set_size_request(dimY*SIZE,dimX*SIZE);
 	this->tablero.set_size_request(dimY*SIZE,dimX*SIZE);
 	frameTablero.add(this->tablero);
-	//this->tablero.put(imagenFondo,0,0);
-
 	//this->dibujarLineas();
 	this->crearMatrices();
 	this->llenar();
@@ -42,7 +38,7 @@ std::string TableroJuego::getNMapa(Json::Value mapa){
 int TableroJuego::getX(){
 	int x;
 	std::stringstream ss;
-	ss << mapa[nMapa]["DIM"]["X"];
+	ss << mapa["tablero"]["DIM"]["X"];
 	ss >> x;
 	return x;
 }
@@ -50,7 +46,7 @@ int TableroJuego::getX(){
 int TableroJuego::getY(){
 	int y;
 	std::stringstream ss;
-	ss << mapa[nMapa]["DIM"]["Y"];
+	ss << mapa["tablero"]["DIM"]["Y"];
 	ss >> y;
 	return y;
 }
@@ -75,17 +71,16 @@ void TableroJuego::llenar(){
 		sx<<i;
 		for ( int j = 0 ; j < dimY ; j++ ) {
 			sy<<j;
-			Json::Value celda = this->mapa[nMapa]["celdas"][sx.str()][sy.str()]["pieza"];
-			Json::Value celdaFondo = this->mapa[nMapa]["celdas"][sx.str()][sy.str()]["fondo"];
+			Json::Value celda = this->mapa["tablero"]["celdas"][sx.str()][sy.str()]["pieza"];
+			Json::Value celdaFondo = this->mapa["tablero"]["celdas"][sx.str()][sy.str()]["fondo"];
 			std::stringstream auxStream ;
 			auxStream << celda ;
 			auxStream>>idPieza;
 			auxStream.str("");
 			if (idPieza !=-1){
-				if (celdaFondo != ""){
+				if (celdaFondo!=""){
 					Gtk::Image* imgFondo = new Gtk::Image(celdaFondo.asString());
 					imgFondo->set_size_request(SIZE,SIZE);
-					std::cout << imgFondo->get_size_request();
 					this->tablero.put(*imgFondo,j*SIZE+20,i*SIZE+20);
 					imgFondo->show();
 				}
@@ -93,9 +88,7 @@ void TableroJuego::llenar(){
 				caramelo->show_all();
 				this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),j*SIZE+20,i*SIZE+20);
 				matrizCaramelos[i][j] = caramelo;
-			}
-			
-			else if (idPieza == -1){
+			}else if (idPieza == -1){
 				Hueco* hueco = new Hueco();
 				hueco->show();
 				this->tablero.put(*(dynamic_cast<Gtk::Image*>(hueco)),j*SIZE+25,i*SIZE+25);

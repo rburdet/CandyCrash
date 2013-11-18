@@ -31,7 +31,6 @@ class TableroJuego : public Window {
 	private:
 		Gtk::Fixed tablero;
 		Gtk::AspectFrame frameTablero;
-		Gtk::Image imagenFondo;
 		int dimX;
 		int dimY;
 		Json::Value mapa;
