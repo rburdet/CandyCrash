@@ -24,6 +24,7 @@ class Partida : public PartidaInterface {
 		Mutex tableroLock;
 		Tablero* tablero;
 		void broadcastMsj(Json::Value& msj);
+		int puntosMax;
 
 
 	public:

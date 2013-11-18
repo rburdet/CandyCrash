@@ -19,6 +19,7 @@ Partida::Partida(ServerInterface* server, int nivel, string& nombre) : server(se
 		this->mapa = val[nMapa];
 	}
 	this->maxUsuarios = this->mapa["max_jugadores"].asInt();
+	this->puntosMax = this->mapa["puntaje_para_ganar"].asInt();
 
 }
 
@@ -149,18 +150,36 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 
 		case EVENT_GAME_MOV:{
 			this->tableroLock.lock();
+			if(this->estado != PARTIDA_JUGANDO){ //TODO: mandar msj de error
+				this->tableroLock.unlock();
+				break;
+			}
 			// TODO: controlar que vengan todos los datos en el mensaje
 			Json::Value movimientos;
 			int puntos = this->tablero->movimiento(data["x"].asInt(), data["y"].asInt(), (CaramelosMovimientos) data["mov"].asInt(), movimientos);
-			this->tableroLock.unlock();
 			if(puntos){
 				Json::Value send;
 				send["event"] = EVENT_GAME_MOV;
 				send["code"] = 0;
 				send["movs"] = movimientos;
 				this->broadcastMsj(send);
-				// TODO: sumarle los puntos al jugador
+				this->usuariosLock.lock();
+				for(unsigned int i=0; i < usuarios.size(); i++){
+					if((void*) u == (void*) (this->usuarios[i])){
+						puntos += this->usuarios_data[i]["puntos"].asInt();
+						this->usuarios_data[i]["puntos"] = puntos;
+						break;
+					}
+				}
+				this->usuariosLock.unlock();
+				if(puntos >= puntosMax){
+					this->estado = PARTIDA_TERMINADA;
+					//TODO: mandar msje de fin de partida
+				}
+
+				// TODO: checkear si hay movimientos disponibles
 			}
+			this->tableroLock.unlock();
 			break;
 		}
 

@@ -64,6 +64,16 @@ class Tablero {
 		 */
 		Json::Value newMov(int x, int y, CaramelosMovimientos mov);
 
+		/** Crea la estructura de un movimiento para ser enviado.
+		 * Este metodo se usa para cuando aparecen caramelos
+		 * @param x: posicion en x del caramelo.
+		 * @param y: posicion en y del caramelo
+		 * @param mov: movimiento que realizo el caramelo.
+		 * @param car: caramelo
+		 * @return la estructura de movimiento para ser enviada en formato JSON.
+		 */
+		Json::Value newMov(int x, int y, CaramelosMovimientos mov, Caramelos car);
+
 		/** Invierte el movimiento pasado.
 		 * @param mov: movimiento a invertir.
 		 * @return movimiento invertido.
@@ -87,13 +97,72 @@ class Tablero {
 		 */
 		bool esButton(Caramelos car);
 
+		/** Activa una combinacion de columna encontrada.
+		 * @param x[in]: 
+		 * @param y:
+		 * @param todosButtons: verdadero si la combinacion es de todos buttons
+		 * @param movimientos[out]: array que contiene los movimientos que se realizaron
+		 * @param puntos[out]: se le suman los puntos que se ganaron por activar
+		 * @param x_mov: posicion x donde se colocara el caramelo especial de tenerse qe generar
+		 * @param y_mov: posicion y donde se colocara el caramelo especial de tenerse que generar
+		 * @return verdadero si se realizo una combinacion
+		 */
+		bool activarCombinacionColumna(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos, int x_mov, int y_mov);
+
+		/** Ver la otra declaracion.
+		 * Aca se pasan como x_mov = x ; y_mov = y - contador/2;
+		 */
 		bool activarCombinacionColumna(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos);
 
+		/** Activa una combinacion de fila encontrada.
+		 * @param x[in]: 
+		 * @param y:
+		 * @param todosButtons: verdadero si la combinacion es de todos buttons
+		 * @param movimientos[out]: array que contiene los movimientos que se realizaron
+		 * @param puntos[out]: se le suman los puntos que se ganaron por activar
+		 * @param x_mov: posicion x donde se colocara el caramelo especial de tenerse qe generar
+		 * @param y_mov: posicion y donde se colocara el caramelo especial de tenerse que generar
+		 * @return verdadero si se realizo una combinacion
+		 */
+		bool activarCombinacionFila(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos, int x_mov, int y_mov);
+
+		/** Ver la otra declaracion.
+		 * Aca se pasan como x_mov = x - contador/2; y_mov = y;
+		 */
 		bool activarCombinacionFila(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos);
 
+		/** Metodo usado para cuando se dispara un bar (para efectuar sobre toda la columna)
+		 * @param x: posicion x de la columna
+		 * @param movimientos[out]: lista de movimientos realizados
+		 * @param puntosx: puntos por cada caramelo sacado
+		 * @param puntos[out]: se le suman todos los puntos ganados
+		 */
 		void dispararColumna(int x, Json::Value& movimientos, int puntosx, int& puntos);
 
+		/** Metodo usado para cuando se dispara un bar (para efectuar sobre toda la fila)
+		 * @param y: posicion y de la fila
+		 * @param movimientos[out]: lista de movimientos realizados
+		 * @param puntosx: puntos por cada caramelo sacado
+		 * @param puntos[out]: se le suman todos los puntos ganados
+		 */
 		void dispararFila(int y, Json::Value& movimientos, int puntosx, int& puntos);
+
+		/** Comprueba si hay y efectua la combinacion sobre una ficha.
+		 * @param car: Caramelo de la ficha
+		 * @param x: posicion x del caramelo
+		 * @param y: posicion y del caramelo
+		 * @param movimientos[out]: lista de movimientos realizados
+		 * @return cantidad de puntos sumados
+		 */
+		int doCombinacion(Caramelos car, int x, int y, Json::Value& movimientos);
+
+		/** Devuelve un bar vertical del color de car.
+		 */
+		Caramelos verBarColor(Caramelos car);
+
+		/** Devuelve un bar horizontal del color de car.
+		 */
+		Caramelos horBarColor(Caramelos car);
 		
 };
 

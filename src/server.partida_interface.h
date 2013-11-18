@@ -7,7 +7,8 @@
  */
 typedef enum {
 	PARTIDA_ABIERTA=0,
-	PARTIDA_JUGANDO
+	PARTIDA_JUGANDO,
+	PARTIDA_TERMINADA
 } PartidaEstado;
 
 /** Interface de partida, para evitar referencia circular.
