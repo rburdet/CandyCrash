@@ -3,6 +3,7 @@
 #include "common.logger.h"
 #include "server.listador.h"
 #include <sstream>
+#include "common.user_manager.h"
 
 using std::string;
 using Json::Value;
@@ -24,6 +25,7 @@ Partida::Partida(ServerInterface* server, int nivel, string& nombre) : server(se
 }
 
 Partida::~Partida() {
+	this->server->removePartida(this);
 	this->usuariosLock.lock();
 	for(unsigned int i=0; i < this->usuarios.size(); i++){
 		// Decirles que se bajo la partida
@@ -34,7 +36,6 @@ Partida::~Partida() {
 	delete this->tablero;
 	this->tablero = NULL;
 	this->tableroLock.unlock();
-	this->server->removePartida(this);
 }
 
 
@@ -82,6 +83,9 @@ void Partida::rmUsuario(ThreadSocket* u){
 		}
 	}
 	this->usuariosLock.unlock();
+
+	if(this->usuarios.size() == 0)
+		delete this;
 }
 
 int Partida::getNivel(){
@@ -171,20 +175,37 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 				send["movs"] = movimientos;
 				this->broadcastMsj(send);
 				this->usuariosLock.lock();
+				Json::Value user;
 				for(unsigned int i=0; i < usuarios.size(); i++){
 					if((void*) u == (void*) (this->usuarios[i])){
+						user = this->usuarios_data[i];
 						puntos += this->usuarios_data[i]["puntos"].asInt();
 						this->usuarios_data[i]["puntos"] = puntos;
 						break;
 					}
 				}
 				this->usuariosLock.unlock();
-				if(puntos >= puntosMax){
-					this->estado = PARTIDA_TERMINADA;
-					//TODO: mandar msje de fin de partida
-				}
+				Json::Value end_send;
+				end_send["event"] = EVENT_GAME_END;
+				end_send["code"] = 0;
 
-				// TODO: checkear si hay movimientos disponibles
+				if(puntos >= puntosMax){
+					Json::Value end_send;
+					Json::Value user_data;
+					UserManager::get(user["user"].asString(), user_data);
+					user_data["nivel"] = user_data["nivel"].asInt() +1;
+					UserManager::set(user_data);
+					this->estado = PARTIDA_TERMINADA;
+					end_send["user"] = user;
+					end_send["msg"] = "Gano "+user["user"].asString();
+
+					this->broadcastMsj(end_send);
+				}else if(!this->tablero->hayMovimientos()){
+					this->estado = PARTIDA_TERMINADA;
+					end_send["code"] = 1;
+					end_send["msg"] = "Nadie gano";
+					this->broadcastMsj(end_send);
+				}
 			}
 			this->tableroLock.unlock();
 			break;

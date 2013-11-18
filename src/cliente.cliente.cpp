@@ -97,6 +97,13 @@ bool Cliente::onTimeout(){
 			this->onGame(code, data);
 			break;
 
+		case EVENT_LEAVE_GAME:
+			ventanaActual->hide();
+			delete ventanaActual;
+			this->ventanaActual = new MainWindow;
+			this->ventanaActual->signal_mensaje().connect(sigc::mem_fun(this, &Cliente::sendMsj));
+			break;
+
 		case EVENT_LIST_GAMES:
 		default:
 			Logger::log("Default. Redirecciono a ventana");

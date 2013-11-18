@@ -21,6 +21,7 @@ class GameWindow : public Window {
 		 */
 		void on_mensaje();
 		void on_start_game();
+		void on_salir_game();
 
 		Gtk::VBox m_VBox;
 		Gtk::ScrolledWindow m_ScrolledWindow1;
@@ -32,6 +33,7 @@ class GameWindow : public Window {
 		Gtk::Button m_button_send;
 		ListaUsuarios user_list;
 		Gtk::Button button_start;
+		Gtk::Button button_salir;
 		Gtk::HBox main_h_box;
 		Gtk::VBox lista_box;
 };

@@ -15,6 +15,9 @@ GameWindow::GameWindow() {
 	this->lista_box.pack_start(this->button_start);
 	this->button_start.set_label("Empezar el juego");
 	this->button_start.signal_clicked().connect(sigc::mem_fun(*this, &GameWindow::on_start_game) );
+	this->lista_box.pack_start(this->button_salir);
+	this->button_salir.set_label("Salir de la partida");
+	this->button_salir.signal_clicked().connect(sigc::mem_fun(*this, &GameWindow::on_salir_game) );
 	this->main_h_box.pack_start(this->m_VBox);
 	this->m_VBox.pack_start(this->m_ScrolledWindow1);
 	this->m_ScrolledWindow1.add(this->m_TextView1);
@@ -53,6 +56,12 @@ void GameWindow::on_start_game(){
 	Json::Value data;
 	data["event"] = EVENT_GAME_MISC;
 	data["ev-game"] = EVENT_GAME_START;
+	this->m_signal_mensaje.emit(data);
+}
+
+void GameWindow::on_salir_game(){
+	Json::Value data;
+	data["event"] = EVENT_LEAVE_GAME;
 	this->m_signal_mensaje.emit(data);
 }
 

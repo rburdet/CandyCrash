@@ -10,6 +10,9 @@ class Window : public Gtk::Window {
 		/** Metodo que reciben los mensajes del servidor, que deben mostrar.
 		 */
 		virtual void mensaje(Json::Value& data) = 0;
+		Window(){
+			this->signal_delete_event().connect(sigc::mem_fun(this, &Window::_onClose));
+		}
 
 		/** Signal para avisarle al cliente que tienen que mandar un mensaje
 		 */
@@ -20,6 +23,14 @@ class Window : public Gtk::Window {
 
 	protected:
 		type_signal_mensaje m_signal_mensaje;
+
+		bool _onClose(GdkEventAny* event){
+			return this->onClose();
+		}
+
+		virtual bool onClose(){
+			return false;
+		}
 
 };
 

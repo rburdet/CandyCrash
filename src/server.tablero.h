@@ -19,6 +19,10 @@ class Tablero {
 		 * @return devuelve la cantidad de puntos que gano el usuario o 0 si no se realizo el movimiento
 		 */
 		int movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& movimientos);
+
+		/** Devuelve verdadero si hay movimientos para realizar
+		 */
+		bool hayMovimientos();
 		Json::Value getTablero();
 
 	protected:

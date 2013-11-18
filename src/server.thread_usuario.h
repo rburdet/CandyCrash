@@ -24,6 +24,7 @@ class ThreadUsuario : public ThreadSocket {
 		virtual void* subRun();
 
 		int onJoinGame(Json::Value& data, Json::Value& userData);
+		int onLeaveGame(Json::Value& data, Json::Value& userData);
 		int onNewGame(Json::Value& data, Json::Value& userData);
 		int onGetMaps(Json::Value& data, Json::Value& userData);
 

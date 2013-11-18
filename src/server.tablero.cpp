@@ -833,3 +833,20 @@ Caramelos Tablero::verBarColor(Caramelos car){
 
 	return RELLENAR;
 }
+
+bool Tablero::hayMovimientos(){
+	// Vamos a iterar por todas las posiciones, probando los 4 movimientos, si algo sale valido, es qe hay miviento
+	for(int y=0; y < this->dim_y; y++){
+		for(int x=0; x < this->dim_x; x++){
+			if(this->movimientoValido(x, y, CARAMELO_MOV_ARRIBA))
+				return true;
+			if(this->movimientoValido(x, y, CARAMELO_MOV_DERECHA))
+				return true;
+			if(this->movimientoValido(x, y, CARAMELO_MOV_ABAJO))
+				return true;
+			if(this->movimientoValido(x, y, CARAMELO_MOV_IZQ))
+				return true;
+		}
+	}
+	return false;
+}

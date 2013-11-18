@@ -181,6 +181,10 @@ int ThreadUsuario::eventFirmado(Value& data){
 			return this->onJoinGame(data, userData);
 			break;
 
+		case EVENT_LEAVE_GAME: // -> dejar a partida
+			return this->onLeaveGame(data, userData);
+			break;
+
 		case EVENT_GAME_MISC:
 			Logger::log("["+this->myId+"] Evento game misc");
 			if(this->partida && this->partida->mensaje(data, this)){
@@ -199,6 +203,20 @@ int ThreadUsuario::eventFirmado(Value& data){
 			break;
 	}
 
+	return 0;
+}
+
+int ThreadUsuario::onLeaveGame(Json::Value& data, Json::Value& userData){
+	this->partida->rmUsuario(this);
+	this->partida = NULL;
+	Value retMsj;
+	retMsj["event"] = EVENT_LEAVE_GAME;
+	retMsj["msj"] = "Dejaste la partida";
+	retMsj["code"] = 0;
+	if(this->write(retMsj)){
+		Logger::log("["+this->myId+"] Error escribiendo el mensaje de salida de partida");
+		return 1;
+	}
 	return 0;
 }
 
