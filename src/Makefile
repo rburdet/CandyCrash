@@ -52,7 +52,7 @@ gtkmm = si
 CFLAGS = #-Wall -pedantic -pedantic-errors -fpermissive -Wlong-long
 
 # Para que explote lo mas posible
-CFLAGS += -O3 -DNDEBUG
+CFLAGS += -O3 -DNDEBUG -fpermissive
 
 # Para valgrind o debug
 CFLAGS += -ggdb -DDEBUG -fno-inline

@@ -125,7 +125,7 @@ void GameWindow::mensaje(Json::Value& data){
 		}
 
 		case EVENT_GAME_START:{
-			std::cout << "JSON : " << data << std::endl;  
+			std::cout << "Tableor que recibi  : " << data << std::endl;  
 			tableroJuego = new TableroJuego(data);
 			break;
 	   }

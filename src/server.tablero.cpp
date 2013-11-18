@@ -41,7 +41,6 @@ Tablero::~Tablero(){
 
 void Tablero::generar(){
 	std::stringstream ss,sy,sx;
-	std::cout << "lo que voy a generar es :  "<< this->mapa << std::endl;
 	int x,y;
 	ss << this->mapa["DIM"]["X"] << std::endl;
 	ss >> x ; 
@@ -54,14 +53,14 @@ void Tablero::generar(){
 			sy<<j;
 			celda=this->mapa["celdas"][sx.str()][sy.str()]["probabilidades"];
 			efectivizarCelda(celda);
-			this->tablero["tablero"]["celdas"][sx.str()][sy.str()].removeMember("probabilidades");
-			this->tablero["tablero"]["celdas"][sx.str()][sy.str()]["pieza"]=celda;
+			this->tablero["celdas"][sx.str()][sy.str()].removeMember("probabilidades");
+			this->tablero["celdas"][sx.str()][sy.str()]["pieza"]=celda;
 			sy.str("");
 		}
 		sx.str("");
 	}
 	
-	std::cout << this->tablero <<std::endl;
+	std::cout << " tablero que voy a mandar " << this->tablero <<std::endl;
 }
 
 void Tablero::efectivizarCelda(Json::Value& celda){
