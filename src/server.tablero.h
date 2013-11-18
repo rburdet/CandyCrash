@@ -29,6 +29,7 @@ class Tablero {
 		Json::Value mapa;
 		Json::Value tablero;
 		Json::Value probabilidades;
+		std::string nMapa;
 		int dim_x;
 		int dim_y;
 		void generar();

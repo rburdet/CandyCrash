@@ -5,6 +5,7 @@
 #include <jsoncpp/json/json.h>
 
 #include "cliente.window.h"
+#include "cliente.tablerojuego.h"
 #include "widgets/cliente.usuarios_list.h"
 
 /** Ventana de espera antes de que se mande la partida a jugar.
@@ -36,6 +37,7 @@ class GameWindow : public Window {
 		Gtk::Button button_salir;
 		Gtk::HBox main_h_box;
 		Gtk::VBox lista_box;
+		TableroJuego* tableroJuego;
 };
 
 #endif

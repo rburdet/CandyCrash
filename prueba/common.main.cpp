@@ -9,7 +9,7 @@ int main(int argc , char* argv[]){
 	Gtk::Main kit(argc,argv);
 
 	CreadorTablero mapa("posta.map");
-	//std::cout << mapa.getTablero();
+	std::cout << mapa.getTablero() << std::endl;
 	TableroJuego tablero(mapa.getTablero());
 	kit.run();
 	return 0;

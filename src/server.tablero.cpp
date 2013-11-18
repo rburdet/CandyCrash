@@ -13,6 +13,7 @@
 #define PUNTOS_BUTTON_CINCO 30
 #define PUNTOS_BUTTON_CUATRO 20
 #define PUNTOS_BUTTON_TRES 10
+#define RELLENAR 0
 
 using std::string;
 using Json::Value;
@@ -24,10 +25,9 @@ Tablero::Tablero(string path){
 	if(Listador::getMapa(path, data) == 0){
 		Json::Value::Members keys = data.getMemberNames();
 		if(keys.size()){
-			std::string nMapa = keys[0];
-
-			std::stringstream ss;
+			this->nMapa = keys[0];
 			this->mapa = data[nMapa];
+			this->tablero = this->mapa;
 			this->probabilidades = this->mapa["columnas"];
 			this->generar();
 		}
@@ -35,29 +35,33 @@ Tablero::Tablero(string path){
 		Logger::log("Error creando mapa '"+path+"' Inexistente!");
 	}
 }
+
 Tablero::~Tablero(){
 }
 
 void Tablero::generar(){
-	stringstream ss,sy,sx;
-
+	std::stringstream ss,sy,sx;
+	std::cout << "lo que voy a generar es :  "<< this->mapa << std::endl;
+	int x,y;
 	ss << this->mapa["DIM"]["X"] << std::endl;
-	ss >> this->dim_x ; 
+	ss >> x ; 
 	ss << this->mapa["DIM"]["Y"] << std::endl;
-	ss >> this->dim_y ;
-
-	for ( int i = 0 ; i < this->dim_x ; i++ ) {
+	ss >> y ;
+	for ( int i = 0 ; i < x ; i++ ) {
 		sx<<i;
-		for ( int j = 0 ; j < this->dim_y ; j++ ) {
+		for ( int j = 0 ; j < y ; j++ ) {
 			Json::Value celda;
 			sy<<j;
-			celda = this->mapa["celdas"][sx.str()][sy.str()]["probabilidades"];
-			this->efectivizarCelda(celda);
-			this->tablero[sx.str()][sy.str()] = celda;
+			celda=this->mapa["celdas"][sx.str()][sy.str()]["probabilidades"];
+			efectivizarCelda(celda);
+			this->tablero["tablero"]["celdas"][sx.str()][sy.str()].removeMember("probabilidades");
+			this->tablero["tablero"]["celdas"][sx.str()][sy.str()]["pieza"]=celda;
 			sy.str("");
 		}
 		sx.str("");
 	}
+	
+	std::cout << this->tablero <<std::endl;
 }
 
 void Tablero::efectivizarCelda(Json::Value& celda){

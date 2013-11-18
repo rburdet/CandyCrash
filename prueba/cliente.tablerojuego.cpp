@@ -79,7 +79,6 @@ void TableroJuego::llenar(){
 			if (idPieza !=-1){
 				Caramelo* caramelo = CandyFactory::crearCaramelo(idPieza,i,j);
 				caramelo->show_all();
-				//std::cout << "BORDE PEDORRO" << this->tablero.get_margin_left()<<std::endl;
 				this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),j*SIZE+20,i*SIZE+20);
 				matrizCaramelos[i][j] = caramelo;
 			}

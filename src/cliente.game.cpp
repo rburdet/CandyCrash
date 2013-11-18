@@ -62,7 +62,7 @@ void GameWindow::on_start_game(){
 void GameWindow::on_salir_game(){
 	Json::Value data;
 	data["event"] = EVENT_LEAVE_GAME;
-	this->m_signal_mensaje.emit(data);
+		this->m_signal_mensaje.emit(data);
 }
 
 void GameWindow::mensaje(Json::Value& data){
@@ -92,8 +92,7 @@ void GameWindow::mensaje(Json::Value& data){
 		case EVENT_GAME_USER_RM:
 		case EVENT_GAME_USER_ADD:{
 			string str = this->m_refTextBuffer1->get_text();
-			string line = data["line"].asString();
-			string text = "\n >> Se ";
+			string line = data["line"].asString(); string text = "\n >> Se ";
 			if(event == EVENT_GAME_USER_RM)
 				text +="des";
 			text += "conecto "+data["user"]["user"].asString();
@@ -124,6 +123,12 @@ void GameWindow::mensaje(Json::Value& data){
 			}
 			break;
 		}
+
+		case EVENT_GAME_START:{
+			std::cout << "JSON : " << data << std::endl;  
+			tableroJuego = new TableroJuego(data);
+			break;
+	   }
 
 		default:
 			break;
