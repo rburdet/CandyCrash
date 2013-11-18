@@ -82,6 +82,18 @@ class Tablero {
 		 * @return true si hubo patrones, false si no.
 		 */
 		bool hayPatrones(Json::Value & movimientos, int & puntos);
+
+		/** Devuelve true si es button
+		 */
+		bool esButton(Caramelos car);
+
+		bool activarCombinacionColumna(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos);
+
+		bool activarCombinacionFila(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos);
+
+		void dispararColumna(int x, Json::Value& movimientos, int puntosx, int& puntos);
+
+		void dispararFila(int y, Json::Value& movimientos, int puntosx, int& puntos);
 		
 };
 

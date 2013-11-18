@@ -9,7 +9,7 @@ using Json::Value;
 using Json::StaticString;
 using std::stringstream;
 
-Partida::Partida(ServerInterface* server, int nivel, string& nombre) : server(server), nivel(nivel), nombre(nombre), estado(PARTIDA_ABIERTA) {
+Partida::Partida(ServerInterface* server, int nivel, string& nombre) : server(server), nivel(nivel), nombre(nombre), estado(PARTIDA_ABIERTA), tablero(NULL) {
 	Json::Value val;
 	Listador::getMapa(this->nombre, val);
 	Json::Value::Members keys = val.getMemberNames();
@@ -29,6 +29,10 @@ Partida::~Partida() {
 
 	}
 	this->usuariosLock.unlock();
+	this->tableroLock.lock();
+	delete this->tablero;
+	this->tablero = NULL;
+	this->tableroLock.unlock();
 	this->server->removePartida(this);
 }
 
@@ -125,8 +129,8 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 			break;
 		}
 		case EVENT_GAME_START:{
+			Json::Value send;
 			if(u != usuarios[0]){
-				Json::Value send;
 				send["event"] = EVENT_GAME_MSG;
 				send["msg"] = "No sos el administrador";
 				send["code"] = 0;
@@ -134,6 +138,29 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 				break;
 			}
 			Logger::log("Debo empezar partida!");
+			send["event"] = EVENT_GAME_START;
+			this->tableroLock.lock();
+			this->tablero = new Tablero(nombre);
+			send["tablero"] = this->tablero->getTablero();
+			this->tableroLock.unlock();
+			this->broadcastMsj(send);
+			break;
+		}
+
+		case EVENT_GAME_MOV:{
+			this->tableroLock.lock();
+			// TODO: controlar que vengan todos los datos en el mensaje
+			Json::Value movimientos;
+			int puntos = this->tablero->movimiento(data["x"].asInt(), data["y"].asInt(), (CaramelosMovimientos) data["mov"].asInt(), movimientos);
+			this->tableroLock.unlock();
+			if(puntos){
+				Json::Value send;
+				send["event"] = EVENT_GAME_MOV;
+				send["code"] = 0;
+				send["movs"] = movimientos;
+				this->broadcastMsj(send);
+				// TODO: sumarle los puntos al jugador
+			}
 			break;
 		}
 

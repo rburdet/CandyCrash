@@ -6,6 +6,7 @@
 #include "server.partida_interface.h"
 #include "common.thread_socket.h"
 #include "common.mutex.h"
+#include "server.tablero.h"
 
 /** Entidad que representa una partida.
  */
@@ -20,6 +21,8 @@ class Partida : public PartidaInterface {
 		PartidaEstado estado;
 		Json::Value mapa;
 		int maxUsuarios;
+		Mutex tableroLock;
+		Tablero* tablero;
 		void broadcastMsj(Json::Value& msj);
 
 
