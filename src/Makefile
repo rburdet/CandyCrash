@@ -55,7 +55,7 @@ CFLAGS = #-Wall -pedantic -pedantic-errors -fpermissive -Wlong-long
 CFLAGS += -O3 -DNDEBUG -fpermissive
 
 # Para valgrind o debug
-CFLAGS += -ggdb -DDEBUG -fno-inline
+CFLAGS += -ggdb -DDEBUG -fno-inline -fpermissive
 
 # Opciones del enlazador.
 LDFLAGS = -L/usr/local/lib -ljsoncpp
@@ -64,7 +64,7 @@ LDFLAGS = -L/usr/local/lib -ljsoncpp
 CSTD = c99
 
 # Estandar de C++ a usar
-CXXSTD = c++98
+CXXSTD = c++0x
 
 LIBS := -ljsoncpp
 

@@ -1,5 +1,8 @@
 #include "boxopcionesbasicas.h"
 
+#define MIN_COLS 8
+#define MIN_FILAS 8
+
 
 BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,Tablero* tablero){
 	builder->get_widget("e_maxjug",s_maxjug);
@@ -54,8 +57,12 @@ void BoxOpcionesBasicas::on_button_clicked(){
 	Json::Value max_jugadores = (int)getJugadoresMax();
 	Json::Value nivel;
 	Json::Value nivelMax = getNivel();
-	Json::Value dimX = getDimX();
-	Json::Value dimY= getDimY();
+	Json::Value dimX = MIN_FILAS;
+	Json::Value dimY = MIN_COLS;
+	if (getDimX() >= MIN_FILAS)
+		dimX = getDimX();
+	if (getDimY() >= MIN_COLS)
+		dimY= getDimY();
 	this->tablero->jsonCeldas(nivel,nombre);
 	this->tablero->jsonColumnas(nivel,nombre);
 	nivel[nombre]["puntaje_para_ganar"]=puntaje_para_ganar;

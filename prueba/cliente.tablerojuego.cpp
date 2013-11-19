@@ -85,7 +85,6 @@ void TableroJuego::llenar(){
 				if (celdaFondo != ""){
 					Gtk::Image* imgFondo = new Gtk::Image(celdaFondo.asString());
 					imgFondo->set_size_request(SIZE,SIZE);
-					std::cout << imgFondo->get_size_request();
 					this->tablero.put(*imgFondo,j*SIZE+20,i*SIZE+20);
 					imgFondo->show();
 				}
@@ -128,6 +127,7 @@ void TableroJuego::conectarCaramelos(){
 
 void TableroJuego::click(Caramelo* caramelo){
 	bool movimientoInvalido = true;
+	caramelo->set_opacity(0);
 	clicks++;
 	if (!(clicks % 2 )){
 		int finalX = caramelo->getX();

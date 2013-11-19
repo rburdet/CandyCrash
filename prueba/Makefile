@@ -64,7 +64,7 @@ LDFLAGS = -L/usr/local/lib -ljsoncpp
 CSTD = c99
 
 # Estandar de C++ a usar
-CXXSTD = c++98
+CXXSTD = c++0x
 
 # Si se quiere compilar estaticamente, descomentar la siguiente linea
 #static = si

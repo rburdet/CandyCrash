@@ -72,6 +72,7 @@ void TableroJuego::llenar(){
 			// this->mapa["celdas"][POS Y][POS X]
 			Json::Value celda = this->mapa["celdas"][sy.str()][sx.str()]["pieza"];
 			Json::Value celdaFondo = this->mapa["celdas"][sy.str()][sx.str()]["fondo"];
+			std::cout << sy.str() << " " << sx.str() << "  \t"<< celda << std::endl;
 			std::stringstream auxStream ;
 			auxStream << celda ;
 			auxStream>>idPieza;
@@ -95,7 +96,7 @@ void TableroJuego::llenar(){
 				hueco->show();
 				this->tablero.put(*(dynamic_cast<Gtk::Image*>(hueco)),j*SIZE+25,i*SIZE+25);
 			}
-			sy.str("");
+			sx.str("");
 		}
 		sy.str("");
 	}

@@ -8,7 +8,7 @@
 int main(int argc , char* argv[]){
 	Gtk::Main kit(argc,argv);
 
-	CreadorTablero mapa("posta.map");
+	CreadorTablero mapa("prueba2.map");
 	std::cout << mapa.getTablero() << std::endl;
 	TableroJuego tablero(mapa.getTablero());
 	kit.run();

@@ -1,4 +1,7 @@
 #include "common.creadortablero.h"
+#include <random>
+#include <chrono>
+
 
 CreadorTablero::CreadorTablero(std::string fileName){
 	std::ifstream ifs(fileName.c_str());
@@ -26,7 +29,9 @@ void CreadorTablero::generar(std::string nombreNivel){
 			Json::Value celda;
 			sy<<j;
 			celda=this->tablero[nombreNivel]["celdas"][sx.str()][sy.str()]["probabilidades"];
+			std::cout << sx.str() << " " << sy.str() << " \t" ;
 			efectivizarCelda(celda);
+			std::cout << std::endl;
 			this->tableroFinal[nombreNivel]["celdas"][sx.str()][sy.str()].removeMember("probabilidades");
 			this->tableroFinal[nombreNivel]["celdas"][sx.str()][sy.str()]["pieza"]=celda;
 			sy.str("");
@@ -36,7 +41,11 @@ void CreadorTablero::generar(std::string nombreNivel){
 }
 
 void CreadorTablero::efectivizarCelda(Json::Value& celda){
-	srand(time(NULL));
+	std::cout << celda;
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::default_random_engine generator(seed);
+	std::uniform_int_distribution<int> distribution(0,15);
+	std::uniform_int_distribution<int> distribution2(0,99);
 	double auxArr[MAXELEMENTOS];
 	double max;
 	int total=0;
@@ -47,19 +56,16 @@ void CreadorTablero::efectivizarCelda(Json::Value& celda){
 		for ( int i = 0 ; i < MAXELEMENTOS ; i++ ){
 			ss << celda[i];
 			ss >> aux;
-			auxArr[i] = aux*rand();
+			auxArr[i] = aux*distribution2(generator);
 			total += aux ;
 			ss.str("");
 		}
 		if (total){
 			getMax(auxArr,max,pos);
 			celda = pos;
+			std::cout << " tenia algo el vector y tuve el maximo en : " << pos << std::endl;
 		}else{
-			int* seeder = new int;
-			srand(time(NULL) * (int)seeder);
-			aux = (int)(rand() % MAXELEMENTOS);
-			delete seeder;
-			celda=aux;
+			celda = distribution(generator);
 		}
 	}
 }
@@ -74,6 +80,8 @@ void CreadorTablero::getMax(double* auxArr,double& max, int& pos){
 			pos = i;
 		}
 	}
+	if (auxArr[MAXELEMENTOS-1] > auxArr[pos])
+		pos = MAXELEMENTOS-1;
 }
 
 Json::Value CreadorTablero::getTablero(){

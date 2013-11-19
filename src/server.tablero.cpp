@@ -6,6 +6,9 @@
 #include <sstream>
 #include <cstdlib>
 #include <time.h>
+#include <random>
+#include <chrono>
+
 
 #define MAXELEMENTOS 16
 // Puntos que se adquieren por cada elemento en un evento con una star
@@ -61,7 +64,10 @@ void Tablero::generar(){
 }
 
 void Tablero::efectivizarCelda(Json::Value& celda){
-	srand(time(NULL));
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::default_random_engine generator(seed);
+	std::uniform_int_distribution<int> distribution(0,15);
+	std::uniform_int_distribution<int> distribution2(0,99);
 	double auxArr[MAXELEMENTOS];
 	double max;
 	int total=0;
@@ -72,7 +78,7 @@ void Tablero::efectivizarCelda(Json::Value& celda){
 		for ( int i = 0 ; i < MAXELEMENTOS ; i++ ){
 			ss << celda[i];
 			ss >> aux;
-			auxArr[i] = aux*rand();
+			auxArr[i] = aux*distribution2(generator);
 			total += aux ;
 			ss.str("");
 		}
@@ -80,11 +86,7 @@ void Tablero::efectivizarCelda(Json::Value& celda){
 			getMax(auxArr,max,pos);
 			celda = pos;
 		}else{
-			int* seeder = new int;
-			srand(time(NULL) * (int)seeder);
-			aux = (int)(rand() % MAXELEMENTOS);
-			delete seeder;
-			celda = aux;
+			celda = distribution(generator);
 		}
 	}
 }
@@ -97,7 +99,10 @@ void Tablero::getMax(double* auxArr,double& max, int& pos){
 			max = auxArr[i];
 			pos = i;
 		}
+	
 	}
+	if (auxArr[MAXELEMENTOS-1] > auxArr[pos])
+		pos = MAXELEMENTOS-1;
 }
 
 int Tablero::movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& movimientos){

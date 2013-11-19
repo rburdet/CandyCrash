@@ -126,7 +126,7 @@ void GameWindow::mensaje(Json::Value& data){
 
 		case EVENT_GAME_START:{
 			// TODO: mover esto a cliente.cliente.cpp y hacer que se borre la ventana de game
-			std::cout << "Tableor que recibi  : " << data << std::endl;  
+			std::cout << "Tableor que recibi  : " << data["tablero"] << std::endl;  
 			tableroJuego = new TableroJuego(data["tablero"]);
 			tableroJuego->signal_mensaje().connect(sigc::mem_fun(this, &GameWindow::on_tablero_mensaje));
 			break;
