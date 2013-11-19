@@ -13,7 +13,6 @@
 #define PUNTOS_BUTTON_CINCO 30
 #define PUNTOS_BUTTON_CUATRO 20
 #define PUNTOS_BUTTON_TRES 10
-#define RELLENAR 0
 
 using std::string;
 using Json::Value;
@@ -26,8 +25,9 @@ Tablero::Tablero(string path){
 		Json::Value::Members keys = data.getMemberNames();
 		if(keys.size()){
 			this->nMapa = keys[0];
-			this->mapa = data[nMapa];
-			this->tablero = this->mapa;
+
+			std::stringstream ss;
+			this->mapa = data[this->nMapa];
 			this->probabilidades = this->mapa["columnas"];
 			this->generar();
 		}
@@ -35,32 +35,29 @@ Tablero::Tablero(string path){
 		Logger::log("Error creando mapa '"+path+"' Inexistente!");
 	}
 }
-
 Tablero::~Tablero(){
 }
 
 void Tablero::generar(){
-	std::stringstream ss,sy,sx;
-	int x,y;
+	stringstream ss,sy,sx;
+
 	ss << this->mapa["DIM"]["X"] << std::endl;
-	ss >> x ; 
+	ss >> this->dim_x ; 
 	ss << this->mapa["DIM"]["Y"] << std::endl;
-	ss >> y ;
-	for ( int i = 0 ; i < x ; i++ ) {
+	ss >> this->dim_y ;
+
+	for ( int i = 0 ; i < this->dim_x ; i++ ) {
 		sx<<i;
-		for ( int j = 0 ; j < y ; j++ ) {
+		for ( int j = 0 ; j < this->dim_y ; j++ ) {
 			Json::Value celda;
 			sy<<j;
-			celda=this->mapa["celdas"][sx.str()][sy.str()]["probabilidades"];
-			efectivizarCelda(celda);
-			this->tablero["celdas"][sx.str()][sy.str()].removeMember("probabilidades");
-			this->tablero["celdas"][sx.str()][sy.str()]["pieza"]=celda;
+			celda = this->mapa["celdas"][sx.str()][sy.str()]["probabilidades"];
+			this->efectivizarCelda(celda);
+			this->tablero[sx.str()][sy.str()] = celda;
 			sy.str("");
 		}
 		sx.str("");
 	}
-	
-	std::cout << " tablero que voy a mandar " << this->tablero <<std::endl;
 }
 
 void Tablero::efectivizarCelda(Json::Value& celda){
@@ -757,7 +754,18 @@ bool Tablero::activarCombinacionColumna(int x, int y, bool todosButtons, int con
 }
 
 Json::Value Tablero::getTablero(){
-	return this->tablero;
+	Json::Value ret;
+	ret["DIM"]["X"] = this->dim_x;
+	ret["DIM"]["Y"] = this->dim_y;
+	Json::Value::Members keys = this->mapa["celdas"].getMemberNames();
+	for(int i=0; i < keys.size(); i++){
+		Json::Value::Members innerkeys = this->mapa["celdas"][keys[i]].getMemberNames();
+		for(int j=0; j < innerkeys.size(); j++){
+			ret["celdas"][keys[i]][innerkeys[j]]["fondo"] = this->mapa["celdas"][keys[i]][innerkeys[j]]["fondo"];
+			ret["celdas"][keys[i]][innerkeys[j]]["pieza"] = this->tablero[keys[i]][innerkeys[j]];
+		}
+	}
+	return ret;
 }
 
 int Tablero::doCombinacion(Caramelos car, int x, int y, Json::Value& movimientos){

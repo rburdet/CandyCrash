@@ -17,7 +17,8 @@ typedef enum {
 	GREEN_VERBAR,
 	PURPLE_VERBAR,
 	YELLOW_VERBAR,
-	STAR
+	STAR,
+	RELLENAR
 } Caramelos;
 
 #endif
