@@ -42,6 +42,9 @@ class Tablero{
 		//Matriz que maneja el tablero
 		std::vector<std::vector<Celda*> > matrizCeldas;
 
+		//PRUEBA:
+		std::vector<std::vector<std::vector< int > > >matrizButons;
+		void crearMatrizBotones(int x , int y);
 		//Columnas para la probabilidad seteada
 		std::vector< Columna* > columnas;
 		
@@ -52,6 +55,7 @@ class Tablero{
 		Gtk::Image* point;
 		//Spinbuttons que cambiaron cada vez que se eligio una celda
 		std::vector< Gtk::SpinButton* > butonsCambiados;
+		std::vector< Gtk::SpinButton* > butonsColumnasCambiados;
 
 		//Datos del tablero
 		int cantColumnas;
@@ -72,6 +76,7 @@ class Tablero{
 		void alargarColumnas(int X);
 		void actualizarMatriz(int cantFilas,int cantColumnas);
 		void cambiarButons();
+		void cambiarButonsColumnas();
 		void ponerPunto(int x , int y);
 
 		//Handlers propios
