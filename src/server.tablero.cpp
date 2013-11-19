@@ -107,6 +107,7 @@ void Tablero::getMax(double* auxArr,double& max, int& pos){
 
 int Tablero::movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& movimientos){
 	Json::Value movs;
+	// Compruebo que sea movimiento valido
 	if(! this->movimientoValido(x, y, mov))
 		return 0;
 
@@ -114,11 +115,15 @@ int Tablero::movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& mov
 
 	int puntos = 0;
 
+	// Calculo las nuevas coordenadas nuevas del caramelo
 	this->calcularCoordenadas(x, y, mov, xf, yf);
 
+	// Obtengo el caramelo que se mueve
 	int carameloMovido = this->tablero[this->num2str(y)][this->num2str(x)].asInt();
+	// Obtengo el caramelo que esta donde se va a mover el otro
 	int carameloMovido2 = this->tablero[this->num2str(yf)][this->num2str(xf)].asInt();
 
+	// Pongo los caramelos en sus respectivas posiciones
 	Json::Value aux = this->tablero[this->num2str(y)][this->num2str(x)];
 	this->tablero[this->num2str(y)][this->num2str(x)] = this->tablero[this->num2str(yf)][this->num2str(xf)];
 	this->tablero[this->num2str(yf)][this->num2str(xf)] = aux;
@@ -126,25 +131,32 @@ int Tablero::movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& mov
 	movs.append(this->newMov(x, y, mov));
 	movs.append(this->newMov(xf, yf, this->movInverso(mov)));
 
-	if(carameloMovido == STAR || carameloMovido2 == STAR){
+	if(carameloMovido == STAR || carameloMovido2 == STAR){ // Si uno de los caramelos movidos es STAR, efectuo estar.
 		puntos += this->doStar((Caramelos) carameloMovido, xf, yf, (Caramelos) carameloMovido2, x, y, movs);
-	}else{
+	}else{ // efectuo combinacion por cada caramelo
 		puntos += this->doCombinacion((Caramelos) carameloMovido, xf, yf, movimientos);
 		puntos += this->doCombinacion((Caramelos) carameloMovido2, x, y, movimientos);
 	}
 
+	// Relleno el tablero de vuelta
 	this->rellenarTablero(movs);
 
-	// TODO: habria qe ver qe se multiplican por las combinaciones qe se generen por qe se caigan las fichas
+	// TODO: habria qe ver qe se multiplican por las combinaciones qe se generen por qe se caigan las fichas. El enunciado dice algo de eso.
 	while(this->hayPatrones(movs, puntos))
 		this->rellenarTablero(movs);
 
 	movimientos = movs;
 
+	// meow meow meow meooooooooooow
 	return puntos;
 }
 
+// TODO: hay que arreglarlo, esto va a dar posivo cuando hay 3 caramelos con el mismo color.
+// Si los caramelos no son buttons, deberia haber 4 para que halla movimiento. Hay que copear el razonamiento de doCombinacion!
 bool Tablero::movimientoValido(int x, int y, CaramelosMovimientos mov){
+	/* Idea del algoritmo (para cada caramelo que se movio):
+	 * Me paro en el caramelo que se movio, y me muevo desde dos casilleros antes hasta dos casilleros dsp, contanto la cantidad de veces que hay el mismo color (priemro para la fila y dsp columna), si hay 3 o mas apariciones (el minimo para que halla un movimiento), de vuelvo verdadero.
+	 */
 	int x2 = x, y2 = y;
 	this->calcularCoordenadas(x, y, mov, x2, y2);
 
@@ -157,11 +169,16 @@ bool Tablero::movimientoValido(int x, int y, CaramelosMovimientos mov){
 	int carameloMovido = this->tablero[this->num2str(y)][this->num2str(x)].asInt();
 	int carameloMovido2 = this->tablero[this->num2str(y2)][this->num2str(x2)].asInt();
 
+	// Si alguno de esos caramelos es un STAR, ya es un movimeinto valido
 	if(carameloMovido == STAR || carameloMovido2 == STAR)
 		return true;
 
-	// Cantidad de veces que esta el mismo color en y (columna), x (fila)
-	int y_color, x_color, y_color2, x_color2;
+	// Cantidad de veces que esta el mismo color en:
+	int y_color, // y para el caramelo 1 (columna)
+		x_color, // x para el caramelo 1 (fila)
+		y_color2, // y para el caramelo 2 (columna)
+		x_color2; // x para el caramelo 2 (fila)
+
 	for(int i=-2; i < 3; i++){
 		int new_x = x + i,
 			new_y = y + i,
@@ -479,23 +496,29 @@ void Tablero::rellenarTablero(Json::Value& movimientos){
 
 bool Tablero::hayPatrones(Json::Value & movimientos, int & puntos){
 	// Para encontrar patrones, vamos a recorrer por filas y columnas viendo si hay fichas del mismo color
+	// Cuento fichas del mismo color y tengo un bool para saber si son solo buttons o hay fichas mezcladas.
+	// Cuando me topo con una ficha que no es del mismo color, me fijo en que qedo el contador y el booleano. Dependiendo de esos valores efectuo acciones.
 	// TODO: como primero se fija por las filas y dsp por las columnas, tienen prioridad las filas.
 	// El enunciado no habla nada de que hacer si se superponen dos combinaciones, siempre se activaran las filas primeros, se podria cambiar este comportamiento, haciendo un poco mas complicada la cosa,,
 	bool huboMovimiento = false;
 	
 	// Itero por todas las filas
 	for(int y=0; y < this->dim_y; y++){
+		//Traigo primer caramelo
 		Caramelos car = (Caramelos) this->tablero[this->num2str(y)]["0"].asInt();
-		int contador = 0;
-		bool todosButtons = true;
+		int contador = 0; //Contador de caramelos con el mismo color
+		bool todosButtons = true; // Flag para saber si son todos buttons
 		int x;
-		for(x=1; x < this->dim_x; x++){
+		for(x=1; x < this->dim_x; x++){ // Itero por una fila
+			// Obtengo el caramelo de la posicion
 			Caramelos esteCar = (Caramelos) this->tablero[this->num2str(y)][this->num2str(x)].asInt();
+			// Si es del mismo color que el caramelo que tenia, sumo contador
 			if(this->esMismoColor(car, esteCar)){
 				contador++;
 				if(! this->esButton(car) )
 					todosButtons = false;
 			}else{
+				// Sino, llamo a activarCombinacionFila, que hace la magia (ver comentarios de eso)
 				if(this->activarCombinacionFila(x, y, todosButtons, contador, movimientos, puntos))
 					huboMovimiento = true;
 
@@ -504,10 +527,12 @@ bool Tablero::hayPatrones(Json::Value & movimientos, int & puntos){
 			}
 		}
 
+		// Al final vuelvo a llamar activarCombinacionFila
 		if(this->activarCombinacionFila(x, y, todosButtons, contador, movimientos, puntos))
 			huboMovimiento = true;
 	}
 
+	// Itero por todas las columnas (es analogo al anterior)
 	for(int x=0; x < this->dim_x; x++){
 		Caramelos car = (Caramelos) this->tablero["0"][this->num2str(x)].asInt();
 		int contador = 0;
@@ -553,6 +578,7 @@ bool Tablero::esButton(Caramelos car){
 }
 
 void Tablero::dispararFila(int y, Json::Value& movimientos, int puntosx, int& puntos){
+	// Recorro toda la fila sacando los caramelos, sumando puntos y agragando el movimiento a movimientos
 	for(int x_m =0; x_m < this->dim_x; x_m++){
 		Caramelos car = (Caramelos) this->tablero[this->num2str(y)][this->num2str(x_m)].asInt();
 		switch(car){
@@ -621,12 +647,13 @@ bool Tablero::activarCombinacionFila(int x, int y, bool todosButtons, int contad
 bool Tablero::activarCombinacionFila(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos, int x_mov, int y_mov){
 	bool huboMovimiento = false;
 	Caramelos carameloEspecial = RELLENAR;
-	if(todosButtons){
-		if(contador >= 3){
+
+	if(todosButtons){ // Si son todos Buttons, solo nececito que sean 3 caramelos del mismo color
+		if(contador >= 3){ // Si hay 3 caramelos, tengo combinacion =)
 			huboMovimiento = true;
 			if(contador >= 5){
 				carameloEspecial = STAR;
-				puntos += PUNTOS_BUTTON_CINCO * 5;
+				puntos += PUNTOS_BUTTON_CINCO * contador;
 			}else if(contador == 4){
 				puntos += PUNTOS_BUTTON_CUATRO * 4;
 				carameloEspecial = this->horBarColor((Caramelos) this->tablero[this->num2str(y)][this->num2str(x-contador)].asInt());
@@ -639,16 +666,16 @@ bool Tablero::activarCombinacionFila(int x, int y, bool todosButtons, int contad
 				movimientos.append(this->newMov(x-contador, y, CARAMELO_MOV_LIMBO));
 			}
 		}
-	}else{
+	}else{ // Sino son todos buttons, minimo son 4 caramelos
 		if(contador >= 4){
-			if(contador == 5)
+			if(contador >= 5)
 				carameloEspecial = STAR;
 			else
 				carameloEspecial = this->horBarColor((Caramelos) this->tablero[this->num2str(y)][this->num2str(x-contador)].asInt());
 
 			huboMovimiento = true;
 			int puntos_por_mov = (contador == 4) ? PUNTOS_BUTTON_CUATRO : PUNTOS_BUTTON_CINCO;
-			for(; contador > 0; contador--){
+			for(; contador > 0; contador--){ // Tengo que moverme por toda la combinacion activando las bars si las hay
 				Caramelos tCar = (Caramelos) this->tablero[this->num2str(y)][this->num2str(x-contador)].asInt();
 				puntos += puntos_por_mov;
 				this->tablero[this->num2str(y)][this->num2str(x-contador)] = RELLENAR;
@@ -678,7 +705,7 @@ bool Tablero::activarCombinacionFila(int x, int y, bool todosButtons, int contad
 		}
 	}
 
-	if(carameloEspecial != RELLENAR){
+	if(carameloEspecial != RELLENAR){ // Si hubo combinacion especial tengo qe ponerlo en el tablero
 		this->tablero[this->num2str(y_mov)][this->num2str(x_mov)] = carameloEspecial;
 		movimientos.append(this->newMov(x_mov, y_mov, CARAMELO_MOV_NEW, carameloEspecial));
 	}
@@ -775,6 +802,7 @@ Json::Value Tablero::getTablero(){
 }
 
 int Tablero::doCombinacion(Caramelos car, int x, int y, Json::Value& movimientos){
+	// Razonamiento parecido a hayPatrones, solo que en vez de recorrer todo el tablero, solo recorre las fichas cercanas al caramelo
 	int puntos = 0;
 	int contador = 0;
 	bool todosButtons = true;
@@ -852,7 +880,7 @@ Caramelos Tablero::verBarColor(Caramelos car){
 }
 
 bool Tablero::hayMovimientos(){
-	// Vamos a iterar por todas las posiciones, probando los 4 movimientos, si algo sale valido, es qe hay miviento
+	// Vamos a iterar por todas las posiciones, probando los 4 movimientos, si algo sale valido, es qe hay moviento
 	for(int y=0; y < this->dim_y; y++){
 		for(int x=0; x < this->dim_x; x++){
 			if(this->movimientoValido(x, y, CARAMELO_MOV_ARRIBA))

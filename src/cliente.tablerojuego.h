@@ -25,6 +25,10 @@ class TableroJuego : public Window {
 		TableroJuego(Json::Value mapa);
 		~TableroJuego(){}
 		void dibujar(){}
+
+		/** Metodo que se usa para recibir mensajes.
+		 * @param data: mensaje { "event": , ... }
+		 */
 		virtual void mensaje(Json::Value& data);
 
 	private:
@@ -35,8 +39,11 @@ class TableroJuego : public Window {
 		Json::Value mapa;
 		std::string nMapa;
 
+		// TODO: meow meowww meow, es decir, no se esta usando,, jaja
 		std::vector<std::vector<Gtk::Image*> > matrizFondos;
+		// matrizCaramelos[y][x]
 		std::vector<std::vector<Caramelo*> > matrizCaramelos;
+		// matrizCaramelosAux[y][x]
 		std::vector<std::vector<Caramelo*> > matrizCaramelosAux;
 
 		int clicks;
@@ -58,11 +65,13 @@ class TableroJuego : public Window {
 		bool swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION);
 		sigc::connection conTimeout; 
 
-		/** Efectua cada movimiento
+		/** Efectua cada movimiento.
+		 * @param data: estructura de movimiento en Json { "x": , "y", "mov": (CaramelosMovimientos), } puede tener un miembro opcional "car" cuando es el movimiento de caramelo nuevo.
 		 */
 		void onMovimiento(Json::Value& data);
 
-		/** Mueve un caramelo a posiciones de tablero
+		/** Mueve un caramelo a posiciones de tablero.
+		 * Llama a animationMove con un timeout, se usan numeros hardcodeados para los steps y para el tiempo del timeout.
 		 * @param car: caramelo a mover
 		 * @param xF: posicion final de tablero en x (casillero)
 		 * @param yF: posicion final de tablero en y (casillero)
