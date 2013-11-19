@@ -135,7 +135,7 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 		}
 		case EVENT_GAME_START:{
 			Json::Value send;
-			if(u != usuarios[0]){
+			if(u != usuarios[0]){ // meow meow meow?
 				send["event"] = EVENT_GAME_MSG;
 				send["msg"] = "No sos el administrador";
 				send["code"] = 0;
@@ -159,6 +159,7 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 		}
 
 		case EVENT_GAME_MOV:{
+			// Me llegan los movimientos, se los tengo qe pasar al tablero
 			this->tableroLock.lock();
 			if(this->estado != PARTIDA_JUGANDO){
 				this->msjError(u, "La partida no esta activa");
@@ -168,7 +169,7 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 			// TODO: controlar que vengan todos los datos en el mensaje
 			Json::Value movimientos;
 			int puntos = this->tablero->movimiento(data["x"].asInt(), data["y"].asInt(), (CaramelosMovimientos) data["mov"].asInt(), movimientos);
-			if(puntos){
+			if(puntos){ // Si el movimiento es de 0 puntos, significa qe fue un movimiento invalido, sino, es valido
 				Json::Value send;
 				send["event"] = EVENT_GAME_MOV;
 				send["code"] = 0;
@@ -176,6 +177,7 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 				this->broadcastMsj(send);
 				this->usuariosLock.lock();
 				Json::Value user;
+				// Le sumo los puntos al jugador
 				for(unsigned int i=0; i < usuarios.size(); i++){
 					if((void*) u == (void*) (this->usuarios[i])){
 						user = this->usuarios_data[i];
@@ -189,7 +191,8 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 				end_send["event"] = EVENT_GAME_END;
 				end_send["code"] = 0;
 
-				if(puntos >= puntosMax){
+				// Me tengo que fijar si se termino el juego
+				if(puntos >= puntosMax){ // El jugador supero el puntage maximo?
 					Json::Value end_send;
 					Json::Value user_data;
 					UserManager::get(user["user"].asString(), user_data);
@@ -200,7 +203,7 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 					end_send["msg"] = "Gano "+user["user"].asString();
 
 					this->broadcastMsj(end_send);
-				}else if(!this->tablero->hayMovimientos()){
+				}else if(!this->tablero->hayMovimientos()){ // No se pueden hacer mas movimientos?
 					this->estado = PARTIDA_TERMINADA;
 					end_send["code"] = 1;
 					end_send["msg"] = "Nadie gano";

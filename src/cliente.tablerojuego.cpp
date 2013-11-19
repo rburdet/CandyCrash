@@ -123,6 +123,14 @@ void TableroJuego::conectarCaramelos(){
 }
 
 
+// XXX: Los mensajes a emitir tienen que ser de esta forma
+// {
+//     "event": EVENT_GAME_MISC,
+//     "ev-game": EVENT_GAME_MOV,
+//     "x": posicion x del caramelo que se mueve,
+//     "y": posicion y del caramelo que se mueve,
+//     "mov": (CaramelosMovimientos) para donde se mueve
+// }
 void TableroJuego::click(Caramelo* caramelo){
 	bool movimientoInvalido = true;
 	clicks++;
@@ -292,6 +300,7 @@ bool TableroJuego::onTimeout(int posI , int posF , int DIRECCION,bool volver){
 }
 
 void TableroJuego::mensaje(Json::Value& data){
+	// Aca van a llegar todos los mensajes, en un ppcio solo nos importan los de EVENT_GAME_MOV.
 	Json::StaticString def("");
 	int code;
 	CommonEvents event = EVENT_NONE;
@@ -304,6 +313,7 @@ void TableroJuego::mensaje(Json::Value& data){
 
 	switch(event){
 		case EVENT_GAME_MOV:{
+			// EVENT_GAME_MOV, viene con un campo mas "movs" que es un array de objetos, cada uno de estos objetos es el que nececita onMovimiento.
 			for(int i=0; i < data["movs"].size() ; i++){
 				this->onMovimiento(data["movs"][i]);
 			}
@@ -316,9 +326,21 @@ void TableroJuego::mensaje(Json::Value& data){
 }
 
 void TableroJuego::onMovimiento(Json::Value& data){
+	// Aca voy a tener que hacer cada movimiento.
 	int x = data["x"].asInt();
 	int y = data["y"].asInt();
 	CaramelosMovimientos mov = (CaramelosMovimientos) data["mov"].asInt();
+	// Para el tablero tenemos dos matrices, matrizCaramelos y matrizCaramelosAux.
+	// La auxiliar inicialmente tiene todos NULL, la idea es primero fijarse si en la auxiliar hay algo en la coordenada, y sino, usar el de matrizCaramelos.
+	// Se usa la auxiliar, debido que cuando swapeen dos caramelos, no va a llegar un evento de swap, sino, qe va a decir qe un caramelo se mueve para arriba y dsp otro se mueve para abajo, provocando que se superpongan en la matriz.
+	// Pasos para cada movimiento:
+	// 1) Busco matrizCaramelosAux[y][x]
+	// 2) Si esta en NULL, busco matrizCaramelos[y][x],
+	// 3) Calculo x_nueva, y_nueva
+	// 4) Miro matrizCaramelos[y_nueva][x_nueva] si hay elemento, lo pongo en matrizCaramelosAux[y_nueva][x_nueva] (Si hay tmb en matrizCaramelosAux, hay algo que no estoy contemplando y mucho meow meow (?) )
+	// 4) Pongo caramelo en su nueva posicion en matrizCaramelos[x_nueva][y_nueva]
+	// 5) Mando la animacion
+	// NOTA: Cuando se hace el NEW, se deberia setear la opacidad del caramelo inicialmente a 0, y mandar una animacion para qe llegue a 1.
 	switch(mov){
 		case CARAMELO_MOV_ARRIBA:
 			break;
@@ -334,6 +356,8 @@ void TableroJuego::onMovimiento(Json::Value& data){
 			break;
 	}
 }
+
+// TODO: faltaria hacer metodo para animar la opacidad (para hacer aparecer las fichas, hacer algo analogo a los metodos de abajo)
 
 void TableroJuego::moverPieza(Caramelo* car, int xF, int yF){
 	// TODO: hacer la transformacion de coordenada a posicion de una manera mas limpia
