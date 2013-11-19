@@ -23,6 +23,7 @@ class GameWindow : public Window {
 		void on_mensaje();
 		void on_start_game();
 		void on_salir_game();
+		void on_tablero_mensaje(Json::Value data);
 
 		Gtk::VBox m_VBox;
 		Gtk::ScrolledWindow m_ScrolledWindow1;

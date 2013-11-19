@@ -1,19 +1,22 @@
 #include "cliente.tablerojuego.h"
 #include <algorithm>
+#include "common.events.h"
+#include "common.caramelos_movimientos.h"
 
 TableroJuego::TableroJuego(Json::Value mapa)
 	:	tablero(),
-		frameTablero(getNMapa(mapa),
-		Gtk::ALIGN_CENTER,
-		Gtk::ALIGN_END, //Eje y
-		1.0, //Aspecto
-		false //ignorar el aspect del hijo
+		frameTablero(
+			mapa["mapa"].asString(),
+			Gtk::ALIGN_CENTER,
+			Gtk::ALIGN_END, //Eje y
+			1.0, //Aspecto
+			false //ignorar el aspect del hijo
 		)
 	{
 	//set_size_request(800,600);
 	set_title("CandyCrush");
 	this->mapa = mapa;
-	this->nMapa = getNMapa(mapa);
+	this->nMapa = mapa["mapa"].asString();
 	dimX = getX();
 	dimY = getY();
 	set_size_request(dimY*SIZE,dimX*SIZE);
@@ -30,15 +33,10 @@ TableroJuego::TableroJuego(Json::Value mapa)
 	originY=-1;
 }
 
-std::string TableroJuego::getNMapa(Json::Value mapa){
-	Json::Value::Members keys = mapa.getMemberNames();
-	return keys[0];
-}
-
 int TableroJuego::getX(){
 	int x;
 	std::stringstream ss;
-	ss << mapa["tablero"]["DIM"]["X"];
+	ss << mapa["DIM"]["X"];
 	ss >> x;
 	return x;
 }
@@ -46,7 +44,7 @@ int TableroJuego::getX(){
 int TableroJuego::getY(){
 	int y;
 	std::stringstream ss;
-	ss << mapa["tablero"]["DIM"]["Y"];
+	ss << mapa["DIM"]["Y"];
 	ss >> y;
 	return y;
 }
@@ -65,14 +63,15 @@ void TableroJuego::dibujarLineas(){
 }
 
 void TableroJuego::llenar(){
-	std::stringstream sy,sx;
+	std::stringstream sx,sy;
 	int idPieza;
-	for ( int i = 0 ; i < dimX ; i++ ) {
-		sx<<i;
-		for ( int j = 0 ; j < dimY ; j++ ) {
-			sy<<j;
-			Json::Value celda = this->mapa["tablero"]["celdas"][sx.str()][sy.str()]["pieza"];
-			Json::Value celdaFondo = this->mapa["tablero"]["celdas"][sx.str()][sy.str()]["fondo"];
+	for ( int i = 0 ; i < dimX ; i++ ) { // Itera en y
+		sy<<i;
+		for ( int j = 0 ; j < dimY ; j++ ) { // Itera en x
+			sx<<j;
+			// this->mapa["celdas"][POS Y][POS X]
+			Json::Value celda = this->mapa["celdas"][sy.str()][sx.str()]["pieza"];
+			Json::Value celdaFondo = this->mapa["celdas"][sy.str()][sx.str()]["fondo"];
 			std::stringstream auxStream ;
 			auxStream << celda ;
 			auxStream>>idPieza;
@@ -84,10 +83,13 @@ void TableroJuego::llenar(){
 					this->tablero.put(*imgFondo,j*SIZE+20,i*SIZE+20);
 					imgFondo->show();
 				}
-				Caramelo* caramelo = CandyFactory::crearCaramelo(idPieza,i,j);
+				Caramelo* caramelo = CandyFactory::crearCaramelo(idPieza,j,i);
 				caramelo->show_all();
 				this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),j*SIZE+20,i*SIZE+20);
+				caramelo->setXPos(j*SIZE+20);
+				caramelo->setYPos(i*SIZE+20);
 				matrizCaramelos[i][j] = caramelo;
+				matrizCaramelosAux[i][j] = NULL;
 			}else if (idPieza == -1){
 				Hueco* hueco = new Hueco();
 				hueco->show();
@@ -95,16 +97,18 @@ void TableroJuego::llenar(){
 			}
 			sy.str("");
 		}
-		sx.str("");
+		sy.str("");
 	}
 }
 
 void TableroJuego::crearMatrices(){
 	this->matrizFondos.resize(dimX);
 	this->matrizCaramelos.resize(dimX);
+	this->matrizCaramelosAux.resize(dimX);
 	for ( int i = 0 ; i < dimX ; i++ ) {
 		matrizFondos[i].resize(dimY);
 		matrizCaramelos[i].resize(dimY);
+		matrizCaramelosAux[i].resize(dimY);
 	}
 }
 
@@ -128,23 +132,53 @@ void TableroJuego::click(Caramelo* caramelo){
 		matrizCaramelos[originX][originY]->set_relief(Gtk::RELIEF_NONE);
 		if ( (finalX == originX) && (finalY == originY) )
 			return;
+
+		//if( (finalX == originX ) || ( finalY == originY) ){
+		//	std::cout << "finalX " << finalX << " originX " << originX << " finalY " << finalY << " originY " << originY << std::endl;
+		//	this->moverPieza(carameloOrigen, finalX, finalY);
+		//	this->moverPieza(caramelo, originX, originY);
+		//}
+
+		Json::Value data;
+		data["event"] = EVENT_GAME_MISC;
+		data["ev-game"] = EVENT_GAME_MOV;
+		data["x"] = originX;
+		data["y"] = originY;
 		if ( finalX == originX ){
-			step1 = finalY * SIZE +20;
-			step2 = originY * SIZE +20;
 			if ( (finalY - originY) == 1){ 
-				mover2Piezas(originY,finalY,DERECHA,movimientoInvalido);
+				data["mov"] = CARAMELO_MOV_ABAJO;
+				this->m_signal_mensaje.emit(data);
 			}else if (finalY - originY == -1){
-				mover2Piezas(originY,finalY,IZQUIERDA,movimientoInvalido);
+				data["mov"] = CARAMELO_MOV_ARRIBA;
+				this->m_signal_mensaje.emit(data);
 			}
 		}else if ( finalY == originY){
-			step1 = (finalX * SIZE) +20;
-			step2 = (originX * SIZE) +20;
 			if ( (finalX-originX)  == -1 ){
-				mover2Piezas(originX , finalX,ARRIBA,movimientoInvalido); // movimietno vertical
+				data["mov"] = CARAMELO_MOV_IZQ;
+				this->m_signal_mensaje.emit(data);
 			}else if ( (finalX-originX) == 1){
-				mover2Piezas(originX, finalX , ABAJO,movimientoInvalido);
+				data["mov"] = CARAMELO_MOV_DERECHA;
+				this->m_signal_mensaje.emit(data);
 			}
 		}
+
+		//if ( finalX == originX ){
+		//	step1 = finalY * SIZE +20;
+		//	step2 = originY * SIZE +20;
+		//	if ( (finalY - originY) == 1){ 
+		//		mover2Piezas(originY,finalY,DERECHA,movimientoInvalido);
+		//	}else if (finalY - originY == -1){
+		//		mover2Piezas(originY,finalY,IZQUIERDA,movimientoInvalido);
+		//	}
+		//}else if ( finalY == originY){
+		//	step1 = (finalX * SIZE) +20;
+		//	step2 = (originX * SIZE) +20;
+		//	if ( (finalX-originX)  == -1 ){
+		//		mover2Piezas(originX , finalX,ARRIBA,movimientoInvalido); // movimietno vertical
+		//	}else if ( (finalX-originX) == 1){
+		//		mover2Piezas(originX, finalX , ABAJO,movimientoInvalido);
+		//	}
+		//}
 	}else{
 		carameloOrigen = caramelo;	
 		originX = carameloOrigen->getX();
@@ -256,3 +290,103 @@ bool TableroJuego::onTimeout(int posI , int posF , int DIRECCION,bool volver){
 			return false;
 	}
 }
+
+void TableroJuego::mensaje(Json::Value& data){
+	Json::StaticString def("");
+	int code;
+	CommonEvents event = EVENT_NONE;
+
+	if(data.get("event", def).isNumeric())
+		event = (CommonEvents) data.get("event", def).asInt();
+
+	if(data.get("code", def).isNumeric())
+		code = (CommonEvents) data.get("code", def).asInt();
+
+	switch(event){
+		case EVENT_GAME_MOV:{
+			for(int i=0; i < data["movs"].size() ; i++){
+				this->onMovimiento(data["movs"][i]);
+			}
+			break;
+		}
+		
+		default:
+			break;
+	}
+}
+
+void TableroJuego::onMovimiento(Json::Value& data){
+	int x = data["x"].asInt();
+	int y = data["y"].asInt();
+	CaramelosMovimientos mov = (CaramelosMovimientos) data["mov"].asInt();
+	switch(mov){
+		case CARAMELO_MOV_ARRIBA:
+			break;
+		case CARAMELO_MOV_DERECHA:
+			break;
+		case CARAMELO_MOV_ABAJO:
+			break;
+		case CARAMELO_MOV_IZQ:
+			break;
+		case CARAMELO_MOV_LIMBO:
+			break;
+		case CARAMELO_MOV_NEW:
+			break;
+	}
+}
+
+void TableroJuego::moverPieza(Caramelo* car, int xF, int yF){
+	// TODO: hacer la transformacion de coordenada a posicion de una manera mas limpia
+	int posx_final = xF * SIZE + 20;
+	int posy_final = yF * SIZE + 20;
+	sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::animationMove), car, posx_final, posy_final ,3, 3);
+	Glib::signal_timeout().connect(my_slot,7);
+}
+
+bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final, int step_x, int step_y){
+	bool ret = false;
+
+	if(car->mover(x_final, y_final))
+		return true;
+
+	int x = car->getXPos();
+	if(x > x_final){
+		x -= step_x;
+		if(x <= x_final)
+			x = x_final;
+		else
+			ret = true;
+	}else if(x < x_final){
+		x += step_x;
+		if(x >= x_final)
+			x = x_final;
+		else
+			ret = true;
+	}
+
+	int y = car->getYPos();
+	if(y > y_final){
+		y -= step_y;
+		if(y <= y_final)
+			y = y_final;
+		else
+			ret = true;
+	}else if(y < y_final){
+		y += step_y;
+		if(y >= y_final)
+			y = y_final;
+		else
+			ret = true;
+	}
+
+	std::cout << "muevo -> x_final " << x_final << " y_final " << y_final << std::endl;
+	std::cout << "muevo -> x " << x << " y " << y << std::endl;
+	std::cout << "termino " << ret << std::endl;
+	car->setXPos(x);
+	car->setYPos(y);
+	this->tablero.move(*(dynamic_cast<Gtk::Button*>(car)), x, y);
+
+	car->setMoviendo(ret, x_final, y_final);
+	return ret;
+}
+

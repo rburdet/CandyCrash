@@ -7,7 +7,6 @@ class Button : public Caramelo {
 	public:
 		Button(int idCaramelo,const std::string& imageName, int i, int j) : Caramelo(idCaramelo,imageName,i,j){}
 		~Button(){}
-		bool mover(){return false;}
 };
 
 #endif

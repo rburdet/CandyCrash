@@ -9,7 +9,6 @@ class Bar : public Caramelo{
 			this->acostado = acostado;
 		}
 		~Bar(){}
-		bool mover(){return false;}
 		
 	private:
 		bool acostado;

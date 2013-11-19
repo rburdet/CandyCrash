@@ -757,6 +757,7 @@ Json::Value Tablero::getTablero(){
 	Json::Value ret;
 	ret["DIM"]["X"] = this->dim_x;
 	ret["DIM"]["Y"] = this->dim_y;
+	ret["mapa"] = this->nMapa;
 	Json::Value::Members keys = this->mapa["celdas"].getMemberNames();
 	for(int i=0; i < keys.size(); i++){
 		Json::Value::Members innerkeys = this->mapa["celdas"][keys[i]].getMemberNames();

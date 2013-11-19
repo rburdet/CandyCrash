@@ -25,8 +25,7 @@ class TableroJuego : public Window {
 		TableroJuego(Json::Value mapa);
 		~TableroJuego(){}
 		void dibujar(){}
-		virtual void mensaje(Json::Value& data){}
-		static std::string getNMapa(Json::Value mapa);
+		virtual void mensaje(Json::Value& data);
 
 	private:
 		Gtk::Fixed tablero;
@@ -38,6 +37,7 @@ class TableroJuego : public Window {
 
 		std::vector<std::vector<Gtk::Image*> > matrizFondos;
 		std::vector<std::vector<Caramelo*> > matrizCaramelos;
+		std::vector<std::vector<Caramelo*> > matrizCaramelosAux;
 
 		int clicks;
 		int originX;
@@ -57,6 +57,27 @@ class TableroJuego : public Window {
 		bool onTimeout(int x,int y,int DIRECCION,bool volver);
 		bool swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION);
 		sigc::connection conTimeout; 
+
+		/** Efectua cada movimiento
+		 */
+		void onMovimiento(Json::Value& data);
+
+		/** Mueve un caramelo a posiciones de tablero
+		 * @param car: caramelo a mover
+		 * @param xF: posicion final de tablero en x (casillero)
+		 * @param yF: posicion final de tablero en y (casillero)
+		 */
+		void moverPieza(Caramelo* car, int xF, int yF);
+
+		/** Funcion que se usa con timeout para crear movimientos.
+		 * @param car: caramelo a mover
+		 * @param x_final: posicion final x del caramelo (coordenadas)
+		 * @param y_final: posicion final y del caramelo (coordenadas)
+		 * @param step_x: salto que pega en x por cada iteracion
+		 * @param step_y: salto que pega en y por cada iteracion
+		 * @return true si no termino, false si llego a destino
+		 */
+		bool animationMove(Caramelo* car, int x_final, int y_final, int step_x, int step_y);
 };
 
 #endif
