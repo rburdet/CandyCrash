@@ -36,6 +36,7 @@ class TableroJuego : public Window {
 		int dimY;
 		Json::Value mapa;
 		std::string nMapa;
+		bool esfumadoTerminado;
 
 		std::vector<std::vector<Gtk::Image*> > matrizFondos;
 		std::vector<std::vector<Caramelo*> > matrizCaramelos;
@@ -52,6 +53,12 @@ class TableroJuego : public Window {
 		int getY();
 		void dibujarLineas();
 		void llenar();
+		void esfumar(Caramelo* caramelo);
+		void aparecer(Caramelo* caramelo);
+		void bajar();
+		void crearCarameloEn(int i,int j);
+		bool onAclarar(Caramelo* caramelo);
+		bool onOpacar(Caramelo* caramelo);
 		void conectarCaramelos();
 		void click(Caramelo* caramelo);
 		void mover2Piezas(int pos1, int pos2, int DIRECCION, bool volver);

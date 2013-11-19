@@ -11,6 +11,9 @@ class Caramelo : public Gtk::Button{
 		virtual ~Caramelo(){};
 		virtual bool mover()=0;
 		void hablar(){ std::cout << idCaramelo << std::endl; }
+		void opacar();
+		bool visible();
+		void hacerAparecer();
 		//virtual void mostrar()=0;
 		int getX();
 		int getY();

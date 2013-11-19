@@ -72,7 +72,6 @@ void TableroJuego::llenar(){
 			// this->mapa["celdas"][POS Y][POS X]
 			Json::Value celda = this->mapa["celdas"][sy.str()][sx.str()]["pieza"];
 			Json::Value celdaFondo = this->mapa["celdas"][sy.str()][sx.str()]["fondo"];
-			std::cout << sy.str() << " " << sx.str() << "  \t"<< celda << std::endl;
 			std::stringstream auxStream ;
 			auxStream << celda ;
 			auxStream>>idPieza;
@@ -84,7 +83,7 @@ void TableroJuego::llenar(){
 					this->tablero.put(*imgFondo,j*SIZE+20,i*SIZE+20);
 					imgFondo->show();
 				}
-				Caramelo* caramelo = CandyFactory::crearCaramelo(idPieza,j,i);
+				Caramelo* caramelo = CandyFactory::crearCaramelo(idPieza,i,j);
 				caramelo->show_all();
 				this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),j*SIZE+20,i*SIZE+20);
 				caramelo->setXPos(j*SIZE+20);

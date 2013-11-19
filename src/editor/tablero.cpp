@@ -9,6 +9,7 @@
 #define SIZE 40
 #define OFFSET 20
 
+#define MAXELEMENTOS 16
 
 Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 	celdaInteres=NULL;
@@ -24,9 +25,12 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 	celdaInteres=NULL;
 	colInteres=NULL;
 	actualizarMatriz(cantFilas,cantColumnas);
-	point = new Gtk::Image("../../imagenes/dot.png");
-	this->tablero->put(*point,100000,100000);
+	//point = new Gtk::Image("../../imagenes/dot.png");
+	//this->tablero->put(*point,100000,100000);
 	this->eventos_tablero->signal_button_press_event().connect(sigc::mem_fun(*this,&Tablero::on_click_tablero));
+
+	//PRUEBA
+	butonsCambiados.resize(MAXELEMENTOS-1);
 	
 }
 
@@ -162,30 +166,69 @@ void Tablero::actualizarMatriz(int x, int y){
 			matrizCeldas[i][j] = new Celda(i,j);
 		}
 	}
+	crearMatrizBotones(x,y);
+	point = new Gtk::Image("../../imagenes/dot.png");
+	this->tablero->put(*point,100000,100000);
+}
+
+void Tablero::crearMatrizBotones(int x,int y){
+	matrizButons.resize(x);
+	for ( int i = 0 ; i < x ; i++ ){
+		matrizButons[i].resize(y);
+		for (int j = 0 ; j < y ; j++ ) {
+			matrizButons[i][j].resize(MAXELEMENTOS-1);
+		}
+	}
 }
 
 void Tablero::on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id){
 	if (!celdaInteres)
 		return;
 	this->celdaInteres->on_adj_changed(spinbutton, id);
-	butonsCambiados.push_back(spinbutton);
+	matrizButons[celdaInteres->getX()][celdaInteres->getY()][id]=spinbutton->get_value();
+	butonsCambiados[id]=spinbutton;
+	//butonsCambiados.push_back(spinbutton);
 }
+
+//void Tablero::getValoresButons(){
+//	for (int i=0 ; i < MAXELEMENTOS ; i++){
+//		matrizButons[celdaInteres->getX()][celdaInteres->getY()][i];
+//	}
+//}
 
 void Tablero::cambiarButons(){
 	for ( unsigned int i = 0 ; i < butonsCambiados.size() ; i++ ){
-		butonsCambiados[i]->set_value(0.00);
+		//butonsCambiados[i]->set_value(0.00);
+		if (matrizButons[celdaInteres->getX()][celdaInteres->getY()][i]){
+			butonsCambiados[i]->set_value(matrizButons[celdaInteres->getX()][celdaInteres->getY()][i]);
+			std::cout << "tenia  "<<matrizButons[celdaInteres->getX()][celdaInteres->getY()][i] << std::endl;
+		}else if (butonsCambiados[i]){
+			butonsCambiados[i]->set_value(0);
+		}
+
 	}
-	butonsCambiados.clear();
+	//butonsCambiados.clear();
 }
 
 void Tablero::on_click_boton_tablero(int id){
-	colInteres = columnas[id];
+	if (colInteres != columnas[id]){
+		colInteres = columnas[id];
+		cambiarButonsColumnas();
+	}
+}
+
+void Tablero::cambiarButonsColumnas(){
+	for (unsigned int i = 0 ; i < butonsColumnasCambiados.size() ; i++ ){
+		butonsColumnasCambiados[i]->set_value(0.00);
+	}
+	butonsColumnasCambiados.clear();
 }
 
 void Tablero::on_adjCols_changed_tablero(Gtk::SpinButton* spinbutton, int id){
 	if (!colInteres)
 		return;
 	this->colInteres->on_adj_changed(spinbutton,id);	
+	butonsColumnasCambiados.push_back(spinbutton);
 }
 
 void Tablero::jsonColumnas(Json::Value& nivel,const std::string& nombre){
