@@ -1,6 +1,8 @@
 #include "cliente.tablerojuego.h"
 #include "common.hueco.h"
 #include <algorithm>
+#include <random>
+#include <chrono>
 
 TableroJuego::TableroJuego(Json::Value mapa)
 	:	tablero(),
@@ -127,7 +129,6 @@ void TableroJuego::conectarCaramelos(){
 
 void TableroJuego::click(Caramelo* caramelo){
 	bool movimientoInvalido = true;
-	caramelo->set_opacity(0);
 	clicks++;
 	if (!(clicks % 2 )){
 		int finalX = caramelo->getX();
@@ -152,6 +153,7 @@ void TableroJuego::click(Caramelo* caramelo){
 				mover2Piezas(originX, finalX , ABAJO,movimientoInvalido);
 			}
 		}
+		esfumar(caramelo);
 	}else{
 		carameloOrigen = caramelo;	
 		originX = carameloOrigen->getX();
@@ -165,6 +167,61 @@ void TableroJuego::click(Caramelo* caramelo){
 void TableroJuego::mover2Piezas(int posI,int posF,int DIRECCION,bool volver){
 		sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onTimeout),posI,posF,DIRECCION,volver);
 		this->conTimeout = Glib::signal_timeout().connect(my_slot,7);
+}
+
+void TableroJuego::esfumar(Caramelo* caramelo){
+	sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onOpacar),caramelo);
+	this->conTimeout = Glib::signal_timeout().connect(my_slot,10);
+}
+
+
+bool TableroJuego::onOpacar(Caramelo* caramelo){
+	if (caramelo->visible()){
+		caramelo->opacar();
+		return true;
+	}
+	//delete caramelo;
+	bajar();
+	return false;
+}
+
+bool TableroJuego::onAclarar(Caramelo* caramelo){
+	if (caramelo->get_opacity()!=1){
+		caramelo->hacerAparecer();
+		return true;
+	}
+	return false;
+}
+
+void TableroJuego::aparecer(Caramelo* caramelo){
+	sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onAclarar),caramelo);
+	this->conTimeout = Glib::signal_timeout().connect(my_slot,10);
+}
+
+void TableroJuego::crearCarameloEn(int i, int j){
+
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::default_random_engine generator(seed);
+	std::uniform_int_distribution<int> distribution(0,15);
+	Caramelo* caramelo = CandyFactory::crearCaramelo(distribution(generator),i,j);
+	caramelo->set_opacity(0);
+	//caramelo->show();
+	aparecer(caramelo);
+	this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),j*SIZE+20,i*SIZE+20);
+	matrizCaramelos[i][j] = caramelo;
+	matrizCaramelos[i][j]->signal_clicked().connect(sigc::bind(sigc::mem_fun(this,&TableroJuego::click),matrizCaramelos[i][j]));
+
+}
+
+void TableroJuego::bajar(){
+	for ( int i = 0 ; i < dimX ; i++ ){
+		for ( int j = 0 ; j < dimY ; j++ ){
+			if (matrizCaramelos[i][j]->get_opacity()!=1){
+				std::cout << "tengo que bajar xq falta " << i << " " << j << std::endl;
+				crearCarameloEn(i,j);
+			}
+		}
+	}
 }
 
 bool TableroJuego::swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION){
