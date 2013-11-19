@@ -159,6 +159,7 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 		}
 
 		case EVENT_GAME_MOV:{
+			std::cout << "Me llego un evento de movimiento x:" << data["x"].asInt() << " y:" << data["y"].asInt() << std::endl;
 			// Me llegan los movimientos, se los tengo qe pasar al tablero
 			this->tableroLock.lock();
 			if(this->estado != PARTIDA_JUGANDO){
@@ -169,12 +170,14 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 			// TODO: controlar que vengan todos los datos en el mensaje
 			Json::Value movimientos;
 			int puntos = this->tablero->movimiento(data["x"].asInt(), data["y"].asInt(), (CaramelosMovimientos) data["mov"].asInt(), movimientos);
-			if(puntos){ // Si el movimiento es de 0 puntos, significa qe fue un movimiento invalido, sino, es valido
+			//if(puntos){ // Si el movimiento es de 0 puntos, significa qe fue un movimiento invalido, sino, es valido
+				Logger::log("puntos");
 				Json::Value send;
 				send["event"] = EVENT_GAME_MOV;
 				send["code"] = 0;
 				send["movs"] = movimientos;
 				this->broadcastMsj(send);
+			if(puntos){ // Si el movimiento es de 0 puntos, significa qe fue un movimiento invalido, sino, es valido
 				this->usuariosLock.lock();
 				Json::Value user;
 				// Le sumo los puntos al jugador

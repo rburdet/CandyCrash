@@ -130,7 +130,11 @@ void GameWindow::mensaje(Json::Value& data){
 			tableroJuego = new TableroJuego(data["tablero"]);
 			tableroJuego->signal_mensaje().connect(sigc::mem_fun(this, &GameWindow::on_tablero_mensaje));
 			break;
-	   }
+		}
+
+		case EVENT_GAME_MOV:
+			this->tableroJuego->mensaje(data);
+			break;
 
 		default:
 			break;

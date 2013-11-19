@@ -40,6 +40,15 @@ class Tablero {
 		 */
 		bool movimientoValido(int x, int y, CaramelosMovimientos mov);
 
+		/** Chequea qe en la posicion x, y tenga una combinacion a su alrededor
+		 * @return true si hay, false si no
+		 */
+		bool hayMovimiento(int x, int y, Caramelos car);
+
+		/** 
+		 */
+		bool hayCombinacion(int x, int y, bool todosButtons, int contador);
+
 		/** Calcula las nuevas coordenadas dsp del movimiento
 		 */
 		void calcularCoordenadas(int x, int y, CaramelosMovimientos mov, int&xf, int &yf);

@@ -138,7 +138,7 @@ void TableroJuego::click(Caramelo* caramelo){
 	if (!(clicks % 2 )){
 		int finalX = caramelo->getX();
 		int finalY = caramelo->getY();
-		matrizCaramelos[originX][originY]->set_relief(Gtk::RELIEF_NONE);
+		matrizCaramelos[originY][originX]->set_relief(Gtk::RELIEF_NONE);
 		if ( (finalX == originX) && (finalY == originY) )
 			return;
 
@@ -193,7 +193,7 @@ void TableroJuego::click(Caramelo* caramelo){
 		originX = carameloOrigen->getX();
 		originY = carameloOrigen->getY();
 		//matrizCaramelos[originX][originY]->set_relief(Gtk::RELIEF_NONE);
-		matrizCaramelos[caramelo->getX()][caramelo->getY()]->set_relief(Gtk::RELIEF_NORMAL);
+		matrizCaramelos[caramelo->getY()][caramelo->getX()]->set_relief(Gtk::RELIEF_NORMAL);
 		std::cout << "aprete: " ; matrizCaramelos[caramelo->getX()][caramelo->getY()]->hablar();
 	}
 }
@@ -343,18 +343,63 @@ void TableroJuego::onMovimiento(Json::Value& data){
 	// 5) Mando la animacion
 	// NOTA: Cuando se hace el NEW, se deberia setear la opacidad del caramelo inicialmente a 0, y mandar una animacion para qe llegue a 1.
 	switch(mov){
-		case CARAMELO_MOV_ARRIBA:
+		case CARAMELO_MOV_ARRIBA:{
+			int x2 = x;
+			int y2 = y-1;
+			this->moveCaramelo(x, y, x2, y2);
 			break;
-		case CARAMELO_MOV_DERECHA:
+		}
+		case CARAMELO_MOV_DERECHA:{
+			int x2 = x+1;
+			int y2 = y;
+			this->moveCaramelo(x, y, x2, y2);
 			break;
-		case CARAMELO_MOV_ABAJO:
+		}
+		case CARAMELO_MOV_ABAJO:{
+			int x2 = x;
+			int y2 = y+1;
+			this->moveCaramelo(x, y, x2, y2);
 			break;
-		case CARAMELO_MOV_IZQ:
+		}
+		case CARAMELO_MOV_IZQ:{
+			int x2 = x-1;
+			int y2 = y;
+			this->moveCaramelo(x, y, x2, y2);
 			break;
+		}
 		case CARAMELO_MOV_LIMBO:
+			this->moveCaramelo(x, y, -1 , -1);
 			break;
+
 		case CARAMELO_MOV_NEW:
+			std::cout << "TODO: NEW" << std::endl;
 			break;
+	}
+}
+
+void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
+	Caramelo* m = this->matrizCaramelosAux[y][x];
+
+	this->matrizCaramelosAux[y][x] = NULL;
+
+	std::cout << "moveCaramelo x: " << x << " y: " << y << " xf: " << xf << " yf: " << yf << std::endl;
+
+	if(m == NULL){
+		m = this->matrizCaramelos[y][x];
+		this->matrizCaramelos[y][x] = NULL;
+	}
+
+	if( xf < 0 || yf < 0){
+		// TODO:
+		//m->hide();
+		//m->set_opacity(0);
+		this->moverPieza(m, -1, -1);
+	}else{
+		if(this->matrizCaramelos[yf][xf] != NULL)
+			this->matrizCaramelosAux[yf][xf] = this->matrizCaramelos[yf][xf];
+
+		this->matrizCaramelos[yf][xf] = m;
+		this->moverPieza(m, xf, yf);
 	}
 }
 
@@ -373,6 +418,11 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final, int st
 
 	if(car->mover(x_final, y_final))
 		return true;
+
+	if(x_final < 0 || y_final < 0){
+		car->hide();
+		return false;
+	}
 
 	int x = car->getXPos();
 	if(x > x_final){
@@ -404,9 +454,9 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final, int st
 			ret = true;
 	}
 
-	std::cout << "muevo -> x_final " << x_final << " y_final " << y_final << std::endl;
-	std::cout << "muevo -> x " << x << " y " << y << std::endl;
-	std::cout << "termino " << ret << std::endl;
+	//std::cout << "muevo -> x_final " << x_final << " y_final " << y_final << std::endl;
+	//std::cout << "muevo -> x " << x << " y " << y << std::endl;
+	//std::cout << "termino " << ret << std::endl;
 	car->setXPos(x);
 	car->setYPos(y);
 	this->tablero.move(*(dynamic_cast<Gtk::Button*>(car)), x, y);

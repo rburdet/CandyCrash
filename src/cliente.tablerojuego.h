@@ -87,6 +87,8 @@ class TableroJuego : public Window {
 		 * @return true si no termino, false si llego a destino
 		 */
 		bool animationMove(Caramelo* car, int x_final, int y_final, int step_x, int step_y);
+
+		void moveCaramelo(int x, int y, int xf, int yf);
 };
 
 #endif
