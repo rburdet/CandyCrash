@@ -47,7 +47,7 @@ class Tablero {
 
 		/** 
 		 */
-		bool hayCombinacion(int x, int y, bool todosButtons, int contador);
+		bool hayCombinacion(bool todosButtons, int contador);
 
 		/** Calcula las nuevas coordenadas dsp del movimiento
 		 */

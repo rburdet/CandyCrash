@@ -83,7 +83,7 @@ void TableroJuego::llenar(){
 					this->tablero.put(*imgFondo,j*SIZE+20,i*SIZE+20);
 					imgFondo->show();
 				}
-				Caramelo* caramelo = CandyFactory::crearCaramelo(idPieza,i,j);
+				Caramelo* caramelo = CandyFactory::crearCaramelo(idPieza,j,i);
 				caramelo->show_all();
 				this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),j*SIZE+20,i*SIZE+20);
 				caramelo->setXPos(j*SIZE+20);
@@ -370,9 +370,20 @@ void TableroJuego::onMovimiento(Json::Value& data){
 			this->moveCaramelo(x, y, -1 , -1);
 			break;
 
-		case CARAMELO_MOV_NEW:
+		case CARAMELO_MOV_NEW:{
 			std::cout << "TODO: NEW" << std::endl;
+			Caramelos car = (Caramelos) data["car"].asInt();
+			Caramelo* caramelo = CandyFactory::crearCaramelo(car,x,y);
+			caramelo->setXPos(x*SIZE+20);
+			caramelo->setYPos(y*SIZE+20);
+			this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),x*SIZE+20,y*SIZE+20);
+			if(this->matrizCaramelos[y][x] != NULL)
+				this->matrizCaramelosAux[y][x] = this->matrizCaramelos[y][x];
+
+			this->matrizCaramelos[y][x] = caramelo;
+
 			break;
+		 }
 	}
 }
 
