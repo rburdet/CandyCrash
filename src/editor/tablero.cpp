@@ -252,15 +252,15 @@ void Tablero::jsonCeldas(Json::Value& nivel,const std::string& nombre){
 		for ( unsigned int j = 0 ; j < matrizCeldas[0].size() ; j++ ){
 			streamColumna << j ;
 			if ( matrizCeldas[i][j]->isHueco() ){
-				nivel[nombre]["celdas"][streamFila.str()][streamColumna.str()]["probabilidades"] = -1;
+				nivel[nombre]["celdas"][streamColumna.str()][streamFila.str()]["probabilidades"] = -1;
 			}else{
 				Json::Value aux(Json::arrayValue);
 				for ( int k = 0 ; k < 16 ; k ++ ){
 					aux.append(matrizCeldas[i][j]->getInfo()->getProb_piezas(k));
 				}
-				nivel[nombre]["celdas"][streamFila.str()][streamColumna.str()]["probabilidades"] = aux;
+				nivel[nombre]["celdas"][streamColumna.str()][streamFila.str()]["probabilidades"] = aux;
 			}
-			nivel[nombre]["celdas"][streamFila.str()][streamColumna.str()]["fondo"] = matrizCeldas[i][j]->getImage();
+			nivel[nombre]["celdas"][streamColumna.str()][streamFila.str()]["fondo"] = matrizCeldas[i][j]->getImage();
 			streamColumna.str("");
 		}
 		streamFila.str("");
