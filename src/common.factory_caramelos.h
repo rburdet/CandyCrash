@@ -6,7 +6,6 @@
 #include "common.bar.h"
 #include "common.star.h"
 #include "common.caramelos.h"
-#include "common.hueco.h"
 
 #define DEFAULTIMAGEDIR "../imagenes/"
 #define SIZE 50

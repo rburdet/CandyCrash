@@ -43,24 +43,26 @@ Tablero::~Tablero(){
 
 void Tablero::generar(){
 	stringstream ss,sy,sx;
-
 	ss << this->mapa["DIM"]["X"] << std::endl;
 	ss >> this->dim_x ; 
+	this->alto = this->dim_x;
 	ss << this->mapa["DIM"]["Y"] << std::endl;
 	ss >> this->dim_y ;
-
-	for ( int i = 0 ; i < this->dim_x ; i++ ) {
-		sx<<i;
-		for ( int j = 0 ; j < this->dim_y ; j++ ) {
+	this->ancho =  this->dim_y;
+	for ( int i = 0 ; i < this->alto ; i++ ) {
+		sy<<i;
+		for ( int j = 0 ; j < this->ancho ; j++ ) {
 			Json::Value celda;
-			sy<<j;
+			sx<<j;
 			celda = this->mapa["celdas"][sx.str()][sy.str()]["probabilidades"];
 			this->efectivizarCelda(celda);
 			this->tablero[sx.str()][sy.str()] = celda;
-			sy.str("");
+			sx.str("");
+			std::cout << sx.str() << "\t" << sy.str() << std::endl;
 		}
-		sx.str("");
+		sy.str("");
 	}
+	std::cout << "tablero a mandar :: " << this->tablero<<std::endl;
 }
 
 void Tablero::efectivizarCelda(Json::Value& celda){

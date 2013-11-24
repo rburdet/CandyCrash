@@ -18,7 +18,9 @@ TableroJuego::TableroJuego(Json::Value mapa)
 	this->mapa = mapa;
 	this->nMapa = mapa["mapa"].asString();
 	dimX = getX();
+	alto = getX();
 	dimY = getY();
+	ancho = getY();
 	set_size_request(dimY*SIZE,dimX*SIZE);
 	this->tablero.set_size_request(dimY*SIZE,dimX*SIZE);
 	frameTablero.add(this->tablero);
@@ -65,13 +67,13 @@ void TableroJuego::dibujarLineas(){
 void TableroJuego::llenar(){
 	std::stringstream sx,sy;
 	int idPieza;
-	for ( int i = 0 ; i < dimX ; i++ ) { // Itera en y
+	for ( int i = 0 ; i < alto ; i++ ) { // Itera en y
 		sy<<i;
-		for ( int j = 0 ; j < dimY ; j++ ) { // Itera en x
+		for ( int j = 0 ; j < ancho ; j++ ) { // Itera en x
 			sx<<j;
 			// this->mapa["celdas"][POS Y][POS X]
-			Json::Value celda = this->mapa["celdas"][sy.str()][sx.str()]["pieza"];
-			Json::Value celdaFondo = this->mapa["celdas"][sy.str()][sx.str()]["fondo"];
+			Json::Value celda = this->mapa["celdas"][sx.str()][sy.str()]["pieza"];
+			Json::Value celdaFondo = this->mapa["celdas"][sx.str()][sy.str()]["fondo"];
 			std::stringstream auxStream ;
 			auxStream << celda ;
 			auxStream>>idPieza;
@@ -91,9 +93,9 @@ void TableroJuego::llenar(){
 				matrizCaramelos[i][j] = caramelo;
 				matrizCaramelosAux[i][j] = NULL;
 			}else if (idPieza == -1){
-				Hueco* hueco = new Hueco();
+				Gtk::Image* hueco = new Gtk::Image("../imagenes/hueco.png");
 				hueco->show();
-				this->tablero.put(*(dynamic_cast<Gtk::Image*>(hueco)),j*SIZE+25,i*SIZE+25);
+				this->tablero.put(*(hueco),j*SIZE+25,i*SIZE+25);
 			}
 			sx.str("");
 		}
