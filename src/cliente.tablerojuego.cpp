@@ -97,7 +97,7 @@ void TableroJuego::llenar(){
 				hueco->show();
 				this->tablero.put(*(hueco),i*SIZE+25,j*SIZE+25);
 			}
-			std::cout << "en : " << i << " " << j << " : " << idPieza << " " << matrizCaramelos[i][j]->getId() << " \t";
+			//std::cout << "en : " << i << " " << j << " : " << idPieza << " " << matrizCaramelos[i][j]->getId() << " \t";
 			sx.str("");
 		}
 		std::cout<< std::endl;
@@ -136,7 +136,7 @@ void TableroJuego::conectarCaramelos(){
 //     "mov": (CaramelosMovimientos) para donde se mueve
 // }
 void TableroJuego::click(Caramelo* caramelo){
-	std::cout << " aprete ::: " << caramelo->getId() << std::endl;
+	std::cout << " aprete un caramelo de id ::: " << caramelo->getId() << std::endl;
 	std::cout << "Columna origen : " << colOrigen<<"\t";
 	std::cout << "Fila Origen : " << filaOrigen<<std::endl;
 	bool movimientoInvalido = true;
@@ -168,12 +168,12 @@ void TableroJuego::click(Caramelo* caramelo){
 				std::cout << "muevo ABAJO " << std::endl;
 				data["mov"] = CARAMELO_MOV_ABAJO;
 				this->m_signal_mensaje.emit(data);
-				mover2Piezas(filaOrigen, filaFinal , ABAJO,movimientoInvalido);
+				//mover2Piezas(filaOrigen, filaFinal , ABAJO,movimientoInvalido);
 			}else if (filaFinal - filaOrigen == -1){
 				std::cout << "muevo ARRIBA " << std::endl;
 				data["mov"] = CARAMELO_MOV_ARRIBA;
 				this->m_signal_mensaje.emit(data);
-				mover2Piezas(filaOrigen, filaFinal , ARRIBA,movimientoInvalido);
+				//mover2Piezas(filaOrigen, filaFinal , ARRIBA,movimientoInvalido);
 			}
 		}else if ( filaFinal == filaOrigen){
 			step1 = (colFinal * SIZE) +20;
@@ -182,12 +182,12 @@ void TableroJuego::click(Caramelo* caramelo){
 				std::cout << "muevo IZQUIERDA " << std::endl;
 				data["mov"] = CARAMELO_MOV_IZQ;
 				this->m_signal_mensaje.emit(data);
-				mover2Piezas(colOrigen,colFinal,IZQUIERDA,movimientoInvalido);
+				//mover2Piezas(colOrigen,colFinal,IZQUIERDA,movimientoInvalido);
 			}else if ( (colFinal-colOrigen) == 1){
 					std::cout << "muevo DERECHA " << std::endl;
 				data["mov"] = CARAMELO_MOV_DERECHA;
 				this->m_signal_mensaje.emit(data);
-				mover2Piezas(colOrigen,colFinal,DERECHA,movimientoInvalido);
+				//mover2Piezas(colOrigen,colFinal,DERECHA,movimientoInvalido);
 			}
 		}
 
@@ -222,7 +222,7 @@ void TableroJuego::click(Caramelo* caramelo){
 //TODO: no me estan volviendo bien las fichitas, ver una solucion copada
 //metodo ASOMAR a mitad de camino
 void TableroJuego::mover2Piezas(int posI,int posF,int DIRECCION,bool volver){
-		sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onTimeout),posI,posF,DIRECCION,!volver);
+		sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onTimeout),posI,posF,DIRECCION,volver);
 		this->conTimeout = Glib::signal_timeout().connect(my_slot,7);
 }
 
@@ -241,7 +241,6 @@ bool TableroJuego::onTimeout(int posI , int posF , int DIRECCION,bool volver){
 			return false;
 			break;
 		case ABAJO:
-			std::cout << " quieren mover pabajo : " << matrizCaramelos[colOrigen][posI]->getId() << " hacia : " << matrizCaramelos[colOrigen][posF]->getId() << std::endl;
 			if (swapBoton(matrizCaramelos[colOrigen][posI],matrizCaramelos[colOrigen][posF],DIRECCION))
 				return true;
 			if (volver){
@@ -303,30 +302,22 @@ bool TableroJuego::asomar(Caramelo* Origen, Caramelo* Final,int DIRECCION){
 }
 
 bool TableroJuego::swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION){
-	int auxFin,auxOri;
 	switch (DIRECCION){
 		case ARRIBA:
 			if ( Origen->getX()*SIZE+20 != Final->getXPos()){
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),colOrigen*SIZE+20,Final->getXPos());
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),colOrigen*SIZE+20,Origen->getXPos());
-				auxFin=Final->getXPos()+1;
-				auxOri=Origen->getXPos()-1;
-				Final->setXPos(auxFin);
-				Origen->setXPos(auxOri);
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),colOrigen*SIZE+20,Origen->getXPos());
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),colOrigen*SIZE+20,Final->getXPos());
+				Final->setXPos(Final->getXPos()+1);
+				Origen->setXPos(Origen->getXPos()-1);
 				return true;
 			}else{
 				return false;
 			}
 			break;
 		case ABAJO:
-			std::cout << " y ahora vengo aca para hacer la animacion " << std::endl;
-			std::cout << " posicion inicial " <<  Origen->getX()*SIZE+20 << std::endl;
-			std::cout << "posicion final " << step2 << std::endl;
 			if ( Origen->getX()*SIZE+20 != Final->getXPos()){
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),colOrigen*SIZE+20,Final->getXPos());
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),colOrigen*SIZE+20,Origen->getXPos());
-				//auxFin=Final->getXPos()-1;
-				//auxOri=Final->getXPos()+1;
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),colOrigen*SIZE+20,Origen->getXPos());
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),colOrigen*SIZE+20,Final->getXPos());
 				Final->setXPos(Final->getXPos()-1);
 				Origen->setXPos(Origen->getXPos()+1);
 				return true;
@@ -335,20 +326,22 @@ bool TableroJuego::swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION){
 			}
 			break;
 		case DERECHA:
-			std::cout<< " inicial " << Origen->getY()*SIZE+20 <<std::endl;
-			std::cout<< " final " << step1 <<std::endl;
-			if ( Origen->getY()*SIZE+20 != step1){
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),step2++,filaOrigen*SIZE+20);
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),step1--,filaOrigen*SIZE+20);
+			if ( Origen->getY()*SIZE+20 != Final->getYPos()){
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),Origen->getYPos(),filaOrigen*SIZE+20);
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),Final->getYPos(),filaOrigen*SIZE+20);
+				Final->setYPos(Final->getYPos()-1);
+				Origen->setYPos(Origen->getYPos()+1);
 				return true;
 			}else{
 				return false;
 			}
 			break;
 		case IZQUIERDA:
-			if ( Origen->getY()*SIZE+20 != step1){
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),step2--,filaOrigen*SIZE+20);
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),step1++,filaOrigen*SIZE+20);
+			if ( Origen->getY()*SIZE+20 != Final->getYPos()){
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),Origen->getYPos(),filaOrigen*SIZE+20);
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),Origen->getYPos(),filaOrigen*SIZE+20);
+				Final->setYPos(Final->getYPos()+1);
+				Origen->setYPos(Origen->getYPos()-1);
 				return true;
 			}else{
 				return false;
@@ -389,6 +382,7 @@ void TableroJuego::onMovimiento(Json::Value& data){
 	int x = data["x"].asInt();
 	int y = data["y"].asInt();
 	CaramelosMovimientos mov = (CaramelosMovimientos) data["mov"].asInt();
+	std::cout << " se quiso mover : " << x << "\t" << y << std::endl;
 	// Para el tablero tenemos dos matrices, matrizCaramelos y matrizCaramelosAux.
 	// La auxiliar inicialmente tiene todos NULL, la idea es primero fijarse si en la auxiliar hay algo en la coordenada, y sino, usar el de matrizCaramelos.
 	// Se usa la auxiliar, debido que cuando swapeen dos caramelos, no va a llegar un evento de swap, sino, qe va a decir qe un caramelo se mueve para arriba y dsp otro se mueve para abajo, provocando que se superpongan en la matriz.
@@ -404,25 +398,29 @@ void TableroJuego::onMovimiento(Json::Value& data){
 		case CARAMELO_MOV_ARRIBA:{
 			int x2 = x;
 			int y2 = y-1;
-			this->moveCaramelo(x, y, x2, y2);
+			//this->moveCaramelo(x, y, x2, y2);
+			this->mover2Piezas(y,y2,ARRIBA,false);
 			break;
 		}
 		case CARAMELO_MOV_DERECHA:{
 			int x2 = x+1;
 			int y2 = y;
-			this->moveCaramelo(x, y, x2, y2);
+			//this->moveCaramelo(x, y, x2, y2);
+			this->mover2Piezas(x,x2,DERECHA,false);
 			break;
 		}
 		case CARAMELO_MOV_ABAJO:{
 			int x2 = x;
 			int y2 = y+1;
-			this->moveCaramelo(x, y, x2, y2);
+			//this->moveCaramelo(x, y, x2, y2);
+			this->mover2Piezas(y,y2,ABAJO,false);
 			break;
 		}
 		case CARAMELO_MOV_IZQ:{
 			int x2 = x-1;
 			int y2 = y;
-			this->moveCaramelo(x, y, x2, y2);
+			//this->moveCaramelo(x, y, x2, y2);
+			this->mover2Piezas(x,x2,IZQUIERDA,false);
 			break;
 		}
 		case CARAMELO_MOV_LIMBO:
@@ -436,10 +434,17 @@ void TableroJuego::onMovimiento(Json::Value& data){
 			caramelo->setXPos(x*SIZE+20);
 			caramelo->setYPos(y*SIZE+20);
 			this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),x*SIZE+20,y*SIZE+20);
-			if(this->matrizCaramelos[y][x] != NULL)
-				this->matrizCaramelosAux[y][x] = this->matrizCaramelos[y][x];
+//			if(this->matrizCaramelos[y][x] != NULL)
+//				this->matrizCaramelosAux[y][x] = this->matrizCaramelos[y][x];
+//
+//			this->matrizCaramelos[y][x] = caramelo;
 
-			this->matrizCaramelos[y][x] = caramelo;
+			//CAMBIOS HECHOS POR MI <3
+			if(this->matrizCaramelos[x][y] != NULL)
+				this->matrizCaramelosAux[x][y] = this->matrizCaramelos[x][y];
+
+			this->matrizCaramelos[x][y] = caramelo;
+
 
 			break;
 		 }
