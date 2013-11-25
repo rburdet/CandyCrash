@@ -31,8 +31,8 @@ TableroJuego::TableroJuego(Json::Value mapa)
 	show_all();
 	this->conectarCaramelos();
 	clicks=0;
-	originX=-1;
-	originY=-1;
+	colOrigen=-1;
+	filaOrigen=-1;
 }
 
 int TableroJuego::getX(){
@@ -67,10 +67,10 @@ void TableroJuego::dibujarLineas(){
 void TableroJuego::llenar(){
 	std::stringstream sx,sy;
 	int idPieza;
-	for ( int i = 0 ; i < alto ; i++ ) { // Itera en y
-		sy<<i;
-		for ( int j = 0 ; j < ancho ; j++ ) { // Itera en x
-			sx<<j;
+	for ( int j = 0 ; j < ancho ; j++ ) { // Itera en y
+		sy<<j;
+		for ( int i = 0 ; i < alto ; i++ ) { // Itera en x
+			sx<<i;
 			// this->mapa["celdas"][POS Y][POS X]
 			Json::Value celda = this->mapa["celdas"][sx.str()][sy.str()]["pieza"];
 			Json::Value celdaFondo = this->mapa["celdas"][sx.str()][sy.str()]["fondo"];
@@ -82,12 +82,12 @@ void TableroJuego::llenar(){
 				if (celdaFondo!=""){
 					Gtk::Image* imgFondo = new Gtk::Image(celdaFondo.asString());
 					imgFondo->set_size_request(SIZE,SIZE);
-					this->tablero.put(*imgFondo,j*SIZE+20,i*SIZE+20);
+					this->tablero.put(*imgFondo,i*SIZE+20,j*SIZE+20);
 					imgFondo->show();
 				}
 				Caramelo* caramelo = CandyFactory::crearCaramelo(idPieza,j,i);
 				caramelo->show_all();
-				this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),j*SIZE+20,i*SIZE+20);
+				this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),i*SIZE+20,j*SIZE+20);
 				caramelo->setXPos(j*SIZE+20);
 				caramelo->setYPos(i*SIZE+20);
 				matrizCaramelos[i][j] = caramelo;
@@ -95,10 +95,12 @@ void TableroJuego::llenar(){
 			}else if (idPieza == -1){
 				Gtk::Image* hueco = new Gtk::Image("../imagenes/hueco.png");
 				hueco->show();
-				this->tablero.put(*(hueco),j*SIZE+25,i*SIZE+25);
+				this->tablero.put(*(hueco),i*SIZE+25,j*SIZE+25);
 			}
+			std::cout << "en : " << i << " " << j << " : " << idPieza << " " << matrizCaramelos[i][j]->getId() << " \t";
 			sx.str("");
 		}
+		std::cout<< std::endl;
 		sy.str("");
 	}
 }
@@ -134,172 +136,227 @@ void TableroJuego::conectarCaramelos(){
 //     "mov": (CaramelosMovimientos) para donde se mueve
 // }
 void TableroJuego::click(Caramelo* caramelo){
+	std::cout << " aprete ::: " << caramelo->getId() << std::endl;
+	std::cout << "Columna origen : " << colOrigen<<"\t";
+	std::cout << "Fila Origen : " << filaOrigen<<std::endl;
 	bool movimientoInvalido = true;
 	clicks++;
 	if (!(clicks % 2 )){
-		int finalX = caramelo->getX();
-		int finalY = caramelo->getY();
-		matrizCaramelos[originY][originX]->set_relief(Gtk::RELIEF_NONE);
-		if ( (finalX == originX) && (finalY == originY) )
+		int filaFinal = caramelo->getX();
+		int colFinal = caramelo->getY();
+		std::cout << "colFinal : " << colFinal<<"\t";
+		std::cout << "filaFinal : " << filaFinal<<std::endl;
+		matrizCaramelos[colOrigen][filaOrigen]->set_relief(Gtk::RELIEF_NONE);
+		if ( (colFinal == colOrigen) && (filaFinal == filaOrigen) )
 			return;
 
-		//if( (finalX == originX ) || ( finalY == originY) ){
-		//	std::cout << "finalX " << finalX << " originX " << originX << " finalY " << finalY << " originY " << originY << std::endl;
-		//	this->moverPieza(carameloOrigen, finalX, finalY);
-		//	this->moverPieza(caramelo, originX, originY);
+		//if( (colFinal == colOrigen ) || ( filaFinal == filaOrigen) ){
+		//	std::cout << "colFinal " << colFinal << " colOrigen " << colOrigen << " filaFinal " << filaFinal << " filaOrigen " << filaOrigen << std::endl;
+		//	this->moverPieza(carameloOrigen, colFinal, filaFinal);
+		//	this->moverPieza(caramelo, colOrigen, filaOrigen);
 		//}
 
 		Json::Value data;
 		data["event"] = EVENT_GAME_MISC;
 		data["ev-game"] = EVENT_GAME_MOV;
-		data["x"] = originX;
-		data["y"] = originY;
-		if ( finalX == originX ){
-			if ( (finalY - originY) == 1){ 
+		data["x"] = colOrigen;
+		data["y"] = filaOrigen;
+		if ( colFinal == colOrigen ){
+			step1 = filaFinal * SIZE +20;
+			step2 = filaOrigen * SIZE +20;
+			if ( (filaFinal - filaOrigen) == 1){ 
+				std::cout << "muevo ABAJO " << std::endl;
 				data["mov"] = CARAMELO_MOV_ABAJO;
 				this->m_signal_mensaje.emit(data);
-			}else if (finalY - originY == -1){
+				mover2Piezas(filaOrigen, filaFinal , ABAJO,movimientoInvalido);
+			}else if (filaFinal - filaOrigen == -1){
+				std::cout << "muevo ARRIBA " << std::endl;
 				data["mov"] = CARAMELO_MOV_ARRIBA;
 				this->m_signal_mensaje.emit(data);
+				mover2Piezas(filaOrigen, filaFinal , ARRIBA,movimientoInvalido);
 			}
-		}else if ( finalY == originY){
-			if ( (finalX-originX)  == -1 ){
+		}else if ( filaFinal == filaOrigen){
+			step1 = (colFinal * SIZE) +20;
+			step2 = (colOrigen * SIZE) +20;
+			if ( (colFinal-colOrigen)  == -1 ){
+				std::cout << "muevo IZQUIERDA " << std::endl;
 				data["mov"] = CARAMELO_MOV_IZQ;
 				this->m_signal_mensaje.emit(data);
-			}else if ( (finalX-originX) == 1){
+				mover2Piezas(colOrigen,colFinal,IZQUIERDA,movimientoInvalido);
+			}else if ( (colFinal-colOrigen) == 1){
+					std::cout << "muevo DERECHA " << std::endl;
 				data["mov"] = CARAMELO_MOV_DERECHA;
 				this->m_signal_mensaje.emit(data);
+				mover2Piezas(colOrigen,colFinal,DERECHA,movimientoInvalido);
 			}
 		}
 
-		//if ( finalX == originX ){
-		//	step1 = finalY * SIZE +20;
-		//	step2 = originY * SIZE +20;
-		//	if ( (finalY - originY) == 1){ 
-		//		mover2Piezas(originY,finalY,DERECHA,movimientoInvalido);
-		//	}else if (finalY - originY == -1){
-		//		mover2Piezas(originY,finalY,IZQUIERDA,movimientoInvalido);
+		//if ( colFinal == colOrigen ){
+		//	step1 = filaFinal * SIZE +20;
+		//	step2 = filaOrigen * SIZE +20;
+		//	if ( (filaFinal - filaOrigen) == 1){ 
+		//		mover2Piezas(filaOrigen,filaFinal,DERECHA,movimientoInvalido);
+		//	}else if (filaFinal - filaOrigen == -1){
+		//		mover2Piezas(filaOrigen,filaFinal,IZQUIERDA,movimientoInvalido);
 		//	}
-		//}else if ( finalY == originY){
-		//	step1 = (finalX * SIZE) +20;
-		//	step2 = (originX * SIZE) +20;
-		//	if ( (finalX-originX)  == -1 ){
-		//		mover2Piezas(originX , finalX,ARRIBA,movimientoInvalido); // movimietno vertical
-		//	}else if ( (finalX-originX) == 1){
-		//		mover2Piezas(originX, finalX , ABAJO,movimientoInvalido);
+		//}else if ( filaFinal == filaOrigen){
+		//	step1 = (colFinal * SIZE) +20;
+		//	step2 = (colOrigen * SIZE) +20;
+		//	if ( (colFinal-colOrigen)  == -1 ){
+		//		mover2Piezas(colOrigen , colFinal,ARRIBA,movimientoInvalido); // movimietno vertical
+		//	}else if ( (colFinal-colOrigen) == 1){
+		//		mover2Piezas(colOrigen, colFinal , ABAJO,movimientoInvalido);
 		//	}
 		//}
 	}else{
 		carameloOrigen = caramelo;	
-		originX = carameloOrigen->getX();
-		originY = carameloOrigen->getY();
-		//matrizCaramelos[originX][originY]->set_relief(Gtk::RELIEF_NONE);
+		filaOrigen = carameloOrigen->getX();
+		colOrigen = carameloOrigen->getY();
+		//matrizCaramelos[colOrigen][filaOrigen]->set_relief(Gtk::RELIEF_NONE);
 		matrizCaramelos[caramelo->getY()][caramelo->getX()]->set_relief(Gtk::RELIEF_NORMAL);
-		std::cout << "aprete: " ; matrizCaramelos[caramelo->getX()][caramelo->getY()]->hablar();
+		//std::cout << "aprete: " ; matrizCaramelos[caramelo->getX()][caramelo->getY()]->hablar();
 	}
 }
 
+
+//TODO: no me estan volviendo bien las fichitas, ver una solucion copada
+//metodo ASOMAR a mitad de camino
 void TableroJuego::mover2Piezas(int posI,int posF,int DIRECCION,bool volver){
-		sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onTimeout),posI,posF,DIRECCION,volver);
+		sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onTimeout),posI,posF,DIRECCION,!volver);
 		this->conTimeout = Glib::signal_timeout().connect(my_slot,7);
 }
-
-bool TableroJuego::swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION){
-	switch (DIRECCION){
-		case ARRIBA:
-			if ( Origen->getX()*SIZE+20 != step2){
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),originY*SIZE+20,step1++);
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),originY*SIZE+20,step2--);
-				return true;
-			}else{
-				return false;
-			}
-			break;
-		case ABAJO:
-			if ( Origen->getX()*SIZE+20 != step2){
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),originY*SIZE+20,step1--);
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),originY*SIZE+20,step2++);
-				return true;
-			}else{
-				return false;
-			}
-			break;
-		case DERECHA:
-			if ( Origen->getY()*SIZE+20 != step2){
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),step1--,originX*SIZE+20);
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),step2++,originX*SIZE+20);
-				return true;
-			}else{
-				return false;
-			}
-			break;
-		case IZQUIERDA:
-			if ( Origen->getY()*SIZE+20 != step2){
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),step1++,originX*SIZE+20);
-				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),step2--,originX*SIZE+20);
-				return true;
-			}else{
-				return false;
-			}
-			break;
-	}
-}
-
 
 bool TableroJuego::onTimeout(int posI , int posF , int DIRECCION,bool volver){
 	switch ( DIRECCION ){
 		case ARRIBA:
-			if (swapBoton(matrizCaramelos[posF][originY],matrizCaramelos[originX][originY],DIRECCION))
+			if (swapBoton(matrizCaramelos[colOrigen][posI],matrizCaramelos[colOrigen][posF],DIRECCION))
 				return true;
 			if (volver){
-				swapBoton(matrizCaramelos[originX][originY],matrizCaramelos[posF][originY],ABAJO);
+				swapBoton(matrizCaramelos[colOrigen][posI],matrizCaramelos[colOrigen][posF],DIRECCION);
 				return false;
 			}
-			std::swap(matrizCaramelos[posF][originY], matrizCaramelos[posI][originY]);
-			matrizCaramelos[posI][originY]->setX(posI);
-			matrizCaramelos[posF][originY]->setX(posF);
+			std::swap(matrizCaramelos[colOrigen][posF], matrizCaramelos[colOrigen][posI]);
+			matrizCaramelos[colOrigen][posI]->setX(posI);
+			matrizCaramelos[colOrigen][posF]->setX(posF);
 			return false;
 			break;
 		case ABAJO:
-			if (swapBoton(matrizCaramelos[posF][originY],matrizCaramelos[originX][originY],DIRECCION))
+			std::cout << " quieren mover pabajo : " << matrizCaramelos[colOrigen][posI]->getId() << " hacia : " << matrizCaramelos[colOrigen][posF]->getId() << std::endl;
+			if (swapBoton(matrizCaramelos[colOrigen][posI],matrizCaramelos[colOrigen][posF],DIRECCION))
 				return true;
 			if (volver){
-				swapBoton(matrizCaramelos[originX][originY],matrizCaramelos[posF][originY],ARRIBA);
+				std::cout << "tengo que volver " << std::endl;
+				swapBoton(matrizCaramelos[colOrigen][filaOrigen],matrizCaramelos[colOrigen][posF],ARRIBA);
 				return false;
 			}
-			std::swap(matrizCaramelos[posF][originY], matrizCaramelos[posI][originY]);
-			matrizCaramelos[posI][originY]->setX(posI);
-			matrizCaramelos[posF][originY]->setX(posF);
+			std::swap(matrizCaramelos[colOrigen][posF], matrizCaramelos[colOrigen][posI]);
+			matrizCaramelos[colOrigen][posI]->setX(posI);
+			matrizCaramelos[colOrigen][posF]->setX(posF);
 			return false;
 			break;
 		case DERECHA:
-			if (swapBoton(matrizCaramelos[originX][posF],matrizCaramelos[originX][originY],DIRECCION))
+			if (swapBoton(matrizCaramelos[posI][filaOrigen],matrizCaramelos[posF][filaOrigen],DIRECCION))
 				return true;
 			if (volver){
-				swapBoton(matrizCaramelos[originX][originY],matrizCaramelos[originX][posF],IZQUIERDA);
+				std::cout << "tengo que volver " << std::endl;
+				swapBoton(matrizCaramelos[colOrigen][filaOrigen],matrizCaramelos[posF][filaOrigen],IZQUIERDA);
 				return false;
 			}
-			std::swap(matrizCaramelos[originX][posF], matrizCaramelos[originX][posI]);
-			matrizCaramelos[originX][posI]->setY(posI);
-			matrizCaramelos[originX][posF]->setY(posF);
+			std::swap(matrizCaramelos[posF][filaOrigen], matrizCaramelos[posI][filaOrigen]);
+			matrizCaramelos[posI][filaOrigen]->setY(posI);
+			matrizCaramelos[posF][filaOrigen]->setY(posF);
 			return false;
 			break;
 		case IZQUIERDA:
-			if (swapBoton(matrizCaramelos[originX][posF],matrizCaramelos[originX][originY],DIRECCION))
+			if (swapBoton(matrizCaramelos[posI][filaOrigen],matrizCaramelos[posF][filaOrigen],DIRECCION))
 				return true;
 			if (volver){
-				swapBoton(matrizCaramelos[originX][originY],matrizCaramelos[originX][posF],DERECHA);
+				swapBoton(matrizCaramelos[posI][filaOrigen],matrizCaramelos[posF][filaOrigen],DERECHA);
 				return false;
 			}
-			std::swap(matrizCaramelos[originX][posF], matrizCaramelos[originX][posI]);
-			matrizCaramelos[originX][posI]->setY(posI);
-			matrizCaramelos[originX][posF]->setY(posF);
+			std::swap(matrizCaramelos[posF][filaOrigen], matrizCaramelos[posI][filaOrigen]);
+			std::cout << " termine de mover y tengo en : " << posF << " " << filaOrigen << " " << matrizCaramelos[posF][filaOrigen]->getId() << std::endl;
+			std::cout << "con : " <<matrizCaramelos[posF][filaOrigen]->getX() << " " << matrizCaramelos[posF][filaOrigen]->getY() << std::endl;
+			matrizCaramelos[posI][filaOrigen]->setY(posI);
+			matrizCaramelos[posF][filaOrigen]->setY(posF);
 			return false;
 			break;
 		default:
 			return false;
 	}
 }
+
+bool TableroJuego::asomar(Caramelo* Origen, Caramelo* Final,int DIRECCION){
+	
+	//switch(DIRECCION){
+	//	case ARRIBA:
+	//			std::cout << "me muevo" << std::endl;
+	//			if ( Origen->getX()*SIZE+20 != Final->getXPos()){
+	//				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),colOrigen*SIZE+20,Final->getXPos());
+	//				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),colOrigen*SIZE+20,Origen->getXPos());
+	//				auxFin=Final->getXPos()+1;
+	//				auxOri=Origen->getXPos()-1;
+	//				Final->setXPos(auxFin);
+	//				Origen->setXPos(auxOri);
+	//		}
+	//}
+}
+
+bool TableroJuego::swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION){
+	int auxFin,auxOri;
+	switch (DIRECCION){
+		case ARRIBA:
+			if ( Origen->getX()*SIZE+20 != Final->getXPos()){
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),colOrigen*SIZE+20,Final->getXPos());
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),colOrigen*SIZE+20,Origen->getXPos());
+				auxFin=Final->getXPos()+1;
+				auxOri=Origen->getXPos()-1;
+				Final->setXPos(auxFin);
+				Origen->setXPos(auxOri);
+				return true;
+			}else{
+				return false;
+			}
+			break;
+		case ABAJO:
+			std::cout << " y ahora vengo aca para hacer la animacion " << std::endl;
+			std::cout << " posicion inicial " <<  Origen->getX()*SIZE+20 << std::endl;
+			std::cout << "posicion final " << step2 << std::endl;
+			if ( Origen->getX()*SIZE+20 != Final->getXPos()){
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),colOrigen*SIZE+20,Final->getXPos());
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),colOrigen*SIZE+20,Origen->getXPos());
+				//auxFin=Final->getXPos()-1;
+				//auxOri=Final->getXPos()+1;
+				Final->setXPos(Final->getXPos()-1);
+				Origen->setXPos(Origen->getXPos()+1);
+				return true;
+			}else{
+				return false;
+			}
+			break;
+		case DERECHA:
+			std::cout<< " inicial " << Origen->getY()*SIZE+20 <<std::endl;
+			std::cout<< " final " << step1 <<std::endl;
+			if ( Origen->getY()*SIZE+20 != step1){
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),step2++,filaOrigen*SIZE+20);
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),step1--,filaOrigen*SIZE+20);
+				return true;
+			}else{
+				return false;
+			}
+			break;
+		case IZQUIERDA:
+			if ( Origen->getY()*SIZE+20 != step1){
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Origen)),step2--,filaOrigen*SIZE+20);
+				this->tablero.move(*(dynamic_cast<Gtk::Button*>(Final)),step1++,filaOrigen*SIZE+20);
+				return true;
+			}else{
+				return false;
+			}
+			break;
+	}
+}
+
 
 void TableroJuego::mensaje(Json::Value& data){
 	// Aca van a llegar todos los mensajes, en un ppcio solo nos importan los de EVENT_GAME_MOV.

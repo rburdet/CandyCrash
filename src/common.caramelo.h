@@ -21,6 +21,7 @@ class Caramelo : public Gtk::Button{
 		bool setMoviendo(bool moviendo);
 
 		void hablar(){ std::cout << idCaramelo << std::endl; }
+		int getId(){ return this->idCaramelo; }
 		//virtual void mostrar()=0;
 		int getX();
 		int getXPos();

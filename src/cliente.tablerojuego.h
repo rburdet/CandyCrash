@@ -51,8 +51,8 @@ class TableroJuego : public Window {
 		std::vector<std::vector<Caramelo*> > matrizCaramelosAux;
 
 		int clicks;
-		int originX;
-		int originY;
+		int colOrigen;
+		int filaOrigen;
 		int step1;
 		int step2;
 		Caramelo* carameloOrigen;
@@ -67,6 +67,7 @@ class TableroJuego : public Window {
 		void mover2Piezas(int pos1, int pos2, int DIRECCION, bool volver);
 		bool onTimeout(int x,int y,int DIRECCION,bool volver);
 		bool swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION);
+		bool asomar(Caramelo* Origen, Caramelo* Final,int DIRECCION);
 		sigc::connection conTimeout; 
 
 		/** Efectua cada movimiento.
