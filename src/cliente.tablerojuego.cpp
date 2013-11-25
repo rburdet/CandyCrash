@@ -139,7 +139,7 @@ void TableroJuego::click(Caramelo* caramelo){
 	std::cout << " aprete un caramelo de id ::: " << caramelo->getId() << std::endl;
 	std::cout << "Columna origen : " << colOrigen<<"\t";
 	std::cout << "Fila Origen : " << filaOrigen<<std::endl;
-	bool movimientoInvalido = true;
+	bool movimientoInvalido = false;
 	clicks++;
 	if (!(clicks % 2 )){
 		int filaFinal = caramelo->getX();
