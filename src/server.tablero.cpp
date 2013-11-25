@@ -36,6 +36,7 @@ Tablero::Tablero(string path){
 			// Sacamos las combinaciones iniciales
 			int puntos;
 			Json::Value movs;
+			// TODO: podria entrar en un loop infinito, si las probablidades de las fichas que se crean siempre dan combinaciones validas (el sistema de probabilidades, permite decir que siempre se cree una sola ficha)
 			while(this->hayPatrones(movs, puntos))
 				this->rellenarTablero(movs);
 		}
@@ -157,7 +158,7 @@ int Tablero::movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& mov
 	this->rellenarTablero(movs);
 
 	// TODO: habria qe ver qe se multiplican por las combinaciones qe se generen por qe se caigan las fichas. El enunciado dice algo de eso.
-	// TODO: descomentar
+	// TODO: podria entrar en un loop infinito, si las probablidades de las fichas que se crean siempre dan combinaciones validas (el sistema de probabilidades, permite decir que siempre se cree una sola ficha)
 	while(this->hayPatrones(movs, puntos))
 		this->rellenarTablero(movs);
 
@@ -565,7 +566,7 @@ bool Tablero::hayPatrones(Json::Value & movimientos, int & puntos){
 	for(int y=0; y < this->dim_y; y++){
 		//Traigo primer caramelo
 		Caramelos car = (Caramelos) this->tablero["0"][this->num2str(y)].asInt();
-		int contador = 0; //Contador de caramelos con el mismo color
+		int contador = 1; //Contador de caramelos con el mismo color. 1, por que el caramelo es igual a si mismo
 		bool todosButtons = this->esButton(car); // Flag para saber si son todos buttons
 		int x;
 		for(x=1; x < this->dim_x; x++){ // Itero por una fila
@@ -582,7 +583,7 @@ bool Tablero::hayPatrones(Json::Value & movimientos, int & puntos){
 					huboMovimiento = true;
 
 				car = esteCar;
-				contador = 0;
+				contador = 1;
 				todosButtons = this->esButton(car);
 			}
 		}
@@ -595,7 +596,7 @@ bool Tablero::hayPatrones(Json::Value & movimientos, int & puntos){
 	// Itero por todas las columnas (es analogo al anterior)
 	for(int x=0; x < this->dim_x; x++){
 		Caramelos car = (Caramelos) this->tablero[this->num2str(x)]["0"].asInt();
-		int contador = 0;
+		int contador = 1;
 		bool todosButtons = this->esButton(car);
 		int y;
 		for(y=1; y < this->dim_y; y++){
@@ -609,7 +610,7 @@ bool Tablero::hayPatrones(Json::Value & movimientos, int & puntos){
 					huboMovimiento = true;
 
 				car = esteCar;
-				contador = 0;
+				contador = 1;
 				todosButtons = this->esButton(car);
 			}
 		}
@@ -706,13 +707,12 @@ bool Tablero::activarCombinacionFila(int x, int y, bool todosButtons, int contad
 }
 
 bool Tablero::activarCombinacionFila(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos, int x_mov, int y_mov){
-	std::cout << "\t -- activarCombinacionFila(x=" << x << ", y=" << y << ", todosButtons=" << todosButtons << ", contador=" << contador << ", x_mov="<< x_mov << ", y_mov=" << y_mov << ")" << std::endl;
 	bool huboMovimiento = false;
 	Caramelos carameloEspecial = RELLENAR;
 
 	if(todosButtons){ // Si son todos Buttons, solo nececito que sean 3 caramelos del mismo color
-		std::cout << "\t\tSon todos buttons" << std::endl;
 		if(contador >= 3){ // Si hay 3 caramelos, tengo combinacion =)
+			std::cout << "\t -- activarCombinacionFila(x=" << x << ", y=" << y << ", todosButtons=" << todosButtons << ", contador=" << contador << ", x_mov="<< x_mov << ", y_mov=" << y_mov << ")" << std::endl;
 			std::cout << "\t\t >= 3 " << std::endl;
 			huboMovimiento = true;
 			if(contador >= 5){
@@ -730,11 +730,10 @@ bool Tablero::activarCombinacionFila(int x, int y, bool todosButtons, int contad
 				this->tablero[this->num2str(x-contador)][this->num2str(y)] = RELLENAR;
 				movimientos.append(this->newMov(x-contador, y, CARAMELO_MOV_LIMBO));
 			}
-		}else{
-			std::cout << "\t\tNo hay combinacion" << std::endl;
 		}
 	}else{ // Sino son todos buttons, minimo son 4 caramelos
 		if(contador >= 4){
+			std::cout << "\t -- activarCombinacionFila(x=" << x << ", y=" << y << ", todosButtons=" << todosButtons << ", contador=" << contador << ", x_mov="<< x_mov << ", y_mov=" << y_mov << ")" << std::endl;
 			if(contador >= 5)
 				carameloEspecial = STAR;
 			else
@@ -746,6 +745,8 @@ bool Tablero::activarCombinacionFila(int x, int y, bool todosButtons, int contad
 				Caramelos tCar = (Caramelos) this->tablero[this->num2str(x-contador)][this->num2str(y)].asInt();
 				puntos += puntos_por_mov;
 				this->tablero[this->num2str(x-contador)][this->num2str(y)] = RELLENAR;
+				movimientos.append(this->newMov(x-contador, y, CARAMELO_MOV_LIMBO));
+
 				switch(tCar){
 					case RED_HORBAR:
 					case BLUE_HORBAR:
@@ -766,11 +767,7 @@ bool Tablero::activarCombinacionFila(int x, int y, bool todosButtons, int contad
 					default:
 						break;
 				}
-
-				movimientos.append(this->newMov(x-contador, y, CARAMELO_MOV_LIMBO));
 			}
-		}else{
-			std::cout << "\t\tNo hay combinacion" << std::endl;
 		}
 	}
 
@@ -791,6 +788,7 @@ bool Tablero::activarCombinacionColumna(int x, int y, bool todosButtons, int con
 	Caramelos carameloEspecial = RELLENAR;
 	if(todosButtons){
 		if(contador >= 3){
+			std::cout << "\t -- activarCombinacionColumna(x=" << x << ", y=" << y << ", todosButtons=" << todosButtons << ", contador=" << contador << ", x_mov="<< x_mov << ", y_mov=" << y_mov << ")" << std::endl;
 			huboMovimiento = true;
 			if(contador >= 5){
 				carameloEspecial = STAR;
@@ -809,6 +807,7 @@ bool Tablero::activarCombinacionColumna(int x, int y, bool todosButtons, int con
 		}
 	}else{
 		if(contador >= 4){
+			std::cout << "\t -- activarCombinacionColumna(x=" << x << ", y=" << y << ", todosButtons=" << todosButtons << ", contador=" << contador << ", x_mov="<< x_mov << ", y_mov=" << y_mov << ")" << std::endl;
 			if(contador == 5)
 				carameloEspecial = STAR;
 			else
@@ -820,6 +819,8 @@ bool Tablero::activarCombinacionColumna(int x, int y, bool todosButtons, int con
 				Caramelos tCar = (Caramelos) this->tablero[this->num2str(x)][this->num2str(y-contador)].asInt();
 				puntos += puntos_por_mov;
 				this->tablero[this->num2str(x)][this->num2str(y-contador)] = RELLENAR;
+				movimientos.append(this->newMov(x, y-contador, CARAMELO_MOV_LIMBO));
+
 				switch(tCar){
 					case RED_HORBAR:
 					case BLUE_HORBAR:
@@ -840,8 +841,6 @@ bool Tablero::activarCombinacionColumna(int x, int y, bool todosButtons, int con
 					default:
 						break;
 				}
-
-				movimientos.append(this->newMov(x, y-contador, CARAMELO_MOV_LIMBO));
 			}
 		}
 	}
