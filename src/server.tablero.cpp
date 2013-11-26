@@ -162,7 +162,6 @@ int Tablero::movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& mov
 
 	movimientos = movs;
 
-
 	std::cout << "Puntos: " << puntos << std::endl;
 
 	// meow meow meow meooooooooooow
@@ -170,7 +169,6 @@ int Tablero::movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& mov
 }
 
 bool Tablero::hayCombinacion(bool todosButtons, int contador){
-	std::cout << "\t todosButtons:" << todosButtons << " contador" << contador << std::endl;
 	if(todosButtons){
 		if(contador >=3)
 			return true;

@@ -24,6 +24,7 @@ class Caramelo : public Gtk::Button{
 		int getId(){ return this->idCaramelo; }
 		void opacar();
 		bool visible();
+		bool fullyVisible();
 		void hacerAparecer();
 		//virtual void mostrar()=0;
 		int getX();

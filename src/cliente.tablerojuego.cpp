@@ -85,7 +85,7 @@ void TableroJuego::llenar(){
 					this->tablero.put(*imgFondo,i*SIZE+20,j*SIZE+20);
 					imgFondo->show();
 				}
-				Caramelo* caramelo = CandyFactory::crearCaramelo(idPieza,j,i);
+				Caramelo* caramelo = CandyFactory::crearCaramelo(idPieza,i,j);
 				caramelo->show_all();
 				this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),i*SIZE+20,j*SIZE+20);
 				caramelo->setXPos(i*SIZE+20);
@@ -100,7 +100,7 @@ void TableroJuego::llenar(){
 			//std::cout << "en : " << i << " " << j << " : " << idPieza << " " << matrizCaramelos[i][j]->getId() << " \t";
 			sx.str("");
 		}
-		std::cout<< std::endl;
+		//std::cout<< std::endl;
 		sy.str("");
 	}
 }
@@ -142,8 +142,8 @@ void TableroJuego::click(Caramelo* caramelo){
 	bool movimientoInvalido = false;
 	clicks++;
 	if (!(clicks % 2 )){
-		int filaFinal = caramelo->getX();
-		int colFinal = caramelo->getY();
+		int colFinal = caramelo->getX();
+		int filaFinal = caramelo->getY();
 		std::cout << "colFinal : " << colFinal<<"\t";
 		std::cout << "filaFinal : " << filaFinal<<std::endl;
 		matrizCaramelos[colOrigen][filaOrigen]->set_relief(Gtk::RELIEF_NONE);
@@ -210,10 +210,10 @@ void TableroJuego::click(Caramelo* caramelo){
 		//}
 	}else{
 		carameloOrigen = caramelo;	
-		filaOrigen = carameloOrigen->getX();
-		colOrigen = carameloOrigen->getY();
+		colOrigen = carameloOrigen->getX();
+		filaOrigen = carameloOrigen->getY();
 		//matrizCaramelos[colOrigen][filaOrigen]->set_relief(Gtk::RELIEF_NONE);
-		matrizCaramelos[caramelo->getY()][caramelo->getX()]->set_relief(Gtk::RELIEF_NORMAL);
+		matrizCaramelos[caramelo->getX()][caramelo->getY()]->set_relief(Gtk::RELIEF_NORMAL);
 		//std::cout << "aprete: " ; matrizCaramelos[caramelo->getX()][caramelo->getY()]->hablar();
 	}
 }
@@ -382,7 +382,7 @@ void TableroJuego::onMovimiento(Json::Value& data){
 	int x = data["x"].asInt();
 	int y = data["y"].asInt();
 	CaramelosMovimientos mov = (CaramelosMovimientos) data["mov"].asInt();
-	std::cout << " se quiso mover : " << x << "\t" << y << std::endl;
+	//std::cout << " se quiso mover : " << x << "\t" << y << std::endl;
 	// Para el tablero tenemos dos matrices, matrizCaramelos y matrizCaramelosAux.
 	// La auxiliar inicialmente tiene todos NULL, la idea es primero fijarse si en la auxiliar hay algo en la coordenada, y sino, usar el de matrizCaramelos.
 	// Se usa la auxiliar, debido que cuando swapeen dos caramelos, no va a llegar un evento de swap, sino, qe va a decir qe un caramelo se mueve para arriba y dsp otro se mueve para abajo, provocando que se superpongan en la matriz.
@@ -433,6 +433,7 @@ void TableroJuego::onMovimiento(Json::Value& data){
 			Caramelo* caramelo = CandyFactory::crearCaramelo(car,x,y);
 			caramelo->setXPos(x*SIZE+20);
 			caramelo->setYPos(y*SIZE+20);
+			caramelo->set_opacity(0);
 			this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),x*SIZE+20,y*SIZE+20);
 //			if(this->matrizCaramelos[y][x] != NULL)
 //				this->matrizCaramelosAux[y][x] = this->matrizCaramelos[y][x];
@@ -443,6 +444,10 @@ void TableroJuego::onMovimiento(Json::Value& data){
 				this->matrizCaramelosAux[x][y] = this->matrizCaramelos[x][y];
 
 			this->matrizCaramelos[x][y] = caramelo;
+
+			caramelo->signal_clicked().connect(sigc::bind(sigc::mem_fun(this,&TableroJuego::click),caramelo));
+
+			this->aparecer(caramelo);
 
 
 			break;
@@ -455,7 +460,7 @@ void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
 
 	this->matrizCaramelosAux[x][y] = NULL;
 
-	std::cout << "moveCaramelo x: " << x << " y: " << y << " xf: " << xf << " yf: " << yf << std::endl;
+	//std::cout << "moveCaramelo x: " << x << " y: " << y << " xf: " << xf << " yf: " << yf << std::endl;
 
 	if(m == NULL){
 		m = this->matrizCaramelos[x][y];
@@ -463,10 +468,7 @@ void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
 	}
 
 	if( xf < 0 || yf < 0){
-		// TODO:
-		//m->hide();
-		//m->set_opacity(0);
-		this->moverPieza(m, -1, -1);
+		this->esfumar(m);
 	}else{
 		if(this->matrizCaramelos[xf][yf] != NULL)
 			this->matrizCaramelosAux[xf][yf] = this->matrizCaramelos[xf][yf];
@@ -526,12 +528,12 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final, int st
 
 	if(x_final < 0 || y_final < 0){
 		//car->hide();
-		this->esfumar(car);
+		//this->esfumar(car);
 		return false;
 	}
 
 	int x = car->getXPos();
-	std::cout << " tengo que mover x: " << x <<" = "<< car->getX()<< " a : " << x_final<< std::endl;
+	//std::cout << " tengo que mover x: " << x <<" = "<< car->getX()<< " a : " << x_final<< std::endl;
 	if(x > x_final){
 		x -= step_x;
 		if(x <= x_final)
@@ -547,7 +549,7 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final, int st
 	}
 	
 	int y = car->getYPos();
-	std::cout << " tengo que mover y : " << y <<" = "<< car->getY()<< " a : " << y_final << std::endl;
+	//std::cout << " tengo que mover y : " << y <<" = "<< car->getY()<< " a : " << y_final << std::endl;
 	if(y > y_final){
 		y -= step_y;
 		if(y <= y_final)
@@ -579,11 +581,11 @@ void TableroJuego::aparecer(Caramelo* caramelo){
 }
 
 bool TableroJuego::onAclarar(Caramelo* caramelo){
-	if (caramelo->get_opacity()!=1){
-		caramelo->hacerAparecer();
-		return true;
-	}
-	return false;
+	if (caramelo->fullyVisible())
+		return false;
+
+	caramelo->hacerAparecer();
+	return true;
 }
 
 void TableroJuego::esfumar(Caramelo* caramelo){
