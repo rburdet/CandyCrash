@@ -367,6 +367,6 @@
 		},
 		"max_jugadores" : 3,
 		"nivel" : 1,
-		"puntaje_para_ganar" : 10000
+		"puntaje_para_ganar" : 1000
 	}
 }

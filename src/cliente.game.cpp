@@ -126,15 +126,32 @@ void GameWindow::mensaje(Json::Value& data){
 
 		case EVENT_GAME_START:{
 			// TODO: mover esto a cliente.cliente.cpp y hacer que se borre la ventana de game
-			std::cout << "Tableor que recibi  : " << data["tablero"] << std::endl;  
+			//std::cout << "Tableor que recibi  : " << data["tablero"] << std::endl;  
 			tableroJuego = new TableroJuego(data["tablero"]);
 			tableroJuego->signal_mensaje().connect(sigc::mem_fun(this, &GameWindow::on_tablero_mensaje));
 			break;
 		}
 
-		case EVENT_GAME_MOV:
+		case EVENT_GAME_MOV:{
+			Json::Value msg;
+			msg["event"] = EVENT_GAME_MISC;
+			msg["ev-game"] = EVENT_GAME_INFO;
+			this->m_signal_mensaje.emit(msg);
+
 			this->tableroJuego->mensaje(data);
 			break;
+		}
+
+		case EVENT_GAME_END:{
+			tableroJuego->hide();
+			delete tableroJuego;
+			tableroJuego = NULL;
+
+			string msg = data["msg"].asString();
+			string str = this->m_refTextBuffer1->get_text();
+			this->m_refTextBuffer1->set_text(str+"\n >> Termino la partida\n>>"+msg);
+			break;
+		}
 
 		default:
 			break;

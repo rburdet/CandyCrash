@@ -97,12 +97,16 @@ bool Cliente::onTimeout(){
 			this->onGame(code, data);
 			break;
 
-		case EVENT_LEAVE_GAME:
+		case EVENT_LEAVE_GAME:{
+			int root_x, root_y;
+			ventanaActual->get_position(root_x, root_y);
 			ventanaActual->hide();
 			delete ventanaActual;
 			this->ventanaActual = new MainWindow;
+			this->ventanaActual->move(root_x, root_y);
 			this->ventanaActual->signal_mensaje().connect(sigc::mem_fun(this, &Cliente::sendMsj));
 			break;
+		}
 
 		case EVENT_LIST_GAMES:
 		default:
@@ -131,10 +135,13 @@ void Cliente::sendMsj(Json::Value data){
 void Cliente::onLogin(int code, Json::Value& data){
 	if(!code){
 		this->userData = data["user"];
+		int root_x, root_y;
+		ventanaActual->get_position(root_x, root_y);
 		ventanaActual->hide();
 		delete ventanaActual;
 		MainWindow* ventana = new MainWindow;
 		this->ventanaActual = ventana;
+		this->ventanaActual->move(root_x, root_y);
 		ventana->signal_mensaje().connect(sigc::mem_fun(this, &Cliente::sendMsj));
 	}else{
 		this->listener->shutdown();
@@ -152,11 +159,14 @@ void Cliente::onGame(int code, Json::Value& data){
 	if(code){
 		this->ventanaActual->mensaje(data);
 	}else{
+		int root_x, root_y;
+		ventanaActual->get_position(root_x, root_y);
 		this->ventanaActual->hide();
 		delete this->ventanaActual;
 
 		GameWindow* gwin = new GameWindow;
 		this->ventanaActual = gwin;
+		this->ventanaActual->move(root_x, root_y);
 		gwin->signal_mensaje().connect(sigc::mem_fun(this, &Cliente::sendMsj));
 
 		Json::Value msj;
