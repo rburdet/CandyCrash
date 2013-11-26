@@ -66,3 +66,17 @@ bool Caramelo::setMoviendo(bool moviendo, int x, int y){
 bool Caramelo::setMoviendo(bool moviendo){
 	this->moviendo = moviendo;
 }
+
+void Caramelo::opacar(){
+	double aux = this->get_opacity() - 0.01;
+	set_opacity(aux);
+}
+
+void Caramelo::hacerAparecer(){
+	double aux = this->get_opacity() + 0.01;
+	set_opacity(aux);
+}
+
+bool Caramelo::visible(){
+	return (this->get_opacity()!=0);
+}

@@ -69,6 +69,11 @@ class TableroJuego : public Window {
 		bool swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION);
 		bool asomar(Caramelo* Origen, Caramelo* Final,int DIRECCION);
 		sigc::connection conTimeout; 
+		void aparecer(Caramelo* caramelo);
+		bool onAclarar(Caramelo* caramelo);
+
+		bool onOpacar(Caramelo* caramelo);
+		void esfumar(Caramelo* caramelo);
 
 		/** Efectua cada movimiento.
 		 * @param data: estructura de movimiento en Json { "x": , "y", "mov": (CaramelosMovimientos), } puede tener un miembro opcional "car" cuando es el movimiento de caramelo nuevo.

@@ -22,6 +22,9 @@ class Caramelo : public Gtk::Button{
 
 		void hablar(){ std::cout << idCaramelo << std::endl; }
 		int getId(){ return this->idCaramelo; }
+		void opacar();
+		bool visible();
+		void hacerAparecer();
 		//virtual void mostrar()=0;
 		int getX();
 		int getXPos();

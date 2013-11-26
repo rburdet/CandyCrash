@@ -398,29 +398,29 @@ void TableroJuego::onMovimiento(Json::Value& data){
 		case CARAMELO_MOV_ARRIBA:{
 			int x2 = x;
 			int y2 = y-1;
-			//this->moveCaramelo(x, y, x2, y2);
-			this->mover2Piezas(y,y2,ARRIBA,false);
+			this->moveCaramelo(x, y, x2, y2);
+			//this->mover2Piezas(y,y2,ARRIBA,false);
 			break;
 		}
 		case CARAMELO_MOV_DERECHA:{
 			int x2 = x+1;
 			int y2 = y;
-			//this->moveCaramelo(x, y, x2, y2);
-			this->mover2Piezas(x,x2,DERECHA,false);
+			this->moveCaramelo(x, y, x2, y2);
+			//this->mover2Piezas(x,x2,DERECHA,false);
 			break;
 		}
 		case CARAMELO_MOV_ABAJO:{
 			int x2 = x;
 			int y2 = y+1;
-			//this->moveCaramelo(x, y, x2, y2);
-			this->mover2Piezas(y,y2,ABAJO,false);
+			this->moveCaramelo(x, y, x2, y2);
+			//this->mover2Piezas(y,y2,ABAJO,false);
 			break;
 		}
 		case CARAMELO_MOV_IZQ:{
 			int x2 = x-1;
 			int y2 = y;
-			//this->moveCaramelo(x, y, x2, y2);
-			this->mover2Piezas(x,x2,IZQUIERDA,false);
+			this->moveCaramelo(x, y, x2, y2);
+			//this->mover2Piezas(x,x2,IZQUIERDA,false);
 			break;
 		}
 		case CARAMELO_MOV_LIMBO:
@@ -439,8 +439,7 @@ void TableroJuego::onMovimiento(Json::Value& data){
 //
 //			this->matrizCaramelos[y][x] = caramelo;
 
-			//CAMBIOS HECHOS POR MI <3
-			if(this->matrizCaramelos[x][y] != NULL)
+			//CAMBIOS HECHOS POR MI <3 if(this->matrizCaramelos[x][y] != NULL)
 				this->matrizCaramelosAux[x][y] = this->matrizCaramelos[x][y];
 
 			this->matrizCaramelos[x][y] = caramelo;
@@ -450,17 +449,17 @@ void TableroJuego::onMovimiento(Json::Value& data){
 		 }
 	}
 }
-
+//MODIFICADO POR MI <3
 void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
-	Caramelo* m = this->matrizCaramelosAux[y][x];
+	Caramelo* m = this->matrizCaramelosAux[x][y];
 
-	this->matrizCaramelosAux[y][x] = NULL;
+	this->matrizCaramelosAux[x][y] = NULL;
 
 	std::cout << "moveCaramelo x: " << x << " y: " << y << " xf: " << xf << " yf: " << yf << std::endl;
 
 	if(m == NULL){
-		m = this->matrizCaramelos[y][x];
-		this->matrizCaramelos[y][x] = NULL;
+		m = this->matrizCaramelos[x][y];
+		this->matrizCaramelos[x][y] = NULL;
 	}
 
 	if( xf < 0 || yf < 0){
@@ -469,13 +468,40 @@ void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
 		//m->set_opacity(0);
 		this->moverPieza(m, -1, -1);
 	}else{
-		if(this->matrizCaramelos[yf][xf] != NULL)
-			this->matrizCaramelosAux[yf][xf] = this->matrizCaramelos[yf][xf];
+		if(this->matrizCaramelos[xf][yf] != NULL)
+			this->matrizCaramelosAux[xf][yf] = this->matrizCaramelos[xf][yf];
 
-		this->matrizCaramelos[yf][xf] = m;
+		this->matrizCaramelos[xf][yf] = m;
 		this->moverPieza(m, xf, yf);
 	}
 }
+
+
+//void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
+//	Caramelo* m = this->matrizCaramelosAux[y][x];
+//
+//	this->matrizCaramelosAux[y][x] = NULL;
+//
+//	std::cout << "moveCaramelo x: " << x << " y: " << y << " xf: " << xf << " yf: " << yf << std::endl;
+//
+//	if(m == NULL){
+//		m = this->matrizCaramelos[y][x];
+//		this->matrizCaramelos[y][x] = NULL;
+//	}
+//
+//	if( xf < 0 || yf < 0){
+//		// TODO:
+//		//m->hide();
+//		//m->set_opacity(0);
+//		this->moverPieza(m, -1, -1);
+//	}else{
+//		if(this->matrizCaramelos[yf][xf] != NULL)
+//			this->matrizCaramelosAux[yf][xf] = this->matrizCaramelos[yf][xf];
+//
+//		this->matrizCaramelos[yf][xf] = m;
+//		this->moverPieza(m, xf, yf);
+//	}
+//}
 
 // TODO: faltaria hacer metodo para animar la opacidad (para hacer aparecer las fichas, hacer algo analogo a los metodos de abajo)
 
@@ -494,7 +520,8 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final, int st
 		return true;
 
 	if(x_final < 0 || y_final < 0){
-		car->hide();
+		//car->hide();
+		this->esfumar(car);
 		return false;
 	}
 
@@ -539,3 +566,30 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final, int st
 	return ret;
 }
 
+void TableroJuego::aparecer(Caramelo* caramelo){
+	sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onAclarar),caramelo);
+	this->conTimeout = Glib::signal_timeout().connect(my_slot,10);
+}
+
+bool TableroJuego::onAclarar(Caramelo* caramelo){
+	if (caramelo->get_opacity()!=1){
+		caramelo->hacerAparecer();
+		return true;
+	}
+	return false;
+}
+
+void TableroJuego::esfumar(Caramelo* caramelo){
+	sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onOpacar),caramelo);
+	this->conTimeout = Glib::signal_timeout().connect(my_slot,10);
+}
+
+bool TableroJuego::onOpacar(Caramelo* caramelo){
+	if (caramelo->visible()){
+		caramelo->opacar();
+		return true;
+	}
+	//delete caramelo;
+	//bajar();
+	return false;
+}
