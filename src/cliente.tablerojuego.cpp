@@ -473,6 +473,10 @@ void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
 
 		this->matrizCaramelos[xf][yf] = m;
 		this->moverPieza(m, xf, yf);
+		// ULTIMO HECHO ... Se esta poniendo mal las coordenadas , FALTA !  
+		this->matrizCaramelos[xf][yf]->setX(xf);
+		this->matrizCaramelos[xf][yf]->setY(yf);
+
 	}
 }
 
@@ -506,9 +510,10 @@ void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
 // TODO: faltaria hacer metodo para animar la opacidad (para hacer aparecer las fichas, hacer algo analogo a los metodos de abajo)
 
 void TableroJuego::moverPieza(Caramelo* car, int xF, int yF){
+	std::cout << "antes de mover xf: " << xF << "  yF: " << yF << std::endl;
 	// TODO: hacer la transformacion de coordenada a posicion de una manera mas limpia
-	int posx_final = xF * SIZE + 20;
-	int posy_final = yF * SIZE + 20;
+	int posx_final = (xF * SIZE) + 20;
+	int posy_final = (yF * SIZE) + 20;
 	sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::animationMove), car, posx_final, posy_final ,3, 3);
 	Glib::signal_timeout().connect(my_slot,7);
 }
@@ -526,6 +531,7 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final, int st
 	}
 
 	int x = car->getXPos();
+	std::cout << " tengo que mover x: " << x <<" = "<< car->getX()<< " a : " << x_final<< std::endl;
 	if(x > x_final){
 		x -= step_x;
 		if(x <= x_final)
@@ -539,8 +545,9 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final, int st
 		else
 			ret = true;
 	}
-
+	
 	int y = car->getYPos();
+	std::cout << " tengo que mover y : " << y <<" = "<< car->getY()<< " a : " << y_final << std::endl;
 	if(y > y_final){
 		y -= step_y;
 		if(y <= y_final)
