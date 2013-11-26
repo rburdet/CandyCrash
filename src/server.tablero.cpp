@@ -397,8 +397,10 @@ int Tablero::doStar(Caramelos carameloMovido, int x, int y, Caramelos carameloMo
 		puntos += this->dim_y * this->dim_x * PUNTOS_ELEM_STAR;
 		for(int i=0 ; i < this->dim_y ; i++){ // X
 			for(int j=0 ; j < this->dim_x ; j++){ //Y
-				this->tablero[this->num2str(i)][this->num2str(j)] = RELLENAR;
-				movimientos.append(this->newMov(i, j, CARAMELO_MOV_LIMBO));
+				if(this->tablero[this->num2str(i)][this->num2str(j)] != HUECO){
+					this->tablero[this->num2str(i)][this->num2str(j)] = RELLENAR;
+					movimientos.append(this->newMov(i, j, CARAMELO_MOV_LIMBO));
+				}
 			}
 		}
 	}else{
@@ -412,11 +414,15 @@ int Tablero::doStar(Caramelos carameloMovido, int x, int y, Caramelos carameloMo
 			elem_no = carameloMovido2;
 			x_no = xf;
 			y_no = yf;
-			this->tablero[this->num2str(x)][this->num2str(y)] = RELLENAR;
-			movimientos.append(this->newMov(x, y, CARAMELO_MOV_LIMBO));
+			if(this->tablero[this->num2str(x)][this->num2str(y)] != HUECO){
+				this->tablero[this->num2str(x)][this->num2str(y)] = RELLENAR;
+				movimientos.append(this->newMov(x, y, CARAMELO_MOV_LIMBO));
+			}
 		}else{
-			this->tablero[this->num2str(xf)][this->num2str(yf)] = RELLENAR;
-			movimientos.append(this->newMov(xf, yf, CARAMELO_MOV_LIMBO));
+			if(this->tablero[this->num2str(xf)][this->num2str(yf)] != HUECO){
+				this->tablero[this->num2str(xf)][this->num2str(yf)] = RELLENAR;
+				movimientos.append(this->newMov(xf, yf, CARAMELO_MOV_LIMBO));
+			}
 		}
 
 		switch(elem_no){
@@ -433,16 +439,20 @@ int Tablero::doStar(Caramelos carameloMovido, int x, int y, Caramelos carameloMo
 				for(int i=0; i < this->dim_y; i++){
 					if(i == y_no)
 						continue;
-					this->tablero[this->num2str(x_no)][this->num2str(i)] = RELLENAR;
-					puntos += PUNTOS_ELEM_STAR;
-					movimientos.append(this->newMov(x_no, i, CARAMELO_MOV_LIMBO));
+					if(this->tablero[this->num2str(x_no)][this->num2str(i)] != HUECO){
+						this->tablero[this->num2str(x_no)][this->num2str(i)] = RELLENAR;
+						puntos += PUNTOS_ELEM_STAR;
+						movimientos.append(this->newMov(x_no, i, CARAMELO_MOV_LIMBO));
+					}
 				}
 				for(int i=0; i < this->dim_x; i++){
 					if(i == x_no)
 						continue;
-					this->tablero[this->num2str(i)][this->num2str(y_no)] = RELLENAR;
-					puntos += PUNTOS_ELEM_STAR;
-					movimientos.append(this->newMov(i, y_no, CARAMELO_MOV_LIMBO));
+					if(this->tablero[this->num2str(i)][this->num2str(y_no)] != HUECO){
+						this->tablero[this->num2str(i)][this->num2str(y_no)] = RELLENAR;
+						puntos += PUNTOS_ELEM_STAR;
+						movimientos.append(this->newMov(i, y_no, CARAMELO_MOV_LIMBO));
+					}
 				}
 
 			case RED_BUTTON:
@@ -453,9 +463,11 @@ int Tablero::doStar(Caramelos carameloMovido, int x, int y, Caramelos carameloMo
 				for(int i=0 ; i < this->dim_y ; i++){ // X
 					for(int j=0 ; j < this->dim_x ; j++){ // Y
 						if(this->esMismoColor(elem_no, (Caramelos) this->tablero[this->num2str(i)][this->num2str(j)].asInt())){
-							this->tablero[this->num2str(i)][this->num2str(j)] = RELLENAR;
-							movimientos.append(this->newMov(i, j, CARAMELO_MOV_LIMBO));
-							puntos += 40;
+							if(this->tablero[this->num2str(i)][this->num2str(j)] != HUECO){
+								this->tablero[this->num2str(i)][this->num2str(j)] = RELLENAR;
+								movimientos.append(this->newMov(i, j, CARAMELO_MOV_LIMBO));
+								puntos += 40;
+							}
 						}
 					}
 				}
@@ -656,9 +668,11 @@ void Tablero::dispararFila(int y, Json::Value& movimientos, int puntosx, int& pu
 			case PURPLE_VERBAR:
 			case YELLOW_VERBAR:
 			case STAR:
-				puntos += puntosx;
-				this->tablero[this->num2str(x_m)][this->num2str(y)] = RELLENAR;
-				movimientos.append(this->newMov(x_m, y, CARAMELO_MOV_LIMBO));
+				if(this->tablero[this->num2str(x_m)][this->num2str(y)] != HUECO){
+					puntos += puntosx;
+					this->tablero[this->num2str(x_m)][this->num2str(y)] = RELLENAR;
+					movimientos.append(this->newMov(x_m, y, CARAMELO_MOV_LIMBO));
+				}
 				break;
 
 			default:
@@ -687,9 +701,11 @@ void Tablero::dispararColumna(int x, Json::Value& movimientos, int puntosx, int&
 			case PURPLE_VERBAR:
 			case YELLOW_VERBAR:
 			case STAR:
-				puntos += puntosx;
-				this->tablero[this->num2str(x)][this->num2str(y_m)] = RELLENAR;
-				movimientos.append(this->newMov(x, y_m, CARAMELO_MOV_LIMBO));
+				if(this->tablero[this->num2str(x)][this->num2str(y_m)] != HUECO){
+					puntos += puntosx;
+					this->tablero[this->num2str(x)][this->num2str(y_m)] = RELLENAR;
+					movimientos.append(this->newMov(x, y_m, CARAMELO_MOV_LIMBO));
+				}
 				break;
 
 			default:

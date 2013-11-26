@@ -172,6 +172,7 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 			int puntos = this->tablero->movimiento(data["x"].asInt(), data["y"].asInt(), (CaramelosMovimientos) data["mov"].asInt(), movimientos);
 			if(puntos){ // Si el movimiento es de 0 puntos, significa qe fue un movimiento invalido, sino, es valido
 				Logger::log("puntos");
+				std::cout << "Movimientos " << movimientos << std::endl;
 				Json::Value send;
 				send["event"] = EVENT_GAME_MOV;
 				send["code"] = 0;

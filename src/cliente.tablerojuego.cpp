@@ -3,6 +3,8 @@
 #include "common.events.h"
 #include "common.caramelos_movimientos.h"
 
+#define TIMEOUT_TIME (20)
+
 TableroJuego::TableroJuego(Json::Value mapa)
 	:	tablero(),
 		frameTablero(
@@ -165,12 +167,12 @@ void TableroJuego::click(Caramelo* caramelo){
 			step1 = filaFinal * SIZE +20;
 			step2 = filaOrigen * SIZE +20;
 			if ( (filaFinal - filaOrigen) == 1){ 
-				std::cout << "muevo ABAJO " << std::endl;
+				//std::cout << "muevo ABAJO " << std::endl;
 				data["mov"] = CARAMELO_MOV_ABAJO;
 				this->m_signal_mensaje.emit(data);
 				//mover2Piezas(filaOrigen, filaFinal , ABAJO,movimientoInvalido);
 			}else if (filaFinal - filaOrigen == -1){
-				std::cout << "muevo ARRIBA " << std::endl;
+				//std::cout << "muevo ARRIBA " << std::endl;
 				data["mov"] = CARAMELO_MOV_ARRIBA;
 				this->m_signal_mensaje.emit(data);
 				//mover2Piezas(filaOrigen, filaFinal , ARRIBA,movimientoInvalido);
@@ -179,12 +181,12 @@ void TableroJuego::click(Caramelo* caramelo){
 			step1 = (colFinal * SIZE) +20;
 			step2 = (colOrigen * SIZE) +20;
 			if ( (colFinal-colOrigen)  == -1 ){
-				std::cout << "muevo IZQUIERDA " << std::endl;
+				//std::cout << "muevo IZQUIERDA " << std::endl;
 				data["mov"] = CARAMELO_MOV_IZQ;
 				this->m_signal_mensaje.emit(data);
 				//mover2Piezas(colOrigen,colFinal,IZQUIERDA,movimientoInvalido);
 			}else if ( (colFinal-colOrigen) == 1){
-					std::cout << "muevo DERECHA " << std::endl;
+					//std::cout << "muevo DERECHA " << std::endl;
 				data["mov"] = CARAMELO_MOV_DERECHA;
 				this->m_signal_mensaje.emit(data);
 				//mover2Piezas(colOrigen,colFinal,DERECHA,movimientoInvalido);
@@ -223,7 +225,7 @@ void TableroJuego::click(Caramelo* caramelo){
 //metodo ASOMAR a mitad de camino
 void TableroJuego::mover2Piezas(int posI,int posF,int DIRECCION,bool volver){
 		sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onTimeout),posI,posF,DIRECCION,volver);
-		this->conTimeout = Glib::signal_timeout().connect(my_slot,7);
+		this->conTimeout = Glib::signal_timeout().connect(my_slot, TIMEOUT_TIME);
 }
 
 bool TableroJuego::onTimeout(int posI , int posF , int DIRECCION,bool volver){
@@ -428,7 +430,7 @@ void TableroJuego::onMovimiento(Json::Value& data){
 			break;
 
 		case CARAMELO_MOV_NEW:{
-			std::cout << "TODO: NEW" << std::endl;
+			//std::cout << "TODO: NEW" << std::endl;
 			Caramelos car = (Caramelos) data["car"].asInt();
 			Caramelo* caramelo = CandyFactory::crearCaramelo(car,x,y);
 			caramelo->setXPos(x*SIZE+20);
@@ -468,7 +470,10 @@ void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
 	}
 
 	if( xf < 0 || yf < 0){
-		this->esfumar(m);
+		if(m)
+			this->esfumar(m);
+		else
+			std::cout << "ES NULL" << std::endl;
 	}else{
 		if(this->matrizCaramelos[xf][yf] != NULL)
 			this->matrizCaramelosAux[xf][yf] = this->matrizCaramelos[xf][yf];
@@ -517,7 +522,7 @@ void TableroJuego::moverPieza(Caramelo* car, int xF, int yF){
 	int posx_final = (xF * SIZE) + 20;
 	int posy_final = (yF * SIZE) + 20;
 	sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::animationMove), car, posx_final, posy_final ,3, 3);
-	Glib::signal_timeout().connect(my_slot,7);
+	Glib::signal_timeout().connect(my_slot, TIMEOUT_TIME);
 }
 
 bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final, int step_x, int step_y){
@@ -577,7 +582,7 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final, int st
 
 void TableroJuego::aparecer(Caramelo* caramelo){
 	sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onAclarar),caramelo);
-	this->conTimeout = Glib::signal_timeout().connect(my_slot,10);
+	this->conTimeout = Glib::signal_timeout().connect(my_slot, TIMEOUT_TIME);
 }
 
 bool TableroJuego::onAclarar(Caramelo* caramelo){
@@ -589,8 +594,8 @@ bool TableroJuego::onAclarar(Caramelo* caramelo){
 }
 
 void TableroJuego::esfumar(Caramelo* caramelo){
-	sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onOpacar),caramelo);
-	this->conTimeout = Glib::signal_timeout().connect(my_slot,10);
+	sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onOpacar), caramelo);
+	this->conTimeout = Glib::signal_timeout().connect(my_slot, TIMEOUT_TIME);
 }
 
 bool TableroJuego::onOpacar(Caramelo* caramelo){
