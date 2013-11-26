@@ -64,11 +64,9 @@ void Tablero::generar(){
 			this->efectivizarCelda(celda);
 			this->tablero[sx.str()][sy.str()] = celda;
 			sx.str("");
-			std::cout << sx.str() << "\t" << sy.str() << std::endl;
 		}
 		sy.str("");
 	}
-	std::cout << "tablero a mandar :: " << this->tablero<<std::endl;
 }
 
 void Tablero::efectivizarCelda(Json::Value& celda){
@@ -119,7 +117,7 @@ int Tablero::movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& mov
 	Logger::log("es valido el movimiento?");
 
 	if(! this->movimientoValido(x, y, mov)){
-		std::cout << "no es valido! " << std::endl;
+		Logger::log("no es valido!");
 		return 0;
 	}
 
@@ -146,10 +144,10 @@ int Tablero::movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& mov
 	movs.append(this->newMov(xf, yf, this->movInverso(mov)));
 
 	if(carameloMovido == STAR || carameloMovido2 == STAR){ // Si uno de los caramelos movidos es STAR, efectuo estar.
-		std::cout << "Movimiento star " << std::endl;
+		Logger::log("Movimiento star ");
 		puntos += this->doStar((Caramelos) carameloMovido, xf, yf, (Caramelos) carameloMovido2, x, y, movs);
 	}else{ // efectuo combinacion por cada caramelo
-		std::cout << "Movimiento normal " << std::endl;
+		Logger::log("Movimiento normal ");
 		puntos += this->doCombinacion((Caramelos) carameloMovido, xf, yf, movs);
 		puntos += this->doCombinacion((Caramelos) carameloMovido2, x, y, movs);
 	}
@@ -866,6 +864,8 @@ Json::Value Tablero::getTablero(){
 			ret["celdas"][keys[i]][innerkeys[j]]["pieza"] = this->tablero[keys[i]][innerkeys[j]];
 		}
 	}
+
+	std::cout << "Tablero que se manda: " << ret << std::endl;
 	return ret;
 }
 

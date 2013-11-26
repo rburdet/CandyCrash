@@ -88,8 +88,8 @@ void TableroJuego::llenar(){
 				Caramelo* caramelo = CandyFactory::crearCaramelo(idPieza,j,i);
 				caramelo->show_all();
 				this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),i*SIZE+20,j*SIZE+20);
-				caramelo->setXPos(j*SIZE+20);
-				caramelo->setYPos(i*SIZE+20);
+				caramelo->setXPos(i*SIZE+20);
+				caramelo->setYPos(j*SIZE+20);
 				matrizCaramelos[i][j] = caramelo;
 				matrizCaramelosAux[i][j] = NULL;
 			}else if (idPieza == -1){
