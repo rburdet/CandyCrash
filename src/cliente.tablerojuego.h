@@ -8,6 +8,7 @@
 #include <jsoncpp/json/json.h>
 #include "cliente.window.h"
 #include "common.factory_caramelos.h"
+#include <gdk-pixbuf/gdk-pixbuf.h>
 
 #define MAXELEMENTOS 16
 #define SIZE 50
@@ -33,6 +34,7 @@ class TableroJuego : public Window {
 
 	private:
 		Gtk::Fixed tablero;
+		Gtk::Image imagenFondo;
 		Gtk::AspectFrame frameTablero;
 		//DEPRECATED:
 		int dimX;

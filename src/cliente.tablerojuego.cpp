@@ -7,6 +7,7 @@
 
 TableroJuego::TableroJuego(Json::Value mapa)
 	:	tablero(),
+		imagenFondo(),
 		frameTablero(
 			mapa["mapa"].asString(),
 			Gtk::ALIGN_CENTER,
@@ -23,9 +24,14 @@ TableroJuego::TableroJuego(Json::Value mapa)
 	alto = getX();
 	dimY = getY();
 	ancho = getY();
+	Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_file(mapa["fondo"].asString(),(dimX+1)*SIZE,(dimX+5)*SIZE); 
+	imagenFondo.set(pixbuf);
+	//imagenFondo.set_size_request(dimY*SIZE,dimX*SIZE);
 	set_size_request(dimY*SIZE,dimX*SIZE);
 	this->tablero.set_size_request(dimY*SIZE,dimX*SIZE);
+	imagenFondo.show();
 	frameTablero.add(this->tablero);
+	this->tablero.put(imagenFondo,0,0);
 	//this->dibujarLineas();
 	this->crearMatrices();
 	this->llenar();
@@ -82,7 +88,8 @@ void TableroJuego::llenar(){
 			auxStream.str("");
 			if (idPieza !=-1){
 				if (celdaFondo!=""){
-					Gtk::Image* imgFondo = new Gtk::Image(celdaFondo.asString());
+					Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_file(celdaFondo.asString(),SIZE,SIZE); 
+					Gtk::Image* imgFondo = new Gtk::Image(pixbuf);
 					imgFondo->set_size_request(SIZE,SIZE);
 					this->tablero.put(*imgFondo,i*SIZE+20,j*SIZE+20);
 					imgFondo->show();
@@ -436,6 +443,7 @@ void TableroJuego::onMovimiento(Json::Value& data){
 			caramelo->setXPos(x*SIZE+20);
 			caramelo->setYPos(y*SIZE+20);
 			caramelo->set_opacity(0);
+			caramelo->show();
 			this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),x*SIZE+20,y*SIZE+20);
 //			if(this->matrizCaramelos[y][x] != NULL)
 //				this->matrizCaramelosAux[y][x] = this->matrizCaramelos[y][x];

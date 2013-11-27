@@ -11,6 +11,7 @@ using Json::Value;
 GameWindow::GameWindow() {
 	this->add(this->main_h_box);
 	this->main_h_box.pack_start(this->lista_box);
+	override_background_color(Gdk::RGBA("crimson"),Gtk::STATE_FLAG_NORMAL);
 	this->lista_box.pack_start(this->user_list);
 	this->lista_box.pack_start(this->button_start);
 	this->button_start.set_label("Empezar el juego");

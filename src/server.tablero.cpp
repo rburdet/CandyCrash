@@ -28,10 +28,11 @@ Tablero::Tablero(string path){
 		Json::Value::Members keys = data.getMemberNames();
 		if(keys.size()){
 			this->nMapa = keys[0];
-
 			std::stringstream ss;
 			this->mapa = data[this->nMapa];
 			this->probabilidades = this->mapa["columnas"];
+			this->imagenFondo = this->mapa["fondo"];
+			this->pathFondo=imagenFondo.asString();
 			this->generar();
 			// Sacamos las combinaciones iniciales
 			int puntos;
@@ -870,6 +871,7 @@ Json::Value Tablero::getTablero(){
 	ret["DIM"]["X"] = this->dim_x;
 	ret["DIM"]["Y"] = this->dim_y;
 	ret["mapa"] = this->nMapa;
+	ret["fondo"] = this->pathFondo;
 	Json::Value::Members keys = this->mapa["celdas"].getMemberNames();
 	for(int i=0; i < keys.size(); i++){
 		Json::Value::Members innerkeys = this->mapa["celdas"][keys[i]].getMemberNames();

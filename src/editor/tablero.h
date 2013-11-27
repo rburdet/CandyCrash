@@ -23,6 +23,7 @@ class Tablero{
 		void on_cordy_changed(Gtk::SpinButton* spin_y);
 		void on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id);
 		void on_image_changed_tablero(Gtk::FileChooser* fileChooser);
+		void on_image_fondo_changed_tablero(Gtk::FileChooser* fileChooser);
 		void on_check_button_tablero();
 
 		//Metodos serializadores
@@ -41,6 +42,7 @@ class Tablero{
 		Columna* colInteres;
 		//Matriz que maneja el tablero
 		std::vector<std::vector<Celda*> > matrizCeldas;
+		std::string imagenFondo;
 
 		//PRUEBA:
 		std::vector<std::vector<std::vector< int > > >matrizButons;

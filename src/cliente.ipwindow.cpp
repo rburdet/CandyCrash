@@ -5,29 +5,30 @@ using std::string;
 
 Ipwindow::Ipwindow()
 	: m_VBox(Gtk::ORIENTATION_VERTICAL),
-	m_Button_conectar("Conectar"), m_check("Registrarse?") {
+	m_Button_conectar("Conectar"), m_check("Active para registrarse") {
 	set_size_request(200, 100);
 	set_title("Conectate");
-
+	override_background_color(Gdk::RGBA("crimson"),Gtk::STATE_FLAG_NORMAL);
+	m_Button_conectar.override_color(Gdk::RGBA("cornsilk"),Gtk::STATE_FLAG_NORMAL);
 	add(m_VBox);
 
 	//m_host.set_max_length(50);
 	//m_host.select_region(0, m_host.get_text_length());
 	m_VBox.pack_start(m_host);
-	m_host.set_label(string("Host"));
+	m_host.set_label(string("Host       "));
 
 	m_host.set_text(string("localhost:9000"));
 
 	//m_user.set_max_length(50);
 	//m_user.select_region(0, m_user.get_text_length());
 	m_VBox.pack_start(m_user);
-	m_user.set_label(string("Usuario"));
+	m_user.set_label(string("Usuario   "));
 
 	//m_pass.set_max_length(50);
 	//m_pass.select_region(0, m_pass.get_text_length());
 	m_pass.set_visibility(false);
 	m_VBox.pack_start(m_pass);
-	m_pass.set_label(string("Password"));
+	m_pass.set_label(string("Password "));
 
 	m_VBox.pack_start(m_check);
 

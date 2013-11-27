@@ -242,6 +242,7 @@ void Tablero::jsonColumnas(Json::Value& nivel,const std::string& nombre){
 		nivel[nombre]["columnas"][ss.str()] = aux;
 		ss.str("");
 	}
+	nivel[nombre]["fondo"]=this->imagenFondo;
 }
 
 void Tablero::jsonCeldas(Json::Value& nivel,const std::string& nombre){
@@ -275,6 +276,11 @@ void Tablero::on_image_changed_tablero(Gtk::FileChooser* fileChooser){
 	img->set_size_request(SIZE,SIZE);
 	this->tablero->put(*img,this->celdaInteres->getY()*SIZE+OFFSET,this->celdaInteres->getX()*SIZE+OFFSET);
 	this->tablero->show_all();
+}
+
+
+void Tablero::on_image_fondo_changed_tablero(Gtk::FileChooser* fileChooser){
+	this->imagenFondo = fileChooser->get_filename();
 }
 
 void Tablero::on_check_button_tablero(){

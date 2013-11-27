@@ -27,9 +27,11 @@ class Tablero {
 
 	protected:
 		Json::Value mapa;
+		Json::Value imagenFondo;
 		Json::Value tablero;
 		Json::Value probabilidades;
 		std::string nMapa;
+		std::string pathFondo;
 		int dim_x; 
 		int dim_y;
 		//Se cambia dim_x y dim_y por alto y ancho para mas coherencia

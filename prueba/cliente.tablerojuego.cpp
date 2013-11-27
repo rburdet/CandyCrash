@@ -6,7 +6,7 @@
 
 TableroJuego::TableroJuego(Json::Value mapa)
 	:	tablero(),
-		//imagenFondo("../imagenes/fondo.png"),
+		imagenFondo("../imagenes/fondo.jpg"),
 		frameTablero(getNMapa(mapa),
 		Gtk::ALIGN_CENTER,
 		Gtk::ALIGN_END, //Eje y
@@ -23,7 +23,7 @@ TableroJuego::TableroJuego(Json::Value mapa)
 	set_size_request(dimY*SIZE,dimX*SIZE);
 	this->tablero.set_size_request(dimY*SIZE,dimX*SIZE);
 	frameTablero.add(this->tablero);
-	//this->tablero.put(imagenFondo,0,0);
+	this->tablero.put(imagenFondo,0,0);
 
 	//this->dibujarLineas();
 	this->crearMatrices();

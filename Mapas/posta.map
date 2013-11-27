@@ -365,8 +365,9 @@
 			"6" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
 			"7" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
 		},
+		"fondo" : "/home/rburdet/CandyCrash/imagenes/fondo.jpg",
 		"max_jugadores" : 3,
 		"nivel" : 1,
-		"puntaje_para_ganar" : 1000
+		"puntaje_para_ganar" : 10000
 	}
 }
