@@ -2,6 +2,7 @@
 #define __CLIENTE_WINDOW_H__
 #include <jsoncpp/json/json.h>
 #include <gtkmm.h>
+#include <string>
 
 /** Interfaz de ventana para todas las ventanas del cliente.
  */
@@ -30,6 +31,16 @@ class Window : public Gtk::Window {
 
 		virtual bool onClose(){
 			return false;
+		}
+
+		void set_background_image(std::string path){
+			std::string style_sheet = ".image_bg { background-image: url('"+path+"');}";
+			Glib::RefPtr<Gtk::StyleContext> stylecontext = this->get_style_context();
+			Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
+			cssprov->load_from_data(style_sheet);
+			stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+			stylecontext->add_class("image_bg");
+			stylecontext->context_save();
 		}
 
 };

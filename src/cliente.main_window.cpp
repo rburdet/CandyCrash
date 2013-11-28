@@ -13,7 +13,7 @@ MainWindow::MainWindow()
 	m_button_send("_Send", true)
 {
 
-	override_background_color(Gdk::RGBA("crimson"),Gtk::STATE_FLAG_NORMAL);
+	//override_background_color(Gdk::RGBA("crimson"),Gtk::STATE_FLAG_NORMAL);
 	set_title("Pantalla principal");
 	set_border_width(5);
 	set_default_size(400, 200);

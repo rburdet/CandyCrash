@@ -8,7 +8,9 @@ Ipwindow::Ipwindow()
 	m_Button_conectar("Conectar"), m_check("Active para registrarse") {
 	set_size_request(200, 100);
 	set_title("Conectate");
-	override_background_color(Gdk::RGBA("crimson"),Gtk::STATE_FLAG_NORMAL);
+
+	this->set_background_image(string("../imagenes/fondos/paradise.jpg"));
+	//override_background_color(Gdk::RGBA("crimson"),Gtk::STATE_FLAG_NORMAL);
 	m_Button_conectar.override_color(Gdk::RGBA("cornsilk"),Gtk::STATE_FLAG_NORMAL);
 	add(m_VBox);
 
