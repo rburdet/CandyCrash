@@ -41,6 +41,7 @@ TableroJuego::TableroJuego(Json::Value mapa)
 	clicks=0;
 	colOrigen=-1;
 	filaOrigen=-1;
+	this->movimientosCount = 0;
 }
 
 int TableroJuego::getX(){
@@ -230,12 +231,12 @@ void TableroJuego::click(Caramelo* caramelo){
 
 //TODO: no me estan volviendo bien las fichitas, ver una solucion copada
 //metodo ASOMAR a mitad de camino
-void TableroJuego::mover2Piezas(int posI,int posF,int DIRECCION,bool volver){
-		sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onTimeout),posI,posF,DIRECCION,volver);
-		this->conTimeout = Glib::signal_timeout().connect(my_slot, TIMEOUT_TIME);
-}
+//void TableroJuego::mover2Piezas(int posI,int posF,int DIRECCION,bool volver){
+//		sigc::slot<bool> my_slot = sigc::bind(sigc::mem_fun(*this,&TableroJuego::onTimeout),posI,posF,DIRECCION,volver);
+//		this->conTimeout = Glib::signal_timeout().connect(my_slot, TIMEOUT_TIME);
+//}
 
-bool TableroJuego::onTimeout(int posI , int posF , int DIRECCION,bool volver){
+/*bool TableroJuego::onTimeout(int posI , int posF , int DIRECCION,bool volver){
 	switch ( DIRECCION ){
 		case ARRIBA:
 			if (swapBoton(matrizCaramelos[colOrigen][posI],matrizCaramelos[colOrigen][posF],DIRECCION))
@@ -292,7 +293,7 @@ bool TableroJuego::onTimeout(int posI , int posF , int DIRECCION,bool volver){
 		default:
 			return false;
 	}
-}
+}*/
 
 bool TableroJuego::asomar(Caramelo* Origen, Caramelo* Final,int DIRECCION){
 	
@@ -310,7 +311,7 @@ bool TableroJuego::asomar(Caramelo* Origen, Caramelo* Final,int DIRECCION){
 	//}
 }
 
-bool TableroJuego::swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION){
+/*bool TableroJuego::swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION){
 	switch (DIRECCION){
 		case ARRIBA:
 			if ( Origen->getX()*SIZE+20 != Final->getXPos()){
@@ -357,7 +358,7 @@ bool TableroJuego::swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION){
 			}
 			break;
 	}
-}
+}*/
 
 
 void TableroJuego::mensaje(Json::Value& data){
@@ -376,12 +377,53 @@ void TableroJuego::mensaje(Json::Value& data){
 		case EVENT_GAME_MOV:{
 			// EVENT_GAME_MOV, viene con un campo mas "movs" que es un array de objetos, cada uno de estos objetos es el que nececita onMovimiento.
 			for(int i=0; i < data["movs"].size() ; i++){
-				this->onMovimiento(data["movs"][i]);
+				//this->onMovimiento(data["movs"][i]);
+				this->movimientos.push_back(data["movs"][i]);
 			}
+			this->triggerMovimientos();
 			break;
 		}
 		
 		default:
+			break;
+	}
+}
+
+void TableroJuego::triggerMovimientos(){
+	if(this->movimientosCount != 0 || this->movimientos.size() == 0)
+		return;
+
+	CaramelosMovimientos mov = (CaramelosMovimientos) this->movimientos[0]["mov"].asInt();
+	this->onMovimiento(this->movimientos[0]);
+	this->movimientos.erase(this->movimientos.begin());
+
+	while(this->movimientos.size()){
+		bool last = false;
+		CaramelosMovimientos tMov = (CaramelosMovimientos) this->movimientos[0]["mov"].asInt();
+		switch(mov){
+			case CARAMELO_MOV_ARRIBA:
+			case CARAMELO_MOV_DERECHA:
+			case CARAMELO_MOV_ABAJO:
+			case CARAMELO_MOV_IZQ:
+				if(tMov == CARAMELO_MOV_ARRIBA || tMov == CARAMELO_MOV_DERECHA || tMov == CARAMELO_MOV_ABAJO || tMov == CARAMELO_MOV_IZQ){
+					this->onMovimiento(this->movimientos[0]);
+					this->movimientos.erase(this->movimientos.begin());
+				}else{
+					last = true;
+				}
+
+				break;
+			case CARAMELO_MOV_LIMBO:
+			case CARAMELO_MOV_NEW:
+				if(mov == tMov){
+					this->onMovimiento(this->movimientos[0]);
+					this->movimientos.erase(this->movimientos.begin());
+				}else{
+					last = true;
+				}
+				break;
+		}
+		if(last)
 			break;
 	}
 }
@@ -391,6 +433,7 @@ void TableroJuego::onMovimiento(Json::Value& data){
 	int x = data["x"].asInt();
 	int y = data["y"].asInt();
 	CaramelosMovimientos mov = (CaramelosMovimientos) data["mov"].asInt();
+	this->movimientosCount++;
 	//std::cout << " se quiso mover : " << x << "\t" << y << std::endl;
 	// Para el tablero tenemos dos matrices, matrizCaramelos y matrizCaramelosAux.
 	// La auxiliar inicialmente tiene todos NULL, la idea es primero fijarse si en la auxiliar hay algo en la coordenada, y sino, usar el de matrizCaramelos.
@@ -478,10 +521,13 @@ void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
 	}
 
 	if( xf < 0 || yf < 0){
-		if(m)
+		if(m){
 			this->esfumar(m);
-		else
+		}else{
 			std::cout << "ES NULL" << std::endl;
+			this->movimientosCount--;
+			this->triggerMovimientos();
+		}
 	}else{
 		if(this->matrizCaramelos[xf][yf] != NULL)
 			this->matrizCaramelosAux[xf][yf] = this->matrizCaramelos[xf][yf];
@@ -542,6 +588,8 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final, int st
 	if(x_final < 0 || y_final < 0){
 		//car->hide();
 		//this->esfumar(car);
+		this->movimientosCount--;
+		this->triggerMovimientos();
 		return false;
 	}
 
@@ -585,6 +633,10 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final, int st
 	this->tablero.move(*(dynamic_cast<Gtk::Button*>(car)), x, y);
 
 	car->setMoviendo(ret, x_final, y_final);
+	if(ret == false){
+		this->movimientosCount--;
+		this->triggerMovimientos();
+	}
 	return ret;
 }
 
@@ -594,8 +646,11 @@ void TableroJuego::aparecer(Caramelo* caramelo){
 }
 
 bool TableroJuego::onAclarar(Caramelo* caramelo){
-	if (caramelo->fullyVisible())
+	if (caramelo->fullyVisible()){
+		this->movimientosCount--;
+		this->triggerMovimientos();
 		return false;
+	}
 
 	caramelo->hacerAparecer();
 	return true;
@@ -613,5 +668,7 @@ bool TableroJuego::onOpacar(Caramelo* caramelo){
 	}
 	//delete caramelo;
 	//bajar();
+	this->movimientosCount--;
+	this->triggerMovimientos();
 	return false;
 }

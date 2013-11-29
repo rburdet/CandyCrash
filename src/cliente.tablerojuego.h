@@ -14,12 +14,12 @@
 #define SIZE 50
 #define SIZEIMAGEN 40
 
-typedef enum {
-	ARRIBA=0,
-	DERECHA=1,
-	ABAJO=2,
-	IZQUIERDA
-} Direccion;
+//typedef enum {
+//	ARRIBA=0,
+//	DERECHA=1,
+//	ABAJO=2,
+//	IZQUIERDA
+//} Direccion;
 
 class TableroJuego : public Window {
 	public:
@@ -47,10 +47,14 @@ class TableroJuego : public Window {
 
 		// TODO: meow meowww meow, es decir, no se esta usando,, jaja
 		std::vector<std::vector<Gtk::Image*> > matrizFondos;
-		// matrizCaramelos[y][x]
+		/** matrizCaramelos[x][y]
+		 */
 		std::vector<std::vector<Caramelo*> > matrizCaramelos;
-		// matrizCaramelosAux[y][x]
+		/** matrizCaramelosAux[x][y]
+		 */
 		std::vector<std::vector<Caramelo*> > matrizCaramelosAux;
+		std::vector<Json::Value> movimientos;
+		int movimientosCount;
 
 		int clicks;
 		int colOrigen;
@@ -66,9 +70,9 @@ class TableroJuego : public Window {
 		void llenar();
 		void conectarCaramelos();
 		void click(Caramelo* caramelo);
-		void mover2Piezas(int pos1, int pos2, int DIRECCION, bool volver);
-		bool onTimeout(int x,int y,int DIRECCION,bool volver);
-		bool swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION);
+		//void mover2Piezas(int pos1, int pos2, int DIRECCION, bool volver);
+		//bool onTimeout(int x,int y,int DIRECCION,bool volver);
+		//bool swapBoton(Caramelo* Origen, Caramelo* Final,int DIRECCION);
 		bool asomar(Caramelo* Origen, Caramelo* Final,int DIRECCION);
 		sigc::connection conTimeout; 
 		void aparecer(Caramelo* caramelo);
@@ -101,6 +105,8 @@ class TableroJuego : public Window {
 		bool animationMove(Caramelo* car, int x_final, int y_final, int step_x, int step_y);
 
 		void moveCaramelo(int x, int y, int xf, int yf);
+
+		void triggerMovimientos();
 };
 
 #endif
