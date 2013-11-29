@@ -405,7 +405,8 @@ void TableroJuego::triggerMovimientos(){
 			case CARAMELO_MOV_DERECHA:
 			case CARAMELO_MOV_ABAJO:
 			case CARAMELO_MOV_IZQ:
-				if(tMov == CARAMELO_MOV_ARRIBA || tMov == CARAMELO_MOV_DERECHA || tMov == CARAMELO_MOV_ABAJO || tMov == CARAMELO_MOV_IZQ){
+			case CARAMELO_MOV_NEW:
+				if(tMov == CARAMELO_MOV_NEW || tMov == CARAMELO_MOV_ARRIBA || tMov == CARAMELO_MOV_DERECHA || tMov == CARAMELO_MOV_ABAJO || tMov == CARAMELO_MOV_IZQ){
 					this->onMovimiento(this->movimientos[0]);
 					this->movimientos.erase(this->movimientos.begin());
 				}else{
@@ -414,7 +415,6 @@ void TableroJuego::triggerMovimientos(){
 
 				break;
 			case CARAMELO_MOV_LIMBO:
-			case CARAMELO_MOV_NEW:
 				if(mov == tMov){
 					this->onMovimiento(this->movimientos[0]);
 					this->movimientos.erase(this->movimientos.begin());

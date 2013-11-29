@@ -163,8 +163,6 @@ int Tablero::movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& mov
 
 	movimientos = movs;
 
-	std::cout << "Puntos: " << puntos << std::endl;
-
 	// meow meow meow meooooooooooow
 	return puntos;
 }
@@ -725,8 +723,6 @@ bool Tablero::activarCombinacionFila(int x, int y, bool todosButtons, int contad
 
 	if(todosButtons){ // Si son todos Buttons, solo nececito que sean 3 caramelos del mismo color
 		if(contador >= 3){ // Si hay 3 caramelos, tengo combinacion =)
-			std::cout << "\t -- activarCombinacionFila(x=" << x << ", y=" << y << ", todosButtons=" << todosButtons << ", contador=" << contador << ", x_mov="<< x_mov << ", y_mov=" << y_mov << ")" << std::endl;
-			std::cout << "\t\t >= 3 " << std::endl;
 			huboMovimiento = true;
 			if(contador >= 5){
 				carameloEspecial = STAR;
@@ -739,14 +735,12 @@ bool Tablero::activarCombinacionFila(int x, int y, bool todosButtons, int contad
 			}
 
 			for(; contador > 0; contador--){
-				std::cout << "\t\tapendeo contador:" << contador << std::endl;
 				this->tablero[this->num2str(x-contador)][this->num2str(y)] = RELLENAR;
 				movimientos.append(this->newMov(x-contador, y, CARAMELO_MOV_LIMBO));
 			}
 		}
 	}else{ // Sino son todos buttons, minimo son 4 caramelos
 		if(contador >= 4){
-			std::cout << "\t -- activarCombinacionFila(x=" << x << ", y=" << y << ", todosButtons=" << todosButtons << ", contador=" << contador << ", x_mov="<< x_mov << ", y_mov=" << y_mov << ")" << std::endl;
 			if(contador >= 5)
 				carameloEspecial = STAR;
 			else
@@ -801,7 +795,6 @@ bool Tablero::activarCombinacionColumna(int x, int y, bool todosButtons, int con
 	Caramelos carameloEspecial = RELLENAR;
 	if(todosButtons){
 		if(contador >= 3){
-			std::cout << "\t -- activarCombinacionColumna(x=" << x << ", y=" << y << ", todosButtons=" << todosButtons << ", contador=" << contador << ", x_mov="<< x_mov << ", y_mov=" << y_mov << ")" << std::endl;
 			huboMovimiento = true;
 			if(contador >= 5){
 				carameloEspecial = STAR;
@@ -820,7 +813,6 @@ bool Tablero::activarCombinacionColumna(int x, int y, bool todosButtons, int con
 		}
 	}else{
 		if(contador >= 4){
-			std::cout << "\t -- activarCombinacionColumna(x=" << x << ", y=" << y << ", todosButtons=" << todosButtons << ", contador=" << contador << ", x_mov="<< x_mov << ", y_mov=" << y_mov << ")" << std::endl;
 			if(contador == 5)
 				carameloEspecial = STAR;
 			else
@@ -881,13 +873,11 @@ Json::Value Tablero::getTablero(){
 		}
 	}
 
-	std::cout << "Tablero que se manda: " << ret << std::endl;
 	return ret;
 }
 
 int Tablero::doCombinacion(Caramelos car, int x, int y, Json::Value& movimientos){
 	// Razonamiento parecido a hayPatrones, solo que en vez de recorrer todo el tablero, solo recorre las fichas cercanas al caramelo
-	std::cout << " == doCombinacion( car=" << car << ", x=" << x << ", y=" << y << " )" << std::endl;
 	int puntos = 0;
 	int contador = 0;
 	bool todosButtons = this->esButton(car);
@@ -897,25 +887,19 @@ int Tablero::doCombinacion(Caramelos car, int x, int y, Json::Value& movimientos
 			continue;
 
 		Caramelos esteCar = (Caramelos) this->tablero[this->num2str(x_m)][this->num2str(y)].asInt();
-		std::cout << "\t---  x_m" << (x_m) << " y " << y << " car " << car << " y esteCar " << esteCar << std::endl;
 		if(this->esMismoColor(car, esteCar)){
-			std::cout << "\tson del mismo color" << std::endl;
 			contador++;
 			if(! this->esButton(esteCar) ){
-				std::cout << "\tNo es button" << std::endl;
 				todosButtons = false;
 			}
 		}else{
-			std::cout << "\tdistinto" << std::endl;
 			if(x_m >= x){
-				std::cout << "\t activo combinacion" << std::endl;
 				this->activarCombinacionFila(x_m, y, todosButtons, contador, movimientos, puntos, x, y);
 			}
 
 			contador = 0;
 			todosButtons = this->esButton(car);
 			if(x_m > x){
-				std::cout << "\t break" << std::endl;
 				break;
 			}
 
