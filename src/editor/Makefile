@@ -161,7 +161,7 @@ $(target): $(o_files)
 		echo "No hay archivos de entrada, recuerde que la extensión debe ser '.$(extension)'."; \
 		false; \
 	fi >&2
-	$(LD) $(LDFLAGS) $(o_files) $(LOADLIBS) $(LDLIBS) -o $(target)
+	$(LD) $(o_files) $(LDFLAGS)  $(LOADLIBS) $(LDLIBS) -o $(target)
 
 
 clean:
