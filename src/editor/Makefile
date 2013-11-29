@@ -64,7 +64,7 @@ LDFLAGS = -L/usr/local/lib -ljsoncpp
 CSTD = c99
 
 # Estandar de C++ a usar
-CXXSTD = c++98
+CXXSTD = c++0x
 
 # Si se quiere compilar estaticamente, descomentar la siguiente linea
 #static = si
@@ -161,7 +161,7 @@ $(target): $(o_files)
 		echo "No hay archivos de entrada, recuerde que la extensión debe ser '.$(extension)'."; \
 		false; \
 	fi >&2
-	$(LD) $(LDFLAGS) $(o_files) $(LOADLIBS) $(LDLIBS) -o $(target)
+	$(LD) $(o_files) $(LDFLAGS)  $(LOADLIBS) $(LDLIBS) -o $(target)
 
 
 clean:
