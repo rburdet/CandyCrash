@@ -144,9 +144,9 @@ void GameWindow::mensaje(Json::Value& data){
 		}
 
 		case EVENT_GAME_END:{
-			tableroJuego->hide();
-			delete tableroJuego;
-			tableroJuego = NULL;
+			//tableroJuego->hide();
+			//delete tableroJuego;
+			//tableroJuego = NULL;
 
 			string msg = data["msg"].asString();
 			string str = this->m_refTextBuffer1->get_text();

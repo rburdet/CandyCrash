@@ -112,7 +112,7 @@ void Tablero::getMax(double* auxArr,double& max, int& pos){
 		pos = MAXELEMENTOS-1;
 }
 
-int Tablero::movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& movimientos){
+int Tablero::movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& movimientos, int maxPuntos){
 	Json::Value movs;
 	// Compruebo que sea movimiento valido
 	Logger::log("es valido el movimiento?");
@@ -158,8 +158,12 @@ int Tablero::movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& mov
 
 	// TODO: habria qe ver qe se multiplican por las combinaciones qe se generen por qe se caigan las fichas. El enunciado dice algo de eso.
 	// TODO: podria entrar en un loop infinito, si las probablidades de las fichas que se crean siempre dan combinaciones validas (el sistema de probabilidades, permite decir que siempre se cree una sola ficha)
-	while(this->hayPatrones(movs, puntos))
+	while(this->hayPatrones(movs, puntos)){
 		this->rellenarTablero(movs);
+		puntos *= 2;
+		if(puntos > maxPuntos)
+			break;
+	}
 
 	movimientos = movs;
 

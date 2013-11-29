@@ -18,7 +18,7 @@ class Tablero {
 		 * @param movimientos[out]: JSON, lista de los movimientos que se realizaron.
 		 * @return devuelve la cantidad de puntos que gano el usuario o 0 si no se realizo el movimiento
 		 */
-		int movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& movimientos);
+		int movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& movimientos, int maxPuntos);
 
 		/** Devuelve verdadero si hay movimientos para realizar
 		 */

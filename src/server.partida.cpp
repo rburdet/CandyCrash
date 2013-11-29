@@ -169,7 +169,17 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 			}
 			// TODO: controlar que vengan todos los datos en el mensaje
 			Json::Value movimientos;
-			int puntos = this->tablero->movimiento(data["x"].asInt(), data["y"].asInt(), (CaramelosMovimientos) data["mov"].asInt(), movimientos);
+
+			this->usuariosLock.lock();
+			int max_puntos = puntosMax;
+			for(unsigned int i=0; i < usuarios.size(); i++){
+				if((void*) u == (void*) (this->usuarios[i])){
+					max_puntos -= this->usuarios_data[i]["puntos"].asInt();
+					break;
+				}
+			}
+			this->usuariosLock.unlock();
+			int puntos = this->tablero->movimiento(data["x"].asInt(), data["y"].asInt(), (CaramelosMovimientos) data["mov"].asInt(), movimientos, puntosMax);
 			if(puntos){ // Si el movimiento es de 0 puntos, significa qe fue un movimiento invalido, sino, es valido
 				Logger::log("puntos");
 				int size = movimientos.size();
@@ -212,6 +222,9 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 					end_send["msg"] = "Nadie gano";
 					this->broadcastMsj(end_send);
 				}
+			}else{
+				std::string str("Movimiento invalido");
+				this->msjError(u, str);
 			}
 			this->tableroLock.unlock();
 			break;
