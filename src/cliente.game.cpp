@@ -63,7 +63,12 @@ void GameWindow::on_start_game(){
 void GameWindow::on_salir_game(){
 	Json::Value data;
 	data["event"] = EVENT_LEAVE_GAME;
-		this->m_signal_mensaje.emit(data);
+	this->m_signal_mensaje.emit(data);
+	if(tableroJuego){
+		tableroJuego->hide();
+		delete tableroJuego;
+		tableroJuego = NULL;
+	}
 }
 
 void GameWindow::mensaje(Json::Value& data){
