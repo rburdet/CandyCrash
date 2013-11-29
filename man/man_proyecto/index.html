@@ -40,6 +40,8 @@
 
 <li><a href="#Conclusiones" class="indice_entrada">Conclusiones</a></li>
 
+<li><a href="#Repositorio" class="indice_entrada">Repositorio</a></li>
+
 
 </ol>
 </article>
@@ -68,6 +70,8 @@
 
 			<li><a href="#Conclusiones" class="indice_entrada">Conclusiones</a></li>
 
+			<li><a href="#Repositorio" class="indice_entrada">Repositorio</a></li>
+
 
 		<br>
 		<br>
@@ -87,7 +91,6 @@
 <!-- inicio contenido -->
 
 <article id="Integrantes">
-<span class="salto_pagina"></span>
 
 
 <span class="titulo">1. Integrantes</span>
@@ -101,7 +104,6 @@
 
 
 <article id="Enunciado">
-<span class="salto_pagina"></span>
 
 
 <span class="titulo">2. Enunciado</span> 
@@ -155,17 +157,17 @@ En la 5ta semana el editor estaba terminado y funcionando. El servidor en cambio
 <p>Fue durante la 7ta semana, el dia lunes 25 de noviembre, que tanto el cliente como el servidor funcionaban casi perfectamente, quedando así sólo la 8va semana para detalles </p>
 
 </article>
-<article id="Inconvenientes_Encontrados">
-<span class="titulo"> 5. Inconvenientes encontrados</span>
-Algunos de los inconvenientes a resaltar fueron:
-<ul>
-	<li> La matriz contenedora del tablero fue pensada al revés de como GTK maneja las coordenadas. La propia se manejaba con sus filas y columnas imitando a una matriz matemática. Mientras que GTK trata a <i>GTK::Fixed</i> como un eje cartesiano en el 4to cuadrante. </li>
-	<li> JSon CPP no cuenta con <b>pkg-config</b> lo cual trajo dolores de cabeza a la hora de portarlo.</li>
-	<li>Para el editor se uso <b> Glade </b> el cual, debido a su forma de uso, no permite crear clases herederas de un <i>GTK::Widget</i> por lo que se optó por agregación en vez de herencia. </li>
-	<li>Para las imagenes de fondo toda la documentación hacía referencia a gtkmm 2.4, siendo esta incompatible con la utilizada (gtkmm 3.8), se optó por usar <b>CSS</b> soportado fácilmente por GTK </li>
-	<li> Las imagenes utilizadas al crear un mapa sólo pueden ser cuadradas, siendo esta la mejor opción para no tener problemas de blancos o de pérdida de aspecto </li> 
-</ul>
 
+<article id="Inconvenientes_Encontrados">
+	<span class="titulo"> 5. Inconvenientes encontrados</span>
+	Algunos de los inconvenientes a resaltar fueron:
+	<ul>
+		<li> La matriz contenedora del tablero fue pensada al revés de como GTK maneja las coordenadas. La propia se manejaba con sus filas y columnas imitando a una matriz matemática. Mientras que GTK trata a <i>GTK::Fixed</i> como un eje cartesiano en el 4to cuadrante. </li>
+		<li> JSon CPP no cuenta con <b>pkg-config</b> lo cual trajo dolores de cabeza a la hora de portarlo.</li>
+		<li>Para el editor se uso <b> Glade </b> el cual, debido a su forma de uso, no permite crear clases herederas de un <i>GTK::Widget</i> por lo que se optó por agregación en vez de herencia. </li>
+		<li>Para las imagenes de fondo toda la documentación hacía referencia a gtkmm 2.4, siendo esta incompatible con la utilizada (gtkmm 3.8), se optó por usar <b>CSS</b> soportado fácilmente por GTK </li>
+		<li> Las imagenes utilizadas al crear un mapa sólo pueden ser cuadradas, siendo esta la mejor opción para no tener problemas de blancos o de pérdida de aspecto </li> 
+	</ul>
 
 
 </article>
@@ -182,32 +184,43 @@ Algunas cosas que se podrían haber agregado y no fueron realizadas por falta de
 <p>
 </p>
 
-
 </article>
+
+
 <article id="Herramientas">
 <span class="titulo">7. Herramientas</span>
 <p>
+Las herramientas utilizadas para el desarrollo del proyecto fueron :
+<ul> 
+
+		<li><strong> Glade 3</strong> Como editor de interfaz gr&aacute;fica</li>
+		<li><strong> Git </strong> Como controlador de versiones</li> 
+		<li><strong> Doxygen 1.8 </strong> Como generador de documentaci&oacute;n </li> 
+		<li><strong> GDB & Valgrind</strong> Como debugger</li> 
+</ul>
+
 </p>
 
 
 </article>
 <article id="Conclusiones">
-<span class="salto_pagina"></span>
 
 
 <span class="titulo">8. Conclusiones</span>
-
-<p></p>
-
+<p>
+En general el proyecto fue entretenido, con una dificultad normal para aquellas personas sin conocimientos en programación orientada a eventos y tal vez fácil para aquellas personas que sí lo hicieron. No se encontraron mayores complejidades en ningún momento, de ninguna índole, ya sean algorítmicas o humanas, debido tal vez a la buena organización, comunicación y afinidad entre los miembros del grupo. 
+</p>
+<p> Si bien el proyecto no fue siquiera diagramado durante las primeras 2 semanas de haberse propuesto y siendo un integrante menos, pudimos llegar correctamente en tiempo y forma con lo pautado aún cuando algunos de nuestros pares o superiores sugerían que eso no iba a ser posible. </p>
+<p> Como crítica constructiva dejaría de lado el uso de GTK para pasar a frameworks con mayor demanda en el mercado, como pueden ser <b> Qt </b> para el caso Open Source o <b> MFC </b> en caso de Windows. </p>
+<p> Otro punto a destacar es la libertad del enunciado. Durante toda la cursada los enunciados fueron exactos, inequívocos. En este caso, entendiendo que la naturaleza es otra, suponemos que  sería correcto limitar el libre albedrío, ya sea en cuanto a los requerimientos del sistema como a las herramientas que van a ser soportadas (con su respectiva versión) y cuales no.
 
 </article>
-<article id="direcciones_&uacute;tiles">
 
-<span class="titulo">Direcciones &uacute;tiles</span>
+<article id="Repositorio">
+
+<span class="titulo">Repositorio</span>
 <ul style="list-style-type: none;">
-<li>www.3way.com.ar</li>
-<li>info@3way.com.ar</li>
-<li>soporte@3way.com.ar</li>
+<li> <a href= https://github.com/rburdet/CandyCrash>https://github.com/rburdet/CandyCra</a></li>
 </ul>
 </article>
 
