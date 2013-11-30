@@ -30,12 +30,15 @@ class Ipwindow : public Window {
 		Gtk::Box m_HBox;
 		Gtk::Box m_VBox;
 
+		Gtk::Image img;
+
 		LabelEntry m_host;
 		LabelEntry m_user;
 		LabelEntry m_pass;
 
 		Gtk::Label m_text;
 		Gtk::CheckButton m_check;
+		Gtk::HBox m_Button_box;
 		Gtk::Button m_Button_conectar;
 		type_signal_conectar m_signal_conectar;
 };

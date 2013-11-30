@@ -13,8 +13,8 @@ class LabelEntry : public Gtk::HBox {
 			stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 			stylecontext->add_class("entry");
 			stylecontext->context_save();
-			this->pack_start(label);
-			this->pack_start(entry);
+			this->pack_start(label, true, false, 0);
+			this->pack_start(entry, true, false, 0);
 		}
 
 		void set_label(std::string str){

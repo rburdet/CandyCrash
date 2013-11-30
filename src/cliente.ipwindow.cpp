@@ -5,45 +5,56 @@ using std::string;
 
 Ipwindow::Ipwindow()
 	: m_VBox(Gtk::ORIENTATION_VERTICAL),
-	m_Button_conectar("Conectar"), m_check("Active para registrarse") {
-	set_size_request(200, 100);
+	m_Button_conectar("Conectar"), m_check("Active para registrarse"), img("../imagenes/star_big.png") {
+	set_size_request(350, 800);
 	set_title("Conectate");
 
-	this->set_background_image(string("../imagenes/fondos/paradise.jpg"));
+	this->set_background_image(string("../imagenes/fondos/stripes.jpg"));
 	//override_background_color(Gdk::RGBA("crimson"),Gtk::STATE_FLAG_NORMAL);
 	m_Button_conectar.override_color(Gdk::RGBA("cornsilk"),Gtk::STATE_FLAG_NORMAL);
 	add(m_VBox);
 
+	m_VBox.pack_start(img, true, false, 0);
+
 	//m_host.set_max_length(50);
 	//m_host.select_region(0, m_host.get_text_length());
-	m_VBox.pack_start(m_host);
-	m_host.set_label(string("Host       "));
+	m_VBox.pack_start(m_host, true, false, 0);
+	m_host.set_label(string("Host"));
 
 	m_host.set_text(string("localhost:9000"));
 
 	//m_user.set_max_length(50);
 	//m_user.select_region(0, m_user.get_text_length());
-	m_VBox.pack_start(m_user);
-	m_user.set_label(string("Usuario   "));
+	m_VBox.pack_start(m_user, true, false, 0);
+	m_user.set_label(string("Usuario"));
 
 	//m_pass.set_max_length(50);
 	//m_pass.select_region(0, m_pass.get_text_length());
 	m_pass.set_visibility(false);
-	m_VBox.pack_start(m_pass);
-	m_pass.set_label(string("Password "));
+	m_VBox.pack_start(m_pass, true, false, 0);
+	m_pass.set_label(string("Password"));
 
-	m_VBox.pack_start(m_check);
+	m_VBox.pack_start(m_check, true, false, 0);
 
-	m_VBox.pack_start(m_text);
+	m_VBox.pack_start(m_text, true, true, 0);
 
 	// Note that add() can also be used instead of pack_xxx()
 	m_VBox.add(m_HBox);
 
+	m_Button_box.pack_start(m_Button_conectar, true, true, 80);
 	m_Button_conectar.signal_clicked().connect( sigc::mem_fun(*this,
 				&Ipwindow::on_button_conectar) );
-	m_VBox.pack_start(m_Button_conectar);
+	m_VBox.pack_start(m_Button_box, true, false, 0);
 	m_Button_conectar.set_can_default();
 	m_Button_conectar.grab_default();
+
+	std::string style_sheet = ".btn { transition: all .3s ease-in-out; color:#f0f0f0; border: 1px solid #267ed4; font-weight:bold; text-shadow:1px 1px 3px rgba(0, 0, 0, 0.5); box-shadow:1px 1px 2px rgba(0, 0, 0, 0.5), inset 1px 1px 2px rgba(255,255,255,.5); background: linear-gradient(to bottom,  #5fa2c6 1%,#258dc8 100%); } .btn:hover { transition: all .3s ease-in-out; box-shadow:1px 1px 15px rgba(0, 0, 0, 0.75), inset 1px 1px 2px rgba(255,255,255,.5); }";
+	Glib::RefPtr<Gtk::StyleContext> stylecontext = m_Button_conectar.get_style_context();
+	Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
+	cssprov->load_from_data(style_sheet);
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("btn");
+	stylecontext->context_save();
 
 	show_all_children();
 	show_all();
