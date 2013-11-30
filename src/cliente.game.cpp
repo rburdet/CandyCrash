@@ -9,33 +9,52 @@ using Json::StaticString;
 using Json::Value;
 
 GameWindow::GameWindow() {
-	this->add(this->main_h_box);
-	this->main_h_box.pack_start(this->lista_box);
-	override_background_color(Gdk::RGBA("crimson"),Gtk::STATE_FLAG_NORMAL);
-	this->lista_box.pack_start(this->user_list);
-	this->lista_box.pack_start(this->button_start);
-	this->button_start.set_label("Empezar el juego");
-	this->button_start.signal_clicked().connect(sigc::mem_fun(*this, &GameWindow::on_start_game) );
-	this->lista_box.pack_start(this->button_salir);
-	this->button_salir.set_label("Salir de la partida");
-	this->button_salir.signal_clicked().connect(sigc::mem_fun(*this, &GameWindow::on_salir_game) );
-	this->main_h_box.pack_start(this->m_VBox);
-	this->m_VBox.pack_start(this->m_ScrolledWindow1);
+	this->set_title("Juego");
+	this->set_background_image(string("../imagenes/fondos/stripes.jpg"));
+	this->set_border_width(5);
+	this->set_size_request(350, 350);
+
+	// -- Estilos
+	Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
+	cssprov->load_from_path("../imagenes/style.css");
+	Glib::RefPtr<Gtk::StyleContext> stylecontext;
+	// ------
+
+	this->add(this->m_VBox);
+	this->m_VBox.pack_start(this->user_list, true, true, 10);
+
+	this->m_VBox.pack_start(this->m_ScrolledWindow1, true, true, 0);
+	this->m_ScrolledWindow1.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
 	this->m_ScrolledWindow1.add(this->m_TextView1);
+	this->m_TextView1.set_wrap_mode(Gtk::WRAP_WORD_CHAR);
 	this->m_refTextBuffer1 = Gtk::TextBuffer::create();
 	this->m_refTextBuffer1->set_text("");
 	this->m_TextView1.set_buffer(this->m_refTextBuffer1);
 	this->m_TextView1.set_editable(false);
-	this->m_VBox.pack_start(this->m_HBox);
-	this->m_HBox.pack_start(this->m_ScrolledWindow2);
-	this->m_ScrolledWindow2.add(this->m_TextView2);
-	this->m_refTextBuffer2 = Gtk::TextBuffer::create();
-	this->m_refTextBuffer2->set_text("");
-	this->m_TextView2.set_buffer(this->m_refTextBuffer2);
-	this->m_HBox.pack_start(m_button_send);
+	this->m_VBox.pack_start(this->m_HBox, false, false, 0);
+	this->m_HBox.pack_start(this->text_input, true, true, 0);
+	this->text_input.signal_activate().connect(sigc::mem_fun(*this, &GameWindow::on_mensaje) );
+	this->m_HBox.pack_start(m_button_send, true, true, 0);
 	this->m_button_send.set_label("Send");
-
 	this->m_button_send.signal_clicked().connect(sigc::mem_fun(*this, &GameWindow::on_mensaje) );
+
+	this->m_VBox.pack_start(this->but_hbox, false, false, 10);
+	this->but_hbox.pack_start(this->button_start, true, true, 10);
+	this->button_start.set_label("Empezar el juego");
+	this->button_start.signal_clicked().connect(sigc::mem_fun(*this, &GameWindow::on_start_game) );
+	this->but_hbox.pack_start(this->button_salir, true, true, 10);
+	this->button_salir.set_label("Salir de la partida");
+	this->button_salir.signal_clicked().connect(sigc::mem_fun(*this, &GameWindow::on_salir_game) );
+
+
+	stylecontext = this->button_start.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("btn");
+	stylecontext->context_save();
+	stylecontext = this->button_salir.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("btn1");
+	stylecontext->context_save();
 
 	show_all_children();
 	show_all();
@@ -44,8 +63,8 @@ GameWindow::GameWindow() {
 GameWindow::~GameWindow(){}
 
 void GameWindow::on_mensaje(){
-	string str = this->m_refTextBuffer2->get_text();
-	this->m_refTextBuffer2->set_text("");
+	string str = this->text_input.get_text();
+	this->text_input.set_text("");
 	Json::Value data;
 	data["event"] = EVENT_GAME_MISC;
 	data["ev-game"] = EVENT_GAME_CHAT;
@@ -87,12 +106,16 @@ void GameWindow::mensaje(Json::Value& data){
 			string str = this->m_refTextBuffer1->get_text();
 			string line = data["line"].asString();
 			this->m_refTextBuffer1->set_text(str+"\n >> "+line);
+			Glib::RefPtr<Gtk::Adjustment> adj = m_ScrolledWindow1.get_vadjustment();
+			adj->set_value(adj->get_upper()); 
 			break;
 		}
 		case EVENT_GAME_MSG:{
 			string str = this->m_refTextBuffer1->get_text();
 			string line = data["msg"].asString();
 			this->m_refTextBuffer1->set_text(str+"\n >> "+line);
+			Glib::RefPtr<Gtk::Adjustment> adj = m_ScrolledWindow1.get_vadjustment();
+			adj->set_value(adj->get_upper()); 
 			break;
 		}
 		case EVENT_GAME_USER_RM:
@@ -103,6 +126,8 @@ void GameWindow::mensaje(Json::Value& data){
 				text +="des";
 			text += "conecto "+data["user"]["user"].asString();
 			this->m_refTextBuffer1->set_text(str+text);
+			Glib::RefPtr<Gtk::Adjustment> adj = m_ScrolledWindow1.get_vadjustment();
+			adj->set_value(adj->get_upper()); 
 			Json::Value msg;
 			msg["event"] = EVENT_GAME_MISC;
 			msg["ev-game"] = EVENT_GAME_INFO;
@@ -156,6 +181,8 @@ void GameWindow::mensaje(Json::Value& data){
 			string msg = data["msg"].asString();
 			string str = this->m_refTextBuffer1->get_text();
 			this->m_refTextBuffer1->set_text(str+"\n >> Termino la partida\n>>"+msg);
+			Glib::RefPtr<Gtk::Adjustment> adj = m_ScrolledWindow1.get_vadjustment();
+			adj->set_value(adj->get_upper()); 
 			break;
 		}
 

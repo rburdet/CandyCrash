@@ -27,17 +27,15 @@ class GameWindow : public Window {
 
 		Gtk::VBox m_VBox;
 		Gtk::ScrolledWindow m_ScrolledWindow1;
-		Gtk::ScrolledWindow m_ScrolledWindow2;
 		Gtk::TextView m_TextView1;
 		Gtk::HBox m_HBox;
-		Gtk::TextView m_TextView2;
-		Glib::RefPtr<Gtk::TextBuffer> m_refTextBuffer1, m_refTextBuffer2;
+		Gtk::Entry text_input;
+		Glib::RefPtr<Gtk::TextBuffer> m_refTextBuffer1;
 		Gtk::Button m_button_send;
 		ListaUsuarios user_list;
+		Gtk::HBox but_hbox;
 		Gtk::Button button_start;
 		Gtk::Button button_salir;
-		Gtk::HBox main_h_box;
-		Gtk::VBox lista_box;
 		TableroJuego* tableroJuego;
 };
 
