@@ -8,78 +8,74 @@ using std::stringstream;
 using Json::StaticString;
 using Json::Value;
 
-MainWindow::MainWindow()
-	: m_VBox(Gtk::ORIENTATION_VERTICAL),
-	m_button_send("_Send", true)
-{
-
-	//override_background_color(Gdk::RGBA("crimson"),Gtk::STATE_FLAG_NORMAL);
+MainWindow::MainWindow(){
+	this->set_background_image(string("../imagenes/fondos/stripes.jpg"));
 	set_title("Pantalla principal");
 	set_border_width(5);
-	set_default_size(400, 200);
+	set_size_request(350, 800);
 
-	mainV.pack_start(tabs);
-	mainV.pack_start(statusLabel);
+	// -- Estilos
+	Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
+	cssprov->load_from_path("../imagenes/style.css");
+	// ------
+
+	Glib::RefPtr<Gtk::StyleContext> stylecontext = tabs.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("label");
+	stylecontext->context_save();
+	mainV.pack_start(tabs, true, true, 0);
+	mainV.pack_start(statusLabel, false, false, 0);
 
 	add(mainV);
-	//add(m_VBox);
-
-	// ----------
-	label1.set_text("debug");
-
-	tabs.prepend_page(m_VBox, label1);
-
-	//Add the TreeView, inside a ScrolledWindow, with the button underneath:
-	m_ScrolledWindow1.add(m_TextView1);
-
-	//Only show the scrollbars when they are necessary:
-	m_ScrolledWindow1.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-
-	m_VBox.pack_start(m_ScrolledWindow1);
-
-	m_ScrolledWindow2.add(m_TextView2);
-	m_ScrolledWindow2.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-	m_VBox.pack_start(m_ScrolledWindow2);
-
-	//Add buttons:
-	m_VBox.pack_start(m_button_send, Gtk::PACK_SHRINK);
-
-	//Connect signals:
-	m_button_send.signal_clicked().connect( sigc::mem_fun(*this,
-				&MainWindow::on_mensaje) );
-
-	fill_buffers();
-	m_TextView1.set_buffer(m_refTextBuffer1);
-	m_TextView2.set_buffer(m_refTextBuffer2);
 
 	// ----- Partidas ----
+	stylecontext = labelPartidas.get_style_context();
 	labelPartidas.set_text("Partidas");
-	m_ScrolledPartidas.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+	m_ScrolledPartidas.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_AUTOMATIC);
 	button_partidas_act.set_label("Actualizar");
 	button_partidas_con.set_label("Conectar");
-	m_HBox_partidas_buttons.pack_start(button_partidas_act);
-	m_HBox_partidas_buttons.pack_start(button_partidas_con);
-	m_VBox_partidas.pack_start(m_ScrolledPartidas);
-	m_VBox_partidas.pack_start(m_HBox_partidas_buttons);
+	m_HBox_partidas_buttons.pack_start(button_partidas_act, true, true, 10);
+	m_HBox_partidas_buttons.pack_start(button_partidas_con, true, true, 10);
+	m_VBox_partidas.pack_start(m_ScrolledPartidas, true, true, 0);
+	m_VBox_partidas.pack_start(m_HBox_partidas_buttons, false, false, 10);
 
 	button_partidas_act.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_partidas));
 	button_partidas_con.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::join_partidas));
+
+	stylecontext = button_partidas_act.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("btn");
+	stylecontext->context_save();
+	stylecontext = button_partidas_con.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("btn1");
+	stylecontext->context_save();
+
 	tabs.prepend_page(m_VBox_partidas, labelPartidas);
 
 	m_ScrolledPartidas.add(m_TreeView);
 
 	// ----- Mapas ----
 	labelMapas.set_text("Crear Partida");
-	m_ScrolledMapas.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-	m_VBox_mapas.pack_start(m_ScrolledMapas);
-	m_VBox_mapas.pack_start(m_HBox_mapas_buttons);
-	button_mapas_act.set_label(string("Actualizar"));
-	m_HBox_mapas_buttons.pack_start(button_mapas_act);
-	button_mapas_cre.set_label(string("Crear Partida"));
-	m_HBox_mapas_buttons.pack_start(button_mapas_cre);
+	m_ScrolledMapas.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_AUTOMATIC);
+	button_mapas_act.set_label("Actualizar");
+	button_mapas_cre.set_label("Crear Partida");
+	m_HBox_mapas_buttons.pack_start(button_mapas_act, true, true, 10);
+	m_HBox_mapas_buttons.pack_start(button_mapas_cre, true, true, 10);
+	m_VBox_mapas.pack_start(m_ScrolledMapas, true, true, 0);
+	m_VBox_mapas.pack_start(m_HBox_mapas_buttons, false, false, 10);
 
 	button_mapas_act.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_mapas));
 	button_mapas_cre.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_crear_partida));
+
+	stylecontext = button_mapas_act.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("btn");
+	stylecontext->context_save();
+	stylecontext = button_mapas_cre.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("btn1");
+	stylecontext->context_save();
 
 	tabs.prepend_page(m_VBox_mapas, labelMapas);
 
@@ -91,25 +87,7 @@ MainWindow::MainWindow()
 	show_all();
 }
 
-void MainWindow::fill_buffers(){
-	m_refTextBuffer1 = Gtk::TextBuffer::create();
-	m_refTextBuffer1->set_text("Buffer 1");
-
-	m_refTextBuffer2 = Gtk::TextBuffer::create();
-	m_refTextBuffer2->set_text("Buffer 2");
-
-}
-
 MainWindow::~MainWindow(){
-}
-
-void MainWindow::on_mensaje(){
-	string str = m_refTextBuffer2->get_text();
-	Json::Value data;
-	Json::Reader reader;
-	if(reader.parse(str, data, false)){
-		m_signal_mensaje.emit(data);
-	}
 }
 
 void MainWindow::on_partidas(){
@@ -151,7 +129,6 @@ void MainWindow::on_crear_partida(){
 }
 
 void MainWindow::setText(std::string& str){
-	m_refTextBuffer1->set_text(str);
 }
 
 void MainWindow::mensaje(Json::Value& data){

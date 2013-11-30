@@ -26,7 +26,6 @@ class MainWindow : public Window {
 		void onListMaps(int code, Json::Value& data);
 
 		//Signal handlers:
-		void on_mensaje(); //-> es para debug, hay q esacarlo
 		void on_partidas(); // -> handler del actualizador de la lista de partidas
 		void join_partidas(); // -> ... unirse a partida
 		void on_mapas(); // -> actualizador de lista de mapas
@@ -35,16 +34,6 @@ class MainWindow : public Window {
 		//Child widgets:
 		Gtk::Notebook tabs;
 
-		// ----- Para el debug ----
-		Gtk::Box m_VBox;
-		Gtk::Label label1;
-		Gtk::ScrolledWindow m_ScrolledWindow1;
-		Gtk::ScrolledWindow m_ScrolledWindow2;
-		Gtk::TextView m_TextView1;
-		Gtk::TextView m_TextView2;
-		Glib::RefPtr<Gtk::TextBuffer> m_refTextBuffer1, m_refTextBuffer2;
-		Gtk::Button m_button_send;
-		void fill_buffers();
 		// ------------------
 
 		Gtk::Label labelPartidas;

@@ -48,10 +48,9 @@ Ipwindow::Ipwindow()
 	m_Button_conectar.set_can_default();
 	m_Button_conectar.grab_default();
 
-	std::string style_sheet = ".btn { transition: all .3s ease-in-out; color:#f0f0f0; border: 1px solid #267ed4; font-weight:bold; text-shadow:1px 1px 3px rgba(0, 0, 0, 0.5); box-shadow:1px 1px 2px rgba(0, 0, 0, 0.5), inset 1px 1px 2px rgba(255,255,255,.5); background: linear-gradient(to bottom,  #5fa2c6 1%,#258dc8 100%); } .btn:hover { transition: all .3s ease-in-out; box-shadow:1px 1px 15px rgba(0, 0, 0, 0.75), inset 1px 1px 2px rgba(255,255,255,.5); }";
-	Glib::RefPtr<Gtk::StyleContext> stylecontext = m_Button_conectar.get_style_context();
 	Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
-	cssprov->load_from_data(style_sheet);
+	cssprov->load_from_path("../imagenes/style.css");
+	Glib::RefPtr<Gtk::StyleContext> stylecontext = m_Button_conectar.get_style_context();
 	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("btn");
 	stylecontext->context_save();
