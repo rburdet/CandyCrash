@@ -29,6 +29,7 @@ class Ipwindow : public Window {
 		//Child widgets:
 		Gtk::Box m_HBox;
 		Gtk::Box m_VBox;
+		Gtk::MenuBar* menubar;
 
 		Gtk::Image img;
 
@@ -41,6 +42,9 @@ class Ipwindow : public Window {
 		Gtk::HBox m_Button_box;
 		Gtk::Button m_Button_conectar;
 		type_signal_conectar m_signal_conectar;
+	private:
+		void on_salir();
+
 };
 
 #endif 

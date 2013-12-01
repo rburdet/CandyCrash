@@ -12,7 +12,7 @@ MainWindow::MainWindow(){
 	this->set_background_image(string("../imagenes/fondos/stripes.jpg"));
 	set_title("Pantalla principal");
 	set_border_width(5);
-	set_size_request(350, 800);
+	set_size_request(350, 700);
 
 	// -- Estilos
 	Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
