@@ -112,13 +112,13 @@ PartidaInterface* Server::connectPartidas(long id){
 
 void Server::end(){
 	this->clientesLock.lock();
-	for(unsigned int i=0; i < clientes.size(); i++){
-		this->clientes[i]->shutdown();
-		this->clientes[i]->join();
-		delete this->clientes[i];
-		this->clientes.erase(this->clientes.begin() + i);
-	}
+	std::vector<ThreadUsuario*> cli = this->clientes;
 	this->clientesLock.unlock();
+	for(unsigned int i=0; i < cli.size(); i++){
+		cli[i]->shutdown();
+		cli[i]->join();
+		//delete this->clientes[i];
+	}
 	this->sock.shutdown();
 	this->join();
 }
