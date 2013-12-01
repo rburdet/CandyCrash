@@ -3,10 +3,8 @@
 
 Menu::Menu(Glib::RefPtr<Gtk::Builder>& builder){
 	builder->get_widget("menubar1",menubar);
-	builder->get_widget("quit",close);
 	builder->get_widget("about",about);
 	about->signal_activate().connect(sigc::mem_fun(*this,&Menu::ayuda));
-	close->signal_select().connect(sigc::mem_fun(*this,&Menu::cerrar));
 }
 
 void Menu::ayuda(){
@@ -32,6 +30,3 @@ void Menu::ayuda(){
 	delete window;
 }
 
-void Menu::cerrar(){
-	std::cout << " cerrarrr " << std::endl;
-}

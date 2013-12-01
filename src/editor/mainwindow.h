@@ -16,10 +16,13 @@ class MainWindow : public Gtk::Window{
 		Gtk::Window * mainWindow;
 
 	private:
+		void cerrar();
+
 		Glib::RefPtr<Gtk::Builder> builder;
 		BoxOpcionesBasicas* boxOpcionesBasicas;
 		Tablero* tablero;
 		Menu* menu;
+		Gtk::ImageMenuItem* close;
 };
 
 #endif 

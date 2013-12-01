@@ -12,10 +12,8 @@ class Menu{
 
 		Gtk::Window* window;
 		Gtk::MenuBar* menubar;
-		Gtk::ImageMenuItem* close;
 		Gtk::ImageMenuItem* about;
 		void ayuda();
-		void cerrar();
 
 };
 #endif
