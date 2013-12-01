@@ -17,6 +17,9 @@ using std::string;
 
 std::map<std::string, std::time_t> SoundPlayer::archs;
 
+/* Cabecera de archivo wave:
+ * http://www.topherlee.com/software/pcm-tut-wavformat.html
+ */
 typedef struct {
 	char riff[4];
 	uint32_t size;
@@ -98,6 +101,7 @@ bool SoundPlayer::play_wave(const std::string & str){
 	return true;
 }
 
+/** Inspirado de: https://gist.github.com/ghedo/963382 */
 void* SoundPlayer::wav_runner(void* arg) {
 	TWavArgs* args = (TWavArgs*) arg;
 	unsigned int pcm, tmp, dir;
