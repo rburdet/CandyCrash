@@ -24,30 +24,36 @@ int str2number(char* str);
  * @return codigo de error.
  */
 int main(int argc, char* argv[]){
-	if(argc != 2)
+	if(argc != 2){
+		cout << "Uso: " << argv[0] << " <puerto>" << endl;
 		return 1;
+	}
 
 	int port = str2number(argv[1]);
-
 
 	if(port == 0){
 		cout << "Puerto ingresado invalido" << endl;
 		return 1;
 	}
+
+	cout << "Presione 'q' para cerrar" << endl;
 	Logger::init();
 
 	UserManager::init(string("./user_data.json"));
 
 	Server server(port);
 
-	server.main();
+	server.start();
+
+	while(getchar() != 'q'){
+		Logger::log("Presione 'q' para cerrar");
+	}
 
 	server.end();
 
 	Logger::destroy();
 	UserManager::destroy();
 
-	//return errors;
 	return 0;
 }
 

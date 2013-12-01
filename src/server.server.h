@@ -14,7 +14,7 @@
 /** Clase de servidor.
  * Esta bloqueada escuchando, cada vez que se conecta un cliente se lanza un nuevo thread con el socket creado (se lanza un ThreadUsuario)
  */
-class Server : public ServerInterface {
+class Server : public ServerInterface, public Thread {
 	protected:
 		int port;
 
@@ -28,13 +28,15 @@ class Server : public ServerInterface {
 
 		void addClient(ThreadUsuario* cli);
 
+		int main();
 		//ThreadUsuario* getClient(std::string usuario);
+
+		virtual void* run();
 
 	public:
 		Server(int port);
 		~Server();
 
-		int main();
 		void removeClient(ThreadSocket* cli);
 		PartidaInterface* newPartida(int nivel, std::string& nombre);
 

@@ -30,6 +30,11 @@ int Server::main(){
 	return 0;
 }
 
+void* Server::run(){
+	this->main();
+	return NULL;
+}
+
 void Server::addClient(ThreadUsuario* cli){
 	this->clientesLock.lock();
 	this->clientes.push_back(cli);
@@ -114,4 +119,6 @@ void Server::end(){
 		this->clientes.erase(this->clientes.begin() + i);
 	}
 	this->clientesLock.unlock();
+	this->sock.shutdown();
+	this->join();
 }
