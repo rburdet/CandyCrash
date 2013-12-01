@@ -3,11 +3,13 @@
 
 Menu::Menu(Glib::RefPtr<Gtk::Builder>& builder){
 	builder->get_widget("menubar1",menubar);
+	builder->get_widget("help",help);
 	builder->get_widget("about",about);
-	about->signal_activate().connect(sigc::mem_fun(*this,&Menu::ayuda));
+	help->signal_activate().connect(sigc::mem_fun(*this,&Menu::displayHelp));
+	about->signal_activate().connect(sigc::mem_fun(*this,&Menu::displayAbout));
 }
 
-void Menu::ayuda(){
+void Menu::displayHelp(){
 	window = new Gtk::Window();
 	Gtk::MessageDialog dialog(*window, "Ayuda");
 	std::string aux = 
@@ -25,6 +27,18 @@ void Menu::ayuda(){
 		"\n\n\n\n\n"
 		"Aclaracion:\n"
 		"\t Las probabilidades se computaran como numeros y no como porcentajes. Por ejemplo teniendo 13 para el boton rojo, 13 para un bar horizontal verde y 13 para un bar vertical amarillo significa que ambos van a tener la misma probabilidad de aparecer.";
+	dialog.set_secondary_text(aux);
+	dialog.run();
+	delete window;
+}
+
+void Menu::displayAbout(){
+	window = new Gtk::Window();
+	Gtk::MessageDialog dialog(*window, "Editor de niveles");
+	std::string aux = "Version 1.0\n\n\n\n"
+		" Autores: \n"
+		" \t Rodrigo Burdet \n"
+		" \t Nicolas Cisco "; 
 	dialog.set_secondary_text(aux);
 	dialog.run();
 	delete window;

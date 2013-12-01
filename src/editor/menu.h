@@ -13,7 +13,9 @@ class Menu{
 		Gtk::Window* window;
 		Gtk::MenuBar* menubar;
 		Gtk::ImageMenuItem* about;
-		void ayuda();
+		Gtk::ImageMenuItem* help;
+		void displayHelp();
+		void displayAbout();
 
 };
 #endif
