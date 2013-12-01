@@ -12,6 +12,7 @@ BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,Table
 	builder->get_widget("spin_x",spin_x);
 	builder->get_widget("spin_y",spin_y);
 	builder->get_widget("spinbuttonnivel",spin_nivel);
+	this->barraEstado = new BarraEstado(builder);
 	this->tablero=tablero;
 	Glib::RefPtr<Gtk::Adjustment> adjustment_cordx = 
 	Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object("adjustment_cordx"));
@@ -20,6 +21,7 @@ BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,Table
 	Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object("adjustment_nivel"));
 
 	button_json->signal_clicked().connect(sigc::mem_fun(*this, &BoxOpcionesBasicas::on_button_clicked));
+	button_json->signal_clicked().connect(sigc::bind(sigc::mem_fun(barraEstado, &BarraEstado::onMostrar),e_nombre));
 
 	//Senales para spin button, cuando cambia le avisa al tablero que cambio y le informa sobre su nuevo valor
 	adjustment_cordx->signal_value_changed().connect(sigc::bind(sigc::mem_fun(tablero,&Tablero::on_cordx_changed),spin_x));
@@ -71,7 +73,6 @@ void BoxOpcionesBasicas::on_button_clicked(){
 	nivel[nombre]["DIM"]["X"] = dimX;
 	nivel[nombre]["DIM"]["Y"] = dimY;
 	Persistidor::persistir(nivel,nombre);
-	//std::cout<<nivel<<std::endl;
 }
 
 BoxOpcionesBasicas::~BoxOpcionesBasicas(){}

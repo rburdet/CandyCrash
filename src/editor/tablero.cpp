@@ -1,6 +1,7 @@
 #include "tablero.h"
 
 #include <gtkmm.h>
+#include <typeinfo>
 
 #define MAX_COLS 14
 #define MIN_COLS 8
@@ -8,6 +9,7 @@
 #define MAX_FILAS 14
 #define SIZE 40
 #define OFFSET 20
+#define HUECODIR "../../imagenes/hueco.png"
 
 #define MAXELEMENTOS 16
 
@@ -35,7 +37,8 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 }
 
 Tablero::~Tablero(){
-	this->borrarSeps();
+	this->borrarSeps(cantFilas,FILAS);
+	this->borrarSeps(cantColumnas,COLUMNAS);
 	for ( unsigned int i = 0 ; i < matrizCeldas.size() ; i++){
 		for ( unsigned int j = 0 ; j < matrizCeldas[0].size() ; j++ ){
 			delete matrizCeldas[i][j];
@@ -52,7 +55,7 @@ void Tablero::on_cordx_changed(Gtk::SpinButton* spin_x){
 		agregarFilas(X);
 		alargarColumnas(X);
 	}else if( X < cantFilas ){
-		borrarSeps();
+		borrarSeps(cantFilas,FILAS);
 	}
 	cantFilas=X;
 	actualizarMatriz(cantFilas-1,cantColumnas-1);
@@ -65,7 +68,7 @@ void Tablero::on_cordy_changed(Gtk::SpinButton* spin_y){
 		agregarColumnas(Y);
 		alargarFilas(Y);
 	}else if ( Y < cantColumnas ) {
-		borrarSeps();
+		borrarSeps(cantColumnas,COLUMNAS);
 	}
 	cantColumnas=Y;
 	actualizarMatriz(cantFilas-1,cantColumnas-1);
@@ -90,6 +93,7 @@ void Tablero::alargarColumnas(int X){
 }
 
 void Tablero::agregarFilas(int X){
+	borrarSeps(X,FILAS);
 	for ( int i= 0 ; i < X ; i++ ){
 		Gtk::HSeparator* sep_horizontal = new Gtk::HSeparator();
 		sep_horizontal->set_size_request(SIZE*cantColumnas,SIZE);
@@ -99,6 +103,7 @@ void Tablero::agregarFilas(int X){
 
 void Tablero::agregarColumnas(int Y){
 	columnas.clear();
+	borrarSeps(Y,COLUMNAS);
 	for ( int i = 0 ; i < Y ; i++ ){
 		Gtk::VSeparator* sep_vertical = new Gtk::VSeparator();
 		sep_vertical->set_size_request(SIZE,SIZE*cantFilas);
@@ -116,11 +121,32 @@ void Tablero::agregarColumnas(int Y){
 }
 
 //TODO: BORRA T0D0, ver si se puede mejorar para que solo borre lo que agrego
-void Tablero::borrarSeps(){
+void Tablero::borrarSeps(int cantidadBorrar,int filaOColumna){
+	int i = 0;
+	std::cout << " cantidadBorrar : " << cantidadBorrar << std::endl;
+	std::string type;
+	if (filaOColumna == COLUMNAS){
+		Gtk::VSeparator* sep = new Gtk::VSeparator(); 
+		type = typeid(*sep).name();
+	}	
+	else if (filaOColumna == FILAS){
+		Gtk::HSeparator* sep = new Gtk::HSeparator(); 
+		type = typeid(*sep).name();
+	}
+
+	//std::cout << " un VSeparator es: " << typeid(*vsep).name() << std::endl;
 	Glib::ListHandle<Gtk::Widget*> separadores = this->tablero->get_children();
 	Glib::ListHandle<Gtk::Widget*>::iterator it = separadores.begin();
-	for ( ; it != separadores.end() ; it++) {
-		this->tablero->remove(*(*it));
+	for (; it != separadores.end() ; it++) {
+		std::cout << typeid(**it).name() << std::endl;
+		if ( ( typeid(**it).name() ) == type ){
+			i++;
+			if (i>cantidadBorrar){
+				std::cout << " voy a borrar " << std::endl;
+				this->tablero->remove(*(*it));
+				break;
+			}
+		}
 	}
 }	     
 
@@ -286,5 +312,9 @@ void Tablero::on_image_fondo_changed_tablero(Gtk::FileChooser* fileChooser){
 void Tablero::on_check_button_tablero(){
 	if (this->celdaInteres)
 		this->celdaInteres->setHueco();
+	Gtk::Image* img = new Gtk::Image(HUECODIR);
+	img->set_size_request(SIZE,SIZE);
+	this->tablero->put(*img,this->celdaInteres->getY()*SIZE+OFFSET,this->celdaInteres->getX()*SIZE+OFFSET);
+	img->show();
 }
 
