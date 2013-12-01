@@ -2,6 +2,7 @@
 #include "common.events.h"
 #include <string>
 #include <sstream>
+#include "cliente.sound_player.h"
 
 using std::string;
 using std::stringstream;
@@ -108,6 +109,7 @@ void GameWindow::mensaje(Json::Value& data){
 			this->m_refTextBuffer1->set_text(str+"\n >> "+line);
 			Glib::RefPtr<Gtk::Adjustment> adj = m_ScrolledWindow1.get_vadjustment();
 			adj->set_value(adj->get_upper()); 
+			SoundPlayer::play("../sounds/message-new-instant.wav");
 			break;
 		}
 		case EVENT_GAME_MSG:{
@@ -122,8 +124,12 @@ void GameWindow::mensaje(Json::Value& data){
 		case EVENT_GAME_USER_ADD:{
 			string str = this->m_refTextBuffer1->get_text();
 			string line = data["line"].asString(); string text = "\n >> Se ";
-			if(event == EVENT_GAME_USER_RM)
+			if(event == EVENT_GAME_USER_RM){
+				SoundPlayer::play("../sounds/device-removed.wav");
 				text +="des";
+			}else{
+				SoundPlayer::play("../sounds/device-added.wav");
+			}
 			text += "conecto "+data["user"]["user"].asString();
 			this->m_refTextBuffer1->set_text(str+text);
 			Glib::RefPtr<Gtk::Adjustment> adj = m_ScrolledWindow1.get_vadjustment();
@@ -183,6 +189,8 @@ void GameWindow::mensaje(Json::Value& data){
 			this->m_refTextBuffer1->set_text(str+"\n >> Termino la partida\n>>"+msg);
 			Glib::RefPtr<Gtk::Adjustment> adj = m_ScrolledWindow1.get_vadjustment();
 			adj->set_value(adj->get_upper()); 
+
+			SoundPlayer::play("../sounds/complete.wav");
 			break;
 		}
 

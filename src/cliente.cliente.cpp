@@ -4,6 +4,7 @@
 #include "cliente.main_window.h"
 #include "cliente.game.h"
 #include <sstream>
+#include "cliente.sound_player.h"
 
 using std::string;
 using Json::Value;
@@ -139,6 +140,7 @@ void Cliente::onLogin(int code, Json::Value& data){
 		ventanaActual->get_position(root_x, root_y);
 		ventanaActual->hide();
 		delete ventanaActual;
+		SoundPlayer::play("../sounds/service-login.wav");
 		MainWindow* ventana = new MainWindow;
 		this->ventanaActual = ventana;
 		this->ventanaActual->move(root_x, root_y);

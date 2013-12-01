@@ -58,15 +58,13 @@ CFLAGS += -O3 -DNDEBUG -fpermissive
 CFLAGS += -ggdb -DDEBUG -fno-inline -fpermissive
 
 # Opciones del enlazador.
-LDFLAGS = -L/usr/local/lib -ljsoncpp
+LDFLAGS = -L/usr/local/lib -ljsoncpp -lasound
 
 # Estandar de C a usar
 CSTD = c99
 
 # Estandar de C++ a usar
 CXXSTD = c++0x
-
-LIBS := -ljsoncpp
 
 # Si se quiere compilar estaticamente, descomentar la siguiente linea
 #static = si
