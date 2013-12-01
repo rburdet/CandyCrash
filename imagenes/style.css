@@ -23,3 +23,38 @@
 	transition: all .3s ease-in-out;
 	box-shadow:1px 1px 15px rgba(0, 0, 0, 0.75), inset 1px 1px 2px rgba(255,255,255,.5);
 }
+
+.tabs {
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.tabs:active {
+	background: rgba(255, 255, 255, 0.8);
+}
+
+.scrolled-tree,
+.treeview {
+	background-color: transparent;
+}
+
+/* No pude poner estilo sobre la cabecera: https://developer.gnome.org/gtk3/stable/GtkStyleContext.html
+.treeview button {
+	background-color: blue;
+}
+.treeview column-header button {
+	background: rgba(255, 255, 255, 0.8);
+}
+
+.treeview rubberband {
+	background-color: red;
+}
+*/
+
+.textview,
+.user_list {
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.scrolled-text {
+	background: transparent;
+}

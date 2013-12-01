@@ -15,6 +15,8 @@ GameWindow::GameWindow() {
 	this->set_border_width(5);
 	this->set_size_request(350, 350);
 
+	this->tableroJuego = NULL;
+
 	// -- Estilos
 	Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
 	cssprov->load_from_path("../imagenes/style.css");
@@ -23,6 +25,10 @@ GameWindow::GameWindow() {
 
 	this->add(this->m_VBox);
 	this->m_VBox.pack_start(this->user_list, true, true, 10);
+	stylecontext = this->user_list.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("user_list");
+	stylecontext->context_save();
 
 	this->m_VBox.pack_start(this->m_ScrolledWindow1, true, true, 0);
 	this->m_ScrolledWindow1.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
@@ -36,8 +42,27 @@ GameWindow::GameWindow() {
 	this->m_HBox.pack_start(this->text_input, true, true, 0);
 	this->text_input.signal_activate().connect(sigc::mem_fun(*this, &GameWindow::on_mensaje) );
 	this->m_HBox.pack_start(m_button_send, true, true, 0);
-	this->m_button_send.set_label("Send");
+	this->m_button_send.set_label("Enviar");
 	this->m_button_send.signal_clicked().connect(sigc::mem_fun(*this, &GameWindow::on_mensaje) );
+
+
+	stylecontext = this->m_ScrolledWindow1.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("scrolled-text");
+	stylecontext->context_save();
+	stylecontext = this->m_TextView1.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("textview");
+	stylecontext->context_save();
+
+	stylecontext = this->text_input.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("chat_entry");
+	stylecontext->context_save();
+	stylecontext = m_button_send.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("btn");
+	stylecontext->context_save();
 
 	this->m_VBox.pack_start(this->but_hbox, false, false, 10);
 	this->but_hbox.pack_start(this->button_start, true, true, 10);
@@ -104,25 +129,25 @@ void GameWindow::mensaje(Json::Value& data){
 
 	switch(event){
 		case EVENT_GAME_CHAT:{
-			string str = this->m_refTextBuffer1->get_text();
+			Gtk::TextIter it = this->m_refTextBuffer1->end();
 			string line = data["line"].asString();
-			this->m_refTextBuffer1->set_text(str+"\n >> "+line);
-			Glib::RefPtr<Gtk::Adjustment> adj = m_ScrolledWindow1.get_vadjustment();
-			adj->set_value(adj->get_upper()); 
+			this->m_refTextBuffer1->insert(it, "\n >> "+line);
+			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = this->m_refTextBuffer1->get_insert();
+			this->m_TextView1.scroll_to(mark);
 			SoundPlayer::play("../sounds/message-new-instant.wav");
 			break;
 		}
 		case EVENT_GAME_MSG:{
-			string str = this->m_refTextBuffer1->get_text();
+			Gtk::TextIter it = this->m_refTextBuffer1->end();
 			string line = data["msg"].asString();
-			this->m_refTextBuffer1->set_text(str+"\n >> "+line);
-			Glib::RefPtr<Gtk::Adjustment> adj = m_ScrolledWindow1.get_vadjustment();
-			adj->set_value(adj->get_upper()); 
+			this->m_refTextBuffer1->insert(it, "\n >> "+line);
+			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = this->m_refTextBuffer1->get_insert();
+			this->m_TextView1.scroll_to(mark);
 			break;
 		}
 		case EVENT_GAME_USER_RM:
 		case EVENT_GAME_USER_ADD:{
-			string str = this->m_refTextBuffer1->get_text();
+			Gtk::TextIter it = this->m_refTextBuffer1->end();
 			string line = data["line"].asString(); string text = "\n >> Se ";
 			if(event == EVENT_GAME_USER_RM){
 				SoundPlayer::play("../sounds/device-removed.wav");
@@ -131,9 +156,9 @@ void GameWindow::mensaje(Json::Value& data){
 				SoundPlayer::play("../sounds/device-added.wav");
 			}
 			text += "conecto "+data["user"]["user"].asString();
-			this->m_refTextBuffer1->set_text(str+text);
-			Glib::RefPtr<Gtk::Adjustment> adj = m_ScrolledWindow1.get_vadjustment();
-			adj->set_value(adj->get_upper()); 
+			this->m_refTextBuffer1->insert(it, text);
+			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = this->m_refTextBuffer1->get_insert();
+			this->m_TextView1.scroll_to(mark);
 			Json::Value msg;
 			msg["event"] = EVENT_GAME_MISC;
 			msg["ev-game"] = EVENT_GAME_INFO;
@@ -185,10 +210,10 @@ void GameWindow::mensaje(Json::Value& data){
 			//tableroJuego = NULL;
 
 			string msg = data["msg"].asString();
-			string str = this->m_refTextBuffer1->get_text();
-			this->m_refTextBuffer1->set_text(str+"\n >> Termino la partida\n>>"+msg);
-			Glib::RefPtr<Gtk::Adjustment> adj = m_ScrolledWindow1.get_vadjustment();
-			adj->set_value(adj->get_upper()); 
+			Gtk::TextIter it = this->m_refTextBuffer1->end();
+			this->m_refTextBuffer1->insert(it, "\n >> Termino la partida\n>>"+msg);
+			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = this->m_refTextBuffer1->get_insert();
+			this->m_TextView1.scroll_to(mark);
 
 			SoundPlayer::play("../sounds/complete.wav");
 			break;

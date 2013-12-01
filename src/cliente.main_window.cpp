@@ -21,8 +21,9 @@ MainWindow::MainWindow(){
 
 	Glib::RefPtr<Gtk::StyleContext> stylecontext = tabs.get_style_context();
 	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
-	stylecontext->add_class("label");
+	stylecontext->add_class("tabs");
 	stylecontext->context_save();
+
 	mainV.pack_start(tabs, true, true, 0);
 	mainV.pack_start(statusLabel, false, false, 0);
 
@@ -53,7 +54,14 @@ MainWindow::MainWindow(){
 
 	tabs.prepend_page(m_VBox_partidas, labelPartidas);
 
+	stylecontext = m_TreeView.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("treeview");
+
 	m_ScrolledPartidas.add(m_TreeView);
+	stylecontext = m_ScrolledPartidas.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("scrolled-tree");
 
 	// ----- Mapas ----
 	labelMapas.set_text("Crear Partida");
@@ -79,7 +87,15 @@ MainWindow::MainWindow(){
 
 	tabs.prepend_page(m_VBox_mapas, labelMapas);
 
+	stylecontext = m_TreeViewMapas.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("treeview");
+	stylecontext->context_save();
+
 	m_ScrolledMapas.add(m_TreeViewMapas);
+	stylecontext = m_ScrolledMapas.get_style_context();
+	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	stylecontext->add_class("scrolled-tree");
 	// ----------------
 
 
