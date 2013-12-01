@@ -11,6 +11,7 @@ MainWindow::MainWindow(){
 	this->builder->get_widget("window1",mainWindow);
 	this->tablero = new Tablero(this->builder);
 	this->boxOpcionesBasicas = new BoxOpcionesBasicas(this->builder,this->tablero);
+	this->menu = new Menu(this->builder);
 	ProbColumnas probColumnas(this->tablero,this->builder);
 	ProbCeldas probCeldas(this->tablero,this->builder);
 }
@@ -21,5 +22,6 @@ Gtk::Window* MainWindow::getMainWindow(){
 
 MainWindow::~MainWindow(){
 	delete boxOpcionesBasicas;
+	delete tablero;
 }
 

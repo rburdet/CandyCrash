@@ -11,12 +11,13 @@
 #include <vector>
 #include "celda.h"
 #include "columna.h"
-//#include "probsetter.h"
 
+#define COLUMNAS 1 
+#define FILAS 2
 class Tablero{
 	public:
 		Tablero(Glib::RefPtr<Gtk::Builder>& builder);
-		~Tablero();
+		virtual ~Tablero();
 		//Handlers accedidos desde la configuracion basica
 		void on_adjCols_changed_tablero(Gtk::SpinButton* spinbutton,int id);
 		void on_cordx_changed(Gtk::SpinButton* spin_x);
@@ -73,7 +74,8 @@ class Tablero{
 		//Metodos propios 
 		void agregarFilas(int X);
 		void agregarColumnas(int Y);
-		void borrarSeps();
+		//Borra la cantidad de filas o columnas (lo que indique el segundo parametro) y todo el contenido que en ellas se contenia
+		void borrarSeps(int cantidad,int FilaOColumna );
 		void alargarFilas(int Y);
 		void alargarColumnas(int X);
 		void actualizarMatriz(int cantFilas,int cantColumnas);

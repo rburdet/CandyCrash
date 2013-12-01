@@ -9,6 +9,7 @@
 #include <sstream>
 #include "tablero.h"
 #include "persistidor.h"
+#include "barraestado.h"
 
 class BoxOpcionesBasicas{
 	public:
@@ -30,6 +31,7 @@ class BoxOpcionesBasicas{
 		Gtk::SpinButton * spin_y;
 		Gtk::SpinButton * spin_nivel;
 		Tablero* tablero;
+		BarraEstado * barraEstado;
 
 		//Handlers
 		void on_button_clicked();
