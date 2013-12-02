@@ -8,11 +8,9 @@
 
 class ProbCeldas : public Probs{
 	public:
-
 		ProbCeldas(Tablero* tablero,Glib::RefPtr<Gtk::Builder>& builder);
 
 	private:
-
 		Gtk::FileChooser* fileChooser;
 		Gtk::Button* huecoButton;
 };

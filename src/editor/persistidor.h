@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <stdlib.h>
+#include <string>
 #include <jsoncpp/json/json.h>
 #include <jsoncpp/json/writer.h>
 
@@ -11,7 +12,6 @@
 
 class Persistidor{
 	public:
-
 		static void persistir(Json::Value& nivel,const std::string& nombre){
 			mkdir(DEFAULTDIR, DEFAULT_MODE);
 			std::string aux = "../../Mapas/" + nombre + ".map";

@@ -5,14 +5,13 @@
 
 class Info{
 	public:
-
 		Info();
 		~Info();
 		void setProb_piezas(int prob,int x);
 		int getProb_piezas(int idx);
 		int* getArray();
-	private:
 
+	private:
 		int prob_piezas[NUMEROPIEZAS];
 
 };

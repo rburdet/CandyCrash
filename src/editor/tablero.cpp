@@ -2,6 +2,7 @@
 
 #include <gtkmm.h>
 #include <typeinfo>
+#include <string>
 
 #define MAX_COLS 14
 #define MIN_COLS 8
@@ -27,13 +28,8 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 	celdaInteres=NULL;
 	colInteres=NULL;
 	actualizarMatriz(cantFilas,cantColumnas);
-	//point = new Gtk::Image("../../imagenes/dot.png");
-	//this->tablero->put(*point,100000,100000);
 	this->eventos_tablero->signal_button_press_event().connect(sigc::mem_fun(*this,&Tablero::on_click_tablero));
-
-	//PRUEBA
 	butonsCambiados.resize(MAXELEMENTOS-1);
-	
 }
 
 Tablero::~Tablero(){
@@ -115,7 +111,8 @@ void Tablero::agregarColumnas(int Y){
 			break;
 		}
 		this->columnas.push_back(col);
-		columnas[i]->get_boton()->signal_clicked().connect(bind(sigc::mem_fun(*this,&Tablero::on_click_boton_tablero),i));
+		columnas[i]->get_boton()->signal_clicked().connect(bind(sigc::mem_fun
+					(*this,&Tablero::on_click_boton_tablero),i));
 		this->tablero->put(*button,(i+1)*SIZE,0);
 	} 
 }
@@ -151,7 +148,8 @@ void Tablero::borrarSeps(int cantidadBorrar,int filaOColumna){
 }	     
 
 
-//XXX: OJO QUE X E Y DEL GET_POINTER  ESTAN INTERCAMBIADOS, X REFIERE A "longitud", ancho, e Y a "latitud" o largo. un (8,2) para gtk es para mi (2,8)
+//XXX: OJO QUE X E Y DEL GET_POINTER  ESTAN INTERCAMBIADOS, X REFIERE A 
+//"longitud", ancho, e Y a "latitud" o largo. un (8,2) para gtk es para mi (2,8)
 bool Tablero::on_click_tablero(GdkEventButton* event){
 	int x,y;
 	int fila,columna;
@@ -211,7 +209,8 @@ void Tablero::on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id){
 	if (!celdaInteres)
 		return;
 	this->celdaInteres->on_adj_changed(spinbutton, id);
-	matrizButons[celdaInteres->getX()][celdaInteres->getY()][id]=spinbutton->get_value();
+	matrizButons[celdaInteres->getX()][celdaInteres->getY()][id]=
+		spinbutton->get_value();
 	butonsCambiados[id]=spinbutton;
 	//butonsCambiados.push_back(spinbutton);
 }
@@ -226,8 +225,8 @@ void Tablero::cambiarButons(){
 	for ( unsigned int i = 0 ; i < butonsCambiados.size() ; i++ ){
 		//butonsCambiados[i]->set_value(0.00);
 		if (matrizButons[celdaInteres->getX()][celdaInteres->getY()][i]){
-			butonsCambiados[i]->set_value(matrizButons[celdaInteres->getX()][celdaInteres->getY()][i]);
-			std::cout << "tenia  "<<matrizButons[celdaInteres->getX()][celdaInteres->getY()][i] << std::endl;
+			butonsCambiados[i]->set_value
+				(matrizButons[celdaInteres->getX()][celdaInteres->getY()][i]);
 		}else if (butonsCambiados[i]){
 			butonsCambiados[i]->set_value(0);
 		}
@@ -279,15 +278,19 @@ void Tablero::jsonCeldas(Json::Value& nivel,const std::string& nombre){
 		for ( unsigned int j = 0 ; j < matrizCeldas[0].size() ; j++ ){
 			streamColumna << j ;
 			if ( matrizCeldas[i][j]->isHueco() ){
-				nivel[nombre]["celdas"][streamColumna.str()][streamFila.str()]["probabilidades"] = -1;
+				nivel[nombre]["celdas"][streamColumna.str()][streamFila.str()]
+					["probabilidades"] = -1;
 			}else{
 				Json::Value aux(Json::arrayValue);
 				for ( int k = 0 ; k < 16 ; k ++ ){
-					aux.append(matrizCeldas[i][j]->getInfo()->getProb_piezas(k));
+					aux.append(matrizCeldas[i][j]->getInfo()->
+							getProb_piezas(k));
 				}
-				nivel[nombre]["celdas"][streamColumna.str()][streamFila.str()]["probabilidades"] = aux;
+				nivel[nombre]["celdas"][streamColumna.str()][streamFila.str()]
+					["probabilidades"] = aux;
 			}
-			nivel[nombre]["celdas"][streamColumna.str()][streamFila.str()]["fondo"] = matrizCeldas[i][j]->getImage();
+			nivel[nombre]["celdas"][streamColumna.str()][streamFila.str()]
+				["fondo"] = matrizCeldas[i][j]->getImage();
 			streamColumna.str("");
 		}
 		streamFila.str("");
@@ -300,7 +303,8 @@ void Tablero::on_image_changed_tablero(Gtk::FileChooser* fileChooser){
 	this->celdaInteres->setImage(fileChooser->get_filename());
 	Gtk::Image* img = new Gtk::Image(fileChooser->get_filename());
 	img->set_size_request(SIZE,SIZE);
-	this->tablero->put(*img,this->celdaInteres->getY()*SIZE+OFFSET,this->celdaInteres->getX()*SIZE+OFFSET);
+	this->tablero->put(*img,this->celdaInteres->getY()*SIZE+OFFSET,
+			this->celdaInteres->getX()*SIZE+OFFSET);
 	this->tablero->show_all();
 }
 
@@ -314,7 +318,8 @@ void Tablero::on_check_button_tablero(){
 		this->celdaInteres->setHueco();
 	Gtk::Image* img = new Gtk::Image(HUECODIR);
 	img->set_size_request(SIZE,SIZE);
-	this->tablero->put(*img,this->celdaInteres->getY()*SIZE+OFFSET,this->celdaInteres->getX()*SIZE+OFFSET);
+	this->tablero->put(*img,this->celdaInteres->getY()*SIZE+OFFSET,
+			this->celdaInteres->getX()*SIZE+OFFSET);
 	img->show();
 }
 

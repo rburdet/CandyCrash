@@ -107,6 +107,8 @@ class TableroJuego : public Window {
 		void moveCaramelo(int x, int y, int xf, int yf);
 
 		void triggerMovimientos();
+
+		bool onClose();
 };
 
 #endif

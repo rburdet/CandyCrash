@@ -24,19 +24,21 @@ TableroJuego::TableroJuego(Json::Value mapa)
 	alto = getX();
 	dimY = getY();
 	ancho = getY();
-	Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_file(mapa["fondo"].asString(),(dimX+1)*SIZE,(dimX+5)*SIZE); 
-	imagenFondo.set(pixbuf);
+	if (mapa["fondo"].asString() != "" ) {
+		Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_file(mapa["fondo"].asString(),(dimX+1)*SIZE,(dimX+5)*SIZE); 
+		imagenFondo.set(pixbuf);
+		imagenFondo.show();
+		this->tablero.put(imagenFondo,0,0);
+	}
 	//imagenFondo.set_size_request(dimY*SIZE,dimX*SIZE);
 	set_size_request(dimY*SIZE,dimX*SIZE);
 	this->tablero.set_size_request(dimY*SIZE,dimX*SIZE);
-	imagenFondo.show();
 	frameTablero.add(this->tablero);
-	this->tablero.put(imagenFondo,0,0);
 	//this->dibujarLineas();
 	this->crearMatrices();
 	this->llenar();
 	this->add(frameTablero);
-	show_all();
+	this->show_all();
 	this->conectarCaramelos();
 	clicks=0;
 	colOrigen=-1;
@@ -91,9 +93,8 @@ void TableroJuego::llenar(){
 				if (celdaFondo!=""){
 					Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_file(celdaFondo.asString(),SIZE,SIZE); 
 					Gtk::Image* imgFondo = new Gtk::Image(pixbuf);
-					imgFondo->set_size_request(SIZE,SIZE);
-					this->tablero.put(*imgFondo,i*SIZE+20,j*SIZE+20);
 					imgFondo->show();
+					this->tablero.put(*imgFondo,i*SIZE+20,j*SIZE+20);
 				}
 				Caramelo* caramelo = CandyFactory::crearCaramelo(idPieza,i,j);
 				caramelo->show_all();
@@ -486,8 +487,8 @@ void TableroJuego::onMovimiento(Json::Value& data){
 			caramelo->setXPos(x*SIZE+20);
 			caramelo->setYPos(y*SIZE+20);
 			caramelo->set_opacity(0);
-			caramelo->show();
 			this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),x*SIZE+20,y*SIZE+20);
+			caramelo->show();
 //			if(this->matrizCaramelos[y][x] != NULL)
 //				this->matrizCaramelosAux[y][x] = this->matrizCaramelos[y][x];
 //
@@ -630,6 +631,7 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final, int st
 	//std::cout << "termino " << ret << std::endl;
 	car->setXPos(x);
 	car->setYPos(y);
+	car->get_window()->raise();
 	this->tablero.move(*(dynamic_cast<Gtk::Button*>(car)), x, y);
 
 	car->setMoviendo(ret, x_final, y_final);
@@ -671,4 +673,12 @@ bool TableroJuego::onOpacar(Caramelo* caramelo){
 	this->movimientosCount--;
 	this->triggerMovimientos();
 	return false;
+}
+
+bool TableroJuego::onClose(){
+	Gtk::MessageDialog dialog(*this,"ALERTA",false,
+			Gtk::MESSAGE_WARNING,Gtk::BUTTONS_OK);
+	dialog.set_secondary_text("Para cerrar termine la partida");
+	dialog.run();
+	return true;
 }
