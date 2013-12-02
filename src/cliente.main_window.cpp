@@ -17,6 +17,9 @@ MainWindow::MainWindow(){
 	stylecontext->context_save();
 
 	mainV.pack_start(menubar, Gtk::PACK_SHRINK, 0);
+
+	menubar.signal_quit().connect(sigc::mem_fun(*this, &MainWindow::on_salir));
+
 	mainV.pack_start(tabBox, true, true, 10);
 	tabBox.pack_start(tabs, true, true, 5);
 	mainV.pack_start(statusLabel, false, false, 0);
@@ -209,4 +212,18 @@ void MainWindow::onListMaps(int code, Json::Value& data){
 		}
 	}
 
+}
+
+bool MainWindow::onClose(){
+	//TODO: tildes
+	if(this->dialog("Desea Cerrar?", "No podra seguir jugando")){
+		this->hide();
+		Gtk::Main::quit();
+	}
+
+	return true;
+}
+
+void MainWindow::on_salir(){
+	this->onClose();
 }

@@ -95,6 +95,10 @@ bool Cliente::onTimeout(){
 			this->onLogin(code, data);
 			break;
 
+		case EVENT_LOGOUT:
+			this->onLogout(code, data);
+			break;
+
 		case EVENT_NEW_USER:
 			this->ventanaActual->mensaje(data);
 			break;
@@ -139,6 +143,16 @@ void Cliente::sendMsj(Json::Value data){
 	this->listener->write(data);
 }
 
+void Cliente::onLogout(int code, Json::Value& data){
+	if(!code)
+		this->listener->shutdown();
+
+	this->listener->join();
+	this->listener = NULL;
+	delete ventanaActual;
+	ventanaActual = NULL;
+	this->mostrarVentanaIP();
+}
 void Cliente::onLogin(int code, Json::Value& data){
 	if(!code){
 		this->userData = data["user"];

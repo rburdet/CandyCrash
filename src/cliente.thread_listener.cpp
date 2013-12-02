@@ -24,6 +24,13 @@ void* ThreadListener::subRun(){
 	while(! this->read());
 
 	Logger::log("["+this->myId+"] Termino coneccion");
+	Value fakePaquete;
+
+	fakePaquete["code"] = 1;
+	fakePaquete["msj"] = "Se perdio al servidor";
+	fakePaquete["event"] = EVENT_LOGOUT;
+
+	cliente->nuevoMensaje(fakePaquete);
 
 	return NULL;
 }

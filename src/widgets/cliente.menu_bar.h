@@ -67,4 +67,25 @@ class MenuBar : public Gtk::MenuBar {
 		}
 };
 
+class MenuBarDisconnect : public MenuBar {
+	public:
+		MenuBarDisconnect() : menuitem_disconnect(Gtk::Stock::DISCONNECT){
+			this->filemenu.prepend(menuitem_disconnect);
+			this->menuitem_disconnect.signal_activate().connect(sigc::mem_fun(*this, &MenuBarDisconnect::on_disconnect));
+		}
+		~MenuBarDisconnect(){}
+
+		type_signal_activate signal_disconnect(){
+			return this->m_signal_disconnect;
+		}
+
+	protected:
+		Gtk::ImageMenuItem menuitem_disconnect;
+		MenuBar::type_signal_activate m_signal_disconnect;
+
+		void on_disconnect(){
+			this->m_signal_disconnect.emit();
+		}
+};
+
 #endif

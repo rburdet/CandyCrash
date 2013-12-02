@@ -7,6 +7,7 @@
 typedef enum {
 	EVENT_NONE=0, // -> Nada
 	EVENT_LOGIN, // -> Login de usuario
+	EVENT_LOGOUT, // -> Obliga al usuario a desconectarse
 	EVENT_NEW_USER, // -> Newo usuario
 	EVENT_LIST_GAMES, // -> Listar partidas
 	EVENT_NEW_GAME, // -> Crear partida

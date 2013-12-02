@@ -1,6 +1,7 @@
 #include "server.server.h"
 #include "common.logger.h"
 #include <sstream>
+#include <unistd.h>
 
 using std::stringstream;
 
@@ -113,13 +114,14 @@ PartidaInterface* Server::connectPartidas(long id){
 
 void Server::end(){
 	this->clientesLock.lock();
-	std::vector<ThreadUsuario*> cli = this->clientes;
-	this->clientesLock.unlock();
-	for(unsigned int i=0; i < cli.size(); i++){
-		cli[i]->shutdown();
-		cli[i]->join();
-		//delete this->clientes[i];
+	for(unsigned int i=0; i < this->clientes.size(); i++){
+		this->clientes[i]->shutdown();
 	}
+	this->clientesLock.unlock();
 	this->sock.shutdown();
 	this->join();
+
+	// Tengo que esperar que se cierren los threads detacheados.
+	// Esto es solo para que el valgrind salga bien, por que al cerrar la aplicacion se liberan los recursos.
+	sleep(1);
 }

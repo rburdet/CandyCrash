@@ -31,7 +31,7 @@ class MainWindow : public Window {
 		void on_crear_partida(); // -> crear partida
 
 		//Child widgets:
-		MenuBar menubar;
+		MenuBarDisconnect menubar;
 		Gtk::Notebook tabs;
 
 		// ------------------
@@ -55,6 +55,11 @@ class MainWindow : public Window {
 		Gtk::VBox mainV;
 		Gtk::HBox tabBox;
 		Gtk::Label statusLabel;
+
+		virtual bool onClose();
+
+	private:
+		void on_salir();
 };
 
 #endif 

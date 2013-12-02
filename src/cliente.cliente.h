@@ -39,6 +39,10 @@ class Cliente : public ClienteInterface {
 		 */
 		void onLogin(int code, Json::Value& data);
 
+		/** Metodo que se llama al recibir un evento de logout desde el servidor
+		 */
+		void onLogout(int code, Json::Value& data);
+
 		/** Metodo que se llama al recibir un evento de crear o unirse a partida (desde el servidor).
 		 */
 		void onGame(int code, Json::Value& data);
