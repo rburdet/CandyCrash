@@ -12,7 +12,8 @@ using Json::StaticString;
 using std::stringstream;
 
 Partida::Partida(ServerInterface* server, int nivel, string& nombre) : 
-	server(server), nivel(nivel), nombre(nombre), estado(PARTIDA_ABIERTA), tablero(NULL) {
+	server(server), nivel(nivel), nombre(nombre), estado(PARTIDA_ABIERTA), 
+	tablero(NULL) {
 	Json::Value val;
 	Listador::getMapa(this->nombre, val);
 	Json::Value::Members keys = val.getMemberNames();

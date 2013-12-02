@@ -29,7 +29,6 @@ class PartidaInterface {
 		virtual int getMaxUsuarios() = 0;
 		virtual PartidaEstado getEstado() = 0;
 		virtual std::string getNombre() = 0;
-
 };
 
 #endif

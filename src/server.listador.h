@@ -23,7 +23,7 @@ class Listador{
 			struct dirent * result;
 			int return_code;
 			Json::Value file;
-			if (( dir = opendir(MAPA_PATH )) != NULL ) {
+			if ((dir = opendir(MAPA_PATH)) != NULL) {
 				for ( return_code = readdir_r(dir,&entry,&result);
 						result != NULL && return_code == 0;
 						return_code = readdir_r(dir,&entry,&result)){

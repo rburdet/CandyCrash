@@ -11,7 +11,7 @@
  */
 class UserManager {
 	protected:
-		UserManager(const std::string &path);
+		explicit UserManager(const std::string &path);
 		~UserManager();
 
 		std::string path;

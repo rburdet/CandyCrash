@@ -125,7 +125,6 @@ void MainWindow::join_partidas(){
 	stringstream ss;
 	ss << id;
 	val["id"] = ss.str();
-	std::cout << "Join data: " << nivel << " " << id << " " << ss.str() << std::endl;
 	m_signal_mensaje.emit(val);
 }
 

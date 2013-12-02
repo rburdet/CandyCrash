@@ -168,7 +168,8 @@ class Tablero {
 		 * @param puntosx: puntos por cada caramelo sacado
 		 * @param puntos[out]: se le suman todos los puntos ganados
 		 */
-		void dispararColumna(int x, Json::Value& movimientos, int puntosx, int& puntos);
+		void dispararColumna(int x, Json::Value& movimientos, int puntosx, 
+				int& puntos);
 
 		/** Metodo usado para cuando se dispara un bar (para efectuar sobre toda la fila)
 		 * @param y: posicion y de la fila
@@ -194,7 +195,6 @@ class Tablero {
 		/** Devuelve un bar horizontal del color de car.
 		 */
 		Caramelos horBarColor(Caramelos car);
-		
 };
 
 #endif

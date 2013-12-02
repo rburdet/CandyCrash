@@ -166,20 +166,20 @@ void TableroJuego::click(Caramelo* caramelo){
 		if ( colFinal == colOrigen ){
 			step1 = filaFinal * SIZE +20;
 			step2 = filaOrigen * SIZE +20;
-			if ( (filaFinal - filaOrigen) == 1){ 
+			if ((filaFinal - filaOrigen) == 1){ 
 				data["mov"] = CARAMELO_MOV_ABAJO;
 				this->m_signal_mensaje.emit(data);
 			}else if (filaFinal - filaOrigen == -1){
 				data["mov"] = CARAMELO_MOV_ARRIBA;
 				this->m_signal_mensaje.emit(data);
 			}
-		}else if ( filaFinal == filaOrigen){
+		}else if (filaFinal == filaOrigen){
 			step1 = (colFinal * SIZE) +20;
 			step2 = (colOrigen * SIZE) +20;
 			if ( (colFinal-colOrigen)  == -1 ){
 				data["mov"] = CARAMELO_MOV_IZQ;
 				this->m_signal_mensaje.emit(data);
-			}else if ( (colFinal-colOrigen) == 1){
+			}else if ((colFinal-colOrigen) == 1){
 				data["mov"] = CARAMELO_MOV_DERECHA;
 				this->m_signal_mensaje.emit(data);
 			}
@@ -230,7 +230,8 @@ void TableroJuego::triggerMovimientos(){
 
 	while(this->movimientos.size()){
 		bool last = false;
-		CaramelosMovimientos tMov = (CaramelosMovimientos) this->movimientos[0]["mov"].asInt();
+		CaramelosMovimientos tMov = (CaramelosMovimientos) 
+			this->movimientos[0]["mov"].asInt();
 		switch(mov){
 			case CARAMELO_MOV_ARRIBA:
 			case CARAMELO_MOV_DERECHA:
@@ -268,16 +269,24 @@ void TableroJuego::onMovimiento(Json::Value& data){
 	CaramelosMovimientos mov = (CaramelosMovimientos) data["mov"].asInt();
 	this->movimientosCount++;
 	// Para el tablero tenemos dos matrices, matrizCaramelos y matrizCaramelosAux.
-	// La auxiliar inicialmente tiene todos NULL, la idea es primero fijarse si en la auxiliar hay algo en la coordenada, y sino, usar el de matrizCaramelos.
-	// Se usa la auxiliar, debido que cuando swapeen dos caramelos, no va a llegar un evento de swap, sino, qe va a decir qe un caramelo se mueve para arriba y dsp otro se mueve para abajo, provocando que se superpongan en la matriz.
+	// La auxiliar inicialmente tiene todos NULL, la idea es primero fijarse 
+	// si en la auxiliar hay algo en la coordenada, y sino, usar el de 
+	// matrizCaramelos.
+	// Se usa la auxiliar, debido que cuando swapeen dos caramelos, no va a 
+	// llegar un evento de swap, sino, qe va a decir qe un caramelo se mueve 
+	// para arriba y dsp otro se mueve para abajo, provocando que se superponga
+	// n en la matriz.
 	// Pasos para cada movimiento:
 	// 1) Busco matrizCaramelosAux[y][x]
 	// 2) Si esta en NULL, busco matrizCaramelos[y][x],
 	// 3) Calculo x_nueva, y_nueva
-	// 4) Miro matrizCaramelos[y_nueva][x_nueva] si hay elemento, lo pongo en matrizCaramelosAux[y_nueva][x_nueva] (Si hay tmb en matrizCaramelosAux, hay algo que no estoy contemplando y mucho meow meow (?) )
+	// 4) Miro matrizCaramelos[y_nueva][x_nueva] si hay elemento, lo pongo en
+	// matrizCaramelosAux[y_nueva][x_nueva] (Si hay tmb en matrizCaramelosAux,
+	// hay algo que no estoy contemplando y mucho meow meow (?) )
 	// 4) Pongo caramelo en su nueva posicion en matrizCaramelos[x_nueva][y_nueva]
 	// 5) Mando la animacion
-	// NOTA: Cuando se hace el NEW, se deberia setear la opacidad del caramelo inicialmente a 0, y mandar una animacion para qe llegue a 1.
+	// NOTA: Cuando se hace el NEW, se deberia setear la opacidad del 
+	// caramelo inicialmente a 0, y mandar una animacion para qe llegue a 1.
 	switch(mov){
 		case CARAMELO_MOV_ARRIBA:{
 			int x2 = x;
@@ -313,11 +322,13 @@ void TableroJuego::onMovimiento(Json::Value& data){
 			caramelo->setXPos(x*SIZE+20);
 			caramelo->setYPos(y*SIZE+20);
 			caramelo->set_opacity(0);
-			this->tablero.put(*(dynamic_cast<Gtk::Button*>(caramelo)),x*SIZE+20,y*SIZE+20);
+			this->tablero.put(*(static_cast<Gtk::Button*>(caramelo)),x*SIZE+20
+					,y*SIZE+20);
 			caramelo->show();
 			this->matrizCaramelosAux[x][y] = this->matrizCaramelos[x][y];
 			this->matrizCaramelos[x][y] = caramelo;
-			caramelo->signal_clicked().connect(sigc::bind(sigc::mem_fun(this,&TableroJuego::click),caramelo));
+			caramelo->signal_clicked().connect(sigc::bind(sigc::mem_fun(this,
+							&TableroJuego::click),caramelo));
 			this->aparecer(caramelo);
 			break;
 		 }
@@ -327,12 +338,12 @@ void TableroJuego::onMovimiento(Json::Value& data){
 void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
 	Caramelo* m = this->matrizCaramelosAux[x][y];
 	this->matrizCaramelosAux[x][y] = NULL;
-	if(m == NULL){
+	if (m == NULL){
 		m = this->matrizCaramelos[x][y];
 		this->matrizCaramelos[x][y] = NULL;
 	}
 
-	if( xf < 0 || yf < 0){
+	if (xf < 0 || yf < 0){
 		if(m){
 			this->esfumar(m);
 		}else{
@@ -341,14 +352,13 @@ void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
 			this->triggerMovimientos();
 		}
 	}else{
-		if(this->matrizCaramelos[xf][yf] != NULL)
+		if (this->matrizCaramelos[xf][yf] != NULL)
 			this->matrizCaramelosAux[xf][yf] = this->matrizCaramelos[xf][yf];
 
 		this->matrizCaramelos[xf][yf] = m;
 		this->moverPieza(m, xf, yf);
 		this->matrizCaramelos[xf][yf]->setX(xf);
 		this->matrizCaramelos[xf][yf]->setY(yf);
-
 	}
 }
 
@@ -377,13 +387,13 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final,
 	}
 
 	int x = car->getXPos();
-	if(x > x_final){
+	if (x > x_final){
 		x -= step_x;
 		if(x <= x_final)
 			x = x_final;
 		else
 			ret = true;
-	}else if(x < x_final){
+	}else if (x < x_final){
 		x += step_x;
 		if(x >= x_final)
 			x = x_final;
@@ -392,13 +402,13 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final,
 	}
 	
 	int y = car->getYPos();
-	if(y > y_final){
+	if (y > y_final){
 		y -= step_y;
 		if(y <= y_final)
 			y = y_final;
 		else
 			ret = true;
-	}else if(y < y_final){
+	}else if (y < y_final){
 		y += step_y;
 		if(y >= y_final)
 			y = y_final;
@@ -408,9 +418,9 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final,
 	car->setXPos(x);
 	car->setYPos(y);
 	car->get_window()->raise();
-	this->tablero.move(*(dynamic_cast<Gtk::Button*>(car)), x, y);
+	this->tablero.move(*(static_cast<Gtk::Button*>(car)), x, y);
 	car->setMoviendo(ret, x_final, y_final);
-	if(ret == false){
+	if (ret == false){
 		this->movimientosCount--;
 		this->triggerMovimientos();
 	}

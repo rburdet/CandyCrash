@@ -70,7 +70,8 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 			this->user = data.get("user", def).asString();
 			this->key = data.get("pass", def).asString();
 
-			Logger::log("["+this->myId+"] Evento Login '"+this->user+"' '"+this->key+"'");
+			Logger::log("["+this->myId+"] Evento Login '"+this->user+"' '"+
+					this->key+"'");
 			Value userData;
 			connect_msje["event"] = (int) EVENT_LOGIN;
 			UserManager::get(this->user, userData);
@@ -106,7 +107,8 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 
 			this->user = data.get("user", def).asString();
 			this->key = data.get("pass", def).asString();
-			Logger::log("["+this->myId+"] Evento new user '"+this->user+"' '"+this->key+"'");
+			Logger::log("["+this->myId+"] Evento new user '"+this->user+"' '"
+					+this->key+"'");
 
 			Value userData;
 			UserManager::get(this->user, userData);
@@ -167,7 +169,8 @@ int ThreadUsuario::eventFirmado(Value& data){
 			retMsj["code"] = 0;
 			retMsj["partidas"] = partidasList;
 			if(this->write(retMsj)){
-				Logger::log("["+this->myId+"] Error escribiendo el mensaje de nueva partida");
+				Logger::log("["+this->myId+"] Error escribiendo el"
+						" mensaje de nueva partida");
 				return 1;
 			}
 			return 0;
@@ -217,7 +220,8 @@ int ThreadUsuario::onLeaveGame(Json::Value& data, Json::Value& userData){
 	retMsj["msj"] = "Dejaste la partida";
 	retMsj["code"] = 0;
 	if(this->write(retMsj)){
-		Logger::log("["+this->myId+"] Error escribiendo el mensaje de salida de partida");
+		Logger::log("["+this->myId+"] Error escribiendo el mensaje de"
+				" salida de partida");
 		return 1;
 	}
 	return 0;
@@ -242,9 +246,9 @@ int ThreadUsuario::onJoinGame(Json::Value& data, Json::Value& userData){
 		PartidaInterface* part = this->server->connectPartidas(id_n);
 
 		if (part){
-			if(part->getEstado() != PARTIDA_ABIERTA){
+			if (part->getEstado() != PARTIDA_ABIERTA){
 				retMsj["msj"] = "Partida no esta en estado abierta";
-			}else if(part->getUsuarios() >= part->getMaxUsuarios()){
+			}else if (part->getUsuarios() >= part->getMaxUsuarios()){
 				retMsj["msj"] = "Partida llena";
 			}else{
 				Json::Value::Members keys = userData.getMemberNames();
@@ -262,8 +266,9 @@ int ThreadUsuario::onJoinGame(Json::Value& data, Json::Value& userData){
 		}
 	}
 
-	if(this->write(retMsj)){
-		Logger::log("["+this->myId+"] Error escribiendo el mensaje de conexion de partida");
+	if (this->write(retMsj)){
+		Logger::log("["+this->myId+"] Error escribiendo el mensaje de conexion"
+				"de partida");
 		return 1;
 	}
 	return ret;
@@ -276,11 +281,11 @@ int ThreadUsuario::onNewGame(Json::Value& data, Json::Value& userData){
 	retMsj["msj"] = "Error";
 	retMsj["code"] = 1;
 
-	if(this->partida){
+	if (this->partida){
 		retMsj["msj"] = "Ya estas conectado a una partida";
 		retMsj["code"] = 1;
 	}else{
-		if(! data["nivel"].isNumeric()) {
+		if (! data["nivel"].isNumeric()) {
 			// TODO: Error
 		}
 
@@ -303,7 +308,7 @@ int ThreadUsuario::onNewGame(Json::Value& data, Json::Value& userData){
 		}
 	}
 
-	if(this->write(retMsj)){
+	if (this->write(retMsj)){
 		Logger::log("["+this->myId+"] Error escribiendo el mensaje de nueva partida");
 		return 1;
 	}

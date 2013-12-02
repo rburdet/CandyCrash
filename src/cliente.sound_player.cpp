@@ -1,6 +1,8 @@
 #include "cliente.sound_player.h"
 #include "common.logger.h"
 
+#include <string>
+#include <map>
 #include <alsa/asoundlib.h>
 #include <stdlib.h>
 #include <inttypes.h>
@@ -95,7 +97,7 @@ bool SoundPlayer::play_wave(const std::string & str){
 	args->channels = head.channels;
 	args->fd = fd;
 	
-	int ms = ((head.size - 44) * 1000 ) / head.bit_rate;
+	int ms = ((head.size - 44) * 1000) / head.bit_rate;
 	args->seconds = ms / 1000;
 	if( ms % 1000)
 		args->seconds++;
@@ -105,7 +107,7 @@ bool SoundPlayer::play_wave(const std::string & str){
 	return true;
 }
 
-/** Inspirado de: https://gist.github.com/ghedo/963382 */
+// Inspirado de: https://gist.github.com/ghedo/963382 
 void* SoundPlayer::wav_runner(void* arg) {
 	TWavArgs* args = (TWavArgs*) arg;
 	unsigned int pcm, tmp, dir;
@@ -191,7 +193,6 @@ void* SoundPlayer::wav_runner(void* arg) {
 	snd_pcm_hw_params_get_period_time(params, &tmp, NULL);
 
 	for (loops = (args->seconds * 1000000) / tmp; loops > 0; loops--) {
-
 		//if (pcm = read(0, buff, buff_size) == 0) {
 		if (pcm = read(args->fd, buff, buff_size) == 0) {
 			Logger::log("Archivo termino antes de lo que se esperaba");
@@ -206,7 +207,6 @@ void* SoundPlayer::wav_runner(void* arg) {
 			str += string(snd_strerror(pcm));
 			Logger::log(str);
 		}
-
 	}
 
 	snd_pcm_drain(pcm_handle);

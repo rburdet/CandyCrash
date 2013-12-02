@@ -21,7 +21,7 @@ void* ThreadListener::subRun(){
 	this->read(false);
 	Logger::log("["+this->myId+"] Escuchando evento cifrado");
 
-	while(! this->read()){};
+	while(! this->read()){}
 
 	Logger::log("["+this->myId+"] Termino coneccion");
 	Value fakePaquete;

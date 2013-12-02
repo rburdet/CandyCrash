@@ -74,7 +74,8 @@ class MenuBarDisconnect : public MenuBar {
 	public:
 		MenuBarDisconnect() : menuitem_disconnect(Gtk::Stock::DISCONNECT){
 			this->filemenu.prepend(menuitem_disconnect);
-			this->menuitem_disconnect.signal_activate().connect(sigc::mem_fun(*this, &MenuBarDisconnect::on_disconnect));
+			this->menuitem_disconnect.signal_activate().connect(sigc::mem_fun(
+						*this, &MenuBarDisconnect::on_disconnect));
 		}
 		~MenuBarDisconnect(){}
 

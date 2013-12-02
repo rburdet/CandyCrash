@@ -34,8 +34,8 @@ class Caramelo : public Gtk::Button{
 		void setXPos(int x);
 		void setY(int y);
 		void setYPos(int y);
-	private:
 
+	private:
 		int x;
 		int y;
 		int x_pos;

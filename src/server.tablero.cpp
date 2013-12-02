@@ -3,6 +3,7 @@
 #include "common.logger.h"
 #include "common.caramelos.h"
 
+#include <string>
 #include <sstream>
 #include <cstdlib>
 #include <time.h>
@@ -53,10 +54,10 @@ Tablero::~Tablero(){
 void Tablero::generar(){
 	stringstream ss,sy,sx;
 	ss << this->mapa["DIM"]["X"] << std::endl;
-	ss >> this->dim_x ; 
+	ss >> this->dim_x; 
 	this->alto = this->dim_x;
 	ss << this->mapa["DIM"]["Y"] << std::endl;
-	ss >> this->dim_y ;
+	ss >> this->dim_y;
 	this->ancho =  this->dim_y;
 	for ( int i = 0 ; i < this->alto ; i++ ) {
 		sy<<i;
@@ -88,7 +89,7 @@ void Tablero::efectivizarCelda(Json::Value& celda){
 			ss << celda[i];
 			ss >> aux;
 			auxArr[i] = aux*distribution2(generator);
-			total += aux ;
+			total += aux;
 			ss.str("");
 		}
 		if (total){
@@ -134,9 +135,11 @@ int Tablero::movimiento(int x, int y, CaramelosMovimientos mov,
 	this->calcularCoordenadas(x, y, mov, xf, yf);
 
 	// Obtengo el caramelo que se mueve
-	int carameloMovido = this->tablero[this->num2str(x)][this->num2str(y)].asInt();
+	int carameloMovido = 
+		this->tablero[this->num2str(x)][this->num2str(y)].asInt();
 	// Obtengo el caramelo que esta donde se va a mover el otro
-	int carameloMovido2 = this->tablero[this->num2str(xf)][this->num2str(yf)].asInt();
+	int carameloMovido2 = 
+		this->tablero[this->num2str(xf)][this->num2str(yf)].asInt();
 
 	// Pongo los caramelos en sus respectivas posiciones
 	Json::Value aux = this->tablero[this->num2str(x)][this->num2str(y)];
@@ -188,7 +191,6 @@ bool Tablero::hayCombinacion(bool todosButtons, int contador){
 			return true;
 	}
 	return false;
-
 }
 
 bool Tablero::hayMovimiento(int x, int y, Caramelos car){
@@ -262,8 +264,10 @@ bool Tablero::movimientoValido(int x, int y, CaramelosMovimientos mov){
 	if(x2 < 0 || y2 < 0 || x2 >= this->dim_x || y2 >= this->dim_y)
 		return false;
 
-	int carameloMovido = this->tablero[this->num2str(x)][this->num2str(y)].asInt();
-	int carameloMovido2 = this->tablero[this->num2str(x2)][this->num2str(y2)].asInt();
+	int carameloMovido = 
+		this->tablero[this->num2str(x)][this->num2str(y)].asInt();
+	int carameloMovido2 =
+		this->tablero[this->num2str(x2)][this->num2str(y2)].asInt();
 
 	// Si alguno de esos caramelos es un STAR, ya es un movimeinto valido
 	if(carameloMovido == STAR || carameloMovido2 == STAR)
@@ -303,47 +307,56 @@ bool Tablero::esMismoColor(Caramelos car, Caramelos car2){
 			break;
 
 		case BLUE_BUTTON:
-			if(car2 == BLUE_BUTTON || car2 == BLUE_HORBAR || car2 == BLUE_VERBAR)
+			if(car2 == BLUE_BUTTON || car2 == BLUE_HORBAR || 
+					car2 == BLUE_VERBAR)
 				return true;
 			break;
 
 		case GREEN_BUTTON:
-			if(car2 == GREEN_BUTTON || car2 == GREEN_HORBAR || car2 == GREEN_VERBAR)
+			if(car2 == GREEN_BUTTON || car2 == GREEN_HORBAR ||
+					car2 == GREEN_VERBAR)
 				return true;
 			break;
 
 		case PURPLE_BUTTON:
-			if(car2 == PURPLE_BUTTON || car2 == PURPLE_HORBAR || car2 == PURPLE_VERBAR)
+			if(car2 == PURPLE_BUTTON || car2 == PURPLE_HORBAR ||
+					car2 == PURPLE_VERBAR)
 				return true;
 			break;
 
 		case YELLOW_BUTTON:
-			if(car2 == YELLOW_BUTTON || car2 == YELLOW_HORBAR || car2 == YELLOW_VERBAR)
+			if(car2 == YELLOW_BUTTON || car2 == YELLOW_HORBAR || 
+					car2 == YELLOW_VERBAR)
 				return true;
 			break;
 
 		case RED_HORBAR:
-			if(car2 == RED_BUTTON || car2 == RED_HORBAR || car2 == RED_VERBAR)
+			if(car2 == RED_BUTTON || car2 == RED_HORBAR || 
+					car2 == RED_VERBAR)
 				return true;
 			break;
 
 		case BLUE_HORBAR:
-			if(car2 == BLUE_BUTTON || car2 == BLUE_HORBAR || car2 == BLUE_VERBAR)
+			if(car2 == BLUE_BUTTON || car2 == BLUE_HORBAR || 
+					car2 == BLUE_VERBAR)
 				return true;
 			break;
 
 		case GREEN_HORBAR:
-			if(car2 == GREEN_BUTTON || car2 == GREEN_HORBAR || car2 == GREEN_VERBAR)
+			if(car2 == GREEN_BUTTON || car2 == GREEN_HORBAR || 
+					car2 == GREEN_VERBAR)
 				return true;
 			break;
 
 		case PURPLE_HORBAR:
-			if(car2 == PURPLE_BUTTON || car2 == PURPLE_HORBAR || car2 == PURPLE_VERBAR)
+			if(car2 == PURPLE_BUTTON || car2 == PURPLE_HORBAR || 
+					car2 == PURPLE_VERBAR)
 				return true;
 			break;
 
 		case YELLOW_HORBAR:
-			if(car2 == YELLOW_BUTTON || car2 == YELLOW_HORBAR || car2 == YELLOW_VERBAR)
+			if(car2 == YELLOW_BUTTON || car2 == YELLOW_HORBAR ||
+					car2 == YELLOW_VERBAR)
 				return true;
 			break;
 
@@ -353,22 +366,26 @@ bool Tablero::esMismoColor(Caramelos car, Caramelos car2){
 			break;
 
 		case BLUE_VERBAR:
-			if(car2 == BLUE_BUTTON || car2 == BLUE_HORBAR || car2 == BLUE_VERBAR)
+			if(car2 == BLUE_BUTTON || car2 == BLUE_HORBAR ||
+					car2 == BLUE_VERBAR)
 				return true;
 			break;
 
 		case GREEN_VERBAR:
-			if(car2 == GREEN_BUTTON || car2 == GREEN_HORBAR || car2 == GREEN_VERBAR)
+			if(car2 == GREEN_BUTTON || car2 == GREEN_HORBAR || 
+					car2 == GREEN_VERBAR)
 				return true;
 			break;
 
 		case PURPLE_VERBAR:
-			if(car2 == PURPLE_BUTTON || car2 == PURPLE_HORBAR || car2 == PURPLE_VERBAR)
+			if(car2 == PURPLE_BUTTON || car2 == PURPLE_HORBAR || 
+					car2 == PURPLE_VERBAR)
 				return true;
 			break;
 
 		case YELLOW_VERBAR:
-			if(car2 == YELLOW_BUTTON || car2 == YELLOW_HORBAR || car2 == YELLOW_VERBAR)
+			if(car2 == YELLOW_BUTTON || car2 == YELLOW_HORBAR ||
+					car2 == YELLOW_VERBAR)
 				return true;
 			break;
 		default:
@@ -378,7 +395,8 @@ bool Tablero::esMismoColor(Caramelos car, Caramelos car2){
 	return false;
 }
 
-void Tablero::calcularCoordenadas(int x, int y, CaramelosMovimientos mov, int&xf, int &yf){
+void Tablero::calcularCoordenadas(int x, int y, CaramelosMovimientos mov, 
+		int&xf, int &yf){
 	xf = x;
 	yf = y;
 	switch(mov){
@@ -475,11 +493,12 @@ int Tablero::doStar(Caramelos carameloMovido, int x, int y,
 			case GREEN_BUTTON:
 			case PURPLE_BUTTON:
 			case YELLOW_BUTTON:
-				for(int i=0 ; i < this->dim_y ; i++){ // X
-					for(int j=0 ; j < this->dim_x ; j++){ // Y
-						if(this->esMismoColor(elem_no, (Caramelos) 
-									this->tablero[this->num2str(i)][this->num2str(j)].asInt())){
-							if(this->tablero[this->num2str(i)][this->num2str(j)] != HUECO){
+				for ( int i=0 ; i < this->dim_y ; i++ ){ // X
+					for ( int j=0 ; j < this->dim_x ; j++ ){ // Y
+						if (this->esMismoColor(elem_no, (Caramelos) 
+									this->tablero[this->num2str(i)]
+									[this->num2str(j)].asInt())){
+							if (this->tablero[this->num2str(i)][this->num2str(j)] != HUECO){
 								this->tablero[this->num2str(i)][this->num2str(j)] = RELLENAR;
 								movimientos.append(this->newMov(i, j, CARAMELO_MOV_LIMBO));
 								puntos += 40;
@@ -504,7 +523,8 @@ Json::Value Tablero::newMov(int x, int y, CaramelosMovimientos mov){
 	return val;
 }
 
-Json::Value Tablero::newMov(int x, int y, CaramelosMovimientos mov, Caramelos car){
+Json::Value Tablero::newMov(int x, int y, CaramelosMovimientos mov, 
+		Caramelos car){
 	Json::Value val = this->newMov(x, y, mov);
 	val["car"] = car;
 	return val;
@@ -571,7 +591,6 @@ void Tablero::rellenarTablero(Json::Value& movimientos){
 
 					for(int y_mov = y_rem; y_mov < y ; y_mov++)
 						movimientos.append(this->newMov(x, y_mov, CARAMELO_MOV_ABAJO));
-
 				}else{
 					this->tablero[this->num2str(x)][this->num2str(y)] = car;
 					this->tablero[this->num2str(x)][this->num2str(y_rem)] = RELLENAR;
@@ -588,10 +607,12 @@ bool Tablero::hayPatrones(Json::Value & movimientos, int & puntos){
 	// Cuento fichas del mismo color y tengo un bool para saber si son solo 
 	// buttons o hay fichas mezcladas.
 	// Cuando me topo con una ficha que no es del mismo color, me fijo en que 
-	// qedo el contador y el booleano. Dependiendo de esos valores efectuo acciones.
+	// qedo el contador y el booleano. Dependiendo de esos valores efectuo 
+	// acciones.
 	// TODO: como primero se fija por las filas y dsp por las columnas, tienen
 	// prioridad las filas.
-	// El enunciado no habla nada de que hacer si se superponen dos combinaciones,
+	// El enunciado no habla nada de que hacer si se superponen dos 
+	// combinaciones,
 	// siempre se activaran las filas primeros, se podria cambiar este 
 	// comportamiento, haciendo un poco mas complicada la cosa,,
 	bool huboMovimiento = false;
@@ -599,21 +620,24 @@ bool Tablero::hayPatrones(Json::Value & movimientos, int & puntos){
 	// Itero por todas las filas
 	for(int y=0; y < this->dim_y; y++){
 		//Traigo primer caramelo
-		Caramelos car = (Caramelos) this->tablero["0"][this->num2str(y)].asInt();
-		int contador = 1; //Contador de caramelos con el mismo color. 1, por que el caramelo es igual a si mismo
-		bool todosButtons = this->esButton(car); // Flag para saber si son todos buttons
+		Caramelos car = (Caramelos) this->tablero["0"]
+			[this->num2str(y)].asInt();
+		int contador = 1; 
+		// Flag para saber si son todos buttons
+		bool todosButtons = this->esButton(car); 
 		int x;
 		for(x=1; x < this->dim_x; x++){ // Itero por una fila
 			// Obtengo el caramelo de la posicion
-			Caramelos esteCar = (Caramelos) this->tablero[this->num2str(x)][this->num2str(y)].asInt();
+			Caramelos esteCar = (Caramelos)
+				this->tablero[this->num2str(x)][this->num2str(y)].asInt();
 			// Si es del mismo color que el caramelo que tenia, sumo contador
 			if(this->esMismoColor(car, esteCar)){
 				contador++;
 				if(! this->esButton(esteCar) )
 					todosButtons = false;
 			}else{
-				// Sino, llamo a activarCombinacionFila, que hace la magia (ver comentarios de eso)
-				if(this->activarCombinacionFila(x, y, todosButtons, contador, movimientos, puntos))
+				if(this->activarCombinacionFila(x, y, todosButtons, contador,
+							movimientos, puntos))
 					huboMovimiento = true;
 
 				car = esteCar;
@@ -623,7 +647,8 @@ bool Tablero::hayPatrones(Json::Value & movimientos, int & puntos){
 		}
 
 		// Al final vuelvo a llamar activarCombinacionFila
-		if(this->activarCombinacionFila(x, y, todosButtons, contador, movimientos, puntos))
+		if(this->activarCombinacionFila(x, y, todosButtons, contador,
+					movimientos, puntos))
 			huboMovimiento = true;
 	}
 
@@ -634,13 +659,15 @@ bool Tablero::hayPatrones(Json::Value & movimientos, int & puntos){
 		bool todosButtons = this->esButton(car);
 		int y;
 		for(y=1; y < this->dim_y; y++){
-			Caramelos esteCar = (Caramelos) this->tablero[this->num2str(x)][this->num2str(y)].asInt();
+			Caramelos esteCar = (Caramelos) this->tablero[this->num2str(x)]
+				[this->num2str(y)].asInt();
 			if(this->esMismoColor(car, esteCar)){
 				contador++;
 				if(! this->esButton(esteCar) )
 					todosButtons = false;
 			}else{
-				if(this->activarCombinacionColumna(x, y, todosButtons, contador, movimientos, puntos))
+				if(this->activarCombinacionColumna(x, y, todosButtons, contador,
+							movimientos, puntos))
 					huboMovimiento = true;
 
 				car = esteCar;
@@ -649,7 +676,8 @@ bool Tablero::hayPatrones(Json::Value & movimientos, int & puntos){
 			}
 		}
 
-		if(this->activarCombinacionColumna(x, y, todosButtons, contador, movimientos, puntos))
+		if(this->activarCombinacionColumna(x, y, todosButtons, contador, 
+					movimientos, puntos))
 			huboMovimiento = true;
 	}
 	
@@ -673,10 +701,13 @@ bool Tablero::esButton(Caramelos car){
 	return false;
 }
 
-void Tablero::dispararFila(int y, Json::Value& movimientos, int puntosx, int& puntos){
-	// Recorro toda la fila sacando los caramelos, sumando puntos y agragando el movimiento a movimientos
+void Tablero::dispararFila(int y, Json::Value& movimientos, int puntosx, 
+		int& puntos){
+	// Recorro toda la fila sacando los caramelos, sumando puntos y agragando 
+	// el movimiento a movimientos
 	for(int x_m =0; x_m < this->dim_x; x_m++){
-		Caramelos car = (Caramelos) this->tablero[this->num2str(x_m)][this->num2str(y)].asInt();
+		Caramelos car = (Caramelos) this->tablero[this->num2str(x_m)]
+			[this->num2str(y)].asInt();
 		switch(car){
 			case RED_BUTTON:
 			case BLUE_BUTTON:
@@ -707,9 +738,11 @@ void Tablero::dispararFila(int y, Json::Value& movimientos, int puntosx, int& pu
 	}
 }
 
-void Tablero::dispararColumna(int x, Json::Value& movimientos, int puntosx, int& puntos){
+void Tablero::dispararColumna(int x, Json::Value& movimientos, int puntosx, 
+		int& puntos){
 	for(int y_m =0; y_m < this->dim_y; y_m++){
-		Caramelos car = (Caramelos) this->tablero[this->num2str(x)][this->num2str(y_m)].asInt();
+		Caramelos car = (Caramelos) this->tablero[this->num2str(x)]
+			[this->num2str(y_m)].asInt();
 		switch(car){
 			case RED_BUTTON:
 			case BLUE_BUTTON:
@@ -751,21 +784,21 @@ bool Tablero::activarCombinacionFila(int x, int y, bool todosButtons,
 	bool huboMovimiento = false;
 	Caramelos carameloEspecial = RELLENAR;
 
-	if(todosButtons){ // Si son todos Buttons, solo nececito que sean 3 caramelos del mismo color
-		if(contador >= 3){ // Si hay 3 caramelos, tengo combinacion =)
+	// Si son todos Buttons, solo nececito que sean 3 caramelos del mismo color
+	if(todosButtons){ 
+		// Si hay 3 caramelos, tengo combinacion =)
+		if(contador >= 3){ 
 			huboMovimiento = true;
-			if(contador >= 5){
+			if (contador >= 5){
 				carameloEspecial = STAR;
 				puntos += PUNTOS_BUTTON_CINCO * contador;
-			}else if(contador == 4){
+			}else if (contador == 4){
 				puntos += PUNTOS_BUTTON_CUATRO * 4;
 				carameloEspecial = this->horBarColor((Caramelos) 
 						this->tablero[this->num2str(x-contador)][this->num2str(y)].asInt());
-
-			}else if(contador == 3){
+			}else if (contador == 3){
 				puntos += PUNTOS_BUTTON_TRES * 3;
 			}
-
 			for(; contador > 0; contador--){
 				this->tablero[this->num2str(x-contador)][this->num2str(y)] = RELLENAR;
 				movimientos.append(this->newMov(x-contador, y, CARAMELO_MOV_LIMBO));
@@ -782,7 +815,8 @@ bool Tablero::activarCombinacionFila(int x, int y, bool todosButtons,
 			huboMovimiento = true;
 			int puntos_por_mov = (contador == 4) ? PUNTOS_BUTTON_CUATRO : 
 				PUNTOS_BUTTON_CINCO;
-			for(; contador > 0; contador--){ // Tengo que moverme por toda la combinacion activando las bars si las hay
+			// Tengo que moverme por toda la combinacion activando las bars si las hay
+			for(; contador > 0; contador--){ 
 				Caramelos tCar = (Caramelos) 
 					this->tablero[this->num2str(x-contador)][this->num2str(y)].asInt();
 				puntos += puntos_por_mov;
@@ -812,12 +846,12 @@ bool Tablero::activarCombinacionFila(int x, int y, bool todosButtons,
 			}
 		}
 	}
-
-	if(carameloEspecial != RELLENAR){ // Si hubo combinacion especial tengo qe ponerlo en el tablero
+	// Si hubo combinacion especial tengo qe ponerlo en el tablero
+	if(carameloEspecial != RELLENAR){ 
 		this->tablero[this->num2str(x_mov)][this->num2str(y_mov)] = carameloEspecial;
-		movimientos.append(this->newMov(x_mov, y_mov, CARAMELO_MOV_NEW, carameloEspecial));
+		movimientos.append(this->newMov(x_mov, y_mov, CARAMELO_MOV_NEW, 
+					carameloEspecial));
 	}
-
 	return huboMovimiento;
 }
 
@@ -834,33 +868,34 @@ bool Tablero::activarCombinacionColumna(int x, int y, bool todosButtons,
 	if(todosButtons){
 		if(contador >= 3){
 			huboMovimiento = true;
-			if(contador >= 5){
+			if (contador >= 5){
 				carameloEspecial = STAR;
 				puntos += PUNTOS_BUTTON_CINCO * contador;
-			}else if(contador == 4){
+			}else if (contador == 4){
 				puntos += PUNTOS_BUTTON_CUATRO * 4;
 				carameloEspecial = this->verBarColor((Caramelos) 
 						this->tablero[this->num2str(x)][this->num2str(y-contador)].asInt());
-			}else if(contador == 3){
+			}else if (contador == 3){
 				puntos += PUNTOS_BUTTON_TRES * 3;
 			}
 
-			for(; contador > 0; contador--){
+			for ( ; contador > 0; contador-- ){
 				this->tablero[this->num2str(x)][this->num2str(y-contador)] = RELLENAR;
 				movimientos.append(this->newMov(x, y-contador, CARAMELO_MOV_LIMBO));
 			}
 		}
 	}else{
-		if(contador >= 4){
-			if(contador == 5)
+		if (contador >= 4){
+			if (contador == 5)
 				carameloEspecial = STAR;
 			else
 				carameloEspecial = this->verBarColor((Caramelos) 
 						this->tablero[this->num2str(x)][this->num2str(y-contador)].asInt());
 
 			huboMovimiento = true;
-			int puntos_por_mov = (contador == 4) ? PUNTOS_BUTTON_CUATRO : PUNTOS_BUTTON_CINCO;
-			for(; contador > 0; contador--){
+			int puntos_por_mov = (contador == 4) ? PUNTOS_BUTTON_CUATRO : 
+				PUNTOS_BUTTON_CINCO;
+			for ( ; contador > 0 ; contador-- ){
 				Caramelos tCar = (Caramelos)
 					this->tablero[this->num2str(x)][this->num2str(y-contador)].asInt();
 				puntos += puntos_por_mov;
@@ -891,9 +926,11 @@ bool Tablero::activarCombinacionColumna(int x, int y, bool todosButtons,
 		}
 	}
 
-	if(carameloEspecial != RELLENAR){
-		this->tablero[this->num2str(x_mov)][this->num2str(y_mov)] = carameloEspecial;
-		movimientos.append(this->newMov(x_mov, y_mov, CARAMELO_MOV_NEW, carameloEspecial));
+	if (carameloEspecial != RELLENAR){
+		this->tablero[this->num2str(x_mov)][this->num2str(y_mov)] =
+			carameloEspecial;
+		movimientos.append(this->newMov(x_mov, y_mov, CARAMELO_MOV_NEW, 
+					carameloEspecial));
 	}
 
 	return huboMovimiento;
@@ -906,9 +943,10 @@ Json::Value Tablero::getTablero(){
 	ret["mapa"] = this->nMapa;
 	ret["fondo"] = this->pathFondo;
 	Json::Value::Members keys = this->mapa["celdas"].getMemberNames();
-	for(int i=0; i < keys.size(); i++){
-		Json::Value::Members innerkeys = this->mapa["celdas"][keys[i]].getMemberNames();
-		for(int j=0; j < innerkeys.size(); j++){
+	for ( int i=0 ; i < keys.size() ; i++ ){
+		Json::Value::Members innerkeys = this->mapa["celdas"][keys[i]].
+			getMemberNames();
+		for( int j=0 ; j < innerkeys.size() ; j++ ){
 			ret["celdas"][keys[i]][innerkeys[j]]["fondo"] =
 				this->mapa["celdas"][keys[i]][innerkeys[j]]["fondo"];
 			ret["celdas"][keys[i]][innerkeys[j]]["pieza"] =
@@ -919,14 +957,15 @@ Json::Value Tablero::getTablero(){
 	return ret;
 }
 
-int Tablero::doCombinacion(Caramelos car, int x, int y, Json::Value& movimientos){
+int Tablero::doCombinacion(Caramelos car, int x, int y, 
+		Json::Value& movimientos){
 	// Razonamiento parecido a hayPatrones, solo que en vez de recorrer todo 
 	// el tablero, solo recorre las fichas cercanas al caramelo
 	int puntos = 0;
 	int contador = 0;
 	bool todosButtons = this->esButton(car);
 	int x_m;
-	for(x_m=x-4 ; x_m < this->dim_x && x_m < x + 4; x_m++){
+	for ( x_m=x-4 ; x_m < this->dim_x && x_m < x + 4 ; x_m++ ){
 		if(x_m < 0)
 			continue;
 
@@ -934,31 +973,31 @@ int Tablero::doCombinacion(Caramelos car, int x, int y, Json::Value& movimientos
 			this->tablero[this->num2str(x_m)][this->num2str(y)].asInt();
 		if(this->esMismoColor(car, esteCar)){
 			contador++;
-			if(! this->esButton(esteCar) ){
+			if (!this->esButton(esteCar)){
 				todosButtons = false;
 			}
 		}else{
-			if(x_m >= x){
+			if (x_m >= x){
 				this->activarCombinacionFila(x_m, y, todosButtons, contador, 
 						movimientos, puntos, x, y);
 			}
 
 			contador = 0;
 			todosButtons = this->esButton(car);
-			if(x_m > x){
+			if (x_m > x){
 				break;
 			}
-
 		}
 	}
 
-	this->activarCombinacionFila(x_m, y, todosButtons, contador, movimientos, puntos, x, y);
+	this->activarCombinacionFila(x_m, y, todosButtons, contador, movimientos, 
+			puntos, x, y);
 
 	contador = 0;
 	todosButtons = this->esButton(car);
 
 	int y_m;
-	for(y_m=y-4 ; y_m < this->dim_y && y_m < y + 4; y_m++){
+	for ( y_m=y-4 ; y_m < this->dim_y && y_m < y + 4 ; y_m++ ){
 		if(y_m < 0)
 			continue;
 		Caramelos esteCar = (Caramelos) 
@@ -977,41 +1016,36 @@ int Tablero::doCombinacion(Caramelos car, int x, int y, Json::Value& movimientos
 				break;
 		}
 	}
-
 	this->activarCombinacionColumna(x, y_m, todosButtons, contador,
 			movimientos, puntos, x, y);
-
 	return puntos;
-
 }
 
 Caramelos Tablero::horBarColor(Caramelos car){
-	if(this->esMismoColor(car, RED_HORBAR))
+	if (this->esMismoColor(car, RED_HORBAR))
 		return RED_HORBAR;
-	else if(this->esMismoColor(car, BLUE_HORBAR))
+	else if (this->esMismoColor(car, BLUE_HORBAR))
 		return BLUE_HORBAR;
-	else if(this->esMismoColor(car, GREEN_HORBAR))
+	else if (this->esMismoColor(car, GREEN_HORBAR))
 		return GREEN_HORBAR;
-	else if(this->esMismoColor(car, PURPLE_HORBAR))
+	else if (this->esMismoColor(car, PURPLE_HORBAR))
 		return PURPLE_HORBAR;
-	else if(this->esMismoColor(car, YELLOW_HORBAR))
+	else if (this->esMismoColor(car, YELLOW_HORBAR))
 		return YELLOW_HORBAR;
-
 	return RELLENAR;
 }
 
 Caramelos Tablero::verBarColor(Caramelos car){
-	if(this->esMismoColor(car, RED_VERBAR))
+	if (this->esMismoColor(car, RED_VERBAR))
 		return RED_VERBAR;
-	else if(this->esMismoColor(car, BLUE_VERBAR))
+	else if (this->esMismoColor(car, BLUE_VERBAR))
 		return BLUE_VERBAR;
-	else if(this->esMismoColor(car, GREEN_VERBAR))
+	else if (this->esMismoColor(car, GREEN_VERBAR))
 		return GREEN_VERBAR;
-	else if(this->esMismoColor(car, PURPLE_VERBAR))
+	else if (this->esMismoColor(car, PURPLE_VERBAR))
 		return PURPLE_VERBAR;
-	else if(this->esMismoColor(car, YELLOW_VERBAR))
+	else if (this->esMismoColor(car, YELLOW_VERBAR))
 		return YELLOW_VERBAR;
-
 	return RELLENAR;
 }
 

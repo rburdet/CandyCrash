@@ -32,7 +32,8 @@ GameWindow::GameWindow() {
 	stylecontext->context_save();
 
 	this->mainV.pack_start(this->m_ScrolledWindow1, true, true, 0);
-	this->m_ScrolledWindow1.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
+	this->m_ScrolledWindow1.set_policy(Gtk::POLICY_AUTOMATIC,
+			Gtk::POLICY_AUTOMATIC);
 	this->m_ScrolledWindow1.add(this->m_TextView1);
 	this->m_TextView1.set_wrap_mode(Gtk::WRAP_WORD_CHAR);
 	this->m_refTextBuffer1 = Gtk::TextBuffer::create();
@@ -167,7 +168,8 @@ void GameWindow::mensaje(Json::Value& data){
 			}
 			text += "conecto "+data["user"]["user"].asString();
 			this->m_refTextBuffer1->insert(it, text);
-			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = this->m_refTextBuffer1->get_insert();
+			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = 
+				this->m_refTextBuffer1->get_insert();
 			this->m_TextView1.scroll_to(mark);
 			Json::Value msg;
 			msg["event"] = EVENT_GAME_MISC;
