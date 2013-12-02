@@ -1,4 +1,9 @@
 /* https://developer.gnome.org/gtk3/stable/GtkStyleContext.html */
+
+.user_window {
+	background: url('../imagenes/fondos/stripes.jpg');
+}
+
 .btn {
 	transition: all .3s ease-in-out;
 	color:#f0f0f0;
@@ -33,9 +38,24 @@
 	background: rgba(255, 255, 255, 0.8);
 }
 
+.mapas_list:selected,
+.user_list:selected,
+.partidas_list:selected {
+	background-color: rgba(0, 0, 0, 0.2);
+	color: #000;
+	border: 0;
+}
+
+.mapas_list row:hover,
+.user_list row:hover,
+.partidas_list row:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+
 .scrolled-tree,
-.treeview {
-	background-color: transparent;
+.partidas_list,
+.mapas_list {
+	background: transparent;
 }
 
 
@@ -52,9 +72,7 @@
 
 .treeview rubberband {
 	background-color: #00F;
-}
-*/
-
+}*/
 
 .menu_bar,
 .textview,

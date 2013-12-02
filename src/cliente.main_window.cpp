@@ -9,7 +9,6 @@ using Json::StaticString;
 using Json::Value;
 
 MainWindow::MainWindow(){
-	this->set_background_image(string("../imagenes/fondos/stripes.jpg"));
 	set_title("Pantalla principal");
 	set_border_width(5);
 	set_size_request(350, 700);
@@ -48,7 +47,7 @@ MainWindow::MainWindow(){
 	tabs.prepend_page(m_VBox_partidas, labelPartidas);
 
 	stylecontext = m_TreeView.get_style_context();
-	stylecontext->add_class("treeview");
+	stylecontext->add_class("partidas_list");
 	stylecontext->context_save();
 
 	m_ScrolledPartidas.add(m_TreeView);
@@ -81,7 +80,7 @@ MainWindow::MainWindow(){
 	tabs.prepend_page(m_VBox_mapas, labelMapas);
 
 	stylecontext = m_TreeViewMapas.get_style_context();
-	stylecontext->add_class("treeview");
+	stylecontext->add_class("mapas_list");
 	stylecontext->context_save();
 
 	m_ScrolledMapas.add(m_TreeViewMapas);

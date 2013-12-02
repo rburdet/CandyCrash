@@ -41,11 +41,11 @@ class ListaPartidas : public Gtk::TreeView {
 			//This is not necessary, but it's nice to show the feature.
 			//You can use TreeView::set_column_drag_function() to more
 			//finely control column drag and drop.
-			for(guint i = 0; i < 3; i++)
-			{
-				Gtk::TreeView::Column* pColumn = this->get_column(i);
-				pColumn->set_reorderable();
-			}
+			//for(guint i = 0; i < 3; i++)
+			//{
+			//	Gtk::TreeView::Column* pColumn = this->get_column(i);
+			//	pColumn->set_reorderable();
+			//}
 		}
 		~ListaPartidas(){};
 

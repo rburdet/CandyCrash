@@ -11,7 +11,6 @@ using Json::Value;
 
 GameWindow::GameWindow() {
 	this->set_title("Juego");
-	this->set_background_image(string("../imagenes/fondos/stripes.jpg"));
 	this->set_border_width(5);
 	this->set_size_request(350, 350);
 

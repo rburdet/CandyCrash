@@ -13,7 +13,6 @@ Ipwindow::Ipwindow()
 
 	menubar.signal_quit().connect(sigc::mem_fun(*this, &Ipwindow::on_salir));
 
-	this->set_background_image(string("../imagenes/fondos/stripes.jpg"));
 	m_Button_conectar.override_color(Gdk::RGBA("cornsilk"),Gtk::STATE_FLAG_NORMAL);
 	add(m_VBox);
 
