@@ -9,10 +9,12 @@
 
 class Probs{
 	public:
-		Probs(Tablero* tablero, Glib::RefPtr<Gtk::Builder>& builder, int startNumber, int finalNumber,std::string frameName);
+		Probs(Tablero* tablero, Glib::RefPtr<Gtk::Builder>& builder, 
+				int startNumber, int finalNumber,std::string frameName);
 
 	protected: 
-		void cargarBotones(Glib::RefPtr<Gtk::Builder>& builder, int firstbutton,int lastbutton);
+		void cargarBotones(Glib::RefPtr<Gtk::Builder>& builder, int firstbutton,
+				int lastbutton);
 		Tablero* tablero;
 		std::vector<Gtk::SpinButton *> spinbuttons;
 		std::vector< Glib::RefPtr< Gtk::Adjustment > > adjustments;

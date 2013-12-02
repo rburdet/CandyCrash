@@ -6,8 +6,8 @@
 #include <jsoncpp/json/writer.h>
 #include <glibmm/listhandle.h>
 #include <gtkmm.h>
-#include <iostream>
 #include <sstream>
+#include <string>
 #include <vector>
 #include "celda.h"
 #include "columna.h"
@@ -16,7 +16,7 @@
 #define FILAS 2
 class Tablero{
 	public:
-		Tablero(Glib::RefPtr<Gtk::Builder>& builder);
+		explicit Tablero(Glib::RefPtr<Gtk::Builder>& builder);
 		virtual ~Tablero();
 		//Handlers accedidos desde la configuracion basica
 		void on_adjCols_changed_tablero(Gtk::SpinButton* spinbutton,int id);
@@ -51,7 +51,8 @@ class Tablero{
 		//Columnas para la probabilidad seteada
 		std::vector< Columna* > columnas;
 		
-		//Tablero con su respectivo event box (fue necesario para tomar los clicks hechos sobre el mismo)
+		//Tablero con su respectivo event box (fue necesario para tomar los 
+		//clicks hechos sobre el mismo)
 		Gtk::Fixed* tablero;
 		Gtk::EventBox* eventos_tablero;
 
@@ -64,7 +65,8 @@ class Tablero{
 		int cantColumnas;
 		int cantFilas;
 
-		//Para tener una referencia de lo ultimo que se toco y no volver a pedir informacion:
+		//Para tener una referencia de lo ultimo que se toco y no volver a 
+		//pedir informacion:
 		int ultFilClick;
 		int ultColClick;
 		
@@ -74,8 +76,9 @@ class Tablero{
 		//Metodos propios 
 		void agregarFilas(int X);
 		void agregarColumnas(int Y);
-		//Borra la cantidad de filas o columnas (lo que indique el segundo parametro) y todo el contenido que en ellas se contenia
-		void borrarSeps(int cantidad,int FilaOColumna );
+		//Borra la cantidad de filas o columnas (lo que indique el segundo 
+		//parametro) y todo el contenido que en ellas se contenia
+		void borrarSeps(int cantidad,int FilaOColumna);
 		void alargarFilas(int Y);
 		void alargarColumnas(int X);
 		void actualizarMatriz(int cantFilas,int cantColumnas);
@@ -90,8 +93,6 @@ class Tablero{
 
 		//Senal a emitir para el checkbutton cuando hago un click
 		type_signal_uncheck m_signal_uncheck;
-
-
 };
 
 #endif

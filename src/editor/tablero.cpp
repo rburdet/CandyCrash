@@ -28,14 +28,15 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 	celdaInteres=NULL;
 	colInteres=NULL;
 	actualizarMatriz(cantFilas,cantColumnas);
-	this->eventos_tablero->signal_button_press_event().connect(sigc::mem_fun(*this,&Tablero::on_click_tablero));
+	this->eventos_tablero->signal_button_press_event().connect(sigc::mem_fun
+			(*this,&Tablero::on_click_tablero));
 	butonsCambiados.resize(MAXELEMENTOS-1);
 }
 
 Tablero::~Tablero(){
 	this->borrarSeps(cantFilas,FILAS);
 	this->borrarSeps(cantColumnas,COLUMNAS);
-	for ( unsigned int i = 0 ; i < matrizCeldas.size() ; i++){
+	for ( unsigned int i = 0 ; i < matrizCeldas.size() ; i++ ){
 		for ( unsigned int j = 0 ; j < matrizCeldas[0].size() ; j++ ){
 			delete matrizCeldas[i][j];
 		}
@@ -50,7 +51,7 @@ void Tablero::on_cordx_changed(Gtk::SpinButton* spin_x){
 		cantFilas=X;
 		agregarFilas(X);
 		alargarColumnas(X);
-	}else if( X < cantFilas ){
+	}else if ( X < cantFilas ){
 		borrarSeps(cantFilas,FILAS);
 	}
 	cantFilas=X;
@@ -106,7 +107,7 @@ void Tablero::agregarColumnas(int Y){
 		this->tablero->put(*sep_vertical,i*SIZE,0);
 		Gtk::Button * button = new Gtk::Button();
 		Columna* col = new Columna(Y, button);
-		if ( i == Y-1){
+		if ( i == Y-1 ){
 			this->tablero->show_all();
 			break;
 		}
@@ -125,8 +126,7 @@ void Tablero::borrarSeps(int cantidadBorrar,int filaOColumna){
 	if (filaOColumna == COLUMNAS){
 		Gtk::VSeparator* sep = new Gtk::VSeparator(); 
 		type = typeid(*sep).name();
-	}	
-	else if (filaOColumna == FILAS){
+	}else if (filaOColumna == FILAS){
 		Gtk::HSeparator* sep = new Gtk::HSeparator(); 
 		type = typeid(*sep).name();
 	}
@@ -136,7 +136,7 @@ void Tablero::borrarSeps(int cantidadBorrar,int filaOColumna){
 	Glib::ListHandle<Gtk::Widget*>::iterator it = separadores.begin();
 	for (; it != separadores.end() ; it++) {
 		std::cout << typeid(**it).name() << std::endl;
-		if ( ( typeid(**it).name() ) == type ){
+		if ((typeid(**it).name()) == type){
 			i++;
 			if (i>cantidadBorrar){
 				std::cout << " voy a borrar " << std::endl;
@@ -185,7 +185,7 @@ void Tablero::actualizarMatriz(int x, int y){
 	for ( int i = 0 ; i < x ; i++ ) {
 		matrizCeldas[i].resize(y);
 	}
-	for ( int i = 0 ; i < x ; i++){
+	for ( int i = 0 ; i < x ; i++ ){
 		for ( int j = 0 ; j < y ; j++ ){
 			matrizCeldas[i][j] = new Celda(i,j);
 		}
@@ -199,7 +199,7 @@ void Tablero::crearMatrizBotones(int x,int y){
 	matrizButons.resize(x);
 	for ( int i = 0 ; i < x ; i++ ){
 		matrizButons[i].resize(y);
-		for (int j = 0 ; j < y ; j++ ) {
+		for ( int j = 0 ; j < y ; j++ ) {
 			matrizButons[i][j].resize(MAXELEMENTOS-1);
 		}
 	}
@@ -230,7 +230,6 @@ void Tablero::cambiarButons(){
 		}else if (butonsCambiados[i]){
 			butonsCambiados[i]->set_value(0);
 		}
-
 	}
 	//butonsCambiados.clear();
 }
@@ -243,7 +242,7 @@ void Tablero::on_click_boton_tablero(int id){
 }
 
 void Tablero::cambiarButonsColumnas(){
-	for (unsigned int i = 0 ; i < butonsColumnasCambiados.size() ; i++ ){
+	for ( unsigned int i = 0 ; i < butonsColumnasCambiados.size() ; i++ ){
 		butonsColumnasCambiados[i]->set_value(0.00);
 	}
 	butonsColumnasCambiados.clear();
@@ -263,7 +262,7 @@ void Tablero::jsonColumnas(Json::Value& nivel,const std::string& nombre){
 		for ( int j = 0 ; j < 16 ; j++ ){
 			 aux.append(columnas[i]->getInfo()->getProb_piezas(j));
 		}
-		ss<<i ;
+		ss<<i;
 		nivel[nombre]["columnas"][ss.str()] = aux;
 		ss.str("");
 	}
@@ -273,10 +272,10 @@ void Tablero::jsonColumnas(Json::Value& nivel,const std::string& nombre){
 void Tablero::jsonCeldas(Json::Value& nivel,const std::string& nombre){
 	std::stringstream streamFila;
 	std::stringstream streamColumna;
-	for (unsigned  int i = 0 ; i < matrizCeldas.size() ; i++ ) {
-		streamFila << i ;
+	for ( unsigned  int i = 0 ; i < matrizCeldas.size() ; i++ ) {
+		streamFila << i;
 		for ( unsigned int j = 0 ; j < matrizCeldas[0].size() ; j++ ){
-			streamColumna << j ;
+			streamColumna << j;
 			if ( matrizCeldas[i][j]->isHueco() ){
 				nivel[nombre]["celdas"][streamColumna.str()][streamFila.str()]
 					["probabilidades"] = -1;

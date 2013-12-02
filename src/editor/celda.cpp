@@ -1,7 +1,5 @@
 #include "celda.h"
-
-#include <iostream>
-
+#include <string>
 
 Celda::Celda(int x, int y){
 	this->x = x;

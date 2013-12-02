@@ -1,4 +1,6 @@
 #include "generalprobs.h"
+#include <vector>
+#include <string>
 
 #define DEFAULTIMAGEDIR "../../imagenes/"
 #define WIDGETNAME "image"
@@ -6,7 +8,8 @@
 #define ADJUSTMENT "adjustment"
 #include <iostream>
 
-Probs::Probs(Tablero* tablero, Glib::RefPtr<Gtk::Builder>& builder, int startNumber , int finalNumber,std::string frameName){
+Probs::Probs(Tablero* tablero, Glib::RefPtr<Gtk::Builder>& builder, 
+		int startNumber , int finalNumber,std::string frameName){
 	std::vector<std::string> nombres;
 	this->tablero=tablero;
 	std::string str;
@@ -45,7 +48,8 @@ Probs::Probs(Tablero* tablero, Glib::RefPtr<Gtk::Builder>& builder, int startNum
 	}
 }
 
-void Probs::cargarBotones(Glib::RefPtr<Gtk::Builder>& builder,int primerBoton, int ultimoBoton){
+void Probs::cargarBotones(Glib::RefPtr<Gtk::Builder>& builder,int primerBoton,
+		int ultimoBoton){
 	for ( int i = primerBoton ; i <= ultimoBoton ; i++ ){
 		std::stringstream ss;
 		Gtk::SpinButton* aux;
@@ -55,7 +59,8 @@ void Probs::cargarBotones(Glib::RefPtr<Gtk::Builder>& builder,int primerBoton, i
 		spinbuttons.push_back(aux);
 		std::stringstream ss2;
 		ss2 << ADJUSTMENT << i;
-		aux2= Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object(ss2.str()));
+		aux2= Glib::RefPtr<Gtk::Adjustment>::cast_dynamic
+			(builder->get_object(ss2.str()));
 		adjustments.push_back(aux2);
 	}
 }

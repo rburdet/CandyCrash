@@ -10,7 +10,6 @@ class ProbColumnas : public Probs{
 
 	private:
 		Gtk::FileChooser* fileChooser;
-
 };
 
 #endif

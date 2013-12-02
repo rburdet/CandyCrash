@@ -1,10 +1,12 @@
 #include "boxopcionesbasicas.h"
+#include <string>
 
 #define MIN_COLS 8
 #define MIN_FILAS 8
 
 
-BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,Tablero* tablero){
+BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,
+		Tablero* tablero){
 	builder->get_widget("e_maxjug",s_maxjug);
 	builder->get_widget("s_puntaje",s_puntaje);
 	builder->get_widget("e_nombre",e_nombre);
@@ -15,17 +17,25 @@ BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,Table
 	this->barraEstado = new BarraEstado(builder);
 	this->tablero=tablero;
 	Glib::RefPtr<Gtk::Adjustment> adjustment_cordx = 
-	Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object("adjustment_cordx"));
+	Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object
+			("adjustment_cordx"));
 	Glib::RefPtr<Gtk::Adjustment> adjustment_cordy = 
-	Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object("adjustment_cordy"));
-	Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object("adjustment_nivel"));
+	Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object
+			("adjustment_cordy"));
+	Glib::RefPtr<Gtk::Adjustment>::cast_dynamic(builder->get_object
+			("adjustment_nivel"));
 
-	button_json->signal_clicked().connect(sigc::mem_fun(*this, &BoxOpcionesBasicas::on_button_clicked));
-	button_json->signal_clicked().connect(sigc::bind(sigc::mem_fun(barraEstado, &BarraEstado::onMostrar),e_nombre));
+	button_json->signal_clicked().connect(sigc::mem_fun
+			(*this, &BoxOpcionesBasicas::on_button_clicked));
+	button_json->signal_clicked().connect(sigc::bind(sigc::mem_fun
+				(barraEstado, &BarraEstado::onMostrar),e_nombre));
 
-	//Senales para spin button, cuando cambia le avisa al tablero que cambio y le informa sobre su nuevo valor
-	adjustment_cordx->signal_value_changed().connect(sigc::bind(sigc::mem_fun(tablero,&Tablero::on_cordx_changed),spin_x));
-	adjustment_cordy->signal_value_changed().connect(sigc::bind(sigc::mem_fun(tablero,&Tablero::on_cordy_changed),spin_y));
+	//Senales para spin button, cuando cambia le avisa al tablero que cambio 
+	//y le informa sobre su nuevo valor
+	adjustment_cordx->signal_value_changed().connect(sigc::bind(sigc::mem_fun
+				(tablero,&Tablero::on_cordx_changed),spin_x));
+	adjustment_cordy->signal_value_changed().connect(sigc::bind(sigc::mem_fun
+				(tablero,&Tablero::on_cordy_changed),spin_y));
 }
 
 std::string BoxOpcionesBasicas::getNombre(){
@@ -53,7 +63,6 @@ int BoxOpcionesBasicas::getNivel(){
 }
 
 void BoxOpcionesBasicas::on_button_clicked(){
-
 	const std::string& nombre = getNombre();
 	Json::Value puntaje_para_ganar = (int)getPuntaje();
 	Json::Value max_jugadores = (int)getJugadoresMax();

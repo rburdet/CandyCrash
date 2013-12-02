@@ -6,7 +6,7 @@
 
 class BarraEstado{
 	public:
-		BarraEstado(Glib::RefPtr<Gtk::Builder>& builder);
+		explicit BarraEstado(Glib::RefPtr<Gtk::Builder>& builder);
 		void onMostrar(Gtk::Entry* entryArchivo);
 	private:
 		Gtk::Statusbar* barraEstado;

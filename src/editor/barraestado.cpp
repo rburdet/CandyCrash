@@ -1,4 +1,5 @@
 #include "barraestado.h"
+#include <string>
 #define DEFAULTDIR "../../Mapas/"
 
 BarraEstado::BarraEstado(Glib::RefPtr<Gtk::Builder>& builder){

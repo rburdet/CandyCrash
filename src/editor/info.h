@@ -13,7 +13,6 @@ class Info{
 
 	private:
 		int prob_piezas[NUMEROPIEZAS];
-
 };
 
 #endif
