@@ -15,6 +15,7 @@ class Thread {
 
 		int start();
 		int join();
+		int detach();
 };
 
 #endif

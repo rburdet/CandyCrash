@@ -18,3 +18,7 @@ int Thread::join() {
 	return pthread_join(this->me, NULL);
 }
 
+int Thread::detach() {
+	return pthread_detach(this->me);
+}
+

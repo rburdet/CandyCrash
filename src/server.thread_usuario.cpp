@@ -24,20 +24,20 @@ ThreadUsuario::~ThreadUsuario(){
 
 
 void* ThreadUsuario::subRun(){
-	if(this->welcome())
-		return NULL;
+	if(!this->welcome()){
 
-	int ret_read;
-	while(!(ret_read = this->read(false)));
+		int ret_read;
+		while(!(ret_read = this->read(false)));
 
-	if(ret_read == -1){
-		Logger::log("["+this->myId+"] Escuchando evento cifrado");
+		if(ret_read == -1){
+			Logger::log("["+this->myId+"] Escuchando evento cifrado");
 
-		while(! this->read());
+			while(! this->read());
+		}
+
+		Logger::log("["+this->myId+"] Termino coneccion");
+		this->server->removeClient(this);
 	}
-
-	Logger::log("["+this->myId+"] Termino coneccion");
-	this->server->removeClient(this);
 
 	return NULL;
 }

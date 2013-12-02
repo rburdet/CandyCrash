@@ -24,6 +24,7 @@ int Server::main(){
 	while( (fd = this->sock.accept()) ){
 		ThreadUsuario* cli =  new ThreadUsuario(this, fd);
 		cli->start();
+		cli->detach();
 		this->addClient(cli);
 	}
 
