@@ -1,3 +1,4 @@
+/* https://developer.gnome.org/gtk3/stable/GtkStyleContext.html */
 .btn {
 	transition: all .3s ease-in-out;
 	color:#f0f0f0;
@@ -37,19 +38,25 @@
 	background-color: transparent;
 }
 
-/* No pude poner estilo sobre la cabecera: https://developer.gnome.org/gtk3/stable/GtkStyleContext.html
+
+/* No pude poner estilo sobre la cabecera
 .treeview button {
-	background-color: blue;
+	background-color: #F00;
+}
+.treeview column-header {
+	background: #FFF;
 }
 .treeview column-header button {
-	background: rgba(255, 255, 255, 0.8);
+	background: #0FF;
 }
 
 .treeview rubberband {
-	background-color: red;
+	background-color: #00F;
 }
 */
 
+
+.menu_bar,
 .textview,
 .user_list {
 	background: rgba(255, 255, 255, 0.5);
@@ -57,4 +64,17 @@
 
 .scrolled-text {
 	background: transparent;
+}
+
+.menu_bar .menuitem{
+	background: rgba(255, 255, 255, 0.5);
+	/*border: 1px solid #fff;
+	border-top: 0;
+	border-bottom: 0;*/
+	border: 0;
+}
+
+.menu_bar .menuitem *:hover{
+	background-color: #fff;
+	color: #000;
 }

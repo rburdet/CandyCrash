@@ -11,6 +11,12 @@ class MenuBar : public Gtk::MenuBar {
 			sub_menuitem_help(Gtk::Stock::HELP), 
 			menuitem_about(Gtk::Stock::ABOUT)
 		{
+			// -- Estilos
+			Glib::RefPtr<Gtk::StyleContext> stylecontext = this->get_style_context();
+			stylecontext->add_class("menu_bar");
+			stylecontext->context_save();
+			// ------
+			
 			this->append(menuitem_file);
 			this->append(menuitem_help);
 			this->menuitem_file.set_submenu(filemenu);
@@ -22,9 +28,8 @@ class MenuBar : public Gtk::MenuBar {
 			this->menuitem_quit.signal_activate().connect(sigc::mem_fun(*this, &MenuBar::on_quit));
 			this->sub_menuitem_help.signal_activate().connect(sigc::mem_fun(*this, &MenuBar::on_help));
 			this->menuitem_about.signal_activate().connect(sigc::mem_fun(*this, &MenuBar::on_about));
-
-
 		}
+
 		~MenuBar(){
 		}
 

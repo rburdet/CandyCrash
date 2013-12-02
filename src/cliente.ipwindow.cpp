@@ -14,26 +14,19 @@ Ipwindow::Ipwindow()
 	menubar.signal_quit().connect(sigc::mem_fun(*this, &Ipwindow::on_salir));
 
 	this->set_background_image(string("../imagenes/fondos/stripes.jpg"));
-	//override_background_color(Gdk::RGBA("crimson"),Gtk::STATE_FLAG_NORMAL);
 	m_Button_conectar.override_color(Gdk::RGBA("cornsilk"),Gtk::STATE_FLAG_NORMAL);
 	add(m_VBox);
 
 	m_VBox.pack_start(img, true, false, 0);
 
-	//m_host.set_max_length(50);
-	//m_host.select_region(0, m_host.get_text_length());
 	m_VBox.pack_start(m_host, true, false, 0);
 	m_host.set_label(string("Host"));
 
 	m_host.set_text(string("localhost:9000"));
 
-	//m_user.set_max_length(50);
-	//m_user.select_region(0, m_user.get_text_length());
 	m_VBox.pack_start(m_user, true, false, 0);
 	m_user.set_label(string("Usuario"));
 
-	//m_pass.set_max_length(50);
-	//m_pass.select_region(0, m_pass.get_text_length());
 	m_pass.set_visibility(false);
 	m_VBox.pack_start(m_pass, true, false, 0);
 	m_pass.set_label(string("Password"));
@@ -42,7 +35,6 @@ Ipwindow::Ipwindow()
 
 	m_VBox.pack_start(m_text, true, true, 0);
 
-	// Note that add() can also be used instead of pack_xxx()
 	m_VBox.add(m_HBox);
 
 	m_Button_box.pack_start(m_Button_conectar, true, true, 80);
@@ -52,10 +44,7 @@ Ipwindow::Ipwindow()
 	m_Button_conectar.set_can_default();
 	m_Button_conectar.grab_default();
 
-	Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
-	cssprov->load_from_path("../imagenes/style.css");
 	Glib::RefPtr<Gtk::StyleContext> stylecontext = m_Button_conectar.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("btn");
 	stylecontext->context_save();
 
@@ -96,7 +85,7 @@ void Ipwindow::mensaje(Json::Value& data){
 	this->set_text(str);
 }
 
-void Ipwindow::on_salir(){
+bool Ipwindow::onClose(){
 	Gtk::MessageDialog dialog(*this,"Desea cerrar?",false,Gtk::MESSAGE_QUESTION,Gtk::BUTTONS_OK_CANCEL);
 	dialog.set_secondary_text("Asegurese de generar antes de salir");
 	int opc=dialog.run();
@@ -104,4 +93,10 @@ void Ipwindow::on_salir(){
 		this->hide();
 		Gtk::Main::quit();
 	}
+
+	return true;
+}
+
+void Ipwindow::on_salir(){
+	this->onClose();
 }

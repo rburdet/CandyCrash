@@ -15,6 +15,12 @@ Cliente::Cliente() : ventanaActual(NULL), listener(NULL){
 	sigc::slot<bool> my_slot = sigc::mem_fun(*this, &Cliente::onTimeout);
 
 	this->connTimeout = Glib::signal_timeout().connect(my_slot, 100);
+
+	// Agregamos el estilo
+	Glib::RefPtr< Gdk::Screen > screen = Gdk::Screen::get_default();
+	Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
+	cssprov->load_from_path("../imagenes/style.css");
+	Gtk::StyleContext::add_provider_for_screen(screen, cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 }
 
 void Cliente::mostrarVentanaIP(){

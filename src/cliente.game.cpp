@@ -17,16 +17,10 @@ GameWindow::GameWindow() {
 
 	this->tableroJuego = NULL;
 
-	// -- Estilos
-	Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
-	cssprov->load_from_path("../imagenes/style.css");
-	Glib::RefPtr<Gtk::StyleContext> stylecontext;
-	// ------
 
 	this->add(this->m_VBox);
 	this->m_VBox.pack_start(this->user_list, true, true, 10);
-	stylecontext = this->user_list.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	Glib::RefPtr<Gtk::StyleContext> stylecontext = this->user_list.get_style_context();
 	stylecontext->add_class("user_list");
 	stylecontext->context_save();
 
@@ -47,20 +41,18 @@ GameWindow::GameWindow() {
 
 
 	stylecontext = this->m_ScrolledWindow1.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("scrolled-text");
 	stylecontext->context_save();
+
 	stylecontext = this->m_TextView1.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("textview");
 	stylecontext->context_save();
 
 	stylecontext = this->text_input.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("chat_entry");
 	stylecontext->context_save();
+
 	stylecontext = m_button_send.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("btn");
 	stylecontext->context_save();
 
@@ -74,11 +66,10 @@ GameWindow::GameWindow() {
 
 
 	stylecontext = this->button_start.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("btn");
 	stylecontext->context_save();
+
 	stylecontext = this->button_salir.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("btn1");
 	stylecontext->context_save();
 

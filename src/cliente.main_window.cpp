@@ -14,13 +14,7 @@ MainWindow::MainWindow(){
 	set_border_width(5);
 	set_size_request(350, 700);
 
-	// -- Estilos
-	Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
-	cssprov->load_from_path("../imagenes/style.css");
-	// ------
-
 	Glib::RefPtr<Gtk::StyleContext> stylecontext = tabs.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("tabs");
 	stylecontext->context_save();
 
@@ -44,24 +38,24 @@ MainWindow::MainWindow(){
 	button_partidas_con.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::join_partidas));
 
 	stylecontext = button_partidas_act.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("btn");
 	stylecontext->context_save();
+
 	stylecontext = button_partidas_con.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("btn1");
 	stylecontext->context_save();
 
 	tabs.prepend_page(m_VBox_partidas, labelPartidas);
 
 	stylecontext = m_TreeView.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("treeview");
+	stylecontext->context_save();
 
 	m_ScrolledPartidas.add(m_TreeView);
+
 	stylecontext = m_ScrolledPartidas.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("scrolled-tree");
+	stylecontext->context_save();
 
 	// ----- Mapas ----
 	labelMapas.set_text("Crear Partida");
@@ -77,25 +71,24 @@ MainWindow::MainWindow(){
 	button_mapas_cre.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_crear_partida));
 
 	stylecontext = button_mapas_act.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("btn");
 	stylecontext->context_save();
+
 	stylecontext = button_mapas_cre.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("btn1");
 	stylecontext->context_save();
 
 	tabs.prepend_page(m_VBox_mapas, labelMapas);
 
 	stylecontext = m_TreeViewMapas.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("treeview");
 	stylecontext->context_save();
 
 	m_ScrolledMapas.add(m_TreeViewMapas);
+
 	stylecontext = m_ScrolledMapas.get_style_context();
-	stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
 	stylecontext->add_class("scrolled-tree");
+	stylecontext->context_save();
 	// ----------------
 
 

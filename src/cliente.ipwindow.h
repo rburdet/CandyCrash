@@ -44,6 +44,9 @@ class Ipwindow : public Window {
 		Gtk::HBox m_Button_box;
 		Gtk::Button m_Button_conectar;
 		type_signal_conectar m_signal_conectar;
+
+		virtual bool onClose();
+
 	private:
 		void on_salir();
 

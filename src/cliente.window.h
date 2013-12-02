@@ -13,6 +13,9 @@ class Window : public Gtk::Window {
 		virtual void mensaje(Json::Value& data) = 0;
 		Window(){
 			this->signal_delete_event().connect(sigc::mem_fun(this, &Window::_onClose));
+			Glib::RefPtr<Gtk::StyleContext> stylecontext = this->get_style_context();
+			stylecontext->add_class("user_window");
+			stylecontext->context_save();
 		}
 
 		/** Signal para avisarle al cliente que tienen que mandar un mensaje
