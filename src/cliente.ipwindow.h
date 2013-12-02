@@ -6,6 +6,7 @@
 #include "cliente.window.h"
 
 #include "widgets/cliente.label_entry.h"
+#include "widgets/cliente.menu_bar.h"
 
 /** Ventana de login y seleccionar servidor.
  */
@@ -29,7 +30,8 @@ class Ipwindow : public Window {
 		//Child widgets:
 		Gtk::Box m_HBox;
 		Gtk::Box m_VBox;
-		Gtk::MenuBar* menubar;
+		//Gtk::MenuBar menubar;
+		MenuBar menubar;
 
 		Gtk::Image img;
 

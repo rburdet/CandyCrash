@@ -5,31 +5,13 @@ using std::string;
 
 Ipwindow::Ipwindow()
 	: m_VBox(Gtk::ORIENTATION_VERTICAL),
-	menubar(Gtk::manage(new Gtk::MenuBar())),
 	m_Button_conectar("Conectar"), m_check("Active para registrarse"), img("../imagenes/star_big.png") {
 	set_size_request(350, 700);
 	set_title("Conectate");
 
-	m_VBox.pack_start(*menubar, Gtk::PACK_SHRINK, 0);
+	m_VBox.pack_start(menubar, Gtk::PACK_SHRINK, 0);
 
-	Gtk::MenuItem *menuitem_file = Gtk::manage(new Gtk::MenuItem("_File", true));
-	Gtk::MenuItem *menuitem_help = Gtk::manage(new Gtk::MenuItem("_Help", true));
-	menubar->append(*menuitem_file);
-	menubar->append(*menuitem_help);
-
-	Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
-	Gtk::Menu *helpmenu = Gtk::manage(new Gtk::Menu());
-
-	menuitem_file->set_submenu(*filemenu);
-	menuitem_help->set_submenu(*helpmenu);
-
-	Gtk::MenuItem *menuitem_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
-	Gtk::MenuItem *sub_menuitem_help = Gtk::manage(new Gtk::MenuItem("_Help", true));
-	Gtk::MenuItem *menuitem_about = Gtk::manage(new Gtk::MenuItem("_About", true));
-	menuitem_quit->signal_activate().connect(sigc::mem_fun(*this, &Ipwindow::on_salir));
-	filemenu->append(*menuitem_quit);
-	helpmenu->append(*sub_menuitem_help);
-	helpmenu->append(*menuitem_about);
+	menubar.signal_quit().connect(sigc::mem_fun(*this, &Ipwindow::on_salir));
 
 	this->set_background_image(string("../imagenes/fondos/stripes.jpg"));
 	//override_background_color(Gdk::RGBA("crimson"),Gtk::STATE_FLAG_NORMAL);
