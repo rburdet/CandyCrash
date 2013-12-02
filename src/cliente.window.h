@@ -46,6 +46,23 @@ class Window : public Gtk::Window {
 			stylecontext->context_save();
 		}
 
+		bool dialog(const char* pri, const char* sec){
+			std::string p(pri);
+			std::string s(sec);
+			return this->dialog(p, s);
+		}
+
+		bool dialog(const std::string& pri, const std::string& sec){
+			Gtk::MessageDialog dialog(*this, pri, false, Gtk::MESSAGE_QUESTION,Gtk::BUTTONS_OK_CANCEL);
+			dialog.set_secondary_text(sec);
+			int opc = dialog.run();
+
+			if(opc == Gtk::RESPONSE_OK)
+				return true;
+
+			return false;
+		}
+
 };
 
 #endif

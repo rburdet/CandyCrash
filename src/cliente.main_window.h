@@ -6,6 +6,7 @@
 #include <jsoncpp/json/json.h>
 
 #include "cliente.window.h"
+#include "widgets/cliente.menu_bar.h"
 #include "widgets/cliente.partidas_list.h"
 #include "widgets/cliente.mapas_list.h"
 
@@ -16,8 +17,6 @@ class MainWindow : public Window {
 	public:
 		MainWindow();
 		virtual ~MainWindow();
-		//typedef sigc::signal<void, std::string> type_signal_mensaje;
-		//type_signal_mensaje signal_mensaje();
 		void setText(std::string& str);
 		virtual void mensaje(Json::Value& data);
 
@@ -32,6 +31,7 @@ class MainWindow : public Window {
 		void on_crear_partida(); // -> crear partida
 
 		//Child widgets:
+		MenuBar menubar;
 		Gtk::Notebook tabs;
 
 		// ------------------
@@ -53,6 +53,7 @@ class MainWindow : public Window {
 		ListaMapas m_TreeViewMapas;
 
 		Gtk::VBox mainV;
+		Gtk::HBox tabBox;
 		Gtk::Label statusLabel;
 };
 

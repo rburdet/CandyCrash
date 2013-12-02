@@ -10,14 +10,15 @@ using Json::Value;
 
 MainWindow::MainWindow(){
 	set_title("Pantalla principal");
-	set_border_width(5);
 	set_size_request(350, 700);
 
 	Glib::RefPtr<Gtk::StyleContext> stylecontext = tabs.get_style_context();
 	stylecontext->add_class("tabs");
 	stylecontext->context_save();
 
-	mainV.pack_start(tabs, true, true, 0);
+	mainV.pack_start(menubar, Gtk::PACK_SHRINK, 0);
+	mainV.pack_start(tabBox, true, true, 10);
+	tabBox.pack_start(tabs, true, true, 5);
 	mainV.pack_start(statusLabel, false, false, 0);
 
 	add(mainV);

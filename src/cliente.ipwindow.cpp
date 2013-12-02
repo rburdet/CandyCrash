@@ -85,10 +85,8 @@ void Ipwindow::mensaje(Json::Value& data){
 }
 
 bool Ipwindow::onClose(){
-	Gtk::MessageDialog dialog(*this,"Desea cerrar?",false,Gtk::MESSAGE_QUESTION,Gtk::BUTTONS_OK_CANCEL);
-	dialog.set_secondary_text("Asegurese de generar antes de salir");
-	int opc=dialog.run();
-	if (opc==Gtk::RESPONSE_OK){
+	//TODO: tildes
+	if(this->dialog("Desea Cerrar?", "No podra seguir jugando")){
 		this->hide();
 		Gtk::Main::quit();
 	}
