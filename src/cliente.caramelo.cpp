@@ -1,4 +1,4 @@
-#include "common.caramelo.h"
+#include "cliente.caramelo.h"
 
 #define DEFAULTIMAGEDIR "../Imagenes/"
 #define SIZE 40

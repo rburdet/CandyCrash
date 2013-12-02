@@ -1,7 +1,7 @@
 #ifndef STAR_H
 #define STAR_H
 
-#include "common.caramelo.h"
+#include "cliente.caramelo.h"
 
 class Star : public Caramelo{
 	public:

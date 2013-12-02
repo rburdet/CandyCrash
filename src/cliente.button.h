@@ -1,7 +1,7 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include "common.caramelo.h"
+#include "cliente.caramelo.h"
 
 class Button : public Caramelo {
 	public:

@@ -31,8 +31,8 @@ class Partida : public PartidaInterface {
 
 		/** Envia un mensaje a u, (EVENT_GAME_MSG).
 		 */
-		void msjError(ThreadSocket* u, char* msj);
-		void msjError(ThreadSocket* u, std::string& msj);
+		void msjError(ThreadSocket* u, const char* msj);
+		void msjError(ThreadSocket* u, const std::string& msj);
 
 	public:
 		/** Creador de la partida.

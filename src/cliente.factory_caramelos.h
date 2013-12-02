@@ -2,9 +2,9 @@
 #define FACTORY_CARAMELOS_H
 
 #include <string>
-#include "common.button.h"
-#include "common.bar.h"
-#include "common.star.h"
+#include "cliente.button.h"
+#include "cliente.bar.h"
+#include "cliente.star.h"
 #include "common.caramelos.h"
 
 #define DEFAULTIMAGEDIR "../imagenes/"

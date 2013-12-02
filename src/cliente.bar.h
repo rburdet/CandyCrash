@@ -1,7 +1,7 @@
 #ifndef BAR_H
 #define BAR_H
 
-#include "common.caramelo.h"
+#include "cliente.caramelo.h"
 
 class Bar : public Caramelo{
 	public:

@@ -7,7 +7,7 @@
 #include <glibmm/signalproxy.h>
 #include <jsoncpp/json/json.h>
 #include "cliente.window.h"
-#include "common.factory_caramelos.h"
+#include "cliente.factory_caramelos.h"
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
 #define MAXELEMENTOS 16

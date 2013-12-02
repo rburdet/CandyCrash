@@ -60,6 +60,8 @@ CFLAGS += -ggdb -DDEBUG -fno-inline -fpermissive
 # Opciones del enlazador.
 LDFLAGS = -L/usr/local/lib -ljsoncpp -lasound
 
+LDFLAGS_SERVER = -L/usr/local/lib -ljsoncpp -lasound -lpthread -pthread
+
 # Estandar de C a usar
 CSTD = c99
 
@@ -187,7 +189,7 @@ server: $(o_server_files)
 		echo "No hay archivos de entrada para el servidor (archivos server*.$(extension))."; \
 		false; \
 	fi >&2
-	$(LD) $(o_server_files) $(LDFLAGS) -o server
+	$(LD) $(o_server_files) $(LDFLAGS_SERVER) -o server
 
 clean:
 	#$(RM) $(o_files) $(o_files:.o=.deps) $(target)

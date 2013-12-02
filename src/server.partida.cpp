@@ -254,12 +254,12 @@ void Partida::broadcastMsj(Json::Value& msj){
 	this->usuariosLock.unlock();
 }
 
-void Partida::msjError(ThreadSocket* u, char* msj){
+void Partida::msjError(ThreadSocket* u, const char* msj){
 	std::string str(msj);
 	this->msjError(u, str);
 }
 
-void Partida::msjError(ThreadSocket* u, std::string& msj){
+void Partida::msjError(ThreadSocket* u, const std::string& msj){
 	Json::Value send;
 	send["event"] = EVENT_GAME_MSG;
 	send["msg"] = msj;
