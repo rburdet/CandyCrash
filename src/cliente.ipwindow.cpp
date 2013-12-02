@@ -1,11 +1,13 @@
 #include "cliente.ipwindow.h"
 #include <iostream>
+#include <string>
 
 using std::string;
 
 Ipwindow::Ipwindow()
 	: m_VBox(Gtk::ORIENTATION_VERTICAL),
-	m_Button_conectar("Conectar"), m_check("Active para registrarse"), img("../imagenes/star_big.png") {
+	m_Button_conectar("Conectar"), m_check("Active para registrarse"), 
+	img("../imagenes/star_big.png") {
 	set_size_request(350, 700);
 	set_title("Conectate");
 
@@ -37,13 +39,14 @@ Ipwindow::Ipwindow()
 	m_VBox.add(m_HBox);
 
 	m_Button_box.pack_start(m_Button_conectar, true, true, 80);
-	m_Button_conectar.signal_clicked().connect( sigc::mem_fun(*this,
-				&Ipwindow::on_button_conectar) );
+	m_Button_conectar.signal_clicked().connect(sigc::mem_fun(*this,
+				&Ipwindow::on_button_conectar));
 	m_VBox.pack_start(m_Button_box, true, false, 0);
 	m_Button_conectar.set_can_default();
 	m_Button_conectar.grab_default();
 
-	Glib::RefPtr<Gtk::StyleContext> stylecontext = m_Button_conectar.get_style_context();
+	Glib::RefPtr<Gtk::StyleContext> stylecontext =
+		m_Button_conectar.get_style_context();
 	stylecontext->add_class("btn");
 	stylecontext->context_save();
 

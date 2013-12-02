@@ -1,7 +1,8 @@
 #ifndef __SERVER_PARTIDA_H__
 #define __SERVER_PARTIDA_H__
-#include <vector>
 
+#include <vector>
+#include <string>
 #include "server.server_interface.h"
 #include "server.partida_interface.h"
 #include "common.thread_socket.h"
@@ -67,7 +68,6 @@ class Partida : public PartidaInterface {
 		 * @param u[in]: ThreadSocket que le envio el mensaje
 		 */
 		virtual int mensaje(Json::Value& m, ThreadSocket* u);
-
 };
 
 

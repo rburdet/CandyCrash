@@ -4,6 +4,8 @@
 #include "cliente.main_window.h"
 #include "cliente.game.h"
 #include <sstream>
+#include <string>
+#include <vector>
 #include "cliente.sound_player.h"
 
 using std::string;
@@ -20,9 +22,11 @@ Cliente::Cliente() : ventanaActual(NULL), listener(NULL){
 	Glib::RefPtr< Gdk::Screen > screen = Gdk::Screen::get_default();
 	Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
 	cssprov->load_from_path("../imagenes/style.css");
-	Gtk::StyleContext::add_provider_for_screen(screen, cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+	Gtk::StyleContext::add_provider_for_screen(screen, cssprov, 
+			GTK_STYLE_PROVIDER_PRIORITY_USER);
 
-	Glib::RefPtr< Gdk::Pixbuf > icon = Gdk::Pixbuf::create_from_file("../imagenes/star.png");
+	Glib::RefPtr< Gdk::Pixbuf > icon = 
+		Gdk::Pixbuf::create_from_file("../imagenes/star.png");
 	std::vector< Glib::RefPtr< Gdk::Pixbuf > > icon_list;
 	icon_list.push_back(icon);
 	Gtk::Window::set_default_icon_list(icon_list);
@@ -120,7 +124,8 @@ bool Cliente::onTimeout(){
 			delete ventanaActual;
 			this->ventanaActual = new MainWindow;
 			this->ventanaActual->move(root_x, root_y);
-			this->ventanaActual->signal_mensaje().connect(sigc::mem_fun(this, &Cliente::sendMsj));
+			this->ventanaActual->signal_mensaje().connect(sigc::mem_fun(this, 
+						&Cliente::sendMsj));
 			break;
 		}
 

@@ -2,14 +2,13 @@
 #define __USUARIOS_LIST_H__
 
 #include <gtkmm.h>
+#include <string>
 
 class ModelUsuarios : public Gtk::TreeModel::ColumnRecord
 {
 	public:
-
 		ModelUsuarios()
 		{ add(m_col_id); add(m_col_nivel); add(m_col_nombre); add(m_col_puntos);}
-
 		Gtk::TreeModelColumn<long> m_col_id;
 		Gtk::TreeModelColumn<int> m_col_nivel;
 		Gtk::TreeModelColumn<std::string> m_col_nombre;
@@ -26,9 +25,10 @@ class ListaUsuarios : public Gtk::TreeView {
 			this->append_column("Nivel", m_Columns.m_col_nivel);
 			this->append_column("Puntos", m_Columns.m_col_puntos);
 		}
-		~ListaUsuarios(){};
+		~ListaUsuarios(){}
 
-		void addRow(long m_col_id, std::string& m_col_nombre, int m_col_nivel, int m_col_puntos){
+		void addRow(long m_col_id, std::string& m_col_nombre, int m_col_nivel,
+				int m_col_puntos){
 			Gtk::TreeModel::Row row = *(m_refTreeModel->append());
 			row[m_Columns.m_col_id] = m_col_id;
 			row[m_Columns.m_col_nombre] = m_col_nombre;
@@ -53,7 +53,6 @@ class ListaUsuarios : public Gtk::TreeView {
 	protected:
 		ModelUsuarios m_Columns;
 		Glib::RefPtr<Gtk::ListStore> m_refTreeModel;
-
 };
 
 #endif

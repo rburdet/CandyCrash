@@ -1,6 +1,7 @@
 #ifndef CARAMELO_H
 #define CARAMELO_H
 
+#include <string>
 #include <gtkmm.h>
 #include "common.caramelos.h"
 #include <iostream>
@@ -8,7 +9,7 @@
 class Caramelo : public Gtk::Button{
 	public:
 		Caramelo(int idCaramelo, const std::string& imageName,int i, int j);
-		virtual ~Caramelo(){};
+		virtual ~Caramelo(){}
 		/** Chequea si el caramelo esta en movimiento.
 		 * Si esta en movimiento, pero se pasan como parametros las coordenadas finales, devolvera false.
 		 * @param x: coordenada final x
@@ -19,14 +20,12 @@ class Caramelo : public Gtk::Button{
 		bool mover();
 		bool setMoviendo(bool moviendo, int x, int y);
 		bool setMoviendo(bool moviendo);
-
 		void hablar(){ std::cout << idCaramelo << std::endl; }
 		int getId(){ return this->idCaramelo; }
 		void opacar();
 		bool visible();
 		bool fullyVisible();
 		void hacerAparecer();
-		//virtual void mostrar()=0;
 		int getX();
 		int getXPos();
 		int getY();
@@ -36,6 +35,7 @@ class Caramelo : public Gtk::Button{
 		void setY(int y);
 		void setYPos(int y);
 	private:
+
 		int x;
 		int y;
 		int x_pos;

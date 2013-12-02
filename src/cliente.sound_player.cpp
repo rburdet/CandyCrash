@@ -74,14 +74,18 @@ bool SoundPlayer::play_wave(const std::string & str){
 		return false;
 	}
 
-	if(head.riff[0] != 'R' || head.riff[1] != 'I'  || head.riff[2] != 'F' || head.riff[3] != 'F'){
-		//printf("No es archivo wav. RIFF. '%c' '%c' '%c' '%c'\n", head.riff[0], head.riff[1], head.riff[2], head.riff[3]);
+	if(head.riff[0] != 'R' || head.riff[1] != 'I'  || head.riff[2] 
+			!= 'F' || head.riff[3] != 'F'){
+		//printf("No es archivo wav. RIFF. '%c' '%c' '%c' '%c'\n", 
+		//head.riff[0], head.riff[1], head.riff[2], head.riff[3]);
 		Logger::log("No es archivo wave: RIFF. "+str);
 		return false;
 	}
 
-	if(head.wave[0] != 'W' || head.wave[1] != 'A'  || head.wave[2] != 'V' || head.wave[3] != 'E'){
-		//printf("No es archivo wav. WAVE. '%c' '%c' '%c' '%c'\n", head.wave[0], head.wave[1], head.wave[2], head.wave[3]);
+	if(head.wave[0] != 'W' || head.wave[1] != 'A'  || head.wave[2] != 
+			'V' || head.wave[3] != 'E'){
+		//printf("No es archivo wav. WAVE. '%c' '%c' '%c' '%c'\n", head.wave[0]
+		//, head.wave[1], head.wave[2], head.wave[3]);
 		Logger::log("No es archivo wave: WAVE. "+str);
 		return false;
 	}
@@ -140,13 +144,15 @@ void* SoundPlayer::wav_runner(void* arg) {
 		Logger::log(str);
 	}
 
-	if (pcm = snd_pcm_hw_params_set_channels(pcm_handle, params, args->channels) < 0) {
+	if (pcm = snd_pcm_hw_params_set_channels(pcm_handle, params, args->channels) 
+			< 0) {
 		string str("ERROR: Can't set channels number. ");
 		str += string(snd_strerror(pcm));
 		Logger::log(str);
 	}
 
-	if (pcm = snd_pcm_hw_params_set_rate_near(pcm_handle, params, (unsigned int*) &(args->sample_rate), NULL) < 0) {
+	if (pcm = snd_pcm_hw_params_set_rate_near(pcm_handle, params, 
+				(unsigned int*) &(args->sample_rate), NULL) < 0) {
 		string str("ERROR: Can't set rate. ");
 		str += string(snd_strerror(pcm));
 		Logger::log(str);

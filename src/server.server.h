@@ -34,7 +34,7 @@ class Server : public ServerInterface, public Thread {
 		virtual void* run();
 
 	public:
-		Server(int port);
+		explicit Server(int port);
 		~Server();
 
 		void removeClient(ThreadSocket* cli);

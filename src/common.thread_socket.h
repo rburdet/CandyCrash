@@ -22,7 +22,7 @@ class ThreadSocket : public Thread {
 		virtual int eventFirmado(Json::Value& data) = 0;
 
 	public:
-		ThreadSocket(SocketIO* fd);
+		explicit ThreadSocket(SocketIO* fd);
 		~ThreadSocket();
 
 		int shutdown(int how);

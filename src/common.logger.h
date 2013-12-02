@@ -16,7 +16,6 @@ class Logger {
 		static Logger* me;
 
 	public:
-
 		static void init();
 		static void destroy();
 		/** Funciones usadas para logear.

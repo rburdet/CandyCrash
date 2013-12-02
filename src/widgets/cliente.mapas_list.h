@@ -7,7 +7,6 @@
 class MapasColumns : public Gtk::TreeModel::ColumnRecord
 {
 	public:
-
 		MapasColumns()
 		{ add(m_col_nivel); add(m_col_nombre);}
 
@@ -35,7 +34,7 @@ class ListaMapas : public Gtk::TreeView {
 			//	pColumn->set_reorderable();
 			//}
 		}
-		~ListaMapas(){};
+		~ListaMapas(){}
 
 		void addRow(int m_col_nivel, std::string m_col_nombre){
 			Gtk::TreeModel::Row row = *(m_refTreeModel->append());
@@ -58,6 +57,5 @@ class ListaMapas : public Gtk::TreeView {
 	protected:
 		MapasColumns m_Columns;
 		Glib::RefPtr<Gtk::ListStore> m_refTreeModel;
-
 };
 #endif

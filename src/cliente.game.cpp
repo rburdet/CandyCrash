@@ -19,13 +19,15 @@ GameWindow::GameWindow() {
 
 	m_VBox.pack_start(menubar, Gtk::PACK_SHRINK, 0);
 	menubar.signal_quit().connect(sigc::mem_fun(*this, &GameWindow::on_salir));
-	menubar.signal_disconnect().connect(sigc::mem_fun(*this, &GameWindow::on_desconectar));
+	menubar.signal_disconnect().connect(sigc::mem_fun(*this, 
+				&GameWindow::on_desconectar));
 
 	m_VBox.pack_start(padBox, true, true, 10);
 	padBox.pack_start(this->mainV, true, true, 5);
 
 	this->mainV.pack_start(this->user_list, true, true, 10);
-	Glib::RefPtr<Gtk::StyleContext> stylecontext = this->user_list.get_style_context();
+	Glib::RefPtr<Gtk::StyleContext> stylecontext = 
+		this->user_list.get_style_context();
 	stylecontext->add_class("user_list");
 	stylecontext->context_save();
 
@@ -39,10 +41,12 @@ GameWindow::GameWindow() {
 	this->m_TextView1.set_editable(false);
 	this->mainV.pack_start(this->m_HBox, false, false, 0);
 	this->m_HBox.pack_start(this->text_input, true, true, 0);
-	this->text_input.signal_activate().connect(sigc::mem_fun(*this, &GameWindow::on_mensaje) );
+	this->text_input.signal_activate().connect(sigc::mem_fun(*this, 
+				&GameWindow::on_mensaje) );
 	this->m_HBox.pack_start(m_button_send, true, true, 0);
 	this->m_button_send.set_label("Enviar");
-	this->m_button_send.signal_clicked().connect(sigc::mem_fun(*this, &GameWindow::on_mensaje) );
+	this->m_button_send.signal_clicked().connect(sigc::mem_fun(*this, 
+				&GameWindow::on_mensaje) );
 
 
 	stylecontext = this->m_ScrolledWindow1.get_style_context();
@@ -64,10 +68,12 @@ GameWindow::GameWindow() {
 	this->mainV.pack_start(this->but_hbox, false, false, 10);
 	this->but_hbox.pack_start(this->button_start, true, true, 10);
 	this->button_start.set_label("Empezar el juego");
-	this->button_start.signal_clicked().connect(sigc::mem_fun(*this, &GameWindow::on_start_game) );
+	this->button_start.signal_clicked().connect(sigc::mem_fun(*this, 
+				&GameWindow::on_start_game) );
 	this->but_hbox.pack_start(this->button_salir, true, true, 10);
 	this->button_salir.set_label("Salir de la partida");
-	this->button_salir.signal_clicked().connect(sigc::mem_fun(*this, &GameWindow::on_salir_game) );
+	this->button_salir.signal_clicked().connect(sigc::mem_fun(*this, 
+				&GameWindow::on_salir_game) );
 
 
 	stylecontext = this->button_start.get_style_context();
@@ -134,7 +140,8 @@ void GameWindow::mensaje(Json::Value& data){
 			Gtk::TextIter it = this->m_refTextBuffer1->end();
 			string line = data["line"].asString();
 			this->m_refTextBuffer1->insert(it, "\n >> "+line);
-			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = this->m_refTextBuffer1->get_insert();
+			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = 
+				this->m_refTextBuffer1->get_insert();
 			this->m_TextView1.scroll_to(mark);
 			SoundPlayer::play("../sounds/message-new-instant.wav");
 			break;
@@ -143,7 +150,8 @@ void GameWindow::mensaje(Json::Value& data){
 			Gtk::TextIter it = this->m_refTextBuffer1->end();
 			string line = data["msg"].asString();
 			this->m_refTextBuffer1->insert(it, "\n >> "+line);
-			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = this->m_refTextBuffer1->get_insert();
+			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = 
+				this->m_refTextBuffer1->get_insert();
 			this->m_TextView1.scroll_to(mark);
 			break;
 		}
@@ -189,10 +197,9 @@ void GameWindow::mensaje(Json::Value& data){
 		}
 
 		case EVENT_GAME_START:{
-			// TODO: mover esto a cliente.cliente.cpp y hacer que se borre la ventana de game
-			//std::cout << "Tableor que recibi  : " << data["tablero"] << std::endl;  
 			tableroJuego = new TableroJuego(data["tablero"]);
-			tableroJuego->signal_mensaje().connect(sigc::mem_fun(this, &GameWindow::on_tablero_mensaje));
+			tableroJuego->signal_mensaje().connect(sigc::mem_fun(this, 
+						&GameWindow::on_tablero_mensaje));
 			break;
 		}
 
@@ -214,7 +221,8 @@ void GameWindow::mensaje(Json::Value& data){
 			string msg = data["msg"].asString();
 			Gtk::TextIter it = this->m_refTextBuffer1->end();
 			this->m_refTextBuffer1->insert(it, "\n >> Termino la partida\n>>"+msg);
-			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = this->m_refTextBuffer1->get_insert();
+			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = 
+				this->m_refTextBuffer1->get_insert();
 			this->m_TextView1.scroll_to(mark);
 
 			SoundPlayer::play("../sounds/complete.wav");

@@ -25,9 +25,12 @@ class MenuBar : public Gtk::MenuBar {
 			this->helpmenu.append(sub_menuitem_help);
 			this->helpmenu.append(menuitem_about);
 
-			this->menuitem_quit.signal_activate().connect(sigc::mem_fun(*this, &MenuBar::on_quit));
-			this->sub_menuitem_help.signal_activate().connect(sigc::mem_fun(*this, &MenuBar::on_help));
-			this->menuitem_about.signal_activate().connect(sigc::mem_fun(*this, &MenuBar::on_about));
+			this->menuitem_quit.signal_activate().connect(sigc::mem_fun(
+						*this, &MenuBar::on_quit));
+			this->sub_menuitem_help.signal_activate().connect(sigc::mem_fun(
+						*this, &MenuBar::on_help));
+			this->menuitem_about.signal_activate().connect(sigc::mem_fun(
+						*this, &MenuBar::on_about));
 		}
 
 		~MenuBar(){

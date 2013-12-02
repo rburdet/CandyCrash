@@ -1,9 +1,11 @@
 #include "cliente.caramelo.h"
+#include <string>
 
 #define DEFAULTIMAGEDIR "../Imagenes/"
 #define SIZE 40
 
-Caramelo::Caramelo(int idCaramelo, const std::string& imgDir,int i, int j) : image(imgDir) {
+Caramelo::Caramelo(int idCaramelo, const std::string& imgDir,int i, int j) :
+	image(imgDir) {
 	this->moviendo = false;
 	this->x = i;
 	this->y = j;
@@ -41,11 +43,11 @@ void Caramelo::setXPos(int x){
 }
 
 void Caramelo::setY(int y){
-	this->y = y ;
+	this->y = y;
 }
 
 void Caramelo::setYPos(int y){
-	this->y_pos = y ;
+	this->y_pos = y;
 }
 
 bool Caramelo::mover(int x, int y){

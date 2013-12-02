@@ -31,7 +31,8 @@ const uint32_t k[64] = {
 	0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391 };
 
 // r specifies the per-round shift amounts
-const uint32_t r[] = {7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
+const uint32_t r[] = {
+	7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
 	5,  9, 14, 20, 5,  9, 14, 20, 5,  9, 14, 20, 5,  9, 14, 20,
 	4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23,
 	6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21};
@@ -55,8 +56,7 @@ uint32_t to_int32(const uint8_t *bytes)
 		| ((uint32_t) bytes[3] << 24);
 }
 
-void md5(const uint8_t *initial_msg, size_t initial_len, uint8_t *digest) {
-
+void md5(const uint8_t *initial_msg, size_t initial_len, uint8_t *digest){
 	// These vars will contain the hash
 	uint32_t h0, h1, h2, h3;
 
@@ -78,8 +78,7 @@ void md5(const uint8_t *initial_msg, size_t initial_len, uint8_t *digest) {
 	//append "0" bits until message length in bits ≡ 448 (mod 512)
 	//append length mod (2^64) to message
 
-	for (new_len = initial_len + 1; new_len % (512/8) != 448/8; new_len++)
-		;
+	for (new_len = initial_len + 1; new_len % (512/8) != 448/8; new_len++){}
 
 	msg = (uint8_t*)malloc(new_len + 8);
 	memcpy(msg, initial_msg, initial_len);
@@ -95,7 +94,6 @@ void md5(const uint8_t *initial_msg, size_t initial_len, uint8_t *digest) {
 	// Process the message in successive 512-bit chunks:
 	//for each 512-bit chunk of message:
 	for(offset=0; offset<new_len; offset += (512/8)) {
-
 		// break chunk into sixteen 32-bit words w[j], 0 ≤ j ≤ 15
 		for (i = 0; i < 16; i++)
 			w[i] = to_int32(msg + offset + i*4);
@@ -108,7 +106,6 @@ void md5(const uint8_t *initial_msg, size_t initial_len, uint8_t *digest) {
 
 		// Main loop:
 		for(i = 0; i<64; i++) {
-
 			if (i < 16) {
 				f = (b & c) | ((~b) & d);
 				g = i;
@@ -122,27 +119,22 @@ void md5(const uint8_t *initial_msg, size_t initial_len, uint8_t *digest) {
 				f = c ^ (b | (~d));
 				g = (7*i) % 16;
 			}
-
 			temp = d;
 			d = c;
 			c = b;
 			b = b + LEFTROTATE((a + f + k[i] + w[g]), r[i]);
 			a = temp;
-
 		}
-
 		// Add this chunk's hash to result so far:
 		h0 += a;
 		h1 += b;
 		h2 += c;
 		h3 += d;
-
 	}
-
 	// cleanup
 	free(msg);
-
-	//var char digest[16] := h0 append h1 append h2 append h3 //(Output is in little-endian)
+	//var char digest[16] := h0 append h1 append h2 append h3 //(Output is in 
+	//little-endian)
 	to_bytes(h0, digest);
 	to_bytes(h1, digest + 4);
 	to_bytes(h2, digest + 8);

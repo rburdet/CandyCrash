@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <gtkmm.h>
+#include <string>
 #include <glibmm/signalproxy.h>
 #include <jsoncpp/json/json.h>
 #include "cliente.window.h"
@@ -23,7 +24,7 @@
 
 class TableroJuego : public Window {
 	public:
-		TableroJuego(Json::Value mapa);
+		explicit TableroJuego(Json::Value mapa);
 		~TableroJuego(){}
 		void dibujar(){}
 
@@ -102,7 +103,8 @@ class TableroJuego : public Window {
 		 * @param step_y: salto que pega en y por cada iteracion
 		 * @return true si no termino, false si llego a destino
 		 */
-		bool animationMove(Caramelo* car, int x_final, int y_final, int step_x, int step_y);
+		bool animationMove(Caramelo* car, int x_final, int y_final, int step_x,
+				int step_y);
 
 		void moveCaramelo(int x, int y, int xf, int yf);
 

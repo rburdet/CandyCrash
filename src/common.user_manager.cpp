@@ -1,6 +1,7 @@
 #include "common.user_manager.h"
 
 #include <fstream>
+#include <string>
 
 using std::ifstream;
 using std::ofstream;
@@ -9,12 +10,13 @@ UserManager::UserManager(const std::string &path) : path(path) {
 	ifstream ifs(this->path.c_str(), std::ifstream::in);
 	if(ifs.is_open()){
 		Json::Reader reader;
-		std::string str((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
-		reader.parse( str, this->users );
+		std::string str((std::istreambuf_iterator<char>(ifs)), 
+				std::istreambuf_iterator<char>());
+		reader.parse(str, this->users);
 	}
 	ifs.close();
-
 }
+
 UserManager::~UserManager(){}
 
 UserManager* UserManager::me = NULL;

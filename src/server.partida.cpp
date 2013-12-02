@@ -3,6 +3,7 @@
 #include "common.logger.h"
 #include "server.listador.h"
 #include <sstream>
+#include <string>
 #include "common.user_manager.h"
 
 using std::string;
@@ -10,7 +11,8 @@ using Json::Value;
 using Json::StaticString;
 using std::stringstream;
 
-Partida::Partida(ServerInterface* server, int nivel, string& nombre) : server(server), nivel(nivel), nombre(nombre), estado(PARTIDA_ABIERTA), tablero(NULL) {
+Partida::Partida(ServerInterface* server, int nivel, string& nombre) : 
+	server(server), nivel(nivel), nombre(nombre), estado(PARTIDA_ABIERTA), tablero(NULL) {
 	Json::Value val;
 	Listador::getMapa(this->nombre, val);
 	Json::Value::Members keys = val.getMemberNames();
@@ -21,15 +23,13 @@ Partida::Partida(ServerInterface* server, int nivel, string& nombre) : server(se
 	}
 	this->maxUsuarios = this->mapa["max_jugadores"].asInt();
 	this->puntosMax = this->mapa["puntaje_para_ganar"].asInt();
-
 }
 
 Partida::~Partida() {
 	this->server->removePartida(this);
 	this->usuariosLock.lock();
 	for(unsigned int i=0; i < this->usuarios.size(); i++){
-		// Decirles que se bajo la partida
-
+		// TODO: Decirles que se bajo la partida
 	}
 	this->usuariosLock.unlock();
 	this->tableroLock.lock();
@@ -159,7 +159,8 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 		}
 
 		case EVENT_GAME_MOV:{
-			std::cout << "Me llego un evento de movimiento x:" << data["x"].asInt() << " y:" << data["y"].asInt() << std::endl;
+			std::cout << "Me llego un evento de movimiento x:" <<
+				data["x"].asInt() << " y:" << data["y"].asInt() << std::endl;
 			// Me llegan los movimientos, se los tengo qe pasar al tablero
 			this->tableroLock.lock();
 			if(this->estado != PARTIDA_JUGANDO){
@@ -179,8 +180,10 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 				}
 			}
 			this->usuariosLock.unlock();
-			int puntos = this->tablero->movimiento(data["x"].asInt(), data["y"].asInt(), (CaramelosMovimientos) data["mov"].asInt(), movimientos, puntosMax);
-			if(puntos){ // Si el movimiento es de 0 puntos, significa qe fue un movimiento invalido, sino, es valido
+			int puntos = this->tablero->movimiento(data["x"].asInt(), 
+					data["y"].asInt(), (CaramelosMovimientos) data["mov"].asInt()
+					, movimientos, puntosMax);
+			if(puntos){ 
 				Logger::log("puntos");
 				int size = movimientos.size();
 				std::cout << "Movimientos size" << size << std::endl;
@@ -214,9 +217,8 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 					this->estado = PARTIDA_TERMINADA;
 					end_send["user"] = user;
 					end_send["msg"] = "Gano "+user["user"].asString();
-
 					this->broadcastMsj(end_send);
-				}else if(!this->tablero->hayMovimientos()){ // No se pueden hacer mas movimientos?
+				}else if (!this->tablero->hayMovimientos()){ 
 					this->estado = PARTIDA_TERMINADA;
 					end_send["code"] = 1;
 					end_send["msg"] = "Nadie gano";

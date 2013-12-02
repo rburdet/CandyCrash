@@ -14,7 +14,8 @@ using Json::StaticString;
 using std::string;
 using std::stringstream;
 
-ThreadUsuario::ThreadUsuario(ServerInterface* s, SocketIO* fd) : ThreadSocket(fd), server(s), partida(NULL), user("") {}
+ThreadUsuario::ThreadUsuario(ServerInterface* s, SocketIO* fd) : 
+	ThreadSocket(fd), server(s), partida(NULL), user("") {}
 
 ThreadUsuario::~ThreadUsuario(){
 	Logger::log("["+this->myId+"] Cerrando thread");
@@ -25,14 +26,13 @@ ThreadUsuario::~ThreadUsuario(){
 
 void* ThreadUsuario::subRun(){
 	if(!this->welcome()){
-
 		int ret_read;
-		while(!(ret_read = this->read(false)));
+		while(!(ret_read = this->read(false))){}
 
 		if(ret_read == -1){
 			Logger::log("["+this->myId+"] Escuchando evento cifrado");
 
-			while(! this->read());
+			while(! this->read()){}
 		}
 
 		Logger::log("["+this->myId+"] Termino coneccion");
@@ -91,7 +91,8 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 			}
 
 			if(this->write(connect_msje)){
-				Logger::log("["+this->myId+"] Error escribiendo el mensaje de confirmacion de login");
+				Logger::log("["+this->myId+"] Error escribiendo el mensaje de" 
+						"confirmacion de login");
 				return 1;
 			}
 			return ret;
@@ -109,7 +110,8 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 
 			Value userData;
 			UserManager::get(this->user, userData);
-			if(userData.isNull() && this->user != string("") && this->key != string("")){ // No existe usuario, se puede crear
+			if(userData.isNull() && this->user != string("") && 
+					this->key != string("")){ // No existe usuario, se puede crear
 				Value newUser;
 				newUser["user"] = this->user;
 				newUser["pass"] = this->key;
@@ -128,7 +130,8 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 			}
 
 			if(this->write(retMsj)){
-				Logger::log("["+this->myId+"] Error escribiendo el mensaje de confirmacion de login");
+				Logger::log("["+this->myId+"] Error escribiendo el mensaje de "
+						"confirmacion de login");
 				return 1;
 			}
 			return ret;
@@ -238,7 +241,7 @@ int ThreadUsuario::onJoinGame(Json::Value& data, Json::Value& userData){
 
 		PartidaInterface* part = this->server->connectPartidas(id_n);
 
-		if(part){
+		if (part){
 			if(part->getEstado() != PARTIDA_ABIERTA){
 				retMsj["msj"] = "Partida no esta en estado abierta";
 			}else if(part->getUsuarios() >= part->getMaxUsuarios()){

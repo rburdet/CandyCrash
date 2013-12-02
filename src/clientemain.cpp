@@ -2,7 +2,7 @@
 #include "common.logger.h"
 #include "cliente.cliente.h"
 
-int main (int argc , char* argv[]){
+int main(int argc , char* argv[]){
 	Gtk::Main kit(argc,argv);
 	Logger::init();
 	Cliente cliente;

@@ -8,7 +8,7 @@
 
 class Tablero {
 	public:
-		Tablero(std::string path);
+		explicit Tablero(std::string path);
 		~Tablero();
 
 		/** Ejecuta un movimiento.
@@ -18,7 +18,8 @@ class Tablero {
 		 * @param movimientos[out]: JSON, lista de los movimientos que se realizaron.
 		 * @return devuelve la cantidad de puntos que gano el usuario o 0 si no se realizo el movimiento
 		 */
-		int movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& movimientos, int maxPuntos);
+		int movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& 
+				movimientos, int maxPuntos);
 
 		/** Devuelve verdadero si hay movimientos para realizar
 		 */
@@ -56,11 +57,13 @@ class Tablero {
 
 		/** Calcula las nuevas coordenadas dsp del movimiento
 		 */
-		void calcularCoordenadas(int x, int y, CaramelosMovimientos mov, int&xf, int &yf);
+		void calcularCoordenadas(int x, int y, CaramelosMovimientos mov, 
+				int&xf, int &yf);
 
 		/** Efectua accion de intercambio con star.
 		 */
-		int doStar(Caramelos carameloMovido, int x, int y, Caramelos carameloMovido2, int xf, int yf, Json::Value& movimientos);
+		int doStar(Caramelos carameloMovido, int x, int y, Caramelos 
+				carameloMovido2, int xf, int yf, Json::Value& movimientos);
 
 		/** Calcula si las dos fichas son del mismo color.
 		 * @param car: caramelo
@@ -104,7 +107,8 @@ class Tablero {
 		 */
 		void rellenarTablero(Json::Value & movimientos);
 
-		/** Busca si hay patrones y los reemplaza por RELLENAR, sumandole a puntos los puntos ganados.
+		/** Busca si hay patrones y los reemplaza por RELLENAR, sumandole 
+		 * a puntos los puntos ganados.
 		 * Puntos debe estar inicializado previamente en algun valor.
 		 * @param movimientos[out]: movimientos que se realizan
 		 * @param puntos[out]: puntos ganados
@@ -122,16 +126,21 @@ class Tablero {
 		 * @param todosButtons: verdadero si la combinacion es de todos buttons
 		 * @param movimientos[out]: array que contiene los movimientos que se realizaron
 		 * @param puntos[out]: se le suman los puntos que se ganaron por activar
-		 * @param x_mov: posicion x donde se colocara el caramelo especial de tenerse qe generar
-		 * @param y_mov: posicion y donde se colocara el caramelo especial de tenerse que generar
+		 * @param x_mov: posicion x donde se colocara el caramelo especial de tenerse 
+		 * qe generar
+		 * @param y_mov: posicion y donde se colocara el caramelo especial de 
+		 * tenerse que generar
 		 * @return verdadero si se realizo una combinacion
 		 */
-		bool activarCombinacionColumna(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos, int x_mov, int y_mov);
+		bool activarCombinacionColumna(int x, int y, bool todosButtons, 
+				int contador, Json::Value & movimientos, int &puntos, 
+				int x_mov, int y_mov);
 
 		/** Ver la otra declaracion.
 		 * Aca se pasan como x_mov = x ; y_mov = y - contador/2;
 		 */
-		bool activarCombinacionColumna(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos);
+		bool activarCombinacionColumna(int x, int y, bool todosButtons, 
+				int contador, Json::Value & movimientos, int &puntos);
 
 		/** Activa una combinacion de fila encontrada.
 		 * @param x[in]: 
@@ -143,14 +152,17 @@ class Tablero {
 		 * @param y_mov: posicion y donde se colocara el caramelo especial de tenerse que generar
 		 * @return verdadero si se realizo una combinacion
 		 */
-		bool activarCombinacionFila(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos, int x_mov, int y_mov);
+		bool activarCombinacionFila(int x, int y, bool todosButtons, int contador,
+				Json::Value & movimientos, int &puntos, int x_mov, int y_mov);
 
 		/** Ver la otra declaracion.
 		 * Aca se pasan como x_mov = x - contador/2; y_mov = y;
 		 */
-		bool activarCombinacionFila(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos);
+		bool activarCombinacionFila(int x, int y, bool todosButtons, int contador
+				, Json::Value & movimientos, int &puntos);
 
-		/** Metodo usado para cuando se dispara un bar (para efectuar sobre toda la columna)
+		/** Metodo usado para cuando se dispara un bar (para efectuar sobre 
+		 * toda la columna)
 		 * @param x: posicion x de la columna
 		 * @param movimientos[out]: lista de movimientos realizados
 		 * @param puntosx: puntos por cada caramelo sacado

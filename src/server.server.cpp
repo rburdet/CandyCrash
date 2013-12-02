@@ -1,4 +1,5 @@
 #include "server.server.h"
+#include <string>
 #include "common.logger.h"
 #include <sstream>
 #include <unistd.h>
@@ -81,7 +82,8 @@ void Server::listPartidas(int nivel, Json::Value& parts){
 	this->partidasLock.lock();
 	int i = 0;
 	for(unsigned int j=0; j < this->partidas.size(); j++){
-		if(this->partidas[j]->getEstado() == PARTIDA_ABIERTA && this->partidas[j]->getNivel() <= nivel){
+		if(this->partidas[j]->getEstado() == PARTIDA_ABIERTA && 
+				this->partidas[j]->getNivel() <= nivel){
 			//TODO:
 			stringstream ss;
 			ss << (long) this->partidas[j];
@@ -122,6 +124,7 @@ void Server::end(){
 	this->join();
 
 	// Tengo que esperar que se cierren los threads detacheados.
-	// Esto es solo para que el valgrind salga bien, por que al cerrar la aplicacion se liberan los recursos.
+	// Esto es solo para que el valgrind salga bien, por que al cerrar 
+	// la aplicacion se liberan los recursos.
 	sleep(1);
 }

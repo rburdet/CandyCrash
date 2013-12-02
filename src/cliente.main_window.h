@@ -13,7 +13,6 @@
 /** Ventana de Seleccionar y/o crear partida
  */
 class MainWindow : public Window {
-
 	public:
 		MainWindow();
 		virtual ~MainWindow();

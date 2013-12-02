@@ -9,7 +9,8 @@
  * @param [in] msje mensaje
  * @param [out] output firma del mensaje utilizando la clave.
  */
-void hmac_msje(const std::string &key, const std::string &msje, std::string &output );
+void hmac_msje(const std::string &key, const std::string &msje, std::string 
+		&output);
 
 
 #endif

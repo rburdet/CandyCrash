@@ -19,17 +19,21 @@ class Listador{
 		 */
 		static Json::Value listar(){
 			DIR* dir;
-			struct dirent * ent;
+			struct dirent entry;
+			struct dirent * result;
+			int return_code;
 			Json::Value file;
-			if ((dir = opendir(MAPA_PATH)) != NULL ) {
-				while (( ent = readdir(dir)) != NULL){
-					std::string fname = std::string(ent->d_name);
-					if(fname.find(MAPA_EXT) != std::string::npos){
-						std::string fileName(ent->d_name);
-						file[fileName] = getNivel(fileName);
-					}
+			if (( dir = opendir(MAPA_PATH )) != NULL ) {
+				for ( return_code = readdir_r(dir,&entry,&result);
+						result != NULL && return_code == 0;
+						return_code = readdir_r(dir,&entry,&result)){
+						std::string fname = std::string(entry.d_name);
+						if(fname.find(MAPA_EXT) != std::string::npos){
+							std::string fileName(entry.d_name);
+							file[fileName] = getNivel(fileName);
+						}
 				}
-				closedir(dir);
+			closedir(dir);
 			}else{
 				Logger::log(" No se pudo abrir el directorio de mapas! ");
 			}
@@ -56,7 +60,8 @@ class Listador{
 			return nivel;
 		}
 
-		// Devuelve 0 si salio bien, o algun numero si error (ponele qe no exista el mapa)
+		// Devuelve 0 si salio bien, o algun numero si error 
+		// (ponele qe no exista el mapa)
 		static int getMapa(std::string& fileName, Json::Value& mapa){
 			int ret = -1;
 			std::string auxStr = MAPA_PATH + fileName;
@@ -65,7 +70,8 @@ class Listador{
 			if (ifs.is_open()){
 				std::stringstream ss;
 				Json::Reader reader;
-				std::string str((std::istreambuf_iterator<char>(ifs)), std::istreambuf_iterator<char>());
+				std::string str((std::istreambuf_iterator<char>(ifs)), 
+						std::istreambuf_iterator<char>());
 				reader.parse(str, mapa);
 				ret = 0;
 			}

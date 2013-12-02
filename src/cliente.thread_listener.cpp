@@ -10,18 +10,18 @@ using Json::StaticString;
 using std::string;
 using std::endl;
 
-ThreadListener::ThreadListener(ClienteInterface* s, SocketIO* fd) : ThreadSocket(fd), cliente(s) {}
+ThreadListener::ThreadListener(ClienteInterface* s, SocketIO* fd) 
+	: ThreadSocket(fd), cliente(s) {}
 
 ThreadListener::~ThreadListener(){
 	Logger::log("["+this->myId+"] Cerrando thread");
 }
 
 void* ThreadListener::subRun(){
-
 	this->read(false);
 	Logger::log("["+this->myId+"] Escuchando evento cifrado");
 
-	while(! this->read());
+	while(! this->read()){};
 
 	Logger::log("["+this->myId+"] Termino coneccion");
 	Value fakePaquete;

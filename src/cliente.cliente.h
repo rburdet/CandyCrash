@@ -23,15 +23,21 @@ class Cliente : public ClienteInterface {
 		void mostrarVentanaIP();
 
 	private:
-		Json::Value userData; // -> Informacion del usuario conectado
-		Window* ventanaActual; // -> Ventana actual que se esta mostrando
-		ThreadListener *listener; // -> Thread que atiende las lecturas y las carga en la cola de mensajes
-		std::queue<Json::Value> mensajes; // -> Cola de mensajes (todo lo entrante se recibe por aca)
-		Mutex mensajesMutex; // -> Mutex de la cola
-		sigc::connection connTimeout; // -> Timeout (de gtk) para leer la cola
-
+		//Informacion del usuario conectado
+		Json::Value userData; 
+		//Ventana actual que se esta mostrando
+		Window* ventanaActual; 
+		//Thread que atiende las lecturas y las carga en la cola de mensajes
+		ThreadListener *listener; 		
+		// Cola de mensajes (todo lo entrante se recibe por aca)
+		std::queue<Json::Value> mensajes;
+		//Mutex de la cola
+		Mutex mensajesMutex;
+		//Timeout (de gtk) para leer la cola
+		sigc::connection connTimeout; 
 		/** Funcion que se encarga de leer la cola.
-		 * Es ejecutada en el main del gtk como un "timeout", si se devuelve false, se deja de llamar a la funcion.
+		 * Es ejecutada en el main del gtk como un "timeout", si se devuelve false, 
+		 * se deja de llamar a la funcion.
 		 */
 		bool onTimeout();
 
@@ -43,7 +49,8 @@ class Cliente : public ClienteInterface {
 		 */
 		void onLogout(int code, Json::Value& data);
 
-		/** Metodo que se llama al recibir un evento de crear o unirse a partida (desde el servidor).
+		/** Metodo que se llama al recibir un evento de crear o unirse a partida 
+		 * (desde el servidor).
 		 */
 		void onGame(int code, Json::Value& data);
 

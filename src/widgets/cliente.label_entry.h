@@ -2,6 +2,7 @@
 #define __LABEL_ENTRY_H__
 
 #include <gtkmm.h>
+#include <string>
 
 class LabelEntry : public Gtk::HBox {
 	public:
@@ -37,6 +38,7 @@ class LabelEntry : public Gtk::HBox {
 			return this->entry.get_text();
 		}
 		~LabelEntry(){}
+
 	protected:
 		Gtk::Entry entry;
 		Gtk::Label label;

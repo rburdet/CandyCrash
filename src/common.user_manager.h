@@ -5,7 +5,8 @@
 #include <jsoncpp/json/json.h>
 #include "common.mutex.h"
 
-/** Clase estilo singleton encargada del manejo de toda la informacion de los usuarios.
+/** Clase estilo singleton encargada del manejo de toda la informacion de 
+ * los usuarios.
  * Se la debe iniciar con init y destruir con destroy.
  */
 class UserManager {
@@ -29,7 +30,8 @@ class UserManager {
 		 * @param data[out]: informacion del usuario
 		 */
 		static void get(const std::string & user, Json::Value& data);
-		/** Setea y guarda la informacion (recordar que el nombre de usaurio esta dentro de la data.
+		/** Setea y guarda la informacion (recordar que el nombre de usaurio 
+		 * esta dentro de la data.
 		 * @param data[in]: informacion del usuario
 		 */
 		static int set(const Json::Value& data);

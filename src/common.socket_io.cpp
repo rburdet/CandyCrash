@@ -48,8 +48,10 @@ int SocketIO::read(Json::Value &data, const std::string& key, bool check){
 	str = new char[HMAC_LENGTH];
 
 	uint32_t hmac_size;
-	if((hmac_size = (uint32_t) recv(this->fd, (void*) str, HMAC_LENGTH, 0)) != HMAC_LENGTH){
-		//std::cout << "error leyendo HMAC '" << str << "' size " << hmac_size << " HMAC_LENGTH  " << HMAC_LENGTH <<  std::endl;
+	if((hmac_size = (uint32_t) recv(this->fd, (void*) str, HMAC_LENGTH, 0))
+			!= HMAC_LENGTH){
+		//std::cout << "error leyendo HMAC '" << str << "' size " << hmac_size 
+		//<< " HMAC_LENGTH  " << HMAC_LENGTH <<  std::endl;
 		delete[] str;
 		return -1;
 	}

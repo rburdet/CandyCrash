@@ -1,5 +1,6 @@
 #include "common.hmac.h"
 #include "common.md5.h"
+#include <string>
 
 // Tiene que ser 64 para md5
 #define BLOCKSIZE 64

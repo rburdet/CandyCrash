@@ -54,7 +54,8 @@ class Window : public Gtk::Window {
 		}
 
 		bool dialog(const std::string& pri, const std::string& sec){
-			Gtk::MessageDialog dialog(*this, pri, false, Gtk::MESSAGE_QUESTION,Gtk::BUTTONS_OK_CANCEL);
+			Gtk::MessageDialog dialog(*this, pri, false, Gtk::MESSAGE_QUESTION,
+					Gtk::BUTTONS_OK_CANCEL);
 			dialog.set_secondary_text(sec);
 			int opc = dialog.run();
 
@@ -63,7 +64,6 @@ class Window : public Gtk::Window {
 
 			return false;
 		}
-
 };
 
 #endif

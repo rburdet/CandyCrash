@@ -19,7 +19,8 @@ MainWindow::MainWindow(){
 	mainV.pack_start(menubar, Gtk::PACK_SHRINK, 0);
 
 	menubar.signal_quit().connect(sigc::mem_fun(*this, &MainWindow::on_salir));
-	menubar.signal_disconnect().connect(sigc::mem_fun(*this, &MainWindow::on_desconectar));
+	menubar.signal_disconnect().connect(sigc::mem_fun(*this, 
+				&MainWindow::on_desconectar));
 
 	mainV.pack_start(tabBox, true, true, 10);
 	tabBox.pack_start(tabs, true, true, 5);
@@ -38,8 +39,10 @@ MainWindow::MainWindow(){
 	m_VBox_partidas.pack_start(m_ScrolledPartidas, true, true, 0);
 	m_VBox_partidas.pack_start(m_HBox_partidas_buttons, false, false, 10);
 
-	button_partidas_act.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_partidas));
-	button_partidas_con.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::join_partidas));
+	button_partidas_act.signal_clicked().connect(sigc::mem_fun(*this, 
+				&MainWindow::on_partidas));
+	button_partidas_con.signal_clicked().connect(sigc::mem_fun(*this, 
+				&MainWindow::join_partidas));
 
 	stylecontext = button_partidas_act.get_style_context();
 	stylecontext->add_class("btn");
@@ -71,8 +74,10 @@ MainWindow::MainWindow(){
 	m_VBox_mapas.pack_start(m_ScrolledMapas, true, true, 0);
 	m_VBox_mapas.pack_start(m_HBox_mapas_buttons, false, false, 10);
 
-	button_mapas_act.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_mapas));
-	button_mapas_cre.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_crear_partida));
+	button_mapas_act.signal_clicked().connect(sigc::mem_fun(*this, 
+				&MainWindow::on_mapas));
+	button_mapas_cre.signal_clicked().connect(sigc::mem_fun(*this, 
+				&MainWindow::on_crear_partida));
 
 	stylecontext = button_mapas_act.get_style_context();
 	stylecontext->add_class("btn");
@@ -194,7 +199,8 @@ void MainWindow::onListGames(int code, Json::Value& data){
 			max_users = partidas[i]["max_users"].asInt();
 			nombre = partidas[i]["nombre"].asString();
 
-			this->m_TreeView.addRow(nivel, id_n, nombre, users, max_users ? users*100/max_users: 0);
+			this->m_TreeView.addRow(nivel, id_n, nombre, users, 
+					max_users ? users*100/max_users: 0);
 		}
 	}
 }
@@ -212,7 +218,6 @@ void MainWindow::onListMaps(int code, Json::Value& data){
 			this->m_TreeViewMapas.addRow(value, key);
 		}
 	}
-
 }
 
 bool MainWindow::onClose(){
@@ -221,7 +226,6 @@ bool MainWindow::onClose(){
 		this->hide();
 		Gtk::Main::quit();
 	}
-
 	return true;
 }
 
