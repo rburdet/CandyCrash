@@ -3,6 +3,7 @@
 #include <jsoncpp/json/json.h>
 #include <gtkmm.h>
 #include <string>
+#include <vector>
 
 /** Interfaz de ventana para todas las ventanas del cliente.
  */

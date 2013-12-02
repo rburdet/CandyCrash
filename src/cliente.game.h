@@ -5,6 +5,7 @@
 #include <jsoncpp/json/json.h>
 
 #include "cliente.window.h"
+#include "widgets/cliente.menu_bar.h"
 #include "cliente.tablerojuego.h"
 #include "widgets/cliente.usuarios_list.h"
 
@@ -24,8 +25,14 @@ class GameWindow : public Window {
 		void on_start_game();
 		void on_salir_game();
 		void on_tablero_mensaje(Json::Value data);
+		void on_salir();
+		void on_desconectar();
+		virtual bool onClose();
 
+		MenuBarDisconnect menubar;
 		Gtk::VBox m_VBox;
+		Gtk::HBox padBox;
+		Gtk::VBox mainV;
 		Gtk::ScrolledWindow m_ScrolledWindow1;
 		Gtk::TextView m_TextView1;
 		Gtk::HBox m_HBox;

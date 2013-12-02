@@ -11,19 +11,25 @@ using Json::Value;
 
 GameWindow::GameWindow() {
 	this->set_title("Juego");
-	this->set_border_width(5);
 	this->set_size_request(350, 350);
 
 	this->tableroJuego = NULL;
 
-
 	this->add(this->m_VBox);
-	this->m_VBox.pack_start(this->user_list, true, true, 10);
+
+	m_VBox.pack_start(menubar, Gtk::PACK_SHRINK, 0);
+	menubar.signal_quit().connect(sigc::mem_fun(*this, &GameWindow::on_salir));
+	menubar.signal_disconnect().connect(sigc::mem_fun(*this, &GameWindow::on_desconectar));
+
+	m_VBox.pack_start(padBox, true, true, 10);
+	padBox.pack_start(this->mainV, true, true, 5);
+
+	this->mainV.pack_start(this->user_list, true, true, 10);
 	Glib::RefPtr<Gtk::StyleContext> stylecontext = this->user_list.get_style_context();
 	stylecontext->add_class("user_list");
 	stylecontext->context_save();
 
-	this->m_VBox.pack_start(this->m_ScrolledWindow1, true, true, 0);
+	this->mainV.pack_start(this->m_ScrolledWindow1, true, true, 0);
 	this->m_ScrolledWindow1.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
 	this->m_ScrolledWindow1.add(this->m_TextView1);
 	this->m_TextView1.set_wrap_mode(Gtk::WRAP_WORD_CHAR);
@@ -31,7 +37,7 @@ GameWindow::GameWindow() {
 	this->m_refTextBuffer1->set_text("");
 	this->m_TextView1.set_buffer(this->m_refTextBuffer1);
 	this->m_TextView1.set_editable(false);
-	this->m_VBox.pack_start(this->m_HBox, false, false, 0);
+	this->mainV.pack_start(this->m_HBox, false, false, 0);
 	this->m_HBox.pack_start(this->text_input, true, true, 0);
 	this->text_input.signal_activate().connect(sigc::mem_fun(*this, &GameWindow::on_mensaje) );
 	this->m_HBox.pack_start(m_button_send, true, true, 0);
@@ -55,7 +61,7 @@ GameWindow::GameWindow() {
 	stylecontext->add_class("btn");
 	stylecontext->context_save();
 
-	this->m_VBox.pack_start(this->but_hbox, false, false, 10);
+	this->mainV.pack_start(this->but_hbox, false, false, 10);
 	this->but_hbox.pack_start(this->button_start, true, true, 10);
 	this->button_start.set_label("Empezar el juego");
 	this->button_start.signal_clicked().connect(sigc::mem_fun(*this, &GameWindow::on_start_game) );
@@ -76,7 +82,13 @@ GameWindow::GameWindow() {
 	show_all();
 }
 
-GameWindow::~GameWindow(){}
+GameWindow::~GameWindow(){
+	if(tableroJuego){
+		tableroJuego->hide();
+		delete tableroJuego;
+		tableroJuego = NULL;
+	}
+}
 
 void GameWindow::on_mensaje(){
 	string str = this->text_input.get_text();
@@ -216,4 +228,27 @@ void GameWindow::mensaje(Json::Value& data){
 
 void GameWindow::on_tablero_mensaje(Json::Value data){
 	this->m_signal_mensaje.emit(data);
+}
+
+bool GameWindow::onClose(){
+	//TODO: tildes
+	if(this->dialog("Desea Cerrar?", "No podra seguir jugando")){
+		this->hide();
+		Gtk::Main::quit();
+	}
+
+	return true;
+}
+
+void GameWindow::on_salir(){
+	this->onClose();
+}
+
+void GameWindow::on_desconectar(){
+	if(this->dialog("Esta seguro de desconectarse?", "No podra seguir jugando")){
+		Json::Value fake;
+		fake["event"] = EVENT_LOGOUT;
+		fake["msj"] = "";
+		m_signal_mensaje.emit(fake);
+	}
 }

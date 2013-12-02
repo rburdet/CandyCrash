@@ -19,6 +19,7 @@ MainWindow::MainWindow(){
 	mainV.pack_start(menubar, Gtk::PACK_SHRINK, 0);
 
 	menubar.signal_quit().connect(sigc::mem_fun(*this, &MainWindow::on_salir));
+	menubar.signal_disconnect().connect(sigc::mem_fun(*this, &MainWindow::on_desconectar));
 
 	mainV.pack_start(tabBox, true, true, 10);
 	tabBox.pack_start(tabs, true, true, 5);
@@ -226,4 +227,13 @@ bool MainWindow::onClose(){
 
 void MainWindow::on_salir(){
 	this->onClose();
+}
+
+void MainWindow::on_desconectar(){
+	if(this->dialog("Esta seguro de desconectarse?", "No podra seguir jugando")){
+		Json::Value fake;
+		fake["event"] = EVENT_LOGOUT;
+		fake["msj"] = "";
+		m_signal_mensaje.emit(fake);
+	}
 }

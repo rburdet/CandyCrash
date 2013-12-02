@@ -21,6 +21,11 @@ Cliente::Cliente() : ventanaActual(NULL), listener(NULL){
 	Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
 	cssprov->load_from_path("../imagenes/style.css");
 	Gtk::StyleContext::add_provider_for_screen(screen, cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+
+	Glib::RefPtr< Gdk::Pixbuf > icon = Gdk::Pixbuf::create_from_file("../imagenes/star.png");
+	std::vector< Glib::RefPtr< Gdk::Pixbuf > > icon_list;
+	icon_list.push_back(icon);
+	Gtk::Window::set_default_icon_list(icon_list);
 }
 
 void Cliente::mostrarVentanaIP(){
@@ -31,9 +36,6 @@ void Cliente::mostrarVentanaIP(){
 }
 
 void Cliente::conectar(string ip, string user, string pass, bool check){
-	// TODO: check errores
-	std::cout << "Me estoy conectado: '" << ip << "' user:'" << user << "' pass: '" << pass << "'" << std::endl;
-
 	TCPSocketConnect* sd = new TCPSocketConnect;
 	if(sd->connect(ip) != 0){
 		Json::Value val;
@@ -55,7 +57,10 @@ void Cliente::conectar(string ip, string user, string pass, bool check){
 	this->listener->write(sendMsj);
 }
 
-Cliente::~Cliente(){ }
+Cliente::~Cliente(){
+	if(ventanaActual)
+		delete ventanaActual;
+}
 
 void Cliente::nuevoMensaje(Json::Value& msj){
 	this->mensajesMutex.lock();
@@ -86,9 +91,9 @@ bool Cliente::onTimeout(){
 	if(data.get("code", def).isNumeric())
 		code = (CommonEvents) data.get("code", def).asInt();
 
-	Json::StyledWriter writer;
-	string output = writer.write(data);
-	std::cout << output << std::endl;
+	//Json::StyledWriter writer;
+	//string output = writer.write(data);
+	//std::cout << output << std::endl;
 
 	switch(event){
 		case EVENT_LOGIN:
@@ -130,15 +135,10 @@ bool Cliente::onTimeout(){
 }
 
 void Cliente::sendMsj(Json::Value data){
-	//Json::Reader reader;
-	//Json::Value data;
-	//if(!reader.parse(str, data, false)){
-	//	Logger::log("error parseando json");
-	//	return;
-	//}
-	//Json::StyledWriter writer;
-	//string output = writer.write(data);
-	//std::cout << output << std::endl;
+	if(data["event"] == EVENT_LOGOUT){
+		this->onLogout(0, data);
+		return;
+	}
 
 	this->listener->write(data);
 }
@@ -147,10 +147,15 @@ void Cliente::onLogout(int code, Json::Value& data){
 	if(!code)
 		this->listener->shutdown();
 
-	this->listener->join();
-	this->listener = NULL;
-	delete ventanaActual;
-	ventanaActual = NULL;
+	if(this->listener){
+		this->listener->join();
+		this->listener = NULL;
+	}
+	if(ventanaActual){
+		ventanaActual->hide();
+		delete ventanaActual;
+		ventanaActual = NULL;
+	}
 	this->mostrarVentanaIP();
 }
 void Cliente::onLogin(int code, Json::Value& data){
