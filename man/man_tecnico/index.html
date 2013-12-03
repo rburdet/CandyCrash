@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8">
+	<title>Documentación Técnica</title>
+	<link rel="stylesheet" href="estilos.css" />
+</head>
+
+<body>
+
+<header>
+<a href="Grupo 8" target="_blank"><img border="0" src="imagenes/fiuba.png"/></a>
+<a href="Grupo 8" target="_blank" style="float:right;">Grupo 8</a>
+</header>
+
+<span id="version_producto">03/12/2013 18:00:00</span>
+
+<div id="contenedor_general">
+
+<span id="manual_tit">Documentación Técnica</span>
+
+<article>
+<span class="titulo">Contenidos</span>
+<ol>
+
+<li><a href="#Requerimientos_de_software" class="indice_entrada">Requerimientos de software</a></li>
+
+<li><a href="#Descripción_general" class="indice_entrada">Descripción general</a></li>
+
+<li><a href="#Servidor" class="indice_entrada">Servidor</a></li>
+
+<li><a href="#Cliente" class="indice_entrada">Cliente</a></li>
+
+<li><a href="#Editor" class="indice_entrada">Editor</a></li>
+
+<li><a href="#Programas_intermedios_y_de_prueba" class="indice_entrada">Programas intermedios y de prueba</a></li>
+
+<li><a href="#Código_fuente" class="indice_entrada">Código fuente</a></li>
+
+
+</ol>
+</article>
+
+<article id="indice_">
+<img id="indiceico" src="imagenes/indiceico.png" />
+<div id="indice_margen"></div>
+<span class="titulo">Contenidos</span>
+
+	<div id="indice_scroll">
+		<ol>
+			<li><a href="#Requerimientos_de_software" class="indice_entrada">Requerimientos de software</a></li>
+
+			<li><a href="#Descripción_general" class="indice_entrada">Descripción general</a></li>
+
+			<li><a href="#Servidor" class="indice_entrada">Servidor</a></li>
+
+			<li><a href="#Cliente" class="indice_entrada">Cliente</a></li>
+
+			<li><a href="#Editor" class="indice_entrada">Editor</a></li>
+
+			<li><a href="#Programas_intermedios_y_de_prueba" class="indice_entrada">Programas intermedios y de prueba</a></li>
+
+			<li><a href="#Código_fuente" class="indice_entrada">Código fuente</a></li>
+
+
+		<br>
+		<br>
+		<br>
+		</ol>
+
+	</div>
+
+<script>
+	var indices = document.getelementsbyclassname('indice_entrada');
+	for(var i=0, ind; ind=indices[i]; i++){
+		ind.innerhtml = ind.innerhtml.replace(/_/g, ' ');
+	}
+</script>
+</article>
+
+<!-- inicio contenido -->
+
+<article id="Requerimientos_de_software">
+
+<span class="titulo">1. Requerimientos de software</span>
+<p>
+El programa tendria que  ser corrido en cualquier distribución de Linux sin problemas. Especialmente fue probado en:
+<ul>
+	<li> Fedora 19 </li>
+	<li> Ubuntu 13 </li>
+	<li> Arch </li>
+	<li> Debian 7 </li> 
+	<li> Peppermint </li> 
+</ul>
+Sin tener problema alguno en ninguno de ellos. 
+</p>
+<p>
+Dependiendo de la distribución los paquetes necesarios para correr son:
+Comunes a todas las distribuciones:
+<ul>
+	<li><strong> JsonCPP </strong></li>
+</ul>
+
+Fedora / Red Hat / CentOS:
+<ul> 
+	<li> <strong> alsa-lib-devel </strong> Para reproducción de sonidos </li>
+	<li> <strong> gtkmm30-devel.x86_64 </strong> Para compilar gtkmm en sistemas 64 bits</li> 
+	<li> <strong> gtkmm30.x86_64 </strong> Para correr gtkmm en sistemas 64 bits</li>
+	<li> <strong> gtkmm30-devel.i686 </strong>Para compilar gtkmm en sistemas 32 bits</li> 
+	<li> <strong> gtkmm30.i686 </strong> Para correr gtkmm en sistemas 32 bits</li>
+</ul>
+</p>
+
+</article>
+
+
+
+
+
+<article id="Descripción_general">
+
+<span class="titulo">2. Descripción General</span> 
+<p>
+El producto se compone de 3 aplicaciones :
+<ol>
+	<strong>
+		<li> Cliente </li>
+		<li> Servidor </li>
+		<li> Editor </li> 
+	</strong>
+</ol>
+</p>
+<p>El cliente es un juego de puzzle que se le entrega al cliente. Permite conectarse al servidor, crear partidas, y jugar. </p>
+<p>El servidor es una aplicación de consola que acepta conexiones, recibe mensajes y organiza juegos permitiendo el caracter multijugador del producto. </p>
+<p>El editor es una aplicación de desarrollo de niveles, que si bien puede ser entregada al cliente, fue pensada para ser usada por un Game Master, encargado de correr el servidor </p> 
+<p> La diferenciación de código entre cliente/servidor se hace con el prefijo <i>cliente.</i>y <i>server.</i> respectivamente para cada uno de los archivos, aquellos archivos que son utilizados por tanto cliente como servidor contienen el prefijo <i>common.</i> .</p>
+
+</article>
+
+<article id="Servidor">
+<span class="titulo">3. Servidor </span>
+<span> A. Descripción general </span> 
+El servidor es una aplicación de linea de comandos que coordina la operación de los distintos clientes. Esta aplicación se encarga de toda la lógica del juego. Permite a los usuarios registrarse y conectarse, crear partidas, unirse a partidas, chatear entre ellos y por sobre todas las cosas es la que maneja el juego, ya que el cliente sólo sabe qué movimientos se hacen, todo lo demás corre por cuenta de esta aplicación que determinará si el movimiento es válido o no, en caso de serlo, realizará las modificaciones necesarias, computará los valores correspondientes a los combos hechos y reescribirá toda esta información a los distintos clientes en una misma partida para todas las partidas que se estén jugando.
+<span> B. Clases </span> 
+<strong> Logger </strong> 
+<p> Clase encargada de loggear mensajes a los clientes, sigue un patrón de diseño de Singleton </p>
+<br>
+<p> Metodos: 
+<ul>
+	<li> 
+</ul>
+</p>
+<span> C. Diagramas UML </span> 
+<span> D. Descripción de archivos y procolos </span> 
+
+<article id="Cliente">
+<span class="titulo">4. Cliente </span>
+<span> A. Descripción general </span> 
+<p> Aplicación entregada al cliente. Consiste en un juego de puzzle multijugador donde cada jugador debe competir contra otros en tiempo real para demostrar quien de todos es el más apto al momento de hacer combinaciones de colores y fichas. </p>
+<p> Este programa interactúa todo el tiempo con el servidor, enviandole información encriptada, para que este la procese, y responda. La información (en formatos JSon) se encripta utilizando HMAC, se envía al servidor, el cual es, en teoría, el único capaz de descifrarla. </p>
+<p> La información 
+
+<span> B. Clases </span> 
+<span> C. Diagramas UML </span> 
+<span> D. Descripción de archivos y procolos </span> 
+
+
+
+</article>
+
+
+
+<article id="Editor">
+<span class="titulo">5. Editor</span>
+
+<span> A. Descripción general </span> 
+<span> B. Clases </span> 
+<span> C. Diagramas UML </span> 
+<span> D. Descripción de archivos y procolos </span> 
+
+
+<p>
+Al ser 2 integrantes para 3 aplicaciones, la division fue la siguiente: <br>
+<b>Editor</b> <i> Rodrigo Burdet </i> <br>
+<b>Servidor</b> <i> Nicolas Cisco </i> <br>
+<b>Cliente</b> <br>
+<dl>
+	<dt> Efectivizacion del mapa </dt>
+	<dd> Rodrigo Burdet </dd>
+	<dt> Efectos visuales</dt>
+	<dd> Rodrigo Burdet, Nicolas Cisco </dd>
+	<dt> Comunicacion con servidor </dt>
+	<dd> Nicolas Cisco </dd>
+	<dt> Efectos sonoros </dt>
+	<dd> Nicolas Cisco </dd>
+	
+</dl>
+
+</p>
+
+</article>
+<article id="Evoluci&oacute;n_Del_Proyecto">
+<span class="titulo">4. Evoluci&oacute;n del proyecto</span>
+
+
+<p>
+En primera instancia, siendo 3 en el grupo se planteo tener funcionando en 3 semanas cada una de las partes (el 3er integrante iba a ser el encargado del cliente en SDL.</p>
+<p>Al recibir la noticia de que no iba a seguir en la materia, a la 3er semana y sin nada funcionando nos propusimos que en la 5ta semana tanto servidor como editor debian estar listos. </p>
+<p>
+En la 5ta semana el editor estaba terminado y funcionando. El servidor en cambio estaba "terminado" pero sin cliente, es decir, no se sabía como iba a funcionar. </p>
+<p>En la 6ta semana, correspondiente a la preentrega, el estado era el mismo que una semana anterior.</p>
+<p>Fue durante la 7ta semana, el dia lunes 25 de noviembre, que tanto el cliente como el servidor funcionaban casi perfectamente, quedando así sólo la 8va semana para detalles </p>
+
+</article>
+
+<article id="Inconvenientes_Encontrados">
+	<span class="titulo"> 5. Inconvenientes encontrados</span>
+	Algunos de los inconvenientes a resaltar fueron:
+	<ul>
+		<li> La matriz contenedora del tablero fue pensada al revés de como GTK maneja las coordenadas. La propia se manejaba con sus filas y columnas imitando a una matriz matemática. Mientras que GTK trata a <i>GTK::Fixed</i> como un eje cartesiano en el 4to cuadrante. </li>
+		<li> JSon CPP no cuenta con <b>pkg-config</b> lo cual trajo dolores de cabeza a la hora de portarlo.</li>
+		<li>Para el editor se uso <b> Glade </b> el cual, debido a su forma de uso, no permite crear clases herederas de un <i>GTK::Widget</i> por lo que se optó por agregación en vez de herencia. </li>
+		<li>Para las imagenes de fondo toda la documentación hacía referencia a gtkmm 2.4, siendo esta incompatible con la utilizada (gtkmm 3.8), se optó por usar <b>CSS</b> soportado fácilmente por GTK </li>
+		<li> Las imagenes utilizadas al crear un mapa sólo pueden ser cuadradas, siendo esta la mejor opción para no tener problemas de blancos o de pérdida de aspecto </li> 
+	</ul>
+
+
+</article>
+<article id="An&aacute;lisis_De_Puntos_Pendientes">
+<span class="titulo">6. Análisis de puntos pendientes</span>
+<p>
+Algunas cosas que se podrían haber agregado y no fueron realizadas por falta de tiempo y no estaban explicitados en el enunciado:
+<ul> 
+	<li> Los efectos sonoros son por default y no pueden ser cambiados. </li> 
+	<li> El editor no tiene memoria, un archivo generado no puede ser editado mediante el programa si no editando el archivo con algún editor de texto. </li>
+	<li> Las imagenes que se quieran agregar sólo pueden ser cuadradas. No se encontró una solución que mantenga el aspecto, cubra todo el espacio necesario y a la vez no se superponga con otras imágenes (en el caso de las imágenes de las celdas). </li>
+</ul>
+</p>
+<p>
+</p>
+
+</article>
+
+
+<article id="Herramientas">
+<span class="titulo">7. Herramientas</span>
+<p>
+Las herramientas utilizadas para el desarrollo del proyecto fueron :
+<ul> 
+
+		<li><strong> Glade 3</strong> Como editor de interfaz gr&aacute;fica</li>
+		<li><strong> Git </strong> Como controlador de versiones</li> 
+		<li><strong> Doxygen 1.8 </strong> Como generador de documentaci&oacute;n </li> 
+		<li><strong> GDB & Valgrind</strong> Como debugger</li> 
+</ul>
+
+</p>
+
+
+</article>
+<article id="Conclusiones">
+
+
+<span class="titulo">8. Conclusiones</span>
+<p>
+En general el proyecto fue entretenido, con una dificultad normal para aquellas personas sin conocimientos en programación orientada a eventos y tal vez fácil para aquellas personas que sí lo hicieron. No se encontraron mayores complejidades en ningún momento, de ninguna índole, ya sean algorítmicas o humanas, debido tal vez a la buena organización, comunicación y afinidad entre los miembros del grupo. 
+</p>
+<p> Si bien el proyecto no fue siquiera diagramado durante las primeras 2 semanas de haberse propuesto y siendo un integrante menos, pudimos llegar correctamente en tiempo y forma con lo pautado aún cuando algunos de nuestros pares o superiores sugerían que eso no iba a ser posible. </p>
+<p> Como crítica constructiva dejaría de lado el uso de GTK para pasar a frameworks con mayor demanda en el mercado, como pueden ser <b> Qt </b> para el caso Open Source o <b> MFC </b> en caso de Windows. </p>
+<p> Otro punto a destacar es la libertad del enunciado. Durante toda la cursada los enunciados fueron exactos, inequívocos. En este caso, entendiendo que la naturaleza es otra, suponemos que  sería correcto limitar el libre albedrío, ya sea en cuanto a los requerimientos del sistema como a las herramientas que van a ser soportadas (con su respectiva versión) y cuales no.
+
+</article>
+
+<article id="Repositorio">
+
+<span class="titulo">Repositorio</span>
+<ul style="list-style-type: none;">
+<li> <a href= https://github.com/rburdet/CandyCrash>https://github.com/rburdet/CandyCra</a></li>
+</ul>
+</article>
+
+
+<!-- fin de contenido -->
+
+</div><!-- cierre contenedor_general -->
+
+</body>
+</html>
