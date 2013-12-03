@@ -21,6 +21,9 @@ MainWindow::MainWindow(){
 	menubar.signal_quit().connect(sigc::mem_fun(*this, &MainWindow::on_salir));
 	menubar.signal_disconnect().connect(sigc::mem_fun(*this, 
 				&MainWindow::on_desconectar));
+	menubar.signal_help().connect(sigc::mem_fun(*this,&MainWindow::on_help));
+	menubar.signal_about().connect(sigc::mem_fun(*this,&Window::on_about));
+
 
 	mainV.pack_start(tabBox, true, true, 10);
 	tabBox.pack_start(tabs, true, true, 5);
@@ -239,4 +242,25 @@ void MainWindow::on_desconectar(){
 		fake["msj"] = "";
 		m_signal_mensaje.emit(fake);
 	}
+}
+
+void MainWindow::on_help(){
+	Gtk::MessageDialog dialog(*this, "Ayuda");
+	dialog.set_secondary_text("Ud puede: \n"
+			" \t Empezar una nueva partida (1) .\n"
+			" \t Unirse a una partida ya existente (2) .\n" 
+			" \n\n\n " 
+			" (1)    En la pestana \"Crear Partida\" presione actualizar. "
+			"Esta accion listara todos los mapas disponibles con su respectivo"
+			"nivel. Ud podra elegir solo aquellos mapas que sean de un nivel "
+			"igual o inferior al suyo. Una vez seleccionado, pulse "
+			"\" Crear Partida \" ."
+			" \n"
+			" (2)    En la pestana \" Partidas \" presione \"Actualizar\". "
+			"Esta accion listara todas las partidas creadas, indicando cuan "
+			"llena esta la partida, nivel y nombre del mapa a jugar."
+			" Seleccione una y presione \"Conectar\" "
+			"Recuerde que Ud podra elegir solo aquellas partidas que sean de"
+			"un nivel igual o inferior al suyo");
+	dialog.run();
 }

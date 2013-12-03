@@ -44,6 +44,9 @@ class GameWindow : public Window {
 		Gtk::Button button_start;
 		Gtk::Button button_salir;
 		TableroJuego* tableroJuego;
+
+	private:
+		void on_help();
 };
 
 #endif

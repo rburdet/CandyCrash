@@ -49,6 +49,7 @@ class Ipwindow : public Window {
 
 	private:
 		void on_salir();
+		void on_help();
 };
 
 #endif 

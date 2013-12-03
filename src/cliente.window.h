@@ -26,6 +26,16 @@ class Window : public Gtk::Window {
 			return m_signal_mensaje;
 		}
 
+		void on_about(){
+			Gtk::MessageDialog dialog(*this, "Candy Crush");
+			std::string aux = "Version 1.0\n\n\n\n"
+				" Autores: \n"
+				" \t Rodrigo Burdet \t \n"
+				" \t Nicolas Cisco \t "; 
+			dialog.set_secondary_text(aux);
+			dialog.run();
+		}
+
 	protected:
 		type_signal_mensaje m_signal_mensaje;
 

@@ -21,6 +21,8 @@ GameWindow::GameWindow() {
 	menubar.signal_quit().connect(sigc::mem_fun(*this, &GameWindow::on_salir));
 	menubar.signal_disconnect().connect(sigc::mem_fun(*this, 
 				&GameWindow::on_desconectar));
+	menubar.signal_help().connect(sigc::mem_fun(*this,&GameWindow::on_help));
+	menubar.signal_about().connect(sigc::mem_fun(*this,&Window::on_about));
 
 	m_VBox.pack_start(padBox, true, true, 10);
 	padBox.pack_start(this->mainV, true, true, 5);
@@ -261,4 +263,19 @@ void GameWindow::on_desconectar(){
 		fake["msj"] = "";
 		m_signal_mensaje.emit(fake);
 	}
+}
+
+void GameWindow::on_help(){
+	Gtk::MessageDialog dialog(*this, "Ayuda");
+	dialog.set_secondary_text("En esta instancia Ud ya esta conectado y"
+			"esperando que empiece la partida. \n"
+		"Aqui puede chatear con los demas jugadores conectado a esta misma "
+		"partida, en ningun caso Ud podra ver la identidad de quien escribe.\n"
+		"Solo el creador de la partida puede dar comienzo a la misma mediante"
+		" el boton de \" Empezar el juego \" .\n "
+		"En caso de querer abandonar la partida presione "
+		"\"Salir de la partida\".\n\n"
+		"Aclaracion: Si el creador de la partida abandona la partida, cualquiera"
+		" de los jugadores puede dar comienzo.");
+		dialog.run();
 }

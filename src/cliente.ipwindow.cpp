@@ -14,6 +14,8 @@ Ipwindow::Ipwindow()
 	m_VBox.pack_start(menubar, Gtk::PACK_SHRINK, 0);
 
 	menubar.signal_quit().connect(sigc::mem_fun(*this, &Ipwindow::on_salir));
+	menubar.signal_help().connect(sigc::mem_fun(*this,&Ipwindow::on_help));
+	menubar.signal_about().connect(sigc::mem_fun(*this,&Window::on_about));
 
 	m_Button_conectar.override_color(Gdk::RGBA("cornsilk"),Gtk::STATE_FLAG_NORMAL);
 	add(m_VBox);
@@ -21,7 +23,7 @@ Ipwindow::Ipwindow()
 	m_VBox.pack_start(img, true, false, 0);
 
 	m_VBox.pack_start(m_host, true, false, 0);
-	m_host.set_label(string("Host"));
+	m_host.set_label(string("Ip:Puerto"));
 
 	m_host.set_text(string("localhost:9000"));
 
@@ -99,4 +101,24 @@ bool Ipwindow::onClose(){
 
 void Ipwindow::on_salir(){
 	this->onClose();
+}
+
+void Ipwindow::on_help(){
+	Gtk::MessageDialog dialog(*this, "Ayuda");
+	dialog.set_secondary_text("Para conectarse Ud tener tener una cuenta.\n"
+			"Si ya esta registrado asegurese de que el boton "
+			"\"Active para registrarse\" este desactivado. Luego coloque el "
+			"ip:puerto al que quiera conectarse en el casillero \"Ip:Puerto\","
+			"por ejemplo 127.0.0.1:9000 .\n"
+			"Luego coloque su nombre de usuario y su contrasena en los campos"
+			" \"Usuario\" y \"Password\" respectivamente. \n"
+			"Luego presione \"Conectar\" \n"
+			"\n\n\n"
+			"Si ud no tiene una cuenta, active el boton \"Active para regisrarse\""
+			"ingrese el nombre de usuario deseado y luego la contrasena que "
+			"usara para conectarse cada vez que entre al juego en los campos"
+			"\"Usuario\" y \"Password\" respectivamente.\n"
+			"Luego, desactivelo y procesa a conectarse con el usuario recientemente"
+			"creado\n\n");
+	dialog.run();
 }

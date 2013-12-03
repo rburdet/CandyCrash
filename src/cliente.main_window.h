@@ -60,6 +60,7 @@ class MainWindow : public Window {
 	private:
 		void on_salir();
 		void on_desconectar();
+		void on_help();
 };
 
 #endif 
