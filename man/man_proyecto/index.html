@@ -178,6 +178,7 @@ Algunas cosas que se podrían haber agregado y no fueron realizadas por falta de
 <ul> 
 	<li> Los efectos sonoros son por default y no pueden ser cambiados. </li> 
 	<li> El editor no tiene memoria, un archivo generado no puede ser editado mediante el programa si no editando el archivo con algún editor de texto. </li>
+	<li> En el editor, cuando se baja la cantidad de filas o columnas, desaparece todo el tablero. Esto se hizo asi para asegurarse de que todo lo que se agregaba era eliminado. Gtkmm no cuenta con metodos para eliminar widgets, y una vez agregado un widget al fixed este solo se puede obtener haciendo un get_children, el cual devuelve una lista de Widgets, haciendo mas dificil la distincion de que widgets fueron agregadas.</li>
 	<li> Las imagenes que se quieran agregar sólo pueden ser cuadradas. No se encontró una solución que mantenga el aspecto, cubra todo el espacio necesario y a la vez no se superponga con otras imágenes (en el caso de las imágenes de las celdas). </li>
 </ul>
 </p>
