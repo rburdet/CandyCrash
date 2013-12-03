@@ -20,5 +20,4 @@ ProbColumnas::ProbColumnas(Tablero* tablero ,Glib::RefPtr<Gtk::Builder>&
 }
 
 ProbColumnas::~ProbColumnas(){
-	delete fileChooser;
 }
