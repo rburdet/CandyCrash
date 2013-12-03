@@ -34,6 +34,8 @@
 
 <li><a href="#Editor" class="indice_entrada">Editor</a></li>
 
+<li><a href="#Comunes" class="indice_entrada">Comunes</a></li>
+
 <li><a href="#Programas_intermedios_y_de_prueba" class="indice_entrada">Programas intermedios y de prueba</a></li>
 
 <li><a href="#Código_fuente" class="indice_entrada">Código fuente</a></li>
@@ -58,6 +60,8 @@
 			<li><a href="#Cliente" class="indice_entrada">Cliente</a></li>
 
 			<li><a href="#Editor" class="indice_entrada">Editor</a></li>
+
+			<li><a href="#Comunes" class="indice_entrada">Comunes</a></li>
 
 			<li><a href="#Programas_intermedios_y_de_prueba" class="indice_entrada">Programas intermedios y de prueba</a></li>
 
@@ -115,9 +119,6 @@ Fedora / Red Hat / CentOS:
 </article>
 
 
-
-
-
 <article id="Descripción_general">
 
 <span class="titulo">2. Descripción General</span> 
@@ -138,20 +139,138 @@ El producto se compone de 3 aplicaciones :
 
 </article>
 
+
+
 <article id="Servidor">
 <span class="titulo">3. Servidor </span>
 <span> A. Descripción general </span> 
 El servidor es una aplicación de linea de comandos que coordina la operación de los distintos clientes. Esta aplicación se encarga de toda la lógica del juego. Permite a los usuarios registrarse y conectarse, crear partidas, unirse a partidas, chatear entre ellos y por sobre todas las cosas es la que maneja el juego, ya que el cliente sólo sabe qué movimientos se hacen, todo lo demás corre por cuenta de esta aplicación que determinará si el movimiento es válido o no, en caso de serlo, realizará las modificaciones necesarias, computará los valores correspondientes a los combos hechos y reescribirá toda esta información a los distintos clientes en una misma partida para todas las partidas que se estén jugando.
 <span> B. Clases </span> 
-<strong> Logger </strong> 
-<p> Clase encargada de loggear mensajes a los clientes, sigue un patrón de diseño de Singleton </p>
-<br>
-<p> Metodos: 
+
+<strong> Server </strong>
+<p> Clase manejadora de conexiones, clientes y partidas. Implementa la interface <strong> ServerInterface </strong> </p>
+<p> Métodos:
 <ul>
-	<li> 
+		<li><strong>void removeClient(ThreadSocket* cli); </strong></li>
+		<li><strong>PartidaInterface* newPartida(int nivel, std::string& nombre);</strong></li>
+		<li><strong>void removePartida(PartidaInterface* p);</strong> Remueve partida de la lista</li>
+		<li><strong>virtual void listPartidas(int nivel, Json::Value& parts);</strong> Devuelve un JSON con las partidas de nivel menor o igual al especificado.</li>
+		<li><strong>virtual PartidaInterface* connectPartidas(long id);</strong></li>
+		<li><strong>void end();	</strong></li>
+	</ul>
+</p>
+
+<br>
+<strong> Partida </strong>
+<p> Clase que representa una partida. Implementa la interface <strong> PartidaInterface</strong> </p>
+<p> Métodos:
+<ul>
+		<li><strong>void broadcastMsj(Json::Value& msj);</strong> Envia msj a todos los usuarios de la partida</li>
+		<li><strong>void msjError(ThreadSocket* u, const char* msj);</strong> Envia un mensaje a u, (EVENT_GAME_MSG).</li>
+		<li><strong>void msjError(ThreadSocket* u, const std::string& msj);</strong></li>
+		<li><strong>Partida(ServerInterface* server, int nivel, std::string& nombre);</strong> Creador de la partida.</li>
+		<li><strong>void addUsuario(ThreadSocket* u, Json::Value& user);</strong> Agre
+		<li><strong>void rmUsuario(ThreadSocket* u);</strong>Borra un usuario de la partida</li>
+</ul>
+		 Metodos que devuelven informacion acerca de la partida
+<ul>
+	<li><strong>	int getNivel();</strong></li>
+	<li><strong>	int getUsuarios();</strong></li>
+	<li><strong>	int getMaxUsuarios();</strong></li>
+	<li><strong>	PartidaEstado getEstado();</strong></li>
+	<li><strong>std::string getNombre();</strong></li>
+	<li><strong>virtual int mensaje(Json::Value& m, ThreadSocket* u); </strong>Metodo usado para mandarle mensajes a la partida.</li>
+</ul>
+
+</p>
+
+<strong> Listador </strong>
+<p> Clase encargada de obtener los niveles creados con su respectivo numero de  nivel </p>
+<p> Métodos:
+<ul>
+
+		<li><strong>static Json::Value listar(); </strong>Devuelve un objeto (hash) con: { nombre de archivo : nivel del mapa, }</li>
+		<li><strong>static int getNivel(std::string& fileName); </strong></li>
+		<li><strong>static int getMapa(std::string& fileName, Json::Value& mapa); </strong></li>
+	</ul>
+</p>
+
+<br>
+
+<strong> TCPSocketListener </strong> 
+<p> Clase heredera de TCPSocket encargada de recibir informacion de los clientes. </p>
+<p> Métodos:
+Los siguientes metodos escuchan a una nueva conexion
+<ul>
+	<li><strong>int listen(const int port);</strong></li>
+	<li><strong>int listen(const int port, const std::string& ip);</strong></li>
+	<li><strong>int listen(struct sockaddr_in & serv_addr);</strong></li>
+</ul>
+<ul>
+	<li><strong>SocketIO* accept(); </strong> Acepta una nueva conexion, devuelve un file descriptor. Bloqueante </li>
+	<li><strong>TCPSocketListener& setBacklog(const unsigned int backlog); </strong>Setea el backLog</li>
 </ul>
 </p>
+<br>
+
+<strong> ThreadUsuario </strong> 
+<p> Clase heredera de ThreadSocket encargada de comunicar a cada usuario conectado. </p>
+<p> Métodos para comunicarse con los clientes:
+<ul>
+	<li><strong>virtual int eventNoFirmado(Json::Value& data); </strong></li>
+	<li><strong>virtual int eventFirmado(Json::Value& data);</strong></li>
+	<li><strong>virtual void* subRun();</strong></li>
+	<li><strong>int onJoinGame(Json::Value& data, Json::Value& userData);</strong></li>
+	<li><strong>int onLeaveGame(Json::Value& data, Json::Value& userData);</strong></li>
+	<li><strong>int onNewGame(Json::Value& data, Json::Value& userData);</strong></li>
+	<li><strong>int onGetMaps(Json::Value& data, Json::Value& userData);</strong></li>
+	<li><strong>int welcome();</strong></li>
+</ul>
+</p>
+<br>
+
+<strong> Tablero </strong> <p> Clase encargada de la logica del tablero </p> 
+<p> Métodos:
+<ul>
+	<li><strong>void generar(); </strong> Genera el tablero a enviar a los jugadores </li>
+	<li><strong> efectivizarCelda(Json::Value& celda);</strong> Pasa de las probabilidades a un caramelo en concreto</li>
+	<li><strong>int movimiento(int x, int y, CaramelosMovimientos mov, Json::Value& movimientos, int maxPuntos);</strong> Ejecuta un movimiento. </li>
+	<li><strong>bool hayMovimiento(int x, int y, Caramelos car);</strong> Devuelve verdadero si hay movimientos para realizar</li>
+	<li><strong>void calcularCoordenadas(int x, int y, CaramelosMovimientos mov, int&xf, int &yf); </strong>Calcula las nuevas coordenadas dsp del movimiento </li>
+	<li><strong>int doStar(Caramelos carameloMovido, int x, int y, Caramelos carameloMovido2, int xf, int yf, Json::Value& movimientos); </strong>Efectua accion de intercambio con star. </li>
+
+	<li><strong>bool esMismoColor(Caramelos car, Caramelos car2);</strong></li>
+	<li><strong>Json::Value newMov(int x, int y, CaramelosMovimientos mov);</strong>Crea la estructura de un movimiento para ser enviado.</li>
+	<li><strong>Json::Value newMov(int x, int y, CaramelosMovimientos mov, Caramelos car);</strong></li>
+
+	<li><strong>CaramelosMovimientos movInverso(CaramelosMovimientos mov);</strong>Invierte el movimiento pasado.</li>
+	<li><strong>void rellenarTablero(Json::Value & movimientos);</strong>Rellena los casilleros vacios (RELLENAR), haciendo la caida de los caramelos de mas arriba</li>
+	<li><strong>bool hayPatrones(Json::Value & movimientos, int & puntos);</strong>Busca si hay patrones y los reemplaza por RELLENAR, sumandole a puntos los puntos ganados. </li>
+	<li><strong>bool esButton(Caramelos car);</strong></li>
+</ul>
+Metodos para activar combinaciones:
+<ul>
+	<li><strong>bool activarCombinacionColumna(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos,int x_mov, int y_mov); </strong></li>
+	<li><strong>bool activarCombinacionColumna(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos);</strong></li>
+	<li><strong>bool activarCombinacionFila(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos, int x_mov, int y_mov);</strong></li>
+	<li><strong>bool activarCombinacionFila(int x, int y, bool todosButtons, int contador, Json::Value & movimientos, int &puntos);</strong></li>
+	<li><strong>void dispararColumna(int x, Json::Value& movimientos, int puntosx, int& puntos);</strong></li>
+	<li><strong>void dispararFila(int y, Json::Value& movimientos, int puntosx, int& puntos);</strong></li>
+	<li><strong>int doCombinacion(Caramelos car, int x, int y, Json::Value& movimientos);</strong></li>
+</ul>
+<ul>
+	<li><strong>Caramelos verBarColor(Caramelos car);</strong></li>
+	<li><strong>Caramelos horBarColor(Caramelos car);</strong></li>
+	<li><strong>Json::Value getTablero();</strong></li>	
+	<li><strong>bool movimientoValido(int x, int y, CaramelosMovimientos mov);</strong></li>
+</ul>
+</p>
+<br>
+
+
+
 <span> C. Diagramas UML </span> 
+Los diagramas se adjuntaran por separado ya que fueron generados por Doxygen.
 <span> D. Descripción de archivos y procolos </span> 
 
 <article id="Cliente">
@@ -159,17 +278,164 @@ El servidor es una aplicación de linea de comandos que coordina la operación d
 <span> A. Descripción general </span> 
 <p> Aplicación entregada al cliente. Consiste en un juego de puzzle multijugador donde cada jugador debe competir contra otros en tiempo real para demostrar quien de todos es el más apto al momento de hacer combinaciones de colores y fichas. </p>
 <p> Este programa interactúa todo el tiempo con el servidor, enviandole información encriptada, para que este la procese, y responda. La información (en formatos JSon) se encripta utilizando HMAC, se envía al servidor, el cual es, en teoría, el único capaz de descifrarla. </p>
-<p> La información 
 
 <span> B. Clases </span> 
+
+<strong> Caramelo </strong>
+<p> Clase abstracta de la que heredan todos los distintos tipos de caramelos </p>
+<p> Métodos:
+<ul>
+	<li><strong>Caramelo (int idCaramelo, const std::string &imageName, int i, int j) </strong></li>
+	<li><strong>bool mover (int x, int y) </strong></li>
+	<li><strong>bool mover ()</strong></li>
+	<li><strong>bool setMoviendo (bool moviendo, int x, int y)</strong></li>
+	<li><strong>bool setMoviendo (bool moviendo)</strong></li>
+	<li><strong>int getId ()</strong></li>
+	<li><strong>void opacar ()</strong></li>
+	<li><strong>bool visible ()</strong></li>
+	<li><strong>bool fullyVisible ()</strong></li>
+	<li><strong>void hacerAparecer ()</strong></li>
+	<li><strong>int getX ()</strong></li>
+	<li><strong>int	getXPos ()</strong></li>
+	<li><strong>int getY ()</strong></li>
+	<li><strong>int getYPos ()</strong></li>
+	<li><strong>void setX (int x)</strong> Pone la posicion en X </li>
+	<li><strong>void setXPos (int x)</strong> Pone la posicion en X en el tablero</li>
+	<li><strong>void setY (int y)</strong> Pone la posicion en Y</li>
+	<li><strong>void setYPos (int y)</strong> Pone la posicion en Y en el tablero</li>
+</ul>
+</p>
+<br>
+
+Tanto <strong> Bar </strong> como <strong> Button </strong> y <strong> Star </strong> heredan de caramelo con sus mismos metodos pero distintas propiedades.
+<br>
+
+<strong> Cliente </strong>
+<p> Clase que modela a un cliente. Implementa la interfaz <strong> ClienteInterface </strong>  </p>
+<p> Métodos:
+<ul>
+	<li><strong>bool onTimeout(); </strong></li>
+	<li><strong>void onLogin(int code, Json::Value& data); </strong></li>
+	<li><strong>void onLogout(int code, Json::Value& data);</strong></li>
+	<li><strong>void onGame(int code, Json::Value& data);</strong></li>
+	<li><strong>void conectar(std::string ip, std::string user, std::string pass, bool check);</strong></li>
+	<li><strong>void sendMsj(Json::Value data);</strong></li>
+	<li><strong>virtual void nuevoMensaje(Json::Value& msj);</strong></li>
+</ul>
+</p>
+<br>
+
+<strong> CandyFactory </strong>
+<p> Clase constructora de caramelos. Implementa el patron de diseno de Factory</p>
+<p> Método:
+<ul>
+	<li><strong>static Caramelo* crearCaramelo(int id,int i,int j)</strong> Devuelve un caramelo con su informacion lista</li>
+</ul>
+</p>
+<br>
+
+<strong> Window </strong>
+<p> Clase abstracta de la que heredan todas las ventanas del cliente</p>
+<p> Métodos:
+<ul>
+	<li><strong>bool dialog(const std::string& pri, const std::string& sec)</strong></li>
+	<li><strong>bool dialog(const char* pri, const char* sec)</strong></li>
+	<li><strong>void set_background_image(std::string path)</strong></li>
+	<li><strong>virtual bool onClose()</strong> Despliega una ventana de confirmacion al cerrar</li>
+	<li><strong>void on_about()</strong> Despliga informacion de la aplicacion</li>
+	<li><strong>void on_desconectar();</strong> Despliega ventana de confirmacion de desconexion, tambien desconecta</li>
+	<li><strong>virtual bool onClose();</strong> Cierra la ventana</li>
+	<li><strong>virtual void mensaje(Json::Value& data)</strong> Mensaje que manda cada ventana</li>
+</ul>
+</p>
+<br>
+
+
+<strong> GameWindow </strong>
+<p> Ventana previa al juego. Hereda de Window</p>
+<p> Métodos:
+<ul>
+	<li><strong>void on_mensaje();</strong></li>
+		<li><strong>void on_start_game();</strong></li>
+		<li><strong>void on_salir_game();</strong></li>
+		<li><strong>void on_tablero_mensaje(Json::Value data);</strong></li>
+		<li><strong>void on_salir();</strong></li>
+		<li><strong>void on_desconectar();</strong></li>
+		<li><strong>virtual bool onClose();</strong></li>
+</ul>
+</p>
+<br>
+
+<strong> MainWindow </strong>
+<p> Ventana de creacion o eleccion de partidas, segunda en el orden de aparicion. Hereda de Window</p>
+<p> Métodos:
+<ul>
+		<li><strong>void on_partidas(); </strong>  Handler del actualizador de la lista de partidas</li>
+		<li><strong>void join_partidas(); </strong> Se una a una partida</li>
+		<li><strong>void on_mapas();</strong>Actualizador de lista de mapas </li>
+		<li><strong>void on_crear_partida();</strong>Crea partida</li>
+</ul>
+</p>
+<br>
+
+<strong> IpWindow </strong>
+<p> Primera Ventana del juego. Hereda de Window</p>
+<p> Métodos:
+<ul>
+	<li><strong>void on_mensaje();</strong></li>
+		<li><strong>void on_start_game();</strong></li>
+		<li><strong>void on_salir_game();</strong></li>
+		<li><strong>void on_tablero_mensaje(Json::Value data);</strong></li>
+		<li><strong>void on_salir();</strong></li>
+		<li><strong>void on_desconectar();</strong></li>
+		<li><strong>virtual bool onClose();</strong></li>
+</ul>
+</p>
+<br>
+
+
+<strong> TCPSocketConnect </strong>
+<p> Clase encapsulante de sockets. Hereda de TCPSocket y SocketIO</p>
+<p> Métodos para conectarse:
+<ul>
+	<li><strong>int connect(const std::string& ip);</strong></li>
+	<li><strong>int connect(const int port, const std::string& ip);</strong></li>
+	<li><strong>int connect(struct sockaddr_in & serv_addr);</strong></li>
+</p>
+<br>
+
+<strong> ThreadListener </strong>
+<p>Thread que se encarga de leer constantemente al socket. De recibir algun mensaje lo agrega a la cola de mensajes del cliente. Hereda de ThreadSocket</p>
+<p> Métodos para conectarse:
+<ul>
+		<li><strong>virtual int eventNoFirmado(Json::Value& data);</strong></li>
+		<li><strong>virtual int eventFirmado(Json::Value& data);</strong></li>
+		<li><strong>virtual void* subRun();</strong></li>
+		<li><strong>void setKey(std::string&key);</strong> Setea la clave usada para la firma digital de los paquetes </li>
+</ul>
+</p>
+<br>
+
+
+
+<strong> SoundPlayer </strong>
+<p> Clase para reproducir sonidos</p>
+<p> Métodos utilizados para reproducir:
+<ul>
+		<li><strong>static bool play_wave(const std::string& str);</strong></li>
+		<li><strong>void thread_play(int fd, int sample_rate, int seconds);</strong></li>
+		<li><strong>static void* wav_runner(void* arg);</strong></li>
+		<li><strong>static bool play(const std::string& str);</strong></li>
+		<li><strong>static bool play(const char* str);</strong></li>
+</ul>
+</p>
+<br>
+
 <span> C. Diagramas UML </span> 
+Los diagramas se adjuntaran por separado ya que fueron generados por Doxygen.
 <span> D. Descripción de archivos y procolos </span> 
 
-
-
 </article>
-
-
 
 <article id="Editor">
 <span class="titulo">5. Editor</span>
@@ -177,12 +443,72 @@ El servidor es una aplicación de linea de comandos que coordina la operación d
 <span> A. Descripción general </span> 
 <span> B. Clases </span> 
 <span> C. Diagramas UML </span> 
+Los diagramas se adjuntaran por separado ya que fueron generados por Doxygen.
+
 <span> D. Descripción de archivos y procolos </span> 
+<p> Cuando un mapa se genera lo hace con la extension .map . Estos mapas estan en formato Json y tienen la siguiente forma (no se explicita todo el mapa para mayor prolijidad):
+{<br>
+	"nombre_de_mapa" : <br>
+	{<br>
+		"DIM" : <br>
+		{<br>
+			"X" : numero_filas,<br>
+			"Y" : numero_columnas<br>
+		},<br>
+		"celdas" : <br>
+		{<br>
+			"0" : <br>
+			{<br>
+				"0" : <br>
+				{<br>
+					"fondo" : "",<br>
+					"probabilidades" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]<br>
+				},<br>
+				"numero_filas" : <br>
+				{<br>
+					"fondo" : "",<br>
+					"probabilidades" : [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]<br>
+				},<br>
+			"numero_columnas" :<br>
+			{<br>
+				"0" : ....<br>
+			},<br>
+		},<br>
+		"columnas" : <br>
+		{<br>
+			"0" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],<br>
+			"numero_columnas" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]<br>
+		},<br>
+		"fondo" : "../imagenes/fondo.jpg",<br>
+		"max_jugadores" : 3,<br>
+		"nivel" : 2,<br>
+		"puntaje_para_ganar" : 10000<br>
+	}<br>
+}<br>
 
+<article id="Comunes">
+<span class="titulo">6. Comunes </span>
+<p> A continuacion se detallan los archivos comunes utilizados tanto por cliente como por servidor:
+<ul>
+	<li><strong>common.caramelos.h</strong></li>
+	<li><strong>common.caramelos_movimientos.h	</strong></li>
+	<li><strong>common.events.h	</strong></li>
+	<li><strong>common.hmac.h	</strong></li>
+	<li><strong>common.logger.h	</strong></li>
+	<li><strong>common.md5.h	</strong></li>
+	<li><strong>common.mutex.h	</strong></li>
+	<li><strong>common.socket.h	</strong></li>
+	<li><strong>common.socket_io.h	</strong></li>
+	<li><strong>common.thread.h	</strong></li>
+	<li><strong>common.thread_socket.h	</strong></li>
+	<li><strong>common.user_manager.h</strong></li>
+</ul>
+<br> 
+Todas sus declaraciones pueden ser vistas en el archivo generado por Doxygen 
+</p>
 
-<p>
-Al ser 2 integrantes para 3 aplicaciones, la division fue la siguiente: <br>
 <b>Editor</b> <i> Rodrigo Burdet </i> <br>
+
 <b>Servidor</b> <i> Nicolas Cisco </i> <br>
 <b>Cliente</b> <br>
 <dl>
