@@ -18,3 +18,7 @@ ProbColumnas::ProbColumnas(Tablero* tablero ,Glib::RefPtr<Gtk::Builder>&
 					,spinbuttons[i-FIRSTBUTTON],i-FIRSTBUTTON));
 	}
 }
+
+ProbColumnas::~ProbColumnas(){
+	delete fileChooser;
+}

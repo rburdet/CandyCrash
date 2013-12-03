@@ -9,6 +9,7 @@
 class Menu{
 	public:
 		explicit Menu(Glib::RefPtr<Gtk::Builder>& builder);
+		~Menu();
 
 	private:
 		Gtk::Window* window;

@@ -15,6 +15,7 @@ class ProbCeldas : public Probs{
 		 * y se conectan los spinbuttons.
 		 */
 		ProbCeldas(Tablero* tablero,Glib::RefPtr<Gtk::Builder>& builder);
+		~ProbCeldas();
 
 	private:
 		Gtk::FileChooser* fileChooser;

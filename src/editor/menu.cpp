@@ -59,3 +59,9 @@ void Menu::displayAbout(){
 	delete window;
 }
 
+Menu::~Menu(){
+	delete window;
+	delete menubar;
+	delete about;
+	delete help;
+}

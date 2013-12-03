@@ -7,6 +7,7 @@
 class ProbColumnas : public Probs{
 	public:
 		ProbColumnas(Tablero* tablero,Glib::RefPtr<Gtk::Builder>& builder);
+		~ProbColumnas();
 
 	private:
 		Gtk::FileChooser* fileChooser;

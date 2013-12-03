@@ -135,6 +135,7 @@ class Tablero{
 		//Borra la cantidad de filas o columnas (lo que indique el segundo 
 		//parametro) y todo el contenido que en ellas se contenia
 		void borrarSeps(int cantidad,int FilaOColumna);
+		void borrarTodo();
 		void alargarFilas(int Y);
 		void alargarColumnas(int X);
 		void actualizarMatriz(int cantFilas,int cantColumnas);

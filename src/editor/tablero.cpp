@@ -34,8 +34,7 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 }
 
 Tablero::~Tablero(){
-	this->borrarSeps(cantFilas,FILAS);
-	this->borrarSeps(cantColumnas,COLUMNAS);
+	this->borrarTodo();
 	for ( unsigned int i = 0 ; i < matrizCeldas.size() ; i++ ){
 		for ( unsigned int j = 0 ; j < matrizCeldas[0].size() ; j++ ){
 			delete matrizCeldas[i][j];
@@ -121,33 +120,38 @@ void Tablero::agregarColumnas(int Y){
 //TODO: BORRA T0D0, ver si se puede mejorar para que solo borre lo que agrego
 void Tablero::borrarSeps(int cantidadBorrar,int filaOColumna){
 	int i = 0;
-	std::cout << " cantidadBorrar : " << cantidadBorrar << std::endl;
 	std::string type;
 	if (filaOColumna == COLUMNAS){
 		Gtk::VSeparator* sep = new Gtk::VSeparator(); 
 		type = typeid(*sep).name();
+		delete sep;
 	}else if (filaOColumna == FILAS){
 		Gtk::HSeparator* sep = new Gtk::HSeparator(); 
 		type = typeid(*sep).name();
+		delete sep;
 	}
 
 	//std::cout << " un VSeparator es: " << typeid(*vsep).name() << std::endl;
 	Glib::ListHandle<Gtk::Widget*> separadores = this->tablero->get_children();
 	Glib::ListHandle<Gtk::Widget*>::iterator it = separadores.begin();
 	for (; it != separadores.end() ; it++) {
-		std::cout << typeid(**it).name() << std::endl;
 		if ((typeid(**it).name()) == type){
 			i++;
 			if (i>cantidadBorrar){
-				std::cout << " voy a borrar " << std::endl;
 				this->tablero->remove(*(*it));
 				break;
 			}
 		}
 	}
-}	     
+}
 
-
+void Tablero::borrarTodo(){
+	Glib::ListHandle<Gtk::Widget*> separadores = this->tablero->get_children();
+	Glib::ListHandle<Gtk::Widget*>::iterator it = separadores.begin();
+	for ( ; it != separadores.end() ; it++) {
+		this->tablero->remove(*(*it));
+	}
+}
 //XXX: OJO QUE X E Y DEL GET_POINTER  ESTAN INTERCAMBIADOS, X REFIERE A 
 //"longitud", ancho, e Y a "latitud" o largo. un (8,2) para gtk es para mi (2,8)
 bool Tablero::on_click_tablero(GdkEventButton* event){
@@ -298,7 +302,6 @@ void Tablero::jsonCeldas(Json::Value& nivel,const std::string& nombre){
 
 
 void Tablero::on_image_changed_tablero(Gtk::FileChooser* fileChooser){
-	std::cout<<fileChooser->get_filename() <<std::endl;
 	this->celdaInteres->setImage(fileChooser->get_filename());
 	Gtk::Image* img = new Gtk::Image(fileChooser->get_filename());
 	img->set_size_request(SIZE,SIZE);

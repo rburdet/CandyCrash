@@ -84,4 +84,13 @@ void BoxOpcionesBasicas::on_button_clicked(){
 	Persistidor::persistir(nivel,nombre);
 }
 
-BoxOpcionesBasicas::~BoxOpcionesBasicas(){}
+BoxOpcionesBasicas::~BoxOpcionesBasicas(){
+	delete button_json;
+	delete e_nombre;
+	delete s_maxjug;
+	delete s_puntaje;
+	delete spin_x;
+	delete spin_y;
+	delete spin_nivel;
+	delete barraEstado;
+}

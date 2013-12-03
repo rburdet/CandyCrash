@@ -11,3 +11,7 @@ void BarraEstado::onMostrar(Gtk::Entry* entryArchivo){
 	std::string textoAMostrar = "Se ha generado "+ dir + entryArchivo->get_text();
 	barraEstado->push(textoAMostrar);
 }
+
+BarraEstado::~BarraEstado(){
+	delete barraEstado;
+}

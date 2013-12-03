@@ -13,6 +13,7 @@ class BarraEstado{
 		 * de glade.
 		 */
 		explicit BarraEstado(Glib::RefPtr<Gtk::Builder>& builder);
+		~BarraEstado();
 
 		/**Muestra que mapa fue generado
 		 * @param entryArchivo[in]: Gtk::Entry contenedor del nombre del archivo

@@ -21,3 +21,7 @@ ProbCeldas::ProbCeldas(Tablero* tablero, Glib::RefPtr<Gtk::Builder>& builder)
 	}
 }
 
+ProbCeldas::~ProbCeldas(){
+	delete fileChooser;
+	delete huecoButton;
+}
