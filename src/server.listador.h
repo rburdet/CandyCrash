@@ -41,7 +41,9 @@ class Listador{
 			return file;
 		}
 
-		//Si el nivel es -1 es xq no se pudo abrir, esto no deberia pasar.
+		/**Si el nivel es -1 es xq no se pudo abrir, esto no deberia pasar.
+		 * @param fileName[in] nombre del archivo
+		*/
 		static int getNivel(std::string& fileName){
 			int nivel = -1;
 			Json::Value mapa;
@@ -60,8 +62,9 @@ class Listador{
 			return nivel;
 		}
 
-		// Devuelve 0 si salio bien, o algun numero si error 
-		// (ponele qe no exista el mapa)
+		/** Devuelve 0 si salio bien, o algun numero si error
+		(ponele qe no exista el mapa)
+		*/
 		static int getMapa(std::string& fileName, Json::Value& mapa){
 			int ret = -1;
 			std::string auxStr = MAPA_PATH + fileName;

@@ -60,7 +60,7 @@ CFLAGS += -ggdb -DDEBUG -fno-inline -fpermissive
 # Opciones del enlazador.
 LDFLAGS = -L/usr/local/lib -ljsoncpp -lasound
 
-LDFLAGS_SERVER = -L/usr/local/lib -ljsoncpp -lasound -lpthread -pthread
+LDFLAGS_SERVER = -L/usr/local/lib -ljsoncpp -lpthread -pthread
 
 # Estandar de C a usar
 CSTD = c99

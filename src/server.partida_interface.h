@@ -17,7 +17,14 @@ typedef enum {
  */
 class PartidaInterface {
 	public:
+		/** Agrega un usuario a l apartida.
+		 * @param u[in] ThreadSocket del usuario que se conecta
+		 * @param user[in] informacion acerca del usuario que se conecta
+		 */
 		virtual void addUsuario(ThreadSocket* u, Json::Value& user) = 0;
+		/** Remueve un usuario de la partida.
+		 * @param u[in] ThreadSocket del usuario que se conecta
+		 */
 		virtual void rmUsuario(ThreadSocket* u) = 0;
 		/** Se le pasan todos los  EVENT_GAME_MISC. Devuelve 0 si todo bien, o 
 		 * 1, si el usuario se desconecto (saca usuario->partida). La parida se

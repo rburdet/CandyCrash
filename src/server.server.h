@@ -21,13 +21,23 @@ class Server : public ServerInterface, public Thread {
 		/** Guarda todos los threads de los usuarios corriendo
 		 */
 		std::vector<ThreadUsuario*> clientes;
-		std::vector<Partida*> partidas; // -> Partidas activas
-		TCPSocketListener sock; // -> socket usado para la recepcion de conecciones
-		Mutex clientesLock; // -> Mutex para el std::vector de los usuarios
-		Mutex partidasLock; // Mutex para el std::Vector de las partidas
+		/** Partidas activas
+		 */
+		std::vector<Partida*> partidas;
+		/** Socket usado para la recepccion de conneciones
+		 */
+		TCPSocketListener sock;
+		/** Mutex para el std::vector de los usuarios
+		 */
+		Mutex clientesLock;
+		/** Mutex para el std::Vector de las partidas
+		 */
+		Mutex partidasLock;
 
 		void addClient(ThreadUsuario* cli);
 
+		/** main del servidor, es el que escucha y despacha a los clientes, se ejecuta en un thread aparte.
+		 */
 		int main();
 		//ThreadUsuario* getClient(std::string usuario);
 
@@ -51,6 +61,8 @@ class Server : public ServerInterface, public Thread {
 		/** 
 		 */
 		virtual PartidaInterface* connectPartidas(long id);
+		/** Finaliza el servidor
+		 */
 		void end();
 };
 
