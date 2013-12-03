@@ -164,7 +164,9 @@ El producto se compone de 3 aplicaciones :
 <article id="Servidor">
 <span class="titulo">3. Servidor </span>
 <span> A. Descripción general </span> 
-El servidor es una aplicación de linea de comandos que coordina la operación de los distintos clientes. Esta aplicación se encarga de toda la lógica del juego. Permite a los usuarios registrarse y conectarse, crear partidas, unirse a partidas, chatear entre ellos y por sobre todas las cosas es la que maneja el juego, ya que el cliente sólo sabe qué movimientos se hacen, todo lo demás corre por cuenta de esta aplicación que determinará si el movimiento es válido o no, en caso de serlo, realizará las modificaciones necesarias, computará los valores correspondientes a los combos hechos y reescribirá toda esta información a los distintos clientes en una misma partida para todas las partidas que se estén jugando.
+<p>El servidor es una aplicación de linea de comandos que coordina la operación de los distintos clientes. Esta aplicación se encarga de toda la lógica del juego. Permite a los usuarios registrarse y conectarse, crear partidas, unirse a partidas, chatear entre ellos y por sobre todas las cosas es la que maneja el juego, ya que el cliente sólo sabe qué movimientos se hacen, todo lo demás corre por cuenta de esta aplicación que determinará si el movimiento es válido o no, en caso de serlo, realizará las modificaciones necesarias, computará los valores correspondientes a los combos hechos y reescribirá toda esta información a los distintos clientes en una misma partida para todas las partidas que se estén jugando.</p>
+<p>Internamente el servidor ejecuta un thread que se queda escuchando las conecciones de los clientes, mientras que en el thread principal se usa para esperar la escritura de una letra 'q' para finalizar el proceso. El servidor crea un thread por cada cliente que se conecte.</p>
+
 <span> B. Clases </span> 
 
 <strong> Server </strong>
@@ -287,17 +289,53 @@ Metodos para activar combinaciones:
 </p>
 <br>
 
-
-
 <span> C. Diagramas UML </span> 
-Los diagramas se adjuntaran por separado ya que fueron generados por Doxygen.
+<p>Los diagramas se adjuntaran por separado ya que fueron generados por Doxygen.</p>
+
 <span> D. Descripción de archivos y procolos </span> 
+<strong>Archivos utilizados:</strong>
+<ul>
+	<li><strong>user_data.json</strong> Archivo con la información de usuarios. Se crea si no existe.</li>
+</ul>
+
+<strong>Protocolo</strong>
+<p>Para comunicación entre servidor cliente se realiza en formato JSON. Primero se envia un prefijo de longitud del mensaje, después el buffer de caracteres de información (encodeadas en Json) y por último la firma del mensaje. Estas firmas se realizaron utilizando la especificación <a href="http://en.wikipedia.org/wiki/Hmac">HMAC-MD5</a>.</p>
+<p>Los mensajes de Json constan de un único campo obligatorio ( event ) que define el evento del mensaje. Este campo trae el valor de CommonEvent (enum definido en common.events.h) casteado a un int. Además, el mensaje puede traer campos de código de error (code), descripción del mensaje (msj) y otro datos pertenientes a mensajes específicos.</p>
+<p>Ejemplo de mensaje de login:</p>
+<pre>
+<code>
+{
+	"event": 1,
+	"user": ...,
+	"code": 0
+}
+</code>
+</pre>
+
+<p>Todos los mensajes relacionados con el juego en sí mismo llevan el evento "EVENT_GAME_MISC", y llevaran otro campo "ev-game" para indicar de que tipo de evento es el mensaje.</p>
+<p>Ejemplo de menaje de chat dentro de juego:</p>
+<pre>
+<code>
+{
+	"event": 8,
+	"ev-game": 10,
+	"msj": "mensaje",
+	"code": 0
+}
+</code>
+</pre>
+
+<div class="nota">
+	<p>En los ejemplos Json, se pone el número que representaría el enum CommonEvent casteado a un entero. Este valor podrá cambiar en futuras versiones. Es recomendable siempre usar el nombre que tiene el enum, ej: EVENT_LOGIN, EVENT_GAME_MISC, </p>
+</div>
+
 
 <article id="Cliente">
 <span class="titulo">4. Cliente </span>
 <span> A. Descripción general </span> 
 <p> Aplicación entregada al cliente. Consiste en un juego de puzzle multijugador donde cada jugador debe competir contra otros en tiempo real para demostrar quien de todos es el más apto al momento de hacer combinaciones de colores y fichas. </p>
-<p> Este programa interactúa todo el tiempo con el servidor, enviandole información encriptada, para que este la procese, y responda. La información (en formatos JSon) se encripta utilizando HMAC, se envía al servidor, el cual es, en teoría, el único capaz de descifrarla. </p>
+<p> Este programa interactúa todo el tiempo con el servidor, enviandole información firmada, para que este la procese, y responda. La información (en formatos JSon) se encripta utilizando HMAC, se envía al servidor, el cual es, en teoría, el único capaz de descifrarla. </p>
+<p> El cliente utiliza solo dos threads, el principal que es ocupado por el main del gtk y uno que se crea después de establecer la conección con el servidor. Este último esta constantemente escuchando mensajes que podría recibir del servidor. Como solo se pueden ejecutar métodos de gtk dentro del thread de gtk, ambos threads comparten una cola de mensajes. El thread que esta a la escucha, escribe todos los mensajes a esta cola, el thread de gtk ejecuta una función cada una determinada cantidad de tiempo para revisar si hay nuevos mensajes en esta cola.</p>
 
 <span> B. Clases </span> 
 
@@ -453,7 +491,16 @@ Tanto <strong> Bar </strong> como <strong> Button </strong> y <strong> Star </st
 
 <span> C. Diagramas UML </span> 
 Los diagramas se adjuntaran por separado ya que fueron generados por Doxygen.
+
 <span> D. Descripción de archivos y procolos </span> 
+<strong>Archivos utilizados:</strong>
+<ul>
+	<li><strong>../imagenes/</strong> Carpeta que contiene imágenes y archivos de estilo</li>
+	<li><strong>../imagenes/style.css</strong> Estilo css del programa</li>
+</ul>
+
+<strong>Protocolo</strong>
+<p>El cliente y el servidor envian y reciben mensajes con el mismo protocolo y forma. Ver la sección de protocolo del servidor.</p>
 
 </article>
 
