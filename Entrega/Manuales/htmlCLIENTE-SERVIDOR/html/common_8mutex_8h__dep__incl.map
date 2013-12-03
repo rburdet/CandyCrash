@@ -1,0 +1,26 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$cliente_8thread__listener_8h.html" title="cliente.thread_listener.h" alt="" coords="1150,155,1308,181"/>
+<area shape="rect" id="node5" href="$cliente_8cliente_8h.html" title="cliente.cliente.h" alt="" coords="314,229,427,256"/>
+<area shape="rect" id="node13" href="$common_8thread__socket_8h.html" title="common.thread_socket.h" alt="" coords="1457,80,1626,107"/>
+<area shape="rect" id="node22" href="$server_8server_8h.html" title="server.server.h" alt="" coords="1508,379,1618,405"/>
+<area shape="rect" id="node28" href="$server_8thread__usuario_8h.html" title="server.thread_usuario.h" alt="" coords="1484,304,1642,331"/>
+<area shape="rect" id="node33" href="$server_8partida_8h.html" title="server.partida.h" alt="" coords="1718,304,1828,331"/>
+<area shape="rect" id="node42" href="$common_8logger_8h.html" title="common.logger.h" alt="" coords="739,229,862,256"/>
+<area shape="rect" id="node63" href="$common_8mutex_8cpp.html" title="common.mutex.cpp" alt="" coords="1902,80,2039,107"/>
+<area shape="rect" id="node65" href="$common_8user__manager_8h.html" title="common.user_manager.h" alt="" coords="1854,304,2023,331"/>
+<area shape="rect" id="node11" href="$cliente_8thread__listener_8cpp.html" title="cliente.thread_listener.cpp" alt="" coords="1078,304,1252,331"/>
+<area shape="rect" id="node7" href="$cliente_8cliente_8cpp.html" title="cliente.cliente.cpp" alt="" coords="182,304,308,331"/>
+<area shape="rect" id="node9" href="$clientemain_8cpp.html" title="clientemain.cpp" alt="" coords="45,304,158,331"/>
+<area shape="rect" id="node16" href="$common_8thread__socket_8cpp.html" title="common.thread_socket.cpp" alt="" coords="1277,304,1459,331"/>
+<area shape="rect" id="node18" href="$server_8partida__interface_8h.html" title="server.partida_interface.h" alt="" coords="1482,155,1651,181"/>
+<area shape="rect" id="node20" href="$server_8server__interface_8h.html" title="server.server_interface.h" alt="" coords="1508,229,1674,256"/>
+<area shape="rect" id="node24" href="$server_8cpp.html" title="server.cpp" alt="" coords="1522,453,1603,480"/>
+<area shape="rect" id="node26" href="$server_8server_8cpp.html" title="server.server.cpp" alt="" coords="831,453,954,480"/>
+<area shape="rect" id="node31" href="$server_8thread__usuario_8cpp.html" title="server.thread_usuario.cpp" alt="" coords="1149,379,1320,405"/>
+<area shape="rect" id="node36" href="$server_8partida_8cpp.html" title="server.partida.cpp" alt="" coords="1644,379,1770,405"/>
+<area shape="rect" id="node45" href="$cliente_8sound__player_8cpp.html" title="cliente.sound_player.cpp" alt="" coords="385,304,551,331"/>
+<area shape="rect" id="node49" href="$common_8logger_8cpp.html" title="common.logger.cpp" alt="" coords="576,304,711,331"/>
+<area shape="rect" id="node53" href="$server_8listador_8h.html" title="server.listador.h" alt="" coords="888,304,1003,331"/>
+<area shape="rect" id="node56" href="$server_8tablero_8cpp.html" title="server.tablero.cpp" alt="" coords="836,379,962,405"/>
+<area shape="rect" id="node67" href="$common_8user__manager_8cpp.html" title="common.user_manager.cpp" alt="" coords="1848,379,2030,405"/>
+</map>

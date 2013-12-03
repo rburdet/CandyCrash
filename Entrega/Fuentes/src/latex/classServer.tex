@@ -1,0 +1,108 @@
+\hypertarget{classServer}{\section{Server Class Reference}
+\label{classServer}\index{Server@{Server}}
+}
+
+
+{\ttfamily \#include $<$server.\-server.\-h$>$}
+
+Inheritance diagram for Server\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classServer}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classServer_a7d1fe6ba5f0fe9190a4f039662ea0e85}{{\bfseries Server} (int port)}\label{classServer_a7d1fe6ba5f0fe9190a4f039662ea0e85}
+
+\item 
+\hypertarget{classServer_ab16debc269fb57db4976b7199076b899}{void {\bfseries remove\-Client} (\hyperlink{classThreadSocket}{Thread\-Socket} $\ast$cli)}\label{classServer_ab16debc269fb57db4976b7199076b899}
+
+\item 
+\hypertarget{classServer_a710a8ebac1aa95fbb02458483b3bb408}{\hyperlink{classPartidaInterface}{Partida\-Interface} $\ast$ {\bfseries new\-Partida} (int nivel, std\-::string \&nombre)}\label{classServer_a710a8ebac1aa95fbb02458483b3bb408}
+
+\item 
+void \hyperlink{classServer_a1a5e9b3a3a6e4fc697163ab461fb11c6}{remove\-Partida} (\hyperlink{classPartidaInterface}{Partida\-Interface} $\ast$p)
+\item 
+virtual void \hyperlink{classServer_adf00f10f95cf9b49761475c73caead06}{list\-Partidas} (int nivel, Json\-::\-Value \&parts)
+\item 
+\hypertarget{classServer_a2af125bb682122c14979d9ead546b1a5}{virtual \hyperlink{classPartidaInterface}{Partida\-Interface} $\ast$ {\bfseries connect\-Partidas} (long id)}\label{classServer_a2af125bb682122c14979d9ead546b1a5}
+
+\item 
+\hypertarget{classServer_a83eef32fcef955048cc7ba7d35ff7552}{void {\bfseries end} ()}\label{classServer_a83eef32fcef955048cc7ba7d35ff7552}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classServer_a481bc16ea121723ce0fbc0af843a3648}{void {\bfseries add\-Client} (\hyperlink{classThreadUsuario}{Thread\-Usuario} $\ast$cli)}\label{classServer_a481bc16ea121723ce0fbc0af843a3648}
+
+\item 
+\hypertarget{classServer_a707bd1cc6a43cb4a444fc5e2bec11533}{int {\bfseries main} ()}\label{classServer_a707bd1cc6a43cb4a444fc5e2bec11533}
+
+\item 
+\hypertarget{classServer_a6defda6a554b733c833987f85d2e509d}{virtual void $\ast$ {\bfseries run} ()}\label{classServer_a6defda6a554b733c833987f85d2e509d}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classServer_a926c9dae229a62b6d33fdbb41dca6d82}{int {\bfseries port}}\label{classServer_a926c9dae229a62b6d33fdbb41dca6d82}
+
+\item 
+std\-::vector$<$ \hyperlink{classThreadUsuario}{Thread\-Usuario} $\ast$ $>$ \hyperlink{classServer_a295a2426aee46c5a82085fa5b70828c2}{clientes}
+\item 
+\hypertarget{classServer_a8f5063d67347091cd0d210fafe8d5cf1}{std\-::vector$<$ \hyperlink{classPartida}{Partida} $\ast$ $>$ {\bfseries partidas}}\label{classServer_a8f5063d67347091cd0d210fafe8d5cf1}
+
+\item 
+\hypertarget{classServer_aba30475b0b0ec7c39bc70c852c0d582e}{\hyperlink{classTCPSocketListener}{T\-C\-P\-Socket\-Listener} {\bfseries sock}}\label{classServer_aba30475b0b0ec7c39bc70c852c0d582e}
+
+\item 
+\hypertarget{classServer_ad33f68ad78c3045c49dcf066afb5c102}{\hyperlink{classMutex}{Mutex} {\bfseries clientes\-Lock}}\label{classServer_ad33f68ad78c3045c49dcf066afb5c102}
+
+\item 
+\hypertarget{classServer_a757a2d8318b9443d168bf4c772c76260}{\hyperlink{classMutex}{Mutex} {\bfseries partidas\-Lock}}\label{classServer_a757a2d8318b9443d168bf4c772c76260}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Clase de servidor. Esta bloqueada escuchando, cada vez que se conecta un cliente se lanza un nuevo thread con el socket creado (se lanza un \hyperlink{classThreadUsuario}{Thread\-Usuario}) 
+
+\subsection{Member Function Documentation}
+\hypertarget{classServer_adf00f10f95cf9b49761475c73caead06}{\index{Server@{Server}!list\-Partidas@{list\-Partidas}}
+\index{list\-Partidas@{list\-Partidas}!Server@{Server}}
+\subsubsection[{list\-Partidas}]{\setlength{\rightskip}{0pt plus 5cm}void Server\-::list\-Partidas (
+\begin{DoxyParamCaption}
+\item[{int}]{nivel, }
+\item[{Json\-::\-Value \&}]{parts}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classServer_adf00f10f95cf9b49761475c73caead06}
+Devuelve un J\-S\-O\-N con las partidas de nivel menor o igual al especificado. 
+
+Implements \hyperlink{classServerInterface}{Server\-Interface}.
+
+\hypertarget{classServer_a1a5e9b3a3a6e4fc697163ab461fb11c6}{\index{Server@{Server}!remove\-Partida@{remove\-Partida}}
+\index{remove\-Partida@{remove\-Partida}!Server@{Server}}
+\subsubsection[{remove\-Partida}]{\setlength{\rightskip}{0pt plus 5cm}void Server\-::remove\-Partida (
+\begin{DoxyParamCaption}
+\item[{{\bf Partida\-Interface} $\ast$}]{p}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classServer_a1a5e9b3a3a6e4fc697163ab461fb11c6}
+Remueve partida de la lista 
+
+Implements \hyperlink{classServerInterface}{Server\-Interface}.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classServer_a295a2426aee46c5a82085fa5b70828c2}{\index{Server@{Server}!clientes@{clientes}}
+\index{clientes@{clientes}!Server@{Server}}
+\subsubsection[{clientes}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<${\bf Thread\-Usuario}$\ast$$>$ Server\-::clientes\hspace{0.3cm}{\ttfamily [protected]}}}\label{classServer_a295a2426aee46c5a82085fa5b70828c2}
+Guarda todos los threads de los usuarios corriendo 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+server.\-server.\-h\item 
+server.\-server.\-cpp\end{DoxyCompactItemize}

@@ -1,0 +1,200 @@
+\hypertarget{classPartida}{\section{Partida Class Reference}
+\label{classPartida}\index{Partida@{Partida}}
+}
+
+
+{\ttfamily \#include $<$server.\-partida.\-h$>$}
+
+Inheritance diagram for Partida\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classPartida}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classPartida_a1f7ba9752005060a408c563d8c906767}{Partida} (\hyperlink{classServerInterface}{Server\-Interface} $\ast$server, int nivel, std\-::string \&nombre)
+\item 
+void \hyperlink{classPartida_a9a6ada8180923f577dbcac9954ef4ac4}{add\-Usuario} (\hyperlink{classThreadSocket}{Thread\-Socket} $\ast$u, Json\-::\-Value \&user)
+\item 
+void \hyperlink{classPartida_a1676a8787a71098ed0bf65bb27782ceb}{rm\-Usuario} (\hyperlink{classThreadSocket}{Thread\-Socket} $\ast$u)
+\item 
+int \hyperlink{classPartida_af4035771592061632b5d16879d858cdc}{get\-Nivel} ()
+\item 
+\hypertarget{classPartida_a8a8fdd55c05f1040dda9fd6df76bfeb2}{int {\bfseries get\-Usuarios} ()}\label{classPartida_a8a8fdd55c05f1040dda9fd6df76bfeb2}
+
+\item 
+\hypertarget{classPartida_a32af6c611e9e4556f63633a32c7eb677}{int {\bfseries get\-Max\-Usuarios} ()}\label{classPartida_a32af6c611e9e4556f63633a32c7eb677}
+
+\item 
+\hypertarget{classPartida_a74e4a34c63247eb4764a744e54678b8e}{Partida\-Estado {\bfseries get\-Estado} ()}\label{classPartida_a74e4a34c63247eb4764a744e54678b8e}
+
+\item 
+\hypertarget{classPartida_a797de83b25e6ff8ebd149f414e9509c7}{std\-::string {\bfseries get\-Nombre} ()}\label{classPartida_a797de83b25e6ff8ebd149f414e9509c7}
+
+\item 
+virtual int \hyperlink{classPartida_af5f9e1261116d75042a87ad0b5990700}{mensaje} (Json\-::\-Value \&m, \hyperlink{classThreadSocket}{Thread\-Socket} $\ast$u)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classPartida_a515de07436fd6423d7da5d97952031e3}{broadcast\-Msj} (Json\-::\-Value \&msj)
+\item 
+void \hyperlink{classPartida_a395fb43392e03670c4c6a4a5f23bbd0c}{msj\-Error} (\hyperlink{classThreadSocket}{Thread\-Socket} $\ast$u, const char $\ast$msj)
+\item 
+\hypertarget{classPartida_af92865c689cd13fc25e16ee0424a6b80}{void {\bfseries msj\-Error} (\hyperlink{classThreadSocket}{Thread\-Socket} $\ast$u, const std\-::string \&msj)}\label{classPartida_af92865c689cd13fc25e16ee0424a6b80}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPartida_abc3809c4e626bdf312e5b16eb1bd195e}{\hyperlink{classServerInterface}{Server\-Interface} $\ast$ {\bfseries server}}\label{classPartida_abc3809c4e626bdf312e5b16eb1bd195e}
+
+\item 
+\hypertarget{classPartida_a462fceca3e2eb8254f06b1d13333a11b}{std\-::vector$<$ \hyperlink{classThreadSocket}{Thread\-Socket} $\ast$ $>$ {\bfseries usuarios}}\label{classPartida_a462fceca3e2eb8254f06b1d13333a11b}
+
+\item 
+\hypertarget{classPartida_a3a4835c9999f5eac84192ff85b46d1ad}{std\-::vector$<$ Json\-::\-Value $>$ {\bfseries usuarios\-\_\-data}}\label{classPartida_a3a4835c9999f5eac84192ff85b46d1ad}
+
+\item 
+\hypertarget{classPartida_a21aa4e691f8b813a6fb3f79bb7b22a1d}{int {\bfseries nivel}}\label{classPartida_a21aa4e691f8b813a6fb3f79bb7b22a1d}
+
+\item 
+\hypertarget{classPartida_a80eb2d37509b6783a1a024c87be409c6}{std\-::string {\bfseries nombre}}\label{classPartida_a80eb2d37509b6783a1a024c87be409c6}
+
+\item 
+\hypertarget{classPartida_afb0345f9fa6b54ac3ad4014537dee53d}{\hyperlink{classMutex}{Mutex} {\bfseries usuarios\-Lock}}\label{classPartida_afb0345f9fa6b54ac3ad4014537dee53d}
+
+\item 
+\hypertarget{classPartida_a37dc0887b6d2afcbab3373c0dc1f9fcb}{Partida\-Estado {\bfseries estado}}\label{classPartida_a37dc0887b6d2afcbab3373c0dc1f9fcb}
+
+\item 
+\hypertarget{classPartida_a514d8e0bcb39b2ae8faae11e3b1ea0e2}{Json\-::\-Value {\bfseries mapa}}\label{classPartida_a514d8e0bcb39b2ae8faae11e3b1ea0e2}
+
+\item 
+\hypertarget{classPartida_a0bffb19c265fdc9c973399272719c4d8}{int {\bfseries max\-Usuarios}}\label{classPartida_a0bffb19c265fdc9c973399272719c4d8}
+
+\item 
+\hypertarget{classPartida_ac9fac6752ce5e3aa9c8f7ce795911045}{\hyperlink{classMutex}{Mutex} {\bfseries tablero\-Lock}}\label{classPartida_ac9fac6752ce5e3aa9c8f7ce795911045}
+
+\item 
+\hypertarget{classPartida_a41e4d9dcd48938f8b52b00a2b136669e}{\hyperlink{classTablero}{Tablero} $\ast$ {\bfseries tablero}}\label{classPartida_a41e4d9dcd48938f8b52b00a2b136669e}
+
+\item 
+\hypertarget{classPartida_acbfcc23796a6f67dba56ca8200ee4457}{int {\bfseries puntos\-Max}}\label{classPartida_acbfcc23796a6f67dba56ca8200ee4457}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Entidad que representa una partida. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classPartida_a1f7ba9752005060a408c563d8c906767}{\index{Partida@{Partida}!Partida@{Partida}}
+\index{Partida@{Partida}!Partida@{Partida}}
+\subsubsection[{Partida}]{\setlength{\rightskip}{0pt plus 5cm}Partida\-::\-Partida (
+\begin{DoxyParamCaption}
+\item[{{\bf Server\-Interface} $\ast$}]{server, }
+\item[{int}]{nivel, }
+\item[{std\-::string \&}]{nombre}
+\end{DoxyParamCaption}
+)}}\label{classPartida_a1f7ba9752005060a408c563d8c906767}
+Creador de la partida. 
+\begin{DoxyParams}{Parameters}
+{\em server\mbox{[}in\mbox{]},\-:} & instancia de servidor \\
+\hline
+{\em nivel\mbox{[}in\mbox{]},\-:} & nivel de la partida \\
+\hline
+{\em nombre\mbox{[}in\mbox{]},\-:} & nombre del mapa \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classPartida_a9a6ada8180923f577dbcac9954ef4ac4}{\index{Partida@{Partida}!add\-Usuario@{add\-Usuario}}
+\index{add\-Usuario@{add\-Usuario}!Partida@{Partida}}
+\subsubsection[{add\-Usuario}]{\setlength{\rightskip}{0pt plus 5cm}void Partida\-::add\-Usuario (
+\begin{DoxyParamCaption}
+\item[{{\bf Thread\-Socket} $\ast$}]{u, }
+\item[{Json\-::\-Value \&}]{user}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classPartida_a9a6ada8180923f577dbcac9954ef4ac4}
+Agrega un usuario a la partida. 
+\begin{DoxyParams}{Parameters}
+{\em u\mbox{[}in\mbox{]},\-:} & threadsocket del usuario \\
+\hline
+{\em user\mbox{[}in\mbox{]},\-:} & nombre de usuario \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classPartidaInterface}{Partida\-Interface}.
+
+\hypertarget{classPartida_a515de07436fd6423d7da5d97952031e3}{\index{Partida@{Partida}!broadcast\-Msj@{broadcast\-Msj}}
+\index{broadcast\-Msj@{broadcast\-Msj}!Partida@{Partida}}
+\subsubsection[{broadcast\-Msj}]{\setlength{\rightskip}{0pt plus 5cm}void Partida\-::broadcast\-Msj (
+\begin{DoxyParamCaption}
+\item[{Json\-::\-Value \&}]{msj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classPartida_a515de07436fd6423d7da5d97952031e3}
+Envia msj a todos los usuarios de la partida \hypertarget{classPartida_af4035771592061632b5d16879d858cdc}{\index{Partida@{Partida}!get\-Nivel@{get\-Nivel}}
+\index{get\-Nivel@{get\-Nivel}!Partida@{Partida}}
+\subsubsection[{get\-Nivel}]{\setlength{\rightskip}{0pt plus 5cm}int Partida\-::get\-Nivel (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classPartida_af4035771592061632b5d16879d858cdc}
+Metodos que devuelven informacion acerca de la partida 
+
+Implements \hyperlink{classPartidaInterface}{Partida\-Interface}.
+
+\hypertarget{classPartida_af5f9e1261116d75042a87ad0b5990700}{\index{Partida@{Partida}!mensaje@{mensaje}}
+\index{mensaje@{mensaje}!Partida@{Partida}}
+\subsubsection[{mensaje}]{\setlength{\rightskip}{0pt plus 5cm}int Partida\-::mensaje (
+\begin{DoxyParamCaption}
+\item[{Json\-::\-Value \&}]{m, }
+\item[{{\bf Thread\-Socket} $\ast$}]{u}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classPartida_af5f9e1261116d75042a87ad0b5990700}
+Metodo usado para mandarle mensajes a la partida. 
+\begin{DoxyParams}{Parameters}
+{\em m\mbox{[}in\mbox{]},\-:} & mensaje encondeado en J\-S\-O\-N que recibe la partida \\
+\hline
+{\em u\mbox{[}in\mbox{]},\-:} & \hyperlink{classThreadSocket}{Thread\-Socket} que le envio el mensaje \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classPartidaInterface_a72c79ab5c06e2ec804260dc98a977e60}{Partida\-Interface}.
+
+\hypertarget{classPartida_a395fb43392e03670c4c6a4a5f23bbd0c}{\index{Partida@{Partida}!msj\-Error@{msj\-Error}}
+\index{msj\-Error@{msj\-Error}!Partida@{Partida}}
+\subsubsection[{msj\-Error}]{\setlength{\rightskip}{0pt plus 5cm}void Partida\-::msj\-Error (
+\begin{DoxyParamCaption}
+\item[{{\bf Thread\-Socket} $\ast$}]{u, }
+\item[{const char $\ast$}]{msj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classPartida_a395fb43392e03670c4c6a4a5f23bbd0c}
+Envia un mensaje a u, (E\-V\-E\-N\-T\-\_\-\-G\-A\-M\-E\-\_\-\-M\-S\-G). \hypertarget{classPartida_a1676a8787a71098ed0bf65bb27782ceb}{\index{Partida@{Partida}!rm\-Usuario@{rm\-Usuario}}
+\index{rm\-Usuario@{rm\-Usuario}!Partida@{Partida}}
+\subsubsection[{rm\-Usuario}]{\setlength{\rightskip}{0pt plus 5cm}void Partida\-::rm\-Usuario (
+\begin{DoxyParamCaption}
+\item[{{\bf Thread\-Socket} $\ast$}]{u}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classPartida_a1676a8787a71098ed0bf65bb27782ceb}
+Borra un usuario de la partida 
+\begin{DoxyParams}{Parameters}
+{\em u\mbox{[}in\mbox{]},\-:} & threasocket del usuario \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classPartidaInterface}{Partida\-Interface}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+server.\-partida.\-h\item 
+server.\-partida.\-cpp\end{DoxyCompactItemize}

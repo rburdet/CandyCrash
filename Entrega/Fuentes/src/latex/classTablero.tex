@@ -1,0 +1,494 @@
+\hypertarget{classTablero}{\section{Tablero Class Reference}
+\label{classTablero}\index{Tablero@{Tablero}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classTablero_a5f82ba1320e689e2868bae2d5690c24f}{{\bfseries Tablero} (std\-::string path)}\label{classTablero_a5f82ba1320e689e2868bae2d5690c24f}
+
+\item 
+int \hyperlink{classTablero_af23f2b0dfb3cfcff89faac42b6b12991}{movimiento} (int x, int y, Caramelos\-Movimientos mov, Json\-::\-Value \&movimientos, int max\-Puntos)
+\item 
+bool \hyperlink{classTablero_a0d7b9f134e3b1a9ae66c64708611b005}{hay\-Movimientos} ()
+\item 
+\hypertarget{classTablero_ac8b2b7d0ef6fed0147f3aa0c649a02a3}{Json\-::\-Value {\bfseries get\-Tablero} ()}\label{classTablero_ac8b2b7d0ef6fed0147f3aa0c649a02a3}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classTablero_a9b915b975e34d4f466a2de5cfb491d21}{void {\bfseries generar} ()}\label{classTablero_a9b915b975e34d4f466a2de5cfb491d21}
+
+\item 
+\hypertarget{classTablero_a53a6ad1bfe2ba24468760795cc2486a2}{void {\bfseries efectivizar\-Celda} (Json\-::\-Value \&celda)}\label{classTablero_a53a6ad1bfe2ba24468760795cc2486a2}
+
+\item 
+\hypertarget{classTablero_acbba660d044fff4072b210c3eff39735}{void {\bfseries get\-Max} (double $\ast$arr, double \&max, int \&pos)}\label{classTablero_acbba660d044fff4072b210c3eff39735}
+
+\item 
+bool \hyperlink{classTablero_a955a764e71cc33dde7d61bb98b164a34}{movimiento\-Valido} (int x, int y, Caramelos\-Movimientos mov)
+\item 
+bool \hyperlink{classTablero_adfbac5dfd3d3b7454997be676421980b}{hay\-Movimiento} (int x, int y, Caramelos car)
+\item 
+\hypertarget{classTablero_ac6821558f870cf4fc48a987a63da8446}{bool {\bfseries hay\-Combinacion} (bool todos\-Buttons, int contador)}\label{classTablero_ac6821558f870cf4fc48a987a63da8446}
+
+\item 
+void \hyperlink{classTablero_a3a700258b30b74de4087fdc73404187b}{calcular\-Coordenadas} (int x, int y, Caramelos\-Movimientos mov, int \&xf, int \&yf)
+\item 
+int \hyperlink{classTablero_a2622b4644514f7c5bed5a0c2cd1acd45}{do\-Star} (Caramelos caramelo\-Movido, int x, int y, Caramelos caramelo\-Movido2, int xf, int yf, Json\-::\-Value \&movimientos)
+\item 
+bool \hyperlink{classTablero_ae9ccd18ce28c08063fda40f16757c04f}{es\-Mismo\-Color} (Caramelos car, Caramelos car2)
+\item 
+std\-::string \hyperlink{classTablero_a3525fd9066b6403a8a1f9b9d9fdebae1}{num2str} (int n)
+\item 
+Json\-::\-Value \hyperlink{classTablero_ae97632028f95c231db57e1895512b7de}{new\-Mov} (int x, int y, Caramelos\-Movimientos mov)
+\item 
+Json\-::\-Value \hyperlink{classTablero_a52489c217f8e3c3c92fe2b30c974bcf3}{new\-Mov} (int x, int y, Caramelos\-Movimientos mov, Caramelos car)
+\item 
+Caramelos\-Movimientos \hyperlink{classTablero_a25a6e1a3be7bfc614d98315a5d19c0be}{mov\-Inverso} (Caramelos\-Movimientos mov)
+\item 
+void \hyperlink{classTablero_adea22d7a54a86d1f15571ce9492cfdd4}{rellenar\-Tablero} (Json\-::\-Value \&movimientos)
+\item 
+bool \hyperlink{classTablero_a6ad1b37f469dabc3fe092196441e3e05}{hay\-Patrones} (Json\-::\-Value \&movimientos, int \&puntos)
+\item 
+bool \hyperlink{classTablero_a202f74274692f28609766f0581f708eb}{es\-Button} (Caramelos car)
+\item 
+bool \hyperlink{classTablero_a3dee20f919de1fb404d9b637f2248584}{activar\-Combinacion\-Columna} (int x, int y, bool todos\-Buttons, int contador, Json\-::\-Value \&movimientos, int \&puntos, int x\-\_\-mov, int y\-\_\-mov)
+\item 
+bool \hyperlink{classTablero_a5010829869badf98a41e256f961a74a0}{activar\-Combinacion\-Columna} (int x, int y, bool todos\-Buttons, int contador, Json\-::\-Value \&movimientos, int \&puntos)
+\item 
+bool \hyperlink{classTablero_a0b795b193298c48038067fe4d7874727}{activar\-Combinacion\-Fila} (int x, int y, bool todos\-Buttons, int contador, Json\-::\-Value \&movimientos, int \&puntos, int x\-\_\-mov, int y\-\_\-mov)
+\item 
+bool \hyperlink{classTablero_a11ec8fc6053f58b0a1d01828080b1549}{activar\-Combinacion\-Fila} (int x, int y, bool todos\-Buttons, int contador, Json\-::\-Value \&movimientos, int \&puntos)
+\item 
+void \hyperlink{classTablero_a0c0e3d24458931072e02d207c805f035}{disparar\-Columna} (int x, Json\-::\-Value \&movimientos, int puntosx, int \&puntos)
+\item 
+void \hyperlink{classTablero_a745806bc929ae7ff91362fe8e65438be}{disparar\-Fila} (int y, Json\-::\-Value \&movimientos, int puntosx, int \&puntos)
+\item 
+int \hyperlink{classTablero_a6cb4b69dfb12688eec97e5fb5ed5f3ce}{do\-Combinacion} (Caramelos car, int x, int y, Json\-::\-Value \&movimientos)
+\item 
+Caramelos \hyperlink{classTablero_ac0c9c00e9a70af36f713df71a2292b59}{ver\-Bar\-Color} (Caramelos car)
+\item 
+Caramelos \hyperlink{classTablero_aa9f29dd6087b7a528a800ab5e31bbf7b}{hor\-Bar\-Color} (Caramelos car)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classTablero_aac884510dfe6cc2e32a370d3beb038f3}{Json\-::\-Value {\bfseries mapa}}\label{classTablero_aac884510dfe6cc2e32a370d3beb038f3}
+
+\item 
+\hypertarget{classTablero_ab3518a77d7eb5fca62ab3a9fa348fb86}{Json\-::\-Value {\bfseries imagen\-Fondo}}\label{classTablero_ab3518a77d7eb5fca62ab3a9fa348fb86}
+
+\item 
+\hypertarget{classTablero_a88d85c5bd82d2b07099273adbfd6d88f}{Json\-::\-Value {\bfseries tablero}}\label{classTablero_a88d85c5bd82d2b07099273adbfd6d88f}
+
+\item 
+\hypertarget{classTablero_acb775242127720f1640f1a4ac0bf880e}{Json\-::\-Value {\bfseries probabilidades}}\label{classTablero_acb775242127720f1640f1a4ac0bf880e}
+
+\item 
+\hypertarget{classTablero_adfcc095d50cedd3f67b4b5d3f743dd90}{std\-::string {\bfseries n\-Mapa}}\label{classTablero_adfcc095d50cedd3f67b4b5d3f743dd90}
+
+\item 
+\hypertarget{classTablero_aaf4796d5f170761f15d9382d0181881c}{std\-::string {\bfseries path\-Fondo}}\label{classTablero_aaf4796d5f170761f15d9382d0181881c}
+
+\item 
+\hypertarget{classTablero_ac2d4502fc9544f023fb1dafa7f6743e6}{int {\bfseries dim\-\_\-x}}\label{classTablero_ac2d4502fc9544f023fb1dafa7f6743e6}
+
+\item 
+\hypertarget{classTablero_a511a12f900ee33f4bb4f0d8843b1cb85}{int {\bfseries dim\-\_\-y}}\label{classTablero_a511a12f900ee33f4bb4f0d8843b1cb85}
+
+\item 
+\hypertarget{classTablero_a13916a0314df059f250e34787f5337ae}{int {\bfseries alto}}\label{classTablero_a13916a0314df059f250e34787f5337ae}
+
+\item 
+\hypertarget{classTablero_a3e4e97ce47d41886e2a6e9c77ccfd551}{int {\bfseries ancho}}\label{classTablero_a3e4e97ce47d41886e2a6e9c77ccfd551}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classTablero_a3dee20f919de1fb404d9b637f2248584}{\index{Tablero@{Tablero}!activar\-Combinacion\-Columna@{activar\-Combinacion\-Columna}}
+\index{activar\-Combinacion\-Columna@{activar\-Combinacion\-Columna}!Tablero@{Tablero}}
+\subsubsection[{activar\-Combinacion\-Columna}]{\setlength{\rightskip}{0pt plus 5cm}bool Tablero\-::activar\-Combinacion\-Columna (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{bool}]{todos\-Buttons, }
+\item[{int}]{contador, }
+\item[{Json\-::\-Value \&}]{movimientos, }
+\item[{int \&}]{puntos, }
+\item[{int}]{x\-\_\-mov, }
+\item[{int}]{y\-\_\-mov}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a3dee20f919de1fb404d9b637f2248584}
+Activa una combinacion de columna encontrada. 
+\begin{DoxyParams}{Parameters}
+{\em x\mbox{[}in\mbox{]},\-:} & \\
+\hline
+{\em y,\-:} & \\
+\hline
+{\em todos\-Buttons,\-:} & verdadero si la combinacion es de todos buttons \\
+\hline
+{\em movimientos\mbox{[}out\mbox{]},\-:} & array que contiene los movimientos que se realizaron \\
+\hline
+{\em puntos\mbox{[}out\mbox{]},\-:} & se le suman los puntos que se ganaron por activar \\
+\hline
+{\em x\-\_\-mov,\-:} & posicion x donde se colocara el caramelo especial de tenerse qe generar \\
+\hline
+{\em y\-\_\-mov,\-:} & posicion y donde se colocara el caramelo especial de tenerse que generar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+verdadero si se realizo una combinacion 
+\end{DoxyReturn}
+\hypertarget{classTablero_a5010829869badf98a41e256f961a74a0}{\index{Tablero@{Tablero}!activar\-Combinacion\-Columna@{activar\-Combinacion\-Columna}}
+\index{activar\-Combinacion\-Columna@{activar\-Combinacion\-Columna}!Tablero@{Tablero}}
+\subsubsection[{activar\-Combinacion\-Columna}]{\setlength{\rightskip}{0pt plus 5cm}bool Tablero\-::activar\-Combinacion\-Columna (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{bool}]{todos\-Buttons, }
+\item[{int}]{contador, }
+\item[{Json\-::\-Value \&}]{movimientos, }
+\item[{int \&}]{puntos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a5010829869badf98a41e256f961a74a0}
+Ver la otra declaracion. Aca se pasan como x\-\_\-mov = x ; y\-\_\-mov = y -\/ contador/2; \hypertarget{classTablero_a0b795b193298c48038067fe4d7874727}{\index{Tablero@{Tablero}!activar\-Combinacion\-Fila@{activar\-Combinacion\-Fila}}
+\index{activar\-Combinacion\-Fila@{activar\-Combinacion\-Fila}!Tablero@{Tablero}}
+\subsubsection[{activar\-Combinacion\-Fila}]{\setlength{\rightskip}{0pt plus 5cm}bool Tablero\-::activar\-Combinacion\-Fila (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{bool}]{todos\-Buttons, }
+\item[{int}]{contador, }
+\item[{Json\-::\-Value \&}]{movimientos, }
+\item[{int \&}]{puntos, }
+\item[{int}]{x\-\_\-mov, }
+\item[{int}]{y\-\_\-mov}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a0b795b193298c48038067fe4d7874727}
+Activa una combinacion de fila encontrada. 
+\begin{DoxyParams}{Parameters}
+{\em x\mbox{[}in\mbox{]},\-:} & \\
+\hline
+{\em y,\-:} & \\
+\hline
+{\em todos\-Buttons,\-:} & verdadero si la combinacion es de todos buttons \\
+\hline
+{\em movimientos\mbox{[}out\mbox{]},\-:} & array que contiene los movimientos que se realizaron \\
+\hline
+{\em puntos\mbox{[}out\mbox{]},\-:} & se le suman los puntos que se ganaron por activar \\
+\hline
+{\em x\-\_\-mov,\-:} & posicion x donde se colocara el caramelo especial de tenerse qe generar \\
+\hline
+{\em y\-\_\-mov,\-:} & posicion y donde se colocara el caramelo especial de tenerse que generar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+verdadero si se realizo una combinacion 
+\end{DoxyReturn}
+\hypertarget{classTablero_a11ec8fc6053f58b0a1d01828080b1549}{\index{Tablero@{Tablero}!activar\-Combinacion\-Fila@{activar\-Combinacion\-Fila}}
+\index{activar\-Combinacion\-Fila@{activar\-Combinacion\-Fila}!Tablero@{Tablero}}
+\subsubsection[{activar\-Combinacion\-Fila}]{\setlength{\rightskip}{0pt plus 5cm}bool Tablero\-::activar\-Combinacion\-Fila (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{bool}]{todos\-Buttons, }
+\item[{int}]{contador, }
+\item[{Json\-::\-Value \&}]{movimientos, }
+\item[{int \&}]{puntos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a11ec8fc6053f58b0a1d01828080b1549}
+Ver la otra declaracion. Aca se pasan como x\-\_\-mov = x -\/ contador/2; y\-\_\-mov = y; \hypertarget{classTablero_a3a700258b30b74de4087fdc73404187b}{\index{Tablero@{Tablero}!calcular\-Coordenadas@{calcular\-Coordenadas}}
+\index{calcular\-Coordenadas@{calcular\-Coordenadas}!Tablero@{Tablero}}
+\subsubsection[{calcular\-Coordenadas}]{\setlength{\rightskip}{0pt plus 5cm}void Tablero\-::calcular\-Coordenadas (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{Caramelos\-Movimientos}]{mov, }
+\item[{int \&}]{xf, }
+\item[{int \&}]{yf}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a3a700258b30b74de4087fdc73404187b}
+Calcula las nuevas coordenadas dsp del movimiento \hypertarget{classTablero_a0c0e3d24458931072e02d207c805f035}{\index{Tablero@{Tablero}!disparar\-Columna@{disparar\-Columna}}
+\index{disparar\-Columna@{disparar\-Columna}!Tablero@{Tablero}}
+\subsubsection[{disparar\-Columna}]{\setlength{\rightskip}{0pt plus 5cm}void Tablero\-::disparar\-Columna (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{Json\-::\-Value \&}]{movimientos, }
+\item[{int}]{puntosx, }
+\item[{int \&}]{puntos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a0c0e3d24458931072e02d207c805f035}
+Metodo usado para cuando se dispara un bar (para efectuar sobre toda la columna) 
+\begin{DoxyParams}{Parameters}
+{\em x,\-:} & posicion x de la columna \\
+\hline
+{\em movimientos\mbox{[}out\mbox{]},\-:} & lista de movimientos realizados \\
+\hline
+{\em puntosx,\-:} & puntos por cada caramelo sacado \\
+\hline
+{\em puntos\mbox{[}out\mbox{]},\-:} & se le suman todos los puntos ganados \\
+\hline
+\end{DoxyParams}
+\hypertarget{classTablero_a745806bc929ae7ff91362fe8e65438be}{\index{Tablero@{Tablero}!disparar\-Fila@{disparar\-Fila}}
+\index{disparar\-Fila@{disparar\-Fila}!Tablero@{Tablero}}
+\subsubsection[{disparar\-Fila}]{\setlength{\rightskip}{0pt plus 5cm}void Tablero\-::disparar\-Fila (
+\begin{DoxyParamCaption}
+\item[{int}]{y, }
+\item[{Json\-::\-Value \&}]{movimientos, }
+\item[{int}]{puntosx, }
+\item[{int \&}]{puntos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a745806bc929ae7ff91362fe8e65438be}
+Metodo usado para cuando se dispara un bar (para efectuar sobre toda la fila) 
+\begin{DoxyParams}{Parameters}
+{\em y,\-:} & posicion y de la fila \\
+\hline
+{\em movimientos\mbox{[}out\mbox{]},\-:} & lista de movimientos realizados \\
+\hline
+{\em puntosx,\-:} & puntos por cada caramelo sacado \\
+\hline
+{\em puntos\mbox{[}out\mbox{]},\-:} & se le suman todos los puntos ganados \\
+\hline
+\end{DoxyParams}
+\hypertarget{classTablero_a6cb4b69dfb12688eec97e5fb5ed5f3ce}{\index{Tablero@{Tablero}!do\-Combinacion@{do\-Combinacion}}
+\index{do\-Combinacion@{do\-Combinacion}!Tablero@{Tablero}}
+\subsubsection[{do\-Combinacion}]{\setlength{\rightskip}{0pt plus 5cm}int Tablero\-::do\-Combinacion (
+\begin{DoxyParamCaption}
+\item[{Caramelos}]{car, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{Json\-::\-Value \&}]{movimientos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a6cb4b69dfb12688eec97e5fb5ed5f3ce}
+Comprueba si hay y efectua la combinacion sobre una ficha. 
+\begin{DoxyParams}{Parameters}
+{\em car,\-:} & \hyperlink{classCaramelo}{Caramelo} de la ficha \\
+\hline
+{\em x,\-:} & posicion x del caramelo \\
+\hline
+{\em y,\-:} & posicion y del caramelo \\
+\hline
+{\em movimientos\mbox{[}out\mbox{]},\-:} & lista de movimientos realizados \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+cantidad de puntos sumados 
+\end{DoxyReturn}
+\hypertarget{classTablero_a2622b4644514f7c5bed5a0c2cd1acd45}{\index{Tablero@{Tablero}!do\-Star@{do\-Star}}
+\index{do\-Star@{do\-Star}!Tablero@{Tablero}}
+\subsubsection[{do\-Star}]{\setlength{\rightskip}{0pt plus 5cm}int Tablero\-::do\-Star (
+\begin{DoxyParamCaption}
+\item[{Caramelos}]{caramelo\-Movido, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{Caramelos}]{caramelo\-Movido2, }
+\item[{int}]{xf, }
+\item[{int}]{yf, }
+\item[{Json\-::\-Value \&}]{movimientos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a2622b4644514f7c5bed5a0c2cd1acd45}
+Efectua accion de intercambio con star. \hypertarget{classTablero_a202f74274692f28609766f0581f708eb}{\index{Tablero@{Tablero}!es\-Button@{es\-Button}}
+\index{es\-Button@{es\-Button}!Tablero@{Tablero}}
+\subsubsection[{es\-Button}]{\setlength{\rightskip}{0pt plus 5cm}bool Tablero\-::es\-Button (
+\begin{DoxyParamCaption}
+\item[{Caramelos}]{car}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a202f74274692f28609766f0581f708eb}
+Devuelve true si es button \hypertarget{classTablero_ae9ccd18ce28c08063fda40f16757c04f}{\index{Tablero@{Tablero}!es\-Mismo\-Color@{es\-Mismo\-Color}}
+\index{es\-Mismo\-Color@{es\-Mismo\-Color}!Tablero@{Tablero}}
+\subsubsection[{es\-Mismo\-Color}]{\setlength{\rightskip}{0pt plus 5cm}bool Tablero\-::es\-Mismo\-Color (
+\begin{DoxyParamCaption}
+\item[{Caramelos}]{car, }
+\item[{Caramelos}]{car2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_ae9ccd18ce28c08063fda40f16757c04f}
+Calcula si las dos fichas son del mismo color. 
+\begin{DoxyParams}{Parameters}
+{\em car,\-:} & caramelo \\
+\hline
+{\em car,\-:} & otro caramelo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+verdadero si son del mismo color, falso si no lo son 
+\end{DoxyReturn}
+\hypertarget{classTablero_adfbac5dfd3d3b7454997be676421980b}{\index{Tablero@{Tablero}!hay\-Movimiento@{hay\-Movimiento}}
+\index{hay\-Movimiento@{hay\-Movimiento}!Tablero@{Tablero}}
+\subsubsection[{hay\-Movimiento}]{\setlength{\rightskip}{0pt plus 5cm}bool Tablero\-::hay\-Movimiento (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{Caramelos}]{car}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_adfbac5dfd3d3b7454997be676421980b}
+Chequea qe en la posicion x, y tenga una combinacion a su alrededor \begin{DoxyReturn}{Returns}
+true si hay, false si no 
+\end{DoxyReturn}
+\hypertarget{classTablero_a0d7b9f134e3b1a9ae66c64708611b005}{\index{Tablero@{Tablero}!hay\-Movimientos@{hay\-Movimientos}}
+\index{hay\-Movimientos@{hay\-Movimientos}!Tablero@{Tablero}}
+\subsubsection[{hay\-Movimientos}]{\setlength{\rightskip}{0pt plus 5cm}bool Tablero\-::hay\-Movimientos (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classTablero_a0d7b9f134e3b1a9ae66c64708611b005}
+Devuelve verdadero si hay movimientos para realizar \hypertarget{classTablero_a6ad1b37f469dabc3fe092196441e3e05}{\index{Tablero@{Tablero}!hay\-Patrones@{hay\-Patrones}}
+\index{hay\-Patrones@{hay\-Patrones}!Tablero@{Tablero}}
+\subsubsection[{hay\-Patrones}]{\setlength{\rightskip}{0pt plus 5cm}bool Tablero\-::hay\-Patrones (
+\begin{DoxyParamCaption}
+\item[{Json\-::\-Value \&}]{movimientos, }
+\item[{int \&}]{puntos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a6ad1b37f469dabc3fe092196441e3e05}
+Busca si hay patrones y los reemplaza por R\-E\-L\-L\-E\-N\-A\-R, sumandole a puntos los puntos ganados. Puntos debe estar inicializado previamente en algun valor. 
+\begin{DoxyParams}{Parameters}
+{\em movimientos\mbox{[}out\mbox{]},\-:} & movimientos que se realizan \\
+\hline
+{\em puntos\mbox{[}out\mbox{]},\-:} & puntos ganados \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true si hubo patrones, false si no. 
+\end{DoxyReturn}
+\hypertarget{classTablero_aa9f29dd6087b7a528a800ab5e31bbf7b}{\index{Tablero@{Tablero}!hor\-Bar\-Color@{hor\-Bar\-Color}}
+\index{hor\-Bar\-Color@{hor\-Bar\-Color}!Tablero@{Tablero}}
+\subsubsection[{hor\-Bar\-Color}]{\setlength{\rightskip}{0pt plus 5cm}Caramelos Tablero\-::hor\-Bar\-Color (
+\begin{DoxyParamCaption}
+\item[{Caramelos}]{car}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_aa9f29dd6087b7a528a800ab5e31bbf7b}
+Devuelve un bar horizontal del color de car. \hypertarget{classTablero_af23f2b0dfb3cfcff89faac42b6b12991}{\index{Tablero@{Tablero}!movimiento@{movimiento}}
+\index{movimiento@{movimiento}!Tablero@{Tablero}}
+\subsubsection[{movimiento}]{\setlength{\rightskip}{0pt plus 5cm}int Tablero\-::movimiento (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{Caramelos\-Movimientos}]{mov, }
+\item[{Json\-::\-Value \&}]{movimientos, }
+\item[{int}]{max\-Puntos}
+\end{DoxyParamCaption}
+)}}\label{classTablero_af23f2b0dfb3cfcff89faac42b6b12991}
+Ejecuta un movimiento. 
+\begin{DoxyParams}{Parameters}
+{\em x,\-:} & posicion x de la ficha \\
+\hline
+{\em y,\-:} & posicion y de la ficha \\
+\hline
+{\em mov,\-:} & para donde es el movimiento \\
+\hline
+{\em movimientos\mbox{[}out\mbox{]},\-:} & J\-S\-O\-N, lista de los movimientos que se realizaron. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+devuelve la cantidad de puntos que gano el usuario o 0 si no se realizo el movimiento 
+\end{DoxyReturn}
+\hypertarget{classTablero_a955a764e71cc33dde7d61bb98b164a34}{\index{Tablero@{Tablero}!movimiento\-Valido@{movimiento\-Valido}}
+\index{movimiento\-Valido@{movimiento\-Valido}!Tablero@{Tablero}}
+\subsubsection[{movimiento\-Valido}]{\setlength{\rightskip}{0pt plus 5cm}bool Tablero\-::movimiento\-Valido (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{Caramelos\-Movimientos}]{mov}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a955a764e71cc33dde7d61bb98b164a34}
+Chequea si es un movimiento valido, es decir si realizo alguna convinacion \hypertarget{classTablero_a25a6e1a3be7bfc614d98315a5d19c0be}{\index{Tablero@{Tablero}!mov\-Inverso@{mov\-Inverso}}
+\index{mov\-Inverso@{mov\-Inverso}!Tablero@{Tablero}}
+\subsubsection[{mov\-Inverso}]{\setlength{\rightskip}{0pt plus 5cm}Caramelos\-Movimientos Tablero\-::mov\-Inverso (
+\begin{DoxyParamCaption}
+\item[{Caramelos\-Movimientos}]{mov}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a25a6e1a3be7bfc614d98315a5d19c0be}
+Invierte el movimiento pasado. 
+\begin{DoxyParams}{Parameters}
+{\em mov,\-:} & movimiento a invertir. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+movimiento invertido. 
+\end{DoxyReturn}
+\hypertarget{classTablero_ae97632028f95c231db57e1895512b7de}{\index{Tablero@{Tablero}!new\-Mov@{new\-Mov}}
+\index{new\-Mov@{new\-Mov}!Tablero@{Tablero}}
+\subsubsection[{new\-Mov}]{\setlength{\rightskip}{0pt plus 5cm}Json\-::\-Value Tablero\-::new\-Mov (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{Caramelos\-Movimientos}]{mov}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_ae97632028f95c231db57e1895512b7de}
+Crea la estructura de un movimiento para ser enviado. 
+\begin{DoxyParams}{Parameters}
+{\em x,\-:} & posicion en x del caramelo. \\
+\hline
+{\em y,\-:} & posicion en y del caramelo \\
+\hline
+{\em mov,\-:} & movimiento que realizo el caramelo. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+la estructura de movimiento para ser enviada en formato J\-S\-O\-N. 
+\end{DoxyReturn}
+\hypertarget{classTablero_a52489c217f8e3c3c92fe2b30c974bcf3}{\index{Tablero@{Tablero}!new\-Mov@{new\-Mov}}
+\index{new\-Mov@{new\-Mov}!Tablero@{Tablero}}
+\subsubsection[{new\-Mov}]{\setlength{\rightskip}{0pt plus 5cm}Json\-::\-Value Tablero\-::new\-Mov (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{Caramelos\-Movimientos}]{mov, }
+\item[{Caramelos}]{car}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a52489c217f8e3c3c92fe2b30c974bcf3}
+Crea la estructura de un movimiento para ser enviado. Este metodo se usa para cuando aparecen caramelos 
+\begin{DoxyParams}{Parameters}
+{\em x,\-:} & posicion en x del caramelo. \\
+\hline
+{\em y,\-:} & posicion en y del caramelo \\
+\hline
+{\em mov,\-:} & movimiento que realizo el caramelo. \\
+\hline
+{\em car,\-:} & caramelo \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+la estructura de movimiento para ser enviada en formato J\-S\-O\-N. 
+\end{DoxyReturn}
+\hypertarget{classTablero_a3525fd9066b6403a8a1f9b9d9fdebae1}{\index{Tablero@{Tablero}!num2str@{num2str}}
+\index{num2str@{num2str}!Tablero@{Tablero}}
+\subsubsection[{num2str}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Tablero\-::num2str (
+\begin{DoxyParamCaption}
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_a3525fd9066b6403a8a1f9b9d9fdebae1}
+Transforma un numero a string. 
+\begin{DoxyParams}{Parameters}
+{\em n,\-:} & numero a transformar. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string que representa ese numero 
+\end{DoxyReturn}
+\hypertarget{classTablero_adea22d7a54a86d1f15571ce9492cfdd4}{\index{Tablero@{Tablero}!rellenar\-Tablero@{rellenar\-Tablero}}
+\index{rellenar\-Tablero@{rellenar\-Tablero}!Tablero@{Tablero}}
+\subsubsection[{rellenar\-Tablero}]{\setlength{\rightskip}{0pt plus 5cm}void Tablero\-::rellenar\-Tablero (
+\begin{DoxyParamCaption}
+\item[{Json\-::\-Value \&}]{movimientos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_adea22d7a54a86d1f15571ce9492cfdd4}
+Rellena los rellenar, haciendo la caida de los caramelos de mas arriba 
+\begin{DoxyParams}{Parameters}
+{\em movimientos\mbox{[}ou\mbox{]},\-:} & movimientos de caramelos que re realizados. \\
+\hline
+\end{DoxyParams}
+\hypertarget{classTablero_ac0c9c00e9a70af36f713df71a2292b59}{\index{Tablero@{Tablero}!ver\-Bar\-Color@{ver\-Bar\-Color}}
+\index{ver\-Bar\-Color@{ver\-Bar\-Color}!Tablero@{Tablero}}
+\subsubsection[{ver\-Bar\-Color}]{\setlength{\rightskip}{0pt plus 5cm}Caramelos Tablero\-::ver\-Bar\-Color (
+\begin{DoxyParamCaption}
+\item[{Caramelos}]{car}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}}\label{classTablero_ac0c9c00e9a70af36f713df71a2292b59}
+Devuelve un bar vertical del color de car. 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+server.\-tablero.\-h\item 
+server.\-tablero.\-cpp\end{DoxyCompactItemize}

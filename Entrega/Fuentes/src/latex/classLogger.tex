@@ -1,0 +1,58 @@
+\hypertarget{classLogger}{\section{Logger Class Reference}
+\label{classLogger}\index{Logger@{Logger}}
+}
+
+
+{\ttfamily \#include $<$common.\-logger.\-h$>$}
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classLogger_ad9f38f9cc2d75a6207f4972427aa74f1}{static void {\bfseries init} ()}\label{classLogger_ad9f38f9cc2d75a6207f4972427aa74f1}
+
+\item 
+\hypertarget{classLogger_a45bbe5b05294541b9ee7e2758c6c30b7}{static void {\bfseries destroy} ()}\label{classLogger_a45bbe5b05294541b9ee7e2758c6c30b7}
+
+\item 
+static void \hyperlink{classLogger_aba76d45e4a7eb8704fe408c7e8a0d035}{log} (const std\-::string \&str)
+\item 
+\hypertarget{classLogger_a5db1668abe71e787c3ad2ad35de6a2e5}{static void {\bfseries log} (const char $\ast$str)}\label{classLogger_a5db1668abe71e787c3ad2ad35de6a2e5}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classLogger_aae0dca7faca4a0288fa8c379197844e1}{void {\bfseries print} (const std\-::string \&str)}\label{classLogger_aae0dca7faca4a0288fa8c379197844e1}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classLogger_a1cd59b63f5c68f080afe1165730dfbc6}{\hyperlink{classMutex}{Mutex} {\bfseries mut}}\label{classLogger_a1cd59b63f5c68f080afe1165730dfbc6}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classLogger_af200e19cfe86c599f8dd1d982f36ee57}{static \hyperlink{classLogger}{Logger} $\ast$ {\bfseries me} = N\-U\-L\-L}\label{classLogger_af200e19cfe86c599f8dd1d982f36ee57}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Clase singleton usada para logger. Bloque mutex antes de escribir al stdout, se la debe iniciar con init y destruir con destroy. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classLogger_aba76d45e4a7eb8704fe408c7e8a0d035}{\index{Logger@{Logger}!log@{log}}
+\index{log@{log}!Logger@{Logger}}
+\subsubsection[{log}]{\setlength{\rightskip}{0pt plus 5cm}static void Logger\-::log (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{str}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classLogger_aba76d45e4a7eb8704fe408c7e8a0d035}
+Funciones usadas para logear. 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+common.\-logger.\-h\item 
+common.\-logger.\-cpp\end{DoxyCompactItemize}

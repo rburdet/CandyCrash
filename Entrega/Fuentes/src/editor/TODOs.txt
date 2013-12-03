@@ -1,0 +1,9 @@
+FALTA:
+	Guardar
+	Abrir
+	Cerrar
+	StatusBar
+
+	Imagen para marcar celda seleccionada
+
+

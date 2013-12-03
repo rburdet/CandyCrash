@@ -1,0 +1,17 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$server_8partida_8h.html" title="server.partida.h" alt="" coords="903,80,1014,107"/>
+<area shape="rect" id="node49" href="$common_8events_8h.html" title="common.events.h" alt="" coords="1201,80,1327,107"/>
+<area shape="rect" id="node51" href="$common_8logger_8h.html" title="common.logger.h" alt="" coords="1404,304,1527,331"/>
+<area shape="rect" id="node55" href="$server_8listador_8h.html" title="server.listador.h" alt="" coords="1527,229,1642,256"/>
+<area shape="rect" id="node68" href="$common_8user__manager_8h.html" title="common.user_manager.h" alt="" coords="1160,304,1328,331"/>
+<area shape="rect" id="node9" href="$server_8server__interface_8h.html" title="server.server_interface.h" alt="" coords="648,155,814,181"/>
+<area shape="rect" id="node18" href="$server_8partida__interface_8h.html" title="server.partida_interface.h" alt="" coords="672,229,840,256"/>
+<area shape="rect" id="node21" href="$common_8thread__socket_8h.html" title="common.thread_socket.h" alt="" coords="864,304,1032,331"/>
+<area shape="rect" id="node24" href="$common_8mutex_8h.html" title="common.mutex.h" alt="" coords="1188,379,1311,405"/>
+<area shape="rect" id="node41" href="$server_8tablero_8h.html" title="server.tablero.h" alt="" coords="383,379,494,405"/>
+<area shape="rect" id="node14" href="$common_8thread_8h.html" title="common.thread.h" alt="" coords="1042,379,1164,405"/>
+<area shape="rect" id="node27" href="$common_8socket__io_8h.html" title="common.socket_io.h" alt="" coords="824,379,966,405"/>
+<area shape="rect" id="node31" href="$common_8socket_8h.html" title="common.socket.h" alt="" coords="789,453,915,480"/>
+<area shape="rect" id="node45" href="$common_8caramelos_8h.html" title="common.caramelos.h" alt="" coords="44,453,191,480"/>
+<area shape="rect" id="node47" href="$common_8caramelos__movimientos_8h.html" title="common.caramelos_movimientos.h" alt="" coords="216,453,443,480"/>
+</map>

@@ -1,0 +1,67 @@
+\hypertarget{classThreadUsuario}{\section{Thread\-Usuario Class Reference}
+\label{classThreadUsuario}\index{Thread\-Usuario@{Thread\-Usuario}}
+}
+
+
+{\ttfamily \#include $<$server.\-thread\-\_\-usuario.\-h$>$}
+
+Inheritance diagram for Thread\-Usuario\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classThreadUsuario}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classThreadUsuario_a89614bb5871f99c8effaba450e5aa4f0}{{\bfseries Thread\-Usuario} (\hyperlink{classServerInterface}{Server\-Interface} $\ast$s, \hyperlink{classSocketIO}{Socket\-I\-O} $\ast$fd)}\label{classThreadUsuario_a89614bb5871f99c8effaba450e5aa4f0}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classThreadUsuario_a8e1776d0b712b02710564f5172476fab}{virtual int {\bfseries event\-No\-Firmado} (Json\-::\-Value \&data)}\label{classThreadUsuario_a8e1776d0b712b02710564f5172476fab}
+
+\item 
+\hypertarget{classThreadUsuario_a0ed65fc90c1e188cd3a492dbebf9d0a2}{virtual int {\bfseries event\-Firmado} (Json\-::\-Value \&data)}\label{classThreadUsuario_a0ed65fc90c1e188cd3a492dbebf9d0a2}
+
+\item 
+\hypertarget{classThreadUsuario_a7f7c0738bd4320e3f9f2eb065a2d45f3}{virtual void $\ast$ {\bfseries sub\-Run} ()}\label{classThreadUsuario_a7f7c0738bd4320e3f9f2eb065a2d45f3}
+
+\item 
+\hypertarget{classThreadUsuario_ab51cc252bc76f33fefb4b601f47b289c}{int {\bfseries on\-Join\-Game} (Json\-::\-Value \&data, Json\-::\-Value \&user\-Data)}\label{classThreadUsuario_ab51cc252bc76f33fefb4b601f47b289c}
+
+\item 
+\hypertarget{classThreadUsuario_a541854eb8f6a5c47cec0ebc30e403bc8}{int {\bfseries on\-Leave\-Game} (Json\-::\-Value \&data, Json\-::\-Value \&user\-Data)}\label{classThreadUsuario_a541854eb8f6a5c47cec0ebc30e403bc8}
+
+\item 
+\hypertarget{classThreadUsuario_ab6033809c7c416bb2210c7fabec26ae7}{int {\bfseries on\-New\-Game} (Json\-::\-Value \&data, Json\-::\-Value \&user\-Data)}\label{classThreadUsuario_ab6033809c7c416bb2210c7fabec26ae7}
+
+\item 
+\hypertarget{classThreadUsuario_a56b98549728c0f4aa77282325414ca32}{int {\bfseries on\-Get\-Maps} (Json\-::\-Value \&data, Json\-::\-Value \&user\-Data)}\label{classThreadUsuario_a56b98549728c0f4aa77282325414ca32}
+
+\item 
+\hypertarget{classThreadUsuario_a88100073941ca7caf1a38dd019e10946}{int {\bfseries welcome} ()}\label{classThreadUsuario_a88100073941ca7caf1a38dd019e10946}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classThreadUsuario_ab778e6d6893a51191a76cc4a7f45938b}{\hyperlink{classServerInterface}{Server\-Interface} $\ast$ {\bfseries server}}\label{classThreadUsuario_ab778e6d6893a51191a76cc4a7f45938b}
+
+\item 
+\hypertarget{classThreadUsuario_a161d5b28cdbd8116969bf698ebec11c3}{\hyperlink{classPartidaInterface}{Partida\-Interface} $\ast$ {\bfseries partida}}\label{classThreadUsuario_a161d5b28cdbd8116969bf698ebec11c3}
+
+\item 
+\hypertarget{classThreadUsuario_a513f404350b08bee0b09b0291869a660}{std\-::string {\bfseries user}}\label{classThreadUsuario_a513f404350b08bee0b09b0291869a660}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{classThread}{Thread} usado para cada usuario que se conecta 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+server.\-thread\-\_\-usuario.\-h\item 
+server.\-thread\-\_\-usuario.\-cpp\end{DoxyCompactItemize}

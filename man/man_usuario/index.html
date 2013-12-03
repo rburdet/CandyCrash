@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8">
+	<title>Manual de Usuario</title>
+	<link rel="stylesheet" href="estilos.css" />
+</head>
+
+<body>
+
+<header>
+<a href="Grupo 8" target="_blank"><img border="0" src="imagenes/fiuba.png"/></a>
+<a href="Grupo 8" target="_blank" style="float:right;">Grupo 8</a>
+</header>
+
+<span id="version_producto">03/12/2013 18:00:00</span>
+
+<div id="contenedor_general">
+
+<span id="manual_tit">Manual de usuario</span>
+
+<article>
+<span class="titulo">Contenidos</span>
+<ol>
+
+<li><a href="#Instalación" class="indice_entrada">Instalación</a></li>
+
+<li><a href="#Configuración" class="indice_entrada">Configuración</a></li>
+
+<li><a href="#Forma_de_uso" class="indice_entrada">Forma de uso</a></li>
+
+<li><a href="#Apéndice_de_errores" class="indice_entrada">Apéndice de errores</a></li>
+
+</ol>
+</article>
+
+<article id="indice_">
+<img id="indiceico" src="imagenes/indiceico.png" />
+<div id="indice_margen"></div>
+<span class="titulo">Contenidos</span>
+
+	<div id="indice_scroll">
+		<ol>
+		
+			<li><a href="#Instalación" class="indice_entrada">Instalación</a></li>
+
+			<li><a href="#Configuración" class="indice_entrada">Configuración</a></li>
+
+			<li><a href="#Forma_de_uso" class="indice_entrada">Forma de uso</a></li>
+
+			<li><a href="#Apéndice_de_errores" class="indice_entrada">Apéndice de errores</a></li>
+
+
+		<br>
+		<br>
+		<br>
+		</ol>
+
+	</div>
+
+<script>
+	var indices = document.getelementsbyclassname('indice_entrada');
+	for(var i=0, ind; ind=indices[i]; i++){
+		ind.innerhtml = ind.innerhtml.replace(/_/g, ' ');
+	}
+</script>
+</article>
+
+<!-- inicio contenido -->
+
+<article id="Instalación">
+
+
+<span class="titulo">1. Instalación</span>
+
+</article>
+
+
+
+
+
+<article id="Configuración">
+
+
+<span class="titulo">2. Configuración</span> 
+
+</article>
+
+<article id="Forma_de_uso">
+<span class="titulo">3. Forma de uso</span>
+</article>
+
+
+<article id="Apéndice_de_errores">
+<span class="titulo">4. Apéndice de errores</span>
+
+
+</article>
+<!-- fin de contenido -->
+
+</div><!-- cierre contenedor_general -->
+
+</body>
+</html>

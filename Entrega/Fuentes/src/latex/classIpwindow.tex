@@ -1,0 +1,111 @@
+\hypertarget{classIpwindow}{\section{Ipwindow Class Reference}
+\label{classIpwindow}\index{Ipwindow@{Ipwindow}}
+}
+
+
+{\ttfamily \#include $<$cliente.\-ipwindow.\-h$>$}
+
+Inheritance diagram for Ipwindow\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classIpwindow}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef sigc\-::signal$<$ void, \\*
+std\-::string, std\-::string, \\*
+std\-::string, bool $>$ \hyperlink{classIpwindow_a44657903a47dd87a70847e74abeb4e68}{type\-\_\-signal\-\_\-conectar}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classIpwindow_a783772352ac8f6dd0cf0a36d57cec35d}{\hyperlink{classIpwindow_a44657903a47dd87a70847e74abeb4e68}{type\-\_\-signal\-\_\-conectar} {\bfseries signal\-\_\-conectar} ()}\label{classIpwindow_a783772352ac8f6dd0cf0a36d57cec35d}
+
+\item 
+\hypertarget{classIpwindow_a85d72685748603d08dc6f417288f179d}{void {\bfseries set\-\_\-editable} (bool is\-\_\-editable)}\label{classIpwindow_a85d72685748603d08dc6f417288f179d}
+
+\item 
+\hypertarget{classIpwindow_a244eef48968787746981770d1cadb964}{void {\bfseries set\-\_\-text} (std\-::string \&str)}\label{classIpwindow_a244eef48968787746981770d1cadb964}
+
+\item 
+virtual void \hyperlink{classIpwindow_ac2c428b415b6a9154ee37de6c8a9dd4d}{mensaje} (Json\-::\-Value \&data)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classIpwindow_ac8036a10cc5b5f42086291c44a29e7f5}{void {\bfseries on\-\_\-button\-\_\-conectar} ()}\label{classIpwindow_ac8036a10cc5b5f42086291c44a29e7f5}
+
+\item 
+\hypertarget{classIpwindow_a8edefd3ac4bdaefeac7bb164e6dba8f1}{virtual bool {\bfseries on\-Close} ()}\label{classIpwindow_a8edefd3ac4bdaefeac7bb164e6dba8f1}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classIpwindow_a28805e1ff41ff9f0b3cffbb30e2bdd0d}{Gtk\-::\-Box {\bfseries m\-\_\-\-H\-Box}}\label{classIpwindow_a28805e1ff41ff9f0b3cffbb30e2bdd0d}
+
+\item 
+\hypertarget{classIpwindow_a299006ef69c379869a6a26f471ecedb0}{Gtk\-::\-Box {\bfseries m\-\_\-\-V\-Box}}\label{classIpwindow_a299006ef69c379869a6a26f471ecedb0}
+
+\item 
+\hypertarget{classIpwindow_ab8f5709fe4d1ca0afd28544962ad08fd}{Menu\-Bar {\bfseries menubar}}\label{classIpwindow_ab8f5709fe4d1ca0afd28544962ad08fd}
+
+\item 
+\hypertarget{classIpwindow_a4a130aa2ef61b6c552bff2f41fc71202}{Gtk\-::\-Image {\bfseries img}}\label{classIpwindow_a4a130aa2ef61b6c552bff2f41fc71202}
+
+\item 
+\hypertarget{classIpwindow_af1defcc0555d17fb3c8b0c73c5f9e158}{Label\-Entry {\bfseries m\-\_\-host}}\label{classIpwindow_af1defcc0555d17fb3c8b0c73c5f9e158}
+
+\item 
+\hypertarget{classIpwindow_ab1f1531c35d31ae1cba7f57d1cf82ce1}{Label\-Entry {\bfseries m\-\_\-user}}\label{classIpwindow_ab1f1531c35d31ae1cba7f57d1cf82ce1}
+
+\item 
+\hypertarget{classIpwindow_a3555431a7095a33d4124818ccc324684}{Label\-Entry {\bfseries m\-\_\-pass}}\label{classIpwindow_a3555431a7095a33d4124818ccc324684}
+
+\item 
+\hypertarget{classIpwindow_acea1c6559b084099ca7c44c9687224e1}{Gtk\-::\-Label {\bfseries m\-\_\-text}}\label{classIpwindow_acea1c6559b084099ca7c44c9687224e1}
+
+\item 
+\hypertarget{classIpwindow_aa18922eb8ffaffa92abf1abac099a34c}{Gtk\-::\-Check\-Button {\bfseries m\-\_\-check}}\label{classIpwindow_aa18922eb8ffaffa92abf1abac099a34c}
+
+\item 
+\hypertarget{classIpwindow_addc90368cfd7161254f0d51e8ccb343a}{Gtk\-::\-H\-Box {\bfseries m\-\_\-\-Button\-\_\-box}}\label{classIpwindow_addc90368cfd7161254f0d51e8ccb343a}
+
+\item 
+\hypertarget{classIpwindow_a5284efc19c09dc1a1d5ec4e6011f68ca}{Gtk\-::\-Button {\bfseries m\-\_\-\-Button\-\_\-conectar}}\label{classIpwindow_a5284efc19c09dc1a1d5ec4e6011f68ca}
+
+\item 
+\hypertarget{classIpwindow_a6eaceaf031bc400b3347bcfb19f21396}{\hyperlink{classIpwindow_a44657903a47dd87a70847e74abeb4e68}{type\-\_\-signal\-\_\-conectar} {\bfseries m\-\_\-signal\-\_\-conectar}}\label{classIpwindow_a6eaceaf031bc400b3347bcfb19f21396}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Ventana de login y seleccionar servidor. 
+
+\subsection{Member Typedef Documentation}
+\hypertarget{classIpwindow_a44657903a47dd87a70847e74abeb4e68}{\index{Ipwindow@{Ipwindow}!type\-\_\-signal\-\_\-conectar@{type\-\_\-signal\-\_\-conectar}}
+\index{type\-\_\-signal\-\_\-conectar@{type\-\_\-signal\-\_\-conectar}!Ipwindow@{Ipwindow}}
+\subsubsection[{type\-\_\-signal\-\_\-conectar}]{\setlength{\rightskip}{0pt plus 5cm}typedef sigc\-::signal$<$void, std\-::string, std\-::string, std\-::string, bool$>$ {\bf Ipwindow\-::type\-\_\-signal\-\_\-conectar}}}\label{classIpwindow_a44657903a47dd87a70847e74abeb4e68}
+Signal para que el \hyperlink{classCliente}{Cliente} realice la coneccion con el servidor 
+
+\subsection{Member Function Documentation}
+\hypertarget{classIpwindow_ac2c428b415b6a9154ee37de6c8a9dd4d}{\index{Ipwindow@{Ipwindow}!mensaje@{mensaje}}
+\index{mensaje@{mensaje}!Ipwindow@{Ipwindow}}
+\subsubsection[{mensaje}]{\setlength{\rightskip}{0pt plus 5cm}void Ipwindow\-::mensaje (
+\begin{DoxyParamCaption}
+\item[{Json\-::\-Value \&}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classIpwindow_ac2c428b415b6a9154ee37de6c8a9dd4d}
+Metodo que reciben los mensajes del servidor, que deben mostrar. 
+
+Implements \hyperlink{classWindow_a6034ea4f54b6647de07b19ff95fb22ae}{Window}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+cliente.\-ipwindow.\-h\item 
+cliente.\-ipwindow.\-cpp\end{DoxyCompactItemize}

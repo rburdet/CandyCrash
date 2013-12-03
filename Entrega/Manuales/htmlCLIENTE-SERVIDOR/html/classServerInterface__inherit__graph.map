@@ -1,0 +1,3 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classServer.html" title="{Server\n|# port\l# clientes\l# partidas\l# sock\l# clientesLock\l# partidasLock\l|+ Server()\l+ ~Server()\l+ removeClient()\l+ newPartida()\l+ removePartida()\l+ listPartidas()\l+ connectPartidas()\l+ end()\l# addClient()\l# main()\l# run()\l}" alt="" coords="4,190,139,487"/>
+</map>

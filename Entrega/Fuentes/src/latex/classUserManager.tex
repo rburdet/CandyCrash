@@ -1,0 +1,89 @@
+\hypertarget{classUserManager}{\section{User\-Manager Class Reference}
+\label{classUserManager}\index{User\-Manager@{User\-Manager}}
+}
+
+
+{\ttfamily \#include $<$common.\-user\-\_\-manager.\-h$>$}
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classUserManager_a712e64b638d4586652bca563c19f427c}{static void {\bfseries init} (const std\-::string \&path)}\label{classUserManager_a712e64b638d4586652bca563c19f427c}
+
+\item 
+\hypertarget{classUserManager_aacdfb7ae91fee25bf7d61f047299396f}{static void {\bfseries destroy} ()}\label{classUserManager_aacdfb7ae91fee25bf7d61f047299396f}
+
+\item 
+static void \hyperlink{classUserManager_a42d338740bb3317751799a3e85b15903}{get} (const std\-::string \&user, Json\-::\-Value \&data)
+\item 
+static int \hyperlink{classUserManager_a78eee9121e7ceb88c18ec011391bd397}{set} (const Json\-::\-Value \&data)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classUserManager_a450ad78085c4462f149023559d7876eb}{{\bfseries User\-Manager} (const std\-::string \&path)}\label{classUserManager_a450ad78085c4462f149023559d7876eb}
+
+\item 
+\hypertarget{classUserManager_aecad336ff52d5121e6bdd61636a91f45}{void {\bfseries \-\_\-get} (const std\-::string \&user, Json\-::\-Value \&data)}\label{classUserManager_aecad336ff52d5121e6bdd61636a91f45}
+
+\item 
+\hypertarget{classUserManager_a3160806deccfc95412a275696ff57074}{int {\bfseries \-\_\-set} (const Json\-::\-Value \&data)}\label{classUserManager_a3160806deccfc95412a275696ff57074}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classUserManager_adcd1cf9ee71d16fbeadd6cb7c9a04656}{std\-::string {\bfseries path}}\label{classUserManager_adcd1cf9ee71d16fbeadd6cb7c9a04656}
+
+\item 
+\hypertarget{classUserManager_aa996769bd40f6d2d0c3a88cc3f69f422}{Json\-::\-Value {\bfseries users}}\label{classUserManager_aa996769bd40f6d2d0c3a88cc3f69f422}
+
+\item 
+\hypertarget{classUserManager_ae251a67890e92d82c4d6bc9b26cd6cfd}{\hyperlink{classMutex}{Mutex} {\bfseries mut}}\label{classUserManager_ae251a67890e92d82c4d6bc9b26cd6cfd}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classUserManager_acae4ad483ab485ac3747da2a2f3f9e45}{static \hyperlink{classUserManager}{User\-Manager} $\ast$ {\bfseries me} = N\-U\-L\-L}\label{classUserManager_acae4ad483ab485ac3747da2a2f3f9e45}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Clase estilo singleton encargada del manejo de toda la informacion de los usuarios. Se la debe iniciar con init y destruir con destroy. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classUserManager_a42d338740bb3317751799a3e85b15903}{\index{User\-Manager@{User\-Manager}!get@{get}}
+\index{get@{get}!UserManager@{User\-Manager}}
+\subsubsection[{get}]{\setlength{\rightskip}{0pt plus 5cm}void User\-Manager\-::get (
+\begin{DoxyParamCaption}
+\item[{const std\-::string \&}]{user, }
+\item[{Json\-::\-Value \&}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classUserManager_a42d338740bb3317751799a3e85b15903}
+Obtiene la informacion de un usario. 
+\begin{DoxyParams}{Parameters}
+{\em user\mbox{[}in\mbox{]},\-:} & nombre del usuario. \\
+\hline
+{\em data\mbox{[}out\mbox{]},\-:} & informacion del usuario \\
+\hline
+\end{DoxyParams}
+\hypertarget{classUserManager_a78eee9121e7ceb88c18ec011391bd397}{\index{User\-Manager@{User\-Manager}!set@{set}}
+\index{set@{set}!UserManager@{User\-Manager}}
+\subsubsection[{set}]{\setlength{\rightskip}{0pt plus 5cm}int User\-Manager\-::set (
+\begin{DoxyParamCaption}
+\item[{const Json\-::\-Value \&}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classUserManager_a78eee9121e7ceb88c18ec011391bd397}
+Setea y guarda la informacion (recordar que el nombre de usaurio esta dentro de la data. 
+\begin{DoxyParams}{Parameters}
+{\em data\mbox{[}in\mbox{]},\-:} & informacion del usuario \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+common.\-user\-\_\-manager.\-h\item 
+common.\-user\-\_\-manager.\-cpp\end{DoxyCompactItemize}
