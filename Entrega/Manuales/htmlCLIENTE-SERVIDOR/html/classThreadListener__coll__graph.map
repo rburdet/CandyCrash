@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$classThreadSocket.html" title="{ThreadSocket\n|# myId\l# key\l|+ ThreadSocket()\l+ ~ThreadSocket()\l+ shutdown()\l+ shutdown()\l+ write()\l# run()\l# subRun()\l# read()\l# eventNoFirmado()\l# eventFirmado()\l}" alt="" coords="170,451,307,675"/>
+<area shape="rect" id="node4" href="$classThread.html" title="{Thread\n||+ Thread()\l+ ~Thread()\l+ start()\l+ join()\l+ detach()\l# run()\l}" alt="" coords="5,222,96,373"/>
+<area shape="rect" id="node6" href="$classSocketIO.html" title="{SocketIO\n||+ SocketIO()\l+ SocketIO()\l+ ~SocketIO()\l+ read()\l+ write()\l}" alt="" coords="121,229,225,365"/>
+<area shape="rect" id="node8" href="$classSocket.html" title="{Socket\n|# fd\l|+ Socket()\l+ ~Socket()\l+ shutdown()\l+ shutdown()\l# ip2struct()\l# ip2struct()\l# ip2struct()\l}" alt="" coords="124,5,223,171"/>
+<area shape="rect" id="node12" href="$classMutex.html" title="{Mutex\n||+ Mutex()\l+ ~Mutex()\l+ lock()\l+ unlock()\l}" alt="" coords="329,237,415,358"/>
+<area shape="rect" id="node14" href="$classClienteInterface.html" title="{ClienteInterface\n||+ nuevoMensaje()\l}" alt="" coords="331,524,457,601"/>
+</map>

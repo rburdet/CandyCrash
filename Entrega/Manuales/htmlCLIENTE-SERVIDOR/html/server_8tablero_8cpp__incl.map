@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$server_8tablero_8h.html" title="server.tablero.h" alt="" coords="747,80,857,107"/>
+<area shape="rect" id="node9" href="$common_8caramelos_8h.html" title="common.caramelos.h" alt="" coords="941,155,1088,181"/>
+<area shape="rect" id="node13" href="$server_8listador_8h.html" title="server.listador.h" alt="" coords="289,80,404,107"/>
+<area shape="rect" id="node23" href="$common_8logger_8h.html" title="common.logger.h" alt="" coords="5,155,128,181"/>
+<area shape="rect" id="node11" href="$common_8caramelos__movimientos_8h.html" title="common.caramelos_movimientos.h" alt="" coords="689,155,916,181"/>
+<area shape="rect" id="node26" href="$common_8mutex_8h.html" title="common.mutex.h" alt="" coords="5,229,128,256"/>
+</map>

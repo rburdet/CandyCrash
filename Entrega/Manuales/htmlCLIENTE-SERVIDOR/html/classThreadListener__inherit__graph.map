@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$classThreadSocket.html" title="{ThreadSocket\n|# fd\l# writeMutex\l# myId\l# key\l|+ ThreadSocket()\l+ ~ThreadSocket()\l+ shutdown()\l+ shutdown()\l+ write()\l# run()\l# subRun()\l# read()\l# eventNoFirmado()\l# eventFirmado()\l}" alt="" coords="5,205,141,459"/>
+<area shape="rect" id="node4" href="$classThread.html" title="{Thread\n||+ Thread()\l+ ~Thread()\l+ start()\l+ join()\l+ detach()\l# run()\l}" alt="" coords="28,6,119,157"/>
+</map>

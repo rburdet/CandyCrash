@@ -1,0 +1,4 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$classTCPSocket.html" title="{TCPSocket\n||+ TCPSocket()\l+ ~TCPSocket()\l}" alt="" coords="27,219,145,311"/>
+<area shape="rect" id="node4" href="$classSocket.html" title="{Socket\n|# fd\l|+ Socket()\l+ ~Socket()\l+ shutdown()\l+ shutdown()\l# ip2struct()\l# ip2struct()\l# ip2struct()\l}" alt="" coords="37,5,136,171"/>
+</map>

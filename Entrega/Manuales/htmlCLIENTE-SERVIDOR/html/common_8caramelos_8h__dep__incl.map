@@ -1,0 +1,20 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$cliente_8caramelo_8h.html" title="cliente.caramelo.h" alt="" coords="265,80,393,107"/>
+<area shape="rect" id="node7" href="$cliente_8factory__caramelos_8h.html" title="cliente.factory_caramelos.h" alt="" coords="187,229,369,256"/>
+<area shape="rect" id="node28" href="$server_8tablero_8h.html" title="server.tablero.h" alt="" coords="597,80,708,107"/>
+<area shape="rect" id="node40" href="$server_8tablero_8cpp.html" title="server.tablero.cpp" alt="" coords="734,155,860,181"/>
+<area shape="rect" id="node5" href="$cliente_8bar_8h.html" title="cliente.bar.h" alt="" coords="5,155,99,181"/>
+<area shape="rect" id="node19" href="$cliente_8button_8h.html" title="cliente.button.h" alt="" coords="123,155,233,181"/>
+<area shape="rect" id="node22" href="$cliente_8caramelo_8cpp.html" title="cliente.caramelo.cpp" alt="" coords="258,155,400,181"/>
+<area shape="rect" id="node24" href="$cliente_8star_8h.html" title="cliente.star.h" alt="" coords="425,155,521,181"/>
+<area shape="rect" id="node9" href="$cliente_8tablerojuego_8h.html" title="cliente.tablerojuego.h" alt="" coords="206,304,351,331"/>
+<area shape="rect" id="node11" href="$cliente_8game_8h.html" title="cliente.game.h" alt="" coords="147,379,253,405"/>
+<area shape="rect" id="node17" href="$cliente_8tablerojuego_8cpp.html" title="cliente.tablerojuego.cpp" alt="" coords="278,379,436,405"/>
+<area shape="rect" id="node13" href="$cliente_8cliente_8cpp.html" title="cliente.cliente.cpp" alt="" coords="63,453,189,480"/>
+<area shape="rect" id="node15" href="$cliente_8game_8cpp.html" title="cliente.game.cpp" alt="" coords="214,453,335,480"/>
+<area shape="rect" id="node30" href="$server_8partida_8h.html" title="server.partida.h" alt="" coords="597,155,708,181"/>
+<area shape="rect" id="node32" href="$server_8server_8h.html" title="server.server.h" alt="" coords="527,229,636,256"/>
+<area shape="rect" id="node38" href="$server_8partida_8cpp.html" title="server.partida.cpp" alt="" coords="661,229,787,256"/>
+<area shape="rect" id="node34" href="$server_8cpp.html" title="server.cpp" alt="" coords="476,304,557,331"/>
+<area shape="rect" id="node36" href="$server_8server_8cpp.html" title="server.server.cpp" alt="" coords="583,304,705,331"/>
+</map>

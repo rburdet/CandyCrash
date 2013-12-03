@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classBar.html" title="{Bar\n||+ Bar()\l+ ~Bar()\l}" alt="" coords="5,285,75,377"/>
+<area shape="rect" id="node5" href="$classButton.html" title="{Button\n||+ Button()\l+ ~Button()\l}" alt="" coords="100,285,188,377"/>
+<area shape="rect" id="node7" href="$classStar.html" title="{Star\n||+ Star()\l+ ~Star()\l+ mover()\l}" alt="" coords="213,277,291,384"/>
+</map>

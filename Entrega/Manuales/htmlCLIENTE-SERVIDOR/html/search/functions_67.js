@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['gamewindow',['GameWindow',['../classGameWindow.html#a81f2f6fea59b4723569c591756328163',1,'GameWindow']]],
+  ['generar',['generar',['../classTablero.html#a9b915b975e34d4f466a2de5cfb491d21',1,'Tablero']]],
+  ['get',['get',['../classUserManager.html#a42d338740bb3317751799a3e85b15903',1,'UserManager']]],
+  ['getestado',['getEstado',['../classPartida.html#a74e4a34c63247eb4764a744e54678b8e',1,'Partida::getEstado()'],['../classPartidaInterface.html#ac6b479769dd8d53ced7e0cbc147ca4d5',1,'PartidaInterface::getEstado()']]],
+  ['getid',['getId',['../classCaramelo.html#ab2c31f222a395e70b878bee9b77d3c74',1,'Caramelo']]],
+  ['getmapa',['getMapa',['../classListador.html#a5019f12bd56c5dcd3adfae2bb227da5e',1,'Listador']]],
+  ['getmax',['getMax',['../classTablero.html#acbba660d044fff4072b210c3eff39735',1,'Tablero']]],
+  ['getmaxusuarios',['getMaxUsuarios',['../classPartida.html#a32af6c611e9e4556f63633a32c7eb677',1,'Partida::getMaxUsuarios()'],['../classPartidaInterface.html#aa3b96356d4b96b799900c9425da251ba',1,'PartidaInterface::getMaxUsuarios()']]],
+  ['getnivel',['getNivel',['../classListador.html#a202b60bca5249bbfeccd308607d71cc1',1,'Listador::getNivel()'],['../classPartida.html#af4035771592061632b5d16879d858cdc',1,'Partida::getNivel()'],['../classPartidaInterface.html#af3e878d3e1de9d64f17e12b32dcc7643',1,'PartidaInterface::getNivel()']]],
+  ['getnombre',['getNombre',['../classPartida.html#a797de83b25e6ff8ebd149f414e9509c7',1,'Partida::getNombre()'],['../classPartidaInterface.html#a0287b2294f48e9bbda0173df9544964c',1,'PartidaInterface::getNombre()']]],
+  ['gettablero',['getTablero',['../classTablero.html#ac8b2b7d0ef6fed0147f3aa0c649a02a3',1,'Tablero']]],
+  ['getusuarios',['getUsuarios',['../classPartida.html#a8a8fdd55c05f1040dda9fd6df76bfeb2',1,'Partida::getUsuarios()'],['../classPartidaInterface.html#a8788de756e14af6febdf8bd44f8ff02b',1,'PartidaInterface::getUsuarios()']]],
+  ['getx',['getX',['../classCaramelo.html#a3e5f9e699d501c9324799e35e4c25394',1,'Caramelo']]],
+  ['getxpos',['getXPos',['../classCaramelo.html#a95797573b7a84df706a5e9b5646d67cc',1,'Caramelo']]],
+  ['gety',['getY',['../classCaramelo.html#ac6a91c3ecd8f4c483fa11366b6414aba',1,'Caramelo']]],
+  ['getypos',['getYPos',['../classCaramelo.html#a5942b03955e36c271584d692b90f9cfa',1,'Caramelo']]]
+];

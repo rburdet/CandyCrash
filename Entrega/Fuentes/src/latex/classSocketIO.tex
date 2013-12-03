@@ -1,0 +1,78 @@
+\hypertarget{classSocketIO}{\section{Socket\-I\-O Class Reference}
+\label{classSocketIO}\index{Socket\-I\-O@{Socket\-I\-O}}
+}
+
+
+{\ttfamily \#include $<$common.\-socket\-\_\-io.\-h$>$}
+
+Inheritance diagram for Socket\-I\-O\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classSocketIO}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classSocketIO_a6fab1f7899e781b7fea87fbdc6c0e353}{{\bfseries Socket\-I\-O} (unsigned int fd)}\label{classSocketIO_a6fab1f7899e781b7fea87fbdc6c0e353}
+
+\item 
+int \hyperlink{classSocketIO_aa9f50be5a8b12fbab93893de212b8a59}{read} (Json\-::\-Value \&data, const std\-::string \&key, bool check=true)
+\item 
+int \hyperlink{classSocketIO_a29877c264b1d6c116d07e0a9f76c5373}{write} (const Json\-::\-Value \&data, const std\-::string \&key)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{classSocket}{Socket} de entrada y salida. Implementa metodos de escribir y leer con firma. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classSocketIO_aa9f50be5a8b12fbab93893de212b8a59}{\index{Socket\-I\-O@{Socket\-I\-O}!read@{read}}
+\index{read@{read}!SocketIO@{Socket\-I\-O}}
+\subsubsection[{read}]{\setlength{\rightskip}{0pt plus 5cm}int Socket\-I\-O\-::read (
+\begin{DoxyParamCaption}
+\item[{Json\-::\-Value \&}]{data, }
+\item[{const std\-::string \&}]{key, }
+\item[{bool}]{check = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}\label{classSocketIO_aa9f50be5a8b12fbab93893de212b8a59}
+read\-: lee mensaje. Lee mensaje de socket. Primero lee prefijo de longitud, dependiendo de eso, lee el mensaje, y despues lee la firma, la validacion de la misma es opcional, pero siempre se la leera. El metodo se encarga de la transformacion de la data json entrante en objeto. En el caso de haber una firma invalida, se saldra con error, pero se devolvera por data el json recibido. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em data} & informacion proveniente del socket. \\
+\hline
+\mbox{\tt in}  & {\em key} & llave usada para la comprobacion de la firma. \\
+\hline
+\mbox{\tt in}  & {\em check} & opcional, (true por defecto) si es verdadero se chequeara la firma. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 ok, -\/1 para cualqier error de lectura de socket, 1 para error de validacion de firma, 2 para problemas de parseo de json. 
+\end{DoxyReturn}
+\hypertarget{classSocketIO_a29877c264b1d6c116d07e0a9f76c5373}{\index{Socket\-I\-O@{Socket\-I\-O}!write@{write}}
+\index{write@{write}!SocketIO@{Socket\-I\-O}}
+\subsubsection[{write}]{\setlength{\rightskip}{0pt plus 5cm}int Socket\-I\-O\-::write (
+\begin{DoxyParamCaption}
+\item[{const Json\-::\-Value \&}]{data, }
+\item[{const std\-::string \&}]{key}
+\end{DoxyParamCaption}
+)}}\label{classSocketIO_a29877c264b1d6c116d07e0a9f76c5373}
+write\-: envia el mensaje. Agrega prefijo de longitud (en bytes) y firma del mensaje. El prefijo de longitud es un uint32\-\_\-t que esta puesto con hton, despues viene el mensaje (en json) y por ultimo la firma del mensaje\begin{DoxySeeAlso}{See Also}
+hmac\-\_\-msje(). El largo se refiere solo al largo del mensaje, no incluye el largo de la firma que siempre sera el mismo. El orden es $<$prefijo\-\_\-longitud$>$$<$mensaje$>$$<$firma$>$. El metodo se encarga de serializar. 
+\end{DoxySeeAlso}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em data} & data a enviar \\
+\hline
+\mbox{\tt in}  & {\em key} & llave para la firma \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+codigo de error, 0 ok, resto error. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+common.\-socket\-\_\-io.\-h\item 
+common.\-socket\-\_\-io.\-cpp\end{DoxyCompactItemize}

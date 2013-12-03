@@ -1,0 +1,224 @@
+<!DOCTYPE HTML>
+<html lang="es">
+
+<head>
+	<meta charset="utf-8">
+	<title>Manual de Proyecto</title>
+	<link rel="stylesheet" href="estilos.css" />
+</head>
+
+<body>
+
+<header>
+<a href="Grupo 8" target="_blank"><img border="0" src="imagenes/fiuba.png"/></a>
+<a href="Grupo 8" target="_blank" style="float:right;">Grupo 8</a>
+</header>
+
+<span id="version_producto">03/12/2013 18:00:00</span>
+
+<div id="contenedor_general">
+
+<span id="manual_tit">Manual de proyecto</span>
+
+<article>
+<span class="titulo">Contenidos</span>
+<ol>
+
+<li><a href="#Integrantes" class="indice_entrada">Integrantes</a></li>
+
+<li><a href="#Enunciado" class="indice_entrada">Enunciado</a></li>
+
+<li><a href="#Divisi&oacute;n_De_Tareas" class="indice_entrada">División de tareas</a></li>
+
+<li><a href="#Evoluci&oacute;n_Del_Proyecto" class="indice_entrada">Evolución del proyecto</a></li>
+
+<li><a href="#Inconvenientes_Encontrados" class="indice_entrada">Inconvenientes encontrados</a></li>
+
+<li><a href="#An&aacute;lisis_De_Puntos_Pendientes" class="indice_entrada">Análisis de puntos pendientes</a></li>
+
+<li><a href="#Herramientas" class="indice_entrada">Herramientas</a></li>
+
+<li><a href="#Conclusiones" class="indice_entrada">Conclusiones</a></li>
+
+<li><a href="#Repositorio" class="indice_entrada">Repositorio</a></li>
+
+
+</ol>
+</article>
+
+<article id="indice_">
+<img id="indiceico" src="imagenes/indiceico.png" />
+<div id="indice_margen"></div>
+<span class="titulo">Contenidos</span>
+
+	<div id="indice_scroll">
+		<ol>
+		
+			<li><a href="#Integrantes" class="indice_entrada">Integrantes</a></li>
+
+			<li><a href="#Enunciado" class="indice_entrada">Enunciado</a></li>
+
+			<li><a href="#Divisi&oacute;n_De_Tareas" class="indice_entrada">División de tareas</a></li>
+
+			<li><a href="#Evoluci&oacute;n_Del_Proyecto" class="indice_entrada">Evolución del proyecto</a></li>
+
+			<li><a href="#Inconvenientes_Encontrados" class="indice_entrada">Inconvenientes encontrados</a></li>
+
+			<li><a href="#An&aacute;lisis_De_Puntos_Pendientes" class="indice_entrada">Análisis de puntos pendientes</a></li>
+
+			<li><a href="#Herramientas" class="indice_entrada">Herramientas</a></li>
+
+			<li><a href="#Conclusiones" class="indice_entrada">Conclusiones</a></li>
+
+			<li><a href="#Repositorio" class="indice_entrada">Repositorio</a></li>
+
+
+		<br>
+		<br>
+		<br>
+		</ol>
+
+	</div>
+
+<script>
+	var indices = document.getelementsbyclassname('indice_entrada');
+	for(var i=0, ind; ind=indices[i]; i++){
+		ind.innerhtml = ind.innerhtml.replace(/_/g, ' ');
+	}
+</script>
+</article>
+
+<!-- inicio contenido -->
+
+<article id="Integrantes">
+
+<span class="titulo">1. Integrantes</span>
+<p><strong>Nicolas Cisco &nbsp Padron: 94173</strong></p>
+<p><strong>Rodrigo Burdet &nbsp Padron: 93440</strong></p>
+
+</article>
+
+<br>
+<br>
+
+
+<article id="Enunciado">
+
+
+<span class="titulo">2. Enunciado</span> 
+
+Se adjunta a continuacion
+
+</article>
+
+<article id="Divisi&oacute;n_De_Tareas">
+<span class="titulo">3. Divisi&oacute;n de tareas</span>
+
+<p>
+Al ser 2 integrantes para 3 aplicaciones, la division fue la siguiente: <br>
+<b>Editor</b> <i> Rodrigo Burdet </i> <br>
+<b>Servidor</b> <i> Nicolas Cisco </i> <br>
+<b>Cliente</b> <br>
+<dl>
+	<dt> Efectivizacion del mapa </dt>
+	<dd> Rodrigo Burdet </dd>
+	<dt> Efectos visuales</dt>
+	<dd> Rodrigo Burdet, Nicolas Cisco </dd>
+	<dt> Comunicacion con servidor </dt>
+	<dd> Nicolas Cisco </dd>
+	<dt> Efectos sonoros </dt>
+	<dd> Nicolas Cisco </dd>
+	
+</dl>
+
+</p>
+
+</article>
+<article id="Evoluci&oacute;n_Del_Proyecto">
+<span class="titulo">4. Evoluci&oacute;n del proyecto</span>
+
+
+<p>
+En primera instancia, siendo 3 en el grupo se planteo tener funcionando en 3 semanas cada una de las partes (el 3er integrante iba a ser el encargado del cliente en SDL.</p>
+<p>Al recibir la noticia de que no iba a seguir en la materia, a la 3er semana y sin nada funcionando nos propusimos que en la 5ta semana tanto servidor como editor debian estar listos. </p>
+<p>
+En la 5ta semana el editor estaba terminado y funcionando. El servidor en cambio estaba "terminado" pero sin cliente, es decir, no se sabía como iba a funcionar. </p>
+<p>En la 6ta semana, correspondiente a la preentrega, el estado era el mismo que una semana anterior.</p>
+<p>Fue durante la 7ta semana, el dia lunes 25 de noviembre, que tanto el cliente como el servidor funcionaban casi perfectamente, quedando así sólo la 8va semana para detalles </p>
+
+</article>
+
+<article id="Inconvenientes_Encontrados">
+	<span class="titulo"> 5. Inconvenientes encontrados</span>
+	Algunos de los inconvenientes a resaltar fueron:
+	<ul>
+		<li> La matriz contenedora del tablero fue pensada al revés de como GTK maneja las coordenadas. La propia se manejaba con sus filas y columnas imitando a una matriz matemática. Mientras que GTK trata a <i>GTK::Fixed</i> como un eje cartesiano en el 4to cuadrante. </li>
+		<li> JSon CPP no cuenta con <b>pkg-config</b> lo cual trajo dolores de cabeza a la hora de portarlo.</li>
+		<li>Para el editor se uso <b> Glade </b> el cual, debido a su forma de uso, no permite crear clases herederas de un <i>GTK::Widget</i> por lo que se optó por agregación en vez de herencia. </li>
+		<li>Para las imagenes de fondo toda la documentación hacía referencia a gtkmm 2.4, siendo esta incompatible con la utilizada (gtkmm 3.8), se optó por usar <b>CSS</b> soportado fácilmente por GTK </li>
+		<li> Las imagenes utilizadas al crear un mapa sólo pueden ser cuadradas, siendo esta la mejor opción para no tener problemas de blancos o de pérdida de aspecto </li> 
+	</ul>
+
+
+</article>
+<article id="An&aacute;lisis_De_Puntos_Pendientes">
+<span class="titulo">6. Análisis de puntos pendientes</span>
+<p>
+Algunas cosas que se podrían haber agregado y no fueron realizadas por falta de tiempo y no estaban explicitados en el enunciado:
+<ul> 
+	<li> Los efectos sonoros son por default y no pueden ser cambiados. </li> 
+	<li> El editor no tiene memoria, un archivo generado no puede ser editado mediante el programa si no editando el archivo con algún editor de texto. </li>
+	<li> En el editor, cuando se baja la cantidad de filas o columnas, desaparece todo el tablero. Esto se hizo asi para asegurarse de que todo lo que se agregaba era eliminado. Gtkmm no cuenta con metodos para eliminar widgets, y una vez agregado un widget al fixed este solo se puede obtener haciendo un get_children, el cual devuelve una lista de Widgets, haciendo mas dificil la distincion de que widgets fueron agregadas.</li>
+	<li> Las imagenes que se quieran agregar sólo pueden ser cuadradas. No se encontró una solución que mantenga el aspecto, cubra todo el espacio necesario y a la vez no se superponga con otras imágenes (en el caso de las imágenes de las celdas). </li>
+</ul>
+</p>
+<p>
+</p>
+
+</article>
+
+
+<article id="Herramientas">
+<span class="titulo">7. Herramientas</span>
+<p>
+Las herramientas utilizadas para el desarrollo del proyecto fueron :
+<ul> 
+
+		<li><strong> Glade 3</strong> Como editor de interfaz gr&aacute;fica</li>
+		<li><strong> Git </strong> Como controlador de versiones</li> 
+		<li><strong> Doxygen 1.8 </strong> Como generador de documentaci&oacute;n </li> 
+		<li><strong> GDB & Valgrind</strong> Como debugger</li> 
+</ul>
+
+</p>
+
+
+</article>
+<article id="Conclusiones">
+
+
+<span class="titulo">8. Conclusiones</span>
+<p>
+En general el proyecto fue entretenido, con una dificultad normal para aquellas personas sin conocimientos en programación orientada a eventos y tal vez fácil para aquellas personas que sí lo hicieron. No se encontraron mayores complejidades en ningún momento, de ninguna índole, ya sean algorítmicas o humanas, debido tal vez a la buena organización, comunicación y afinidad entre los miembros del grupo. 
+</p>
+<p> Si bien el proyecto no fue siquiera diagramado durante las primeras 2 semanas de haberse propuesto y siendo un integrante menos, pudimos llegar correctamente en tiempo y forma con lo pautado aún cuando algunos de nuestros pares o superiores sugerían que eso no iba a ser posible. </p>
+<p> Como crítica constructiva dejaría de lado el uso de GTK para pasar a frameworks con mayor demanda en el mercado, como pueden ser <b> Qt </b> para el caso Open Source o <b> MFC </b> en caso de Windows. </p>
+<p> Otro punto a destacar es la libertad del enunciado. Durante toda la cursada los enunciados fueron exactos, inequívocos. En este caso, entendiendo que la naturaleza es otra, suponemos que  sería correcto limitar el libre albedrío, ya sea en cuanto a los requerimientos del sistema como a las herramientas que van a ser soportadas (con su respectiva versión) y cuales no.
+
+</article>
+
+<article id="Repositorio">
+
+<span class="titulo">Repositorio</span>
+<ul style="list-style-type: none;">
+<li> <a href= https://github.com/rburdet/CandyCrash>https://github.com/rburdet/CandyCrash.git</a></li>
+</ul>
+</article>
+
+
+<!-- fin de contenido -->
+
+</div><!-- cierre contenedor_general -->
+
+</body>
+</html>

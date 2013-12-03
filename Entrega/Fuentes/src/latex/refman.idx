@@ -1,0 +1,149 @@
+\indexentry{Bar@{Bar}|hyperpage}{5}
+\indexentry{Button@{Button}|hyperpage}{5}
+\indexentry{Candy\discretionary {-}{}{}Factory@{Candy\discretionary {-}{}{}Factory}|hyperpage}{6}
+\indexentry{Caramelo@{Caramelo}|hyperpage}{6}
+\indexentry{Caramelo@{Caramelo}!mover@{mover}|hyperpage}{7}
+\indexentry{mover@{mover}!Caramelo@{Caramelo}|hyperpage}{7}
+\indexentry{Cliente@{Cliente}|hyperpage}{7}
+\indexentry{Cliente@{Cliente}!mostrar\discretionary {-}{}{}Ventana\discretionary {-}{}{}I\discretionary {-}{}{}P@{mostrar\discretionary {-}{}{}Ventana\discretionary {-}{}{}I\discretionary {-}{}{}P}|hyperpage}{7}
+\indexentry{mostrar\discretionary {-}{}{}Ventana\discretionary {-}{}{}I\discretionary {-}{}{}P@{mostrar\discretionary {-}{}{}Ventana\discretionary {-}{}{}I\discretionary {-}{}{}P}!Cliente@{Cliente}|hyperpage}{7}
+\indexentry{Cliente\discretionary {-}{}{}Interface@{Cliente\discretionary {-}{}{}Interface}|hyperpage}{8}
+\indexentry{Cliente\discretionary {-}{}{}Interface@{Cliente\discretionary {-}{}{}Interface}!nuevo\discretionary {-}{}{}Mensaje@{nuevo\discretionary {-}{}{}Mensaje}|hyperpage}{8}
+\indexentry{nuevo\discretionary {-}{}{}Mensaje@{nuevo\discretionary {-}{}{}Mensaje}!ClienteInterface@{Cliente\discretionary {-}{}{}Interface}|hyperpage}{8}
+\indexentry{Game\discretionary {-}{}{}Window@{Game\discretionary {-}{}{}Window}|hyperpage}{8}
+\indexentry{Game\discretionary {-}{}{}Window@{Game\discretionary {-}{}{}Window}!mensaje@{mensaje}|hyperpage}{9}
+\indexentry{mensaje@{mensaje}!GameWindow@{Game\discretionary {-}{}{}Window}|hyperpage}{9}
+\indexentry{Game\discretionary {-}{}{}Window@{Game\discretionary {-}{}{}Window}!on\discretionary {-}{}{}\_\discretionary {-}{}{}mensaje@{on\discretionary {-}{}{}\_\discretionary {-}{}{}mensaje}|hyperpage}{9}
+\indexentry{on\discretionary {-}{}{}\_\discretionary {-}{}{}mensaje@{on\discretionary {-}{}{}\_\discretionary {-}{}{}mensaje}!GameWindow@{Game\discretionary {-}{}{}Window}|hyperpage}{9}
+\indexentry{Ipwindow@{Ipwindow}|hyperpage}{10}
+\indexentry{Ipwindow@{Ipwindow}!type\discretionary {-}{}{}\_\discretionary {-}{}{}signal\discretionary {-}{}{}\_\discretionary {-}{}{}conectar@{type\discretionary {-}{}{}\_\discretionary {-}{}{}signal\discretionary {-}{}{}\_\discretionary {-}{}{}conectar}|hyperpage}{11}
+\indexentry{type\discretionary {-}{}{}\_\discretionary {-}{}{}signal\discretionary {-}{}{}\_\discretionary {-}{}{}conectar@{type\discretionary {-}{}{}\_\discretionary {-}{}{}signal\discretionary {-}{}{}\_\discretionary {-}{}{}conectar}!Ipwindow@{Ipwindow}|hyperpage}{11}
+\indexentry{Ipwindow@{Ipwindow}!mensaje@{mensaje}|hyperpage}{11}
+\indexentry{mensaje@{mensaje}!Ipwindow@{Ipwindow}|hyperpage}{11}
+\indexentry{Listador@{Listador}|hyperpage}{11}
+\indexentry{Listador@{Listador}!listar@{listar}|hyperpage}{11}
+\indexentry{listar@{listar}!Listador@{Listador}|hyperpage}{11}
+\indexentry{Logger@{Logger}|hyperpage}{11}
+\indexentry{Logger@{Logger}!log@{log}|hyperpage}{12}
+\indexentry{log@{log}!Logger@{Logger}|hyperpage}{12}
+\indexentry{Main\discretionary {-}{}{}Window@{Main\discretionary {-}{}{}Window}|hyperpage}{12}
+\indexentry{Main\discretionary {-}{}{}Window@{Main\discretionary {-}{}{}Window}!mensaje@{mensaje}|hyperpage}{13}
+\indexentry{mensaje@{mensaje}!MainWindow@{Main\discretionary {-}{}{}Window}|hyperpage}{13}
+\indexentry{Mutex@{Mutex}|hyperpage}{13}
+\indexentry{Mutex@{Mutex}!lock@{lock}|hyperpage}{14}
+\indexentry{lock@{lock}!Mutex@{Mutex}|hyperpage}{14}
+\indexentry{Mutex@{Mutex}!unlock@{unlock}|hyperpage}{14}
+\indexentry{unlock@{unlock}!Mutex@{Mutex}|hyperpage}{14}
+\indexentry{Partida@{Partida}|hyperpage}{14}
+\indexentry{Partida@{Partida}!Partida@{Partida}|hyperpage}{15}
+\indexentry{Partida@{Partida}!Partida@{Partida}|hyperpage}{15}
+\indexentry{Partida@{Partida}!add\discretionary {-}{}{}Usuario@{add\discretionary {-}{}{}Usuario}|hyperpage}{15}
+\indexentry{add\discretionary {-}{}{}Usuario@{add\discretionary {-}{}{}Usuario}!Partida@{Partida}|hyperpage}{15}
+\indexentry{Partida@{Partida}!broadcast\discretionary {-}{}{}Msj@{broadcast\discretionary {-}{}{}Msj}|hyperpage}{15}
+\indexentry{broadcast\discretionary {-}{}{}Msj@{broadcast\discretionary {-}{}{}Msj}!Partida@{Partida}|hyperpage}{15}
+\indexentry{Partida@{Partida}!get\discretionary {-}{}{}Nivel@{get\discretionary {-}{}{}Nivel}|hyperpage}{15}
+\indexentry{get\discretionary {-}{}{}Nivel@{get\discretionary {-}{}{}Nivel}!Partida@{Partida}|hyperpage}{15}
+\indexentry{Partida@{Partida}!mensaje@{mensaje}|hyperpage}{15}
+\indexentry{mensaje@{mensaje}!Partida@{Partida}|hyperpage}{15}
+\indexentry{Partida@{Partida}!msj\discretionary {-}{}{}Error@{msj\discretionary {-}{}{}Error}|hyperpage}{16}
+\indexentry{msj\discretionary {-}{}{}Error@{msj\discretionary {-}{}{}Error}!Partida@{Partida}|hyperpage}{16}
+\indexentry{Partida@{Partida}!rm\discretionary {-}{}{}Usuario@{rm\discretionary {-}{}{}Usuario}|hyperpage}{16}
+\indexentry{rm\discretionary {-}{}{}Usuario@{rm\discretionary {-}{}{}Usuario}!Partida@{Partida}|hyperpage}{16}
+\indexentry{Partida\discretionary {-}{}{}Interface@{Partida\discretionary {-}{}{}Interface}|hyperpage}{16}
+\indexentry{Partida\discretionary {-}{}{}Interface@{Partida\discretionary {-}{}{}Interface}!mensaje@{mensaje}|hyperpage}{17}
+\indexentry{mensaje@{mensaje}!PartidaInterface@{Partida\discretionary {-}{}{}Interface}|hyperpage}{17}
+\indexentry{Server@{Server}|hyperpage}{17}
+\indexentry{Server@{Server}!list\discretionary {-}{}{}Partidas@{list\discretionary {-}{}{}Partidas}|hyperpage}{18}
+\indexentry{list\discretionary {-}{}{}Partidas@{list\discretionary {-}{}{}Partidas}!Server@{Server}|hyperpage}{18}
+\indexentry{Server@{Server}!remove\discretionary {-}{}{}Partida@{remove\discretionary {-}{}{}Partida}|hyperpage}{18}
+\indexentry{remove\discretionary {-}{}{}Partida@{remove\discretionary {-}{}{}Partida}!Server@{Server}|hyperpage}{18}
+\indexentry{Server@{Server}!clientes@{clientes}|hyperpage}{18}
+\indexentry{clientes@{clientes}!Server@{Server}|hyperpage}{18}
+\indexentry{Server\discretionary {-}{}{}Interface@{Server\discretionary {-}{}{}Interface}|hyperpage}{18}
+\indexentry{Socket@{Socket}|hyperpage}{19}
+\indexentry{Socket\discretionary {-}{}{}I\discretionary {-}{}{}O@{Socket\discretionary {-}{}{}I\discretionary {-}{}{}O}|hyperpage}{19}
+\indexentry{Socket\discretionary {-}{}{}I\discretionary {-}{}{}O@{Socket\discretionary {-}{}{}I\discretionary {-}{}{}O}!read@{read}|hyperpage}{20}
+\indexentry{read@{read}!SocketIO@{Socket\discretionary {-}{}{}I\discretionary {-}{}{}O}|hyperpage}{20}
+\indexentry{Socket\discretionary {-}{}{}I\discretionary {-}{}{}O@{Socket\discretionary {-}{}{}I\discretionary {-}{}{}O}!write@{write}|hyperpage}{20}
+\indexentry{write@{write}!SocketIO@{Socket\discretionary {-}{}{}I\discretionary {-}{}{}O}|hyperpage}{20}
+\indexentry{Sound\discretionary {-}{}{}Player@{Sound\discretionary {-}{}{}Player}|hyperpage}{20}
+\indexentry{Sound\discretionary {-}{}{}Player@{Sound\discretionary {-}{}{}Player}!play@{play}|hyperpage}{21}
+\indexentry{play@{play}!SoundPlayer@{Sound\discretionary {-}{}{}Player}|hyperpage}{21}
+\indexentry{Sound\discretionary {-}{}{}Player@{Sound\discretionary {-}{}{}Player}!archs@{archs}|hyperpage}{21}
+\indexentry{archs@{archs}!SoundPlayer@{Sound\discretionary {-}{}{}Player}|hyperpage}{21}
+\indexentry{Star@{Star}|hyperpage}{21}
+\indexentry{Tablero@{Tablero}|hyperpage}{22}
+\indexentry{Tablero@{Tablero}!activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Columna@{activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Columna}|hyperpage}{23}
+\indexentry{activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Columna@{activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Columna}!Tablero@{Tablero}|hyperpage}{23}
+\indexentry{Tablero@{Tablero}!activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Columna@{activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Columna}|hyperpage}{23}
+\indexentry{activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Columna@{activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Columna}!Tablero@{Tablero}|hyperpage}{23}
+\indexentry{Tablero@{Tablero}!activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Fila@{activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Fila}|hyperpage}{23}
+\indexentry{activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Fila@{activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Fila}!Tablero@{Tablero}|hyperpage}{23}
+\indexentry{Tablero@{Tablero}!activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Fila@{activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Fila}|hyperpage}{24}
+\indexentry{activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Fila@{activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Fila}!Tablero@{Tablero}|hyperpage}{24}
+\indexentry{Tablero@{Tablero}!calcular\discretionary {-}{}{}Coordenadas@{calcular\discretionary {-}{}{}Coordenadas}|hyperpage}{24}
+\indexentry{calcular\discretionary {-}{}{}Coordenadas@{calcular\discretionary {-}{}{}Coordenadas}!Tablero@{Tablero}|hyperpage}{24}
+\indexentry{Tablero@{Tablero}!disparar\discretionary {-}{}{}Columna@{disparar\discretionary {-}{}{}Columna}|hyperpage}{24}
+\indexentry{disparar\discretionary {-}{}{}Columna@{disparar\discretionary {-}{}{}Columna}!Tablero@{Tablero}|hyperpage}{24}
+\indexentry{Tablero@{Tablero}!disparar\discretionary {-}{}{}Fila@{disparar\discretionary {-}{}{}Fila}|hyperpage}{24}
+\indexentry{disparar\discretionary {-}{}{}Fila@{disparar\discretionary {-}{}{}Fila}!Tablero@{Tablero}|hyperpage}{24}
+\indexentry{Tablero@{Tablero}!do\discretionary {-}{}{}Combinacion@{do\discretionary {-}{}{}Combinacion}|hyperpage}{24}
+\indexentry{do\discretionary {-}{}{}Combinacion@{do\discretionary {-}{}{}Combinacion}!Tablero@{Tablero}|hyperpage}{24}
+\indexentry{Tablero@{Tablero}!do\discretionary {-}{}{}Star@{do\discretionary {-}{}{}Star}|hyperpage}{25}
+\indexentry{do\discretionary {-}{}{}Star@{do\discretionary {-}{}{}Star}!Tablero@{Tablero}|hyperpage}{25}
+\indexentry{Tablero@{Tablero}!es\discretionary {-}{}{}Button@{es\discretionary {-}{}{}Button}|hyperpage}{25}
+\indexentry{es\discretionary {-}{}{}Button@{es\discretionary {-}{}{}Button}!Tablero@{Tablero}|hyperpage}{25}
+\indexentry{Tablero@{Tablero}!es\discretionary {-}{}{}Mismo\discretionary {-}{}{}Color@{es\discretionary {-}{}{}Mismo\discretionary {-}{}{}Color}|hyperpage}{25}
+\indexentry{es\discretionary {-}{}{}Mismo\discretionary {-}{}{}Color@{es\discretionary {-}{}{}Mismo\discretionary {-}{}{}Color}!Tablero@{Tablero}|hyperpage}{25}
+\indexentry{Tablero@{Tablero}!hay\discretionary {-}{}{}Movimiento@{hay\discretionary {-}{}{}Movimiento}|hyperpage}{25}
+\indexentry{hay\discretionary {-}{}{}Movimiento@{hay\discretionary {-}{}{}Movimiento}!Tablero@{Tablero}|hyperpage}{25}
+\indexentry{Tablero@{Tablero}!hay\discretionary {-}{}{}Movimientos@{hay\discretionary {-}{}{}Movimientos}|hyperpage}{25}
+\indexentry{hay\discretionary {-}{}{}Movimientos@{hay\discretionary {-}{}{}Movimientos}!Tablero@{Tablero}|hyperpage}{25}
+\indexentry{Tablero@{Tablero}!hay\discretionary {-}{}{}Patrones@{hay\discretionary {-}{}{}Patrones}|hyperpage}{25}
+\indexentry{hay\discretionary {-}{}{}Patrones@{hay\discretionary {-}{}{}Patrones}!Tablero@{Tablero}|hyperpage}{25}
+\indexentry{Tablero@{Tablero}!hor\discretionary {-}{}{}Bar\discretionary {-}{}{}Color@{hor\discretionary {-}{}{}Bar\discretionary {-}{}{}Color}|hyperpage}{26}
+\indexentry{hor\discretionary {-}{}{}Bar\discretionary {-}{}{}Color@{hor\discretionary {-}{}{}Bar\discretionary {-}{}{}Color}!Tablero@{Tablero}|hyperpage}{26}
+\indexentry{Tablero@{Tablero}!movimiento@{movimiento}|hyperpage}{26}
+\indexentry{movimiento@{movimiento}!Tablero@{Tablero}|hyperpage}{26}
+\indexentry{Tablero@{Tablero}!movimiento\discretionary {-}{}{}Valido@{movimiento\discretionary {-}{}{}Valido}|hyperpage}{26}
+\indexentry{movimiento\discretionary {-}{}{}Valido@{movimiento\discretionary {-}{}{}Valido}!Tablero@{Tablero}|hyperpage}{26}
+\indexentry{Tablero@{Tablero}!mov\discretionary {-}{}{}Inverso@{mov\discretionary {-}{}{}Inverso}|hyperpage}{26}
+\indexentry{mov\discretionary {-}{}{}Inverso@{mov\discretionary {-}{}{}Inverso}!Tablero@{Tablero}|hyperpage}{26}
+\indexentry{Tablero@{Tablero}!new\discretionary {-}{}{}Mov@{new\discretionary {-}{}{}Mov}|hyperpage}{26}
+\indexentry{new\discretionary {-}{}{}Mov@{new\discretionary {-}{}{}Mov}!Tablero@{Tablero}|hyperpage}{26}
+\indexentry{Tablero@{Tablero}!new\discretionary {-}{}{}Mov@{new\discretionary {-}{}{}Mov}|hyperpage}{27}
+\indexentry{new\discretionary {-}{}{}Mov@{new\discretionary {-}{}{}Mov}!Tablero@{Tablero}|hyperpage}{27}
+\indexentry{Tablero@{Tablero}!num2str@{num2str}|hyperpage}{27}
+\indexentry{num2str@{num2str}!Tablero@{Tablero}|hyperpage}{27}
+\indexentry{Tablero@{Tablero}!rellenar\discretionary {-}{}{}Tablero@{rellenar\discretionary {-}{}{}Tablero}|hyperpage}{27}
+\indexentry{rellenar\discretionary {-}{}{}Tablero@{rellenar\discretionary {-}{}{}Tablero}!Tablero@{Tablero}|hyperpage}{27}
+\indexentry{Tablero@{Tablero}!ver\discretionary {-}{}{}Bar\discretionary {-}{}{}Color@{ver\discretionary {-}{}{}Bar\discretionary {-}{}{}Color}|hyperpage}{27}
+\indexentry{ver\discretionary {-}{}{}Bar\discretionary {-}{}{}Color@{ver\discretionary {-}{}{}Bar\discretionary {-}{}{}Color}!Tablero@{Tablero}|hyperpage}{27}
+\indexentry{Tablero\discretionary {-}{}{}Juego@{Tablero\discretionary {-}{}{}Juego}|hyperpage}{28}
+\indexentry{Tablero\discretionary {-}{}{}Juego@{Tablero\discretionary {-}{}{}Juego}!mensaje@{mensaje}|hyperpage}{28}
+\indexentry{mensaje@{mensaje}!TableroJuego@{Tablero\discretionary {-}{}{}Juego}|hyperpage}{28}
+\indexentry{T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket@{T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket}|hyperpage}{28}
+\indexentry{T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket\discretionary {-}{}{}Connect@{T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket\discretionary {-}{}{}Connect}|hyperpage}{29}
+\indexentry{T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket\discretionary {-}{}{}Listener@{T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket\discretionary {-}{}{}Listener}|hyperpage}{29}
+\indexentry{T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket\discretionary {-}{}{}Listener@{T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket\discretionary {-}{}{}Listener}!accept@{accept}|hyperpage}{30}
+\indexentry{accept@{accept}!TCPSocketListener@{T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket\discretionary {-}{}{}Listener}|hyperpage}{30}
+\indexentry{T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket\discretionary {-}{}{}Listener@{T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket\discretionary {-}{}{}Listener}!listen@{listen}|hyperpage}{30}
+\indexentry{listen@{listen}!TCPSocketListener@{T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket\discretionary {-}{}{}Listener}|hyperpage}{30}
+\indexentry{Thread@{Thread}|hyperpage}{30}
+\indexentry{Thread\discretionary {-}{}{}Listener@{Thread\discretionary {-}{}{}Listener}|hyperpage}{31}
+\indexentry{Thread\discretionary {-}{}{}Listener@{Thread\discretionary {-}{}{}Listener}!set\discretionary {-}{}{}Key@{set\discretionary {-}{}{}Key}|hyperpage}{32}
+\indexentry{set\discretionary {-}{}{}Key@{set\discretionary {-}{}{}Key}!ThreadListener@{Thread\discretionary {-}{}{}Listener}|hyperpage}{32}
+\indexentry{Thread\discretionary {-}{}{}Socket@{Thread\discretionary {-}{}{}Socket}|hyperpage}{32}
+\indexentry{Thread\discretionary {-}{}{}Usuario@{Thread\discretionary {-}{}{}Usuario}|hyperpage}{33}
+\indexentry{T\discretionary {-}{}{}Wav\discretionary {-}{}{}Args@{T\discretionary {-}{}{}Wav\discretionary {-}{}{}Args}|hyperpage}{34}
+\indexentry{T\discretionary {-}{}{}Wav\discretionary {-}{}{}Header@{T\discretionary {-}{}{}Wav\discretionary {-}{}{}Header}|hyperpage}{34}
+\indexentry{User\discretionary {-}{}{}Manager@{User\discretionary {-}{}{}Manager}|hyperpage}{34}
+\indexentry{User\discretionary {-}{}{}Manager@{User\discretionary {-}{}{}Manager}!get@{get}|hyperpage}{35}
+\indexentry{get@{get}!UserManager@{User\discretionary {-}{}{}Manager}|hyperpage}{35}
+\indexentry{User\discretionary {-}{}{}Manager@{User\discretionary {-}{}{}Manager}!set@{set}|hyperpage}{35}
+\indexentry{set@{set}!UserManager@{User\discretionary {-}{}{}Manager}|hyperpage}{35}
+\indexentry{Window@{Window}|hyperpage}{35}
+\indexentry{Window@{Window}!type\discretionary {-}{}{}\_\discretionary {-}{}{}signal\discretionary {-}{}{}\_\discretionary {-}{}{}mensaje@{type\discretionary {-}{}{}\_\discretionary {-}{}{}signal\discretionary {-}{}{}\_\discretionary {-}{}{}mensaje}|hyperpage}{36}
+\indexentry{type\discretionary {-}{}{}\_\discretionary {-}{}{}signal\discretionary {-}{}{}\_\discretionary {-}{}{}mensaje@{type\discretionary {-}{}{}\_\discretionary {-}{}{}signal\discretionary {-}{}{}\_\discretionary {-}{}{}mensaje}!Window@{Window}|hyperpage}{36}
+\indexentry{Window@{Window}!mensaje@{mensaje}|hyperpage}{36}
+\indexentry{mensaje@{mensaje}!Window@{Window}|hyperpage}{36}

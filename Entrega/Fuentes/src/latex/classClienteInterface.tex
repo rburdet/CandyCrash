@@ -1,0 +1,36 @@
+\hypertarget{classClienteInterface}{\section{Cliente\-Interface Class Reference}
+\label{classClienteInterface}\index{Cliente\-Interface@{Cliente\-Interface}}
+}
+
+
+{\ttfamily \#include $<$cliente.\-cliente\-\_\-interface.\-h$>$}
+
+Inheritance diagram for Cliente\-Interface\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classClienteInterface}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{classClienteInterface_af0e92a73261d0279e7309be763423217}{nuevo\-Mensaje} (Json\-::\-Value \&msj)=0
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Interfaz de cliente. Es usada por \hyperlink{classThreadListener}{Thread\-Listener} para evitar la referencia circular con cliente. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classClienteInterface_af0e92a73261d0279e7309be763423217}{\index{Cliente\-Interface@{Cliente\-Interface}!nuevo\-Mensaje@{nuevo\-Mensaje}}
+\index{nuevo\-Mensaje@{nuevo\-Mensaje}!ClienteInterface@{Cliente\-Interface}}
+\subsubsection[{nuevo\-Mensaje}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Cliente\-Interface\-::nuevo\-Mensaje (
+\begin{DoxyParamCaption}
+\item[{Json\-::\-Value \&}]{msj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classClienteInterface_af0e92a73261d0279e7309be763423217}
+Agrega un nuevo mensaje a la cola de mensajes (bloque el mutex de la cola) 
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+cliente.\-cliente\-\_\-interface.\-h\end{DoxyCompactItemize}

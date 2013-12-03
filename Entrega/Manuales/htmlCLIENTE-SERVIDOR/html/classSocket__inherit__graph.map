@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classSocketIO.html" title="{SocketIO\n||+ SocketIO()\l+ SocketIO()\l+ ~SocketIO()\l+ read()\l+ write()\l}" alt="" coords="35,219,140,355"/>
+<area shape="rect" id="node7" href="$classTCPSocket.html" title="{TCPSocket\n||+ TCPSocket()\l+ ~TCPSocket()\l}" alt="" coords="165,241,283,333"/>
+<area shape="rect" id="node5" href="$classTCPSocketConnect.html" title="{TCPSocketConnect\n||+ TCPSocketConnect()\l+ ~TCPSocketConnect()\l+ connect()\l+ connect()\l+ connect()\l}" alt="" coords="5,417,171,553"/>
+<area shape="rect" id="node10" href="$classTCPSocketListener.html" title="{TCPSocketListener\n|# backlog\l|+ TCPSocketListener()\l+ ~TCPSocketListener()\l+ listen()\l+ listen()\l+ listen()\l+ accept()\l+ setBacklog()\l}" alt="" coords="195,403,359,568"/>
+</map>

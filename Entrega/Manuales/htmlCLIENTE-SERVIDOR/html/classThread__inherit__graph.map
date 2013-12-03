@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$classServer.html" title="{Server\n|# port\l# clientes\l# partidas\l# sock\l# clientesLock\l# partidasLock\l|+ Server()\l+ ~Server()\l+ removeClient()\l+ newPartida()\l+ removePartida()\l+ listPartidas()\l+ connectPartidas()\l+ end()\l# addClient()\l# main()\l# run()\l}" alt="" coords="4,206,139,503"/>
+<area shape="rect" id="node5" href="$classThreadSocket.html" title="{ThreadSocket\n|# fd\l# writeMutex\l# myId\l# key\l|+ ThreadSocket()\l+ ~ThreadSocket()\l+ shutdown()\l+ shutdown()\l+ write()\l# run()\l# subRun()\l# read()\l# eventNoFirmado()\l# eventFirmado()\l}" alt="" coords="165,228,301,481"/>
+<area shape="rect" id="node7" href="$classThreadListener.html" title="{ThreadListener\n|# cliente\l|+ ThreadListener()\l+ ~ThreadListener()\l+ setKey()\l# eventNoFirmado()\l# eventFirmado()\l# subRun()\l}" alt="" coords="83,597,220,747"/>
+<area shape="rect" id="node9" href="$classThreadUsuario.html" title="{ThreadUsuario\n|# server\l# partida\l# user\l|+ ThreadUsuario()\l+ ~ThreadUsuario()\l# eventNoFirmado()\l# eventFirmado()\l# subRun()\l# onJoinGame()\l# onLeaveGame()\l# onNewGame()\l# onGetMaps()\l# welcome()\l}" alt="" coords="245,553,381,791"/>
+</map>

@@ -1,0 +1,141 @@
+\contentsline {chapter}{\numberline {1}Hierarchical Index}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Class Hierarchy}{1}{section.1.1}
+\contentsline {chapter}{\numberline {2}Class Index}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Class List}{3}{section.2.1}
+\contentsline {chapter}{\numberline {3}Class Documentation}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Bar Class Reference}{5}{section.3.1}
+\contentsline {section}{\numberline {3.2}Button Class Reference}{5}{section.3.2}
+\contentsline {section}{\numberline {3.3}Candy\discretionary {-}{}{}Factory Class Reference}{6}{section.3.3}
+\contentsline {section}{\numberline {3.4}Caramelo Class Reference}{6}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Member Function Documentation}{7}{subsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.1.1}mover}{7}{subsubsection.3.4.1.1}
+\contentsline {section}{\numberline {3.5}Cliente Class Reference}{7}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Detailed Description}{7}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Member Function Documentation}{7}{subsection.3.5.2}
+\contentsline {subsubsection}{\numberline {3.5.2.1}mostrar\discretionary {-}{}{}Ventana\discretionary {-}{}{}I\discretionary {-}{}{}P}{7}{subsubsection.3.5.2.1}
+\contentsline {section}{\numberline {3.6}Cliente\discretionary {-}{}{}Interface Class Reference}{8}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Detailed Description}{8}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Member Function Documentation}{8}{subsection.3.6.2}
+\contentsline {subsubsection}{\numberline {3.6.2.1}nuevo\discretionary {-}{}{}Mensaje}{8}{subsubsection.3.6.2.1}
+\contentsline {section}{\numberline {3.7}Game\discretionary {-}{}{}Window Class Reference}{8}{section.3.7}
+\contentsline {subsection}{\numberline {3.7.1}Detailed Description}{9}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {3.7.2}Member Function Documentation}{9}{subsection.3.7.2}
+\contentsline {subsubsection}{\numberline {3.7.2.1}mensaje}{9}{subsubsection.3.7.2.1}
+\contentsline {subsubsection}{\numberline {3.7.2.2}on\discretionary {-}{}{}\_\discretionary {-}{}{}mensaje}{9}{subsubsection.3.7.2.2}
+\contentsline {section}{\numberline {3.8}Ipwindow Class Reference}{10}{section.3.8}
+\contentsline {subsection}{\numberline {3.8.1}Detailed Description}{10}{subsection.3.8.1}
+\contentsline {subsection}{\numberline {3.8.2}Member Typedef Documentation}{11}{subsection.3.8.2}
+\contentsline {subsubsection}{\numberline {3.8.2.1}type\discretionary {-}{}{}\_\discretionary {-}{}{}signal\discretionary {-}{}{}\_\discretionary {-}{}{}conectar}{11}{subsubsection.3.8.2.1}
+\contentsline {subsection}{\numberline {3.8.3}Member Function Documentation}{11}{subsection.3.8.3}
+\contentsline {subsubsection}{\numberline {3.8.3.1}mensaje}{11}{subsubsection.3.8.3.1}
+\contentsline {section}{\numberline {3.9}Listador Class Reference}{11}{section.3.9}
+\contentsline {subsection}{\numberline {3.9.1}Detailed Description}{11}{subsection.3.9.1}
+\contentsline {subsection}{\numberline {3.9.2}Member Function Documentation}{11}{subsection.3.9.2}
+\contentsline {subsubsection}{\numberline {3.9.2.1}listar}{11}{subsubsection.3.9.2.1}
+\contentsline {section}{\numberline {3.10}Logger Class Reference}{11}{section.3.10}
+\contentsline {subsection}{\numberline {3.10.1}Detailed Description}{12}{subsection.3.10.1}
+\contentsline {subsection}{\numberline {3.10.2}Member Function Documentation}{12}{subsection.3.10.2}
+\contentsline {subsubsection}{\numberline {3.10.2.1}log}{12}{subsubsection.3.10.2.1}
+\contentsline {section}{\numberline {3.11}Main\discretionary {-}{}{}Window Class Reference}{12}{section.3.11}
+\contentsline {subsection}{\numberline {3.11.1}Detailed Description}{13}{subsection.3.11.1}
+\contentsline {subsection}{\numberline {3.11.2}Member Function Documentation}{13}{subsection.3.11.2}
+\contentsline {subsubsection}{\numberline {3.11.2.1}mensaje}{13}{subsubsection.3.11.2.1}
+\contentsline {section}{\numberline {3.12}Mutex Class Reference}{13}{section.3.12}
+\contentsline {subsection}{\numberline {3.12.1}Detailed Description}{14}{subsection.3.12.1}
+\contentsline {subsection}{\numberline {3.12.2}Member Function Documentation}{14}{subsection.3.12.2}
+\contentsline {subsubsection}{\numberline {3.12.2.1}lock}{14}{subsubsection.3.12.2.1}
+\contentsline {subsubsection}{\numberline {3.12.2.2}unlock}{14}{subsubsection.3.12.2.2}
+\contentsline {section}{\numberline {3.13}Partida Class Reference}{14}{section.3.13}
+\contentsline {subsection}{\numberline {3.13.1}Detailed Description}{15}{subsection.3.13.1}
+\contentsline {subsection}{\numberline {3.13.2}Constructor \& Destructor Documentation}{15}{subsection.3.13.2}
+\contentsline {subsubsection}{\numberline {3.13.2.1}Partida}{15}{subsubsection.3.13.2.1}
+\contentsline {subsection}{\numberline {3.13.3}Member Function Documentation}{15}{subsection.3.13.3}
+\contentsline {subsubsection}{\numberline {3.13.3.1}add\discretionary {-}{}{}Usuario}{15}{subsubsection.3.13.3.1}
+\contentsline {subsubsection}{\numberline {3.13.3.2}broadcast\discretionary {-}{}{}Msj}{15}{subsubsection.3.13.3.2}
+\contentsline {subsubsection}{\numberline {3.13.3.3}get\discretionary {-}{}{}Nivel}{15}{subsubsection.3.13.3.3}
+\contentsline {subsubsection}{\numberline {3.13.3.4}mensaje}{16}{subsubsection.3.13.3.4}
+\contentsline {subsubsection}{\numberline {3.13.3.5}msj\discretionary {-}{}{}Error}{16}{subsubsection.3.13.3.5}
+\contentsline {subsubsection}{\numberline {3.13.3.6}rm\discretionary {-}{}{}Usuario}{16}{subsubsection.3.13.3.6}
+\contentsline {section}{\numberline {3.14}Partida\discretionary {-}{}{}Interface Class Reference}{16}{section.3.14}
+\contentsline {subsection}{\numberline {3.14.1}Detailed Description}{17}{subsection.3.14.1}
+\contentsline {subsection}{\numberline {3.14.2}Member Function Documentation}{17}{subsection.3.14.2}
+\contentsline {subsubsection}{\numberline {3.14.2.1}mensaje}{17}{subsubsection.3.14.2.1}
+\contentsline {section}{\numberline {3.15}Server Class Reference}{17}{section.3.15}
+\contentsline {subsection}{\numberline {3.15.1}Detailed Description}{18}{subsection.3.15.1}
+\contentsline {subsection}{\numberline {3.15.2}Member Function Documentation}{18}{subsection.3.15.2}
+\contentsline {subsubsection}{\numberline {3.15.2.1}list\discretionary {-}{}{}Partidas}{18}{subsubsection.3.15.2.1}
+\contentsline {subsubsection}{\numberline {3.15.2.2}remove\discretionary {-}{}{}Partida}{18}{subsubsection.3.15.2.2}
+\contentsline {subsection}{\numberline {3.15.3}Member Data Documentation}{18}{subsection.3.15.3}
+\contentsline {subsubsection}{\numberline {3.15.3.1}clientes}{18}{subsubsection.3.15.3.1}
+\contentsline {section}{\numberline {3.16}Server\discretionary {-}{}{}Interface Class Reference}{18}{section.3.16}
+\contentsline {section}{\numberline {3.17}Socket Class Reference}{19}{section.3.17}
+\contentsline {section}{\numberline {3.18}Socket\discretionary {-}{}{}I\discretionary {-}{}{}O Class Reference}{19}{section.3.18}
+\contentsline {subsection}{\numberline {3.18.1}Detailed Description}{20}{subsection.3.18.1}
+\contentsline {subsection}{\numberline {3.18.2}Member Function Documentation}{20}{subsection.3.18.2}
+\contentsline {subsubsection}{\numberline {3.18.2.1}read}{20}{subsubsection.3.18.2.1}
+\contentsline {subsubsection}{\numberline {3.18.2.2}write}{20}{subsubsection.3.18.2.2}
+\contentsline {section}{\numberline {3.19}Sound\discretionary {-}{}{}Player Class Reference}{20}{section.3.19}
+\contentsline {subsection}{\numberline {3.19.1}Detailed Description}{21}{subsection.3.19.1}
+\contentsline {subsection}{\numberline {3.19.2}Member Function Documentation}{21}{subsection.3.19.2}
+\contentsline {subsubsection}{\numberline {3.19.2.1}play}{21}{subsubsection.3.19.2.1}
+\contentsline {subsection}{\numberline {3.19.3}Member Data Documentation}{21}{subsection.3.19.3}
+\contentsline {subsubsection}{\numberline {3.19.3.1}archs}{21}{subsubsection.3.19.3.1}
+\contentsline {section}{\numberline {3.20}Star Class Reference}{21}{section.3.20}
+\contentsline {section}{\numberline {3.21}Tablero Class Reference}{22}{section.3.21}
+\contentsline {subsection}{\numberline {3.21.1}Member Function Documentation}{23}{subsection.3.21.1}
+\contentsline {subsubsection}{\numberline {3.21.1.1}activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Columna}{23}{subsubsection.3.21.1.1}
+\contentsline {subsubsection}{\numberline {3.21.1.2}activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Columna}{23}{subsubsection.3.21.1.2}
+\contentsline {subsubsection}{\numberline {3.21.1.3}activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Fila}{23}{subsubsection.3.21.1.3}
+\contentsline {subsubsection}{\numberline {3.21.1.4}activar\discretionary {-}{}{}Combinacion\discretionary {-}{}{}Fila}{24}{subsubsection.3.21.1.4}
+\contentsline {subsubsection}{\numberline {3.21.1.5}calcular\discretionary {-}{}{}Coordenadas}{24}{subsubsection.3.21.1.5}
+\contentsline {subsubsection}{\numberline {3.21.1.6}disparar\discretionary {-}{}{}Columna}{24}{subsubsection.3.21.1.6}
+\contentsline {subsubsection}{\numberline {3.21.1.7}disparar\discretionary {-}{}{}Fila}{24}{subsubsection.3.21.1.7}
+\contentsline {subsubsection}{\numberline {3.21.1.8}do\discretionary {-}{}{}Combinacion}{25}{subsubsection.3.21.1.8}
+\contentsline {subsubsection}{\numberline {3.21.1.9}do\discretionary {-}{}{}Star}{25}{subsubsection.3.21.1.9}
+\contentsline {subsubsection}{\numberline {3.21.1.10}es\discretionary {-}{}{}Button}{25}{subsubsection.3.21.1.10}
+\contentsline {subsubsection}{\numberline {3.21.1.11}es\discretionary {-}{}{}Mismo\discretionary {-}{}{}Color}{25}{subsubsection.3.21.1.11}
+\contentsline {subsubsection}{\numberline {3.21.1.12}hay\discretionary {-}{}{}Movimiento}{25}{subsubsection.3.21.1.12}
+\contentsline {subsubsection}{\numberline {3.21.1.13}hay\discretionary {-}{}{}Movimientos}{25}{subsubsection.3.21.1.13}
+\contentsline {subsubsection}{\numberline {3.21.1.14}hay\discretionary {-}{}{}Patrones}{26}{subsubsection.3.21.1.14}
+\contentsline {subsubsection}{\numberline {3.21.1.15}hor\discretionary {-}{}{}Bar\discretionary {-}{}{}Color}{26}{subsubsection.3.21.1.15}
+\contentsline {subsubsection}{\numberline {3.21.1.16}movimiento}{26}{subsubsection.3.21.1.16}
+\contentsline {subsubsection}{\numberline {3.21.1.17}movimiento\discretionary {-}{}{}Valido}{26}{subsubsection.3.21.1.17}
+\contentsline {subsubsection}{\numberline {3.21.1.18}mov\discretionary {-}{}{}Inverso}{26}{subsubsection.3.21.1.18}
+\contentsline {subsubsection}{\numberline {3.21.1.19}new\discretionary {-}{}{}Mov}{27}{subsubsection.3.21.1.19}
+\contentsline {subsubsection}{\numberline {3.21.1.20}new\discretionary {-}{}{}Mov}{27}{subsubsection.3.21.1.20}
+\contentsline {subsubsection}{\numberline {3.21.1.21}num2str}{27}{subsubsection.3.21.1.21}
+\contentsline {subsubsection}{\numberline {3.21.1.22}rellenar\discretionary {-}{}{}Tablero}{27}{subsubsection.3.21.1.22}
+\contentsline {subsubsection}{\numberline {3.21.1.23}ver\discretionary {-}{}{}Bar\discretionary {-}{}{}Color}{28}{subsubsection.3.21.1.23}
+\contentsline {section}{\numberline {3.22}Tablero\discretionary {-}{}{}Juego Class Reference}{28}{section.3.22}
+\contentsline {subsection}{\numberline {3.22.1}Member Function Documentation}{28}{subsection.3.22.1}
+\contentsline {subsubsection}{\numberline {3.22.1.1}mensaje}{28}{subsubsection.3.22.1.1}
+\contentsline {section}{\numberline {3.23}T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket Class Reference}{28}{section.3.23}
+\contentsline {section}{\numberline {3.24}T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket\discretionary {-}{}{}Connect Class Reference}{29}{section.3.24}
+\contentsline {subsection}{\numberline {3.24.1}Detailed Description}{29}{subsection.3.24.1}
+\contentsline {section}{\numberline {3.25}T\discretionary {-}{}{}C\discretionary {-}{}{}P\discretionary {-}{}{}Socket\discretionary {-}{}{}Listener Class Reference}{29}{section.3.25}
+\contentsline {subsection}{\numberline {3.25.1}Member Function Documentation}{30}{subsection.3.25.1}
+\contentsline {subsubsection}{\numberline {3.25.1.1}accept}{30}{subsubsection.3.25.1.1}
+\contentsline {subsubsection}{\numberline {3.25.1.2}listen}{30}{subsubsection.3.25.1.2}
+\contentsline {section}{\numberline {3.26}Thread Class Reference}{30}{section.3.26}
+\contentsline {section}{\numberline {3.27}Thread\discretionary {-}{}{}Listener Class Reference}{31}{section.3.27}
+\contentsline {subsection}{\numberline {3.27.1}Detailed Description}{31}{subsection.3.27.1}
+\contentsline {subsection}{\numberline {3.27.2}Member Function Documentation}{32}{subsection.3.27.2}
+\contentsline {subsubsection}{\numberline {3.27.2.1}set\discretionary {-}{}{}Key}{32}{subsubsection.3.27.2.1}
+\contentsline {section}{\numberline {3.28}Thread\discretionary {-}{}{}Socket Class Reference}{32}{section.3.28}
+\contentsline {subsection}{\numberline {3.28.1}Detailed Description}{32}{subsection.3.28.1}
+\contentsline {section}{\numberline {3.29}Thread\discretionary {-}{}{}Usuario Class Reference}{33}{section.3.29}
+\contentsline {subsection}{\numberline {3.29.1}Detailed Description}{33}{subsection.3.29.1}
+\contentsline {section}{\numberline {3.30}T\discretionary {-}{}{}Wav\discretionary {-}{}{}Args Struct Reference}{34}{section.3.30}
+\contentsline {section}{\numberline {3.31}T\discretionary {-}{}{}Wav\discretionary {-}{}{}Header Struct Reference}{34}{section.3.31}
+\contentsline {section}{\numberline {3.32}User\discretionary {-}{}{}Manager Class Reference}{34}{section.3.32}
+\contentsline {subsection}{\numberline {3.32.1}Detailed Description}{35}{subsection.3.32.1}
+\contentsline {subsection}{\numberline {3.32.2}Member Function Documentation}{35}{subsection.3.32.2}
+\contentsline {subsubsection}{\numberline {3.32.2.1}get}{35}{subsubsection.3.32.2.1}
+\contentsline {subsubsection}{\numberline {3.32.2.2}set}{35}{subsubsection.3.32.2.2}
+\contentsline {section}{\numberline {3.33}Window Class Reference}{35}{section.3.33}
+\contentsline {subsection}{\numberline {3.33.1}Detailed Description}{36}{subsection.3.33.1}
+\contentsline {subsection}{\numberline {3.33.2}Member Typedef Documentation}{36}{subsection.3.33.2}
+\contentsline {subsubsection}{\numberline {3.33.2.1}type\discretionary {-}{}{}\_\discretionary {-}{}{}signal\discretionary {-}{}{}\_\discretionary {-}{}{}mensaje}{36}{subsubsection.3.33.2.1}
+\contentsline {subsection}{\numberline {3.33.3}Member Function Documentation}{36}{subsection.3.33.3}
+\contentsline {subsubsection}{\numberline {3.33.3.1}mensaje}{36}{subsubsection.3.33.3.1}
+\contentsline {part}{Index}{36}{subsubsection.3.33.3.1}

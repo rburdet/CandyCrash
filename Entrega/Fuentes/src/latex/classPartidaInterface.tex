@@ -1,0 +1,62 @@
+\hypertarget{classPartidaInterface}{\section{Partida\-Interface Class Reference}
+\label{classPartidaInterface}\index{Partida\-Interface@{Partida\-Interface}}
+}
+
+
+{\ttfamily \#include $<$server.\-partida\-\_\-interface.\-h$>$}
+
+Inheritance diagram for Partida\-Interface\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classPartidaInterface}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classPartidaInterface_a1190634ccd9ce1b78a83ef0e68c67bc5}{virtual void {\bfseries add\-Usuario} (\hyperlink{classThreadSocket}{Thread\-Socket} $\ast$u, Json\-::\-Value \&user)=0}\label{classPartidaInterface_a1190634ccd9ce1b78a83ef0e68c67bc5}
+
+\item 
+\hypertarget{classPartidaInterface_a41823671d949f4c2b9abbaca3709ca63}{virtual void {\bfseries rm\-Usuario} (\hyperlink{classThreadSocket}{Thread\-Socket} $\ast$u)=0}\label{classPartidaInterface_a41823671d949f4c2b9abbaca3709ca63}
+
+\item 
+virtual int \hyperlink{classPartidaInterface_a72c79ab5c06e2ec804260dc98a977e60}{mensaje} (Json\-::\-Value \&m, \hyperlink{classThreadSocket}{Thread\-Socket} $\ast$u)=0
+\item 
+\hypertarget{classPartidaInterface_af3e878d3e1de9d64f17e12b32dcc7643}{virtual int {\bfseries get\-Nivel} ()=0}\label{classPartidaInterface_af3e878d3e1de9d64f17e12b32dcc7643}
+
+\item 
+\hypertarget{classPartidaInterface_a8788de756e14af6febdf8bd44f8ff02b}{virtual int {\bfseries get\-Usuarios} ()=0}\label{classPartidaInterface_a8788de756e14af6febdf8bd44f8ff02b}
+
+\item 
+\hypertarget{classPartidaInterface_aa3b96356d4b96b799900c9425da251ba}{virtual int {\bfseries get\-Max\-Usuarios} ()=0}\label{classPartidaInterface_aa3b96356d4b96b799900c9425da251ba}
+
+\item 
+\hypertarget{classPartidaInterface_ac6b479769dd8d53ced7e0cbc147ca4d5}{virtual Partida\-Estado {\bfseries get\-Estado} ()=0}\label{classPartidaInterface_ac6b479769dd8d53ced7e0cbc147ca4d5}
+
+\item 
+\hypertarget{classPartidaInterface_a0287b2294f48e9bbda0173df9544964c}{virtual std\-::string {\bfseries get\-Nombre} ()=0}\label{classPartidaInterface_a0287b2294f48e9bbda0173df9544964c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Interface de partida, para evitar referencia circular. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classPartidaInterface_a72c79ab5c06e2ec804260dc98a977e60}{\index{Partida\-Interface@{Partida\-Interface}!mensaje@{mensaje}}
+\index{mensaje@{mensaje}!PartidaInterface@{Partida\-Interface}}
+\subsubsection[{mensaje}]{\setlength{\rightskip}{0pt plus 5cm}virtual int Partida\-Interface\-::mensaje (
+\begin{DoxyParamCaption}
+\item[{Json\-::\-Value \&}]{m, }
+\item[{{\bf Thread\-Socket} $\ast$}]{u}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classPartidaInterface_a72c79ab5c06e2ec804260dc98a977e60}
+Se le pasan todos los E\-V\-E\-N\-T\-\_\-\-G\-A\-M\-E\-\_\-\-M\-I\-S\-C. Devuelve 0 si todo bien, o 1, si el usuario se desconecto (saca usuario-\/$>$partida). La parida se debe encargar de toda la borrada de datos de si misma. 
+
+Implemented in \hyperlink{classPartida_af5f9e1261116d75042a87ad0b5990700}{Partida}.
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+server.\-partida\-\_\-interface.\-h\end{DoxyCompactItemize}
