@@ -36,8 +36,6 @@
 
 <li><a href="#Comunes" class="indice_entrada">Comunes</a></li>
 
-<li><a href="#Programas_intermedios_y_de_prueba" class="indice_entrada">Programas intermedios y de prueba</a></li>
-
 <li><a href="#Código_fuente" class="indice_entrada">Código fuente</a></li>
 
 
@@ -62,8 +60,6 @@
 			<li><a href="#Editor" class="indice_entrada">Editor</a></li>
 
 			<li><a href="#Comunes" class="indice_entrada">Comunes</a></li>
-
-			<li><a href="#Programas_intermedios_y_de_prueba" class="indice_entrada">Programas intermedios y de prueba</a></li>
 
 			<li><a href="#Código_fuente" class="indice_entrada">Código fuente</a></li>
 
@@ -441,7 +437,142 @@ Los diagramas se adjuntaran por separado ya que fueron generados por Doxygen.
 <span class="titulo">5. Editor</span>
 
 <span> A. Descripción general </span> 
+<p> Esta aplicación es un editor de nivel, con la cual se puede crear fácilmente cualquier nivel y con cualquier de las características que se quieran. Fue diseñada con Glade 3 lo que provocó que no se haya podido usar cierta herencia en la creación del modelo.
+Son 3 las cosas más importantes de esta aplicación. Arriba a la izquierda se encuentra el frame de opciones básicas, donde se configura el nivel. Por debajo el box de probabilidades e imagenes. A la derecha el tablero con el cual se interactúa para volcarle la información necesaria.
+
 <span> B. Clases </span> 
+<strong> BarraEstado </strong>
+<p> Clase utilizada para mostrar mensajes en un status bar debajo a la derecha</p>
+<p> Métodos:
+<ul>
+		<li><strong>onMostrar(Gtk::Entry* entryArchivo)</strong> Muestra lo que tenga entryArchivo en el statusBar</li> 
+</ul>
+</p>
+<br>
+
+<strong> BoxOpcionesBasicas </strong>
+<p> Clase contenedora de opciones básicas</p>
+<p> Métodos:
+<ul>
+	<li><strong>std::string getNombre(); </strong></li>
+	<li><strong>double getPuntaje();</strong></li>
+	<li><strong>double getJugadoresMax();</strong></li>
+	<li><strong>int getDimX()</strong></li>;
+	<li><strong>int getDimY();</strong></li>
+	<li><strong>int getNivel();</strong></li>
+</ul>
+</p>
+<br>
+
+
+<strong> Celda </strong>
+<p> Clase que modela una Celda</p>
+<p> Métodos:
+<ul>
+		<li><strong>int getX(); </strong></li>
+		<li><strong>int getY();</strong></li>
+		<li><strong>Info* getInfo()</strong></li>;
+		<li><strong>void on_adj_changed(Gtk::SpinButton* spinbutton,int id)</strong> Al cambiar un spinbutton, se setea la probabilidad del caramelo correspondiente en esta celda</li>;
+		<li><strong>void setImage(const std::string& fileName);</strong></li>
+		<li><strong>void setHueco();</strong></li>
+		<li><strong>bool isHueco()</strong></li>;
+		<li><strong>std::string getImage();	</strong></li>
+</ul>
+</p>
+<br>
+
+
+<strong> Columna </strong>
+<p> Clase que modela una Columna</p>
+<p> Métodos :
+<ul>
+		<li><strong>void on_adj_changed(Gtk::SpinButton* spinbutton,int id);</strong>Al cambiar un spinbutton, se setea la probabilidad del caramelo correspondiente en esta columna</li>
+		<li><strong>Gtk::Button* get_boton();</strong></li>
+		<li><strong>Info* getInfo();<strong></li>
+</ul>
+</p>
+<br>
+
+
+
+<strong> Probs </strong>
+<p> Clase contenedora de widgets para probabilidades</p>
+<p> Métodos:
+<ul>
+		<li><strong>void cargarBotones(Glib::RefPtr<Gtk::Builder>& builder, int firstbutton, int lastbutton); </strong> Carga los botones del archivo de glade</li>
+</ul>
+</p>
+<br>
+
+<strong> Info </strong>
+<p> Clase que contiene probabilidades</p>
+<p> Métodos :
+<ul>
+		<li><strong>void setProb_piezas(int prob,int x);</strong></li>
+		<li><strong>int getProb_piezas(int idx);</strong></li>
+		<li><strong>int* getArray();</strong></li>
+</ul>
+</p>
+<br>
+
+
+
+<strong> MainWindow </strong>
+<p> Clase que modela la ventana principal</p>
+<p> Métodos:
+<ul>
+	<li><strong>Gtk::Window* getMainWindow(); </strong> Devuelve la instancia de ventana creada </li>
+	<li><strong>void cerrar(); </strong> </li>
+</ul>
+</p>
+<br>
+
+
+
+<strong> Menu </strong>
+<p> Menu bar para la ventana</p>
+<p> Métodos:
+<ul>
+		<li><strong>void displayHelp</strong> Muestra el Help</li>
+		<li><strong>void displayAbout</strong>Muestra el About</li>
+</ul>
+</p>
+<br>
+
+
+
+<strong> Persistidor </strong>
+<p> Clase encargada de persistir el mapa</p>
+<p> Método:
+<ul>
+		<li><strong>static void persistir(Json::Value& nivel,const std::string& nombre)</strong> Persiste el mapa</li>
+</ul>
+</p>
+<br>
+
+
+
+<p>Tanto <strong> ProbCeldas </strong> como <strong> ProbColumnas </strong> solo tienen un método constructor, que levanta las widgets del archivo de glade y conectan todas las señales. </p>
+
+<br>
+<strong> Tablero </strong>
+<p> Clase que modela el tablero</p>
+<p> Métodos:
+<ul>
+	<li><strong>void on_adjCols_changed_tablero (Gtk::SpinButton *spinbutton, int id) </strong></li>
+	<li><strong>void on_cordx_changed (Gtk::SpinButton *spin_x)</strong></li>
+	<li><strong>void on_cordy_changed (Gtk::SpinButton *spin_y)</strong></li>
+	<li><strong>void on_adj_changed_tablero (Gtk::SpinButton *spinbutton, int id)</strong></li>
+	<li><strong>void on_image_changed_tablero (Gtk::FileChooser *fileChooser)</strong></li>
+	<li><strong>void on_image_fondo_changed_tablero (Gtk::FileChooser *fileChooser)</strong></li>
+	<li><strong>void on_check_button_tablero ()</strong></li>
+	<li><strong>void jsonCeldas (Json::Value &nivel, const std::string &nombre)</strong></li>
+	<li><strong>void jsonColumnas (Json::Value &nivel, const std::string &nombre)</strong></li>
+</ul>
+</p>
+<br>
+
+
 <span> C. Diagramas UML </span> 
 Los diagramas se adjuntaran por separado ya que fueron generados por Doxygen.
 
@@ -507,106 +638,13 @@ Los diagramas se adjuntaran por separado ya que fueron generados por Doxygen.
 Todas sus declaraciones pueden ser vistas en el archivo generado por Doxygen 
 </p>
 
-<b>Editor</b> <i> Rodrigo Burdet </i> <br>
-
-<b>Servidor</b> <i> Nicolas Cisco </i> <br>
-<b>Cliente</b> <br>
-<dl>
-	<dt> Efectivizacion del mapa </dt>
-	<dd> Rodrigo Burdet </dd>
-	<dt> Efectos visuales</dt>
-	<dd> Rodrigo Burdet, Nicolas Cisco </dd>
-	<dt> Comunicacion con servidor </dt>
-	<dd> Nicolas Cisco </dd>
-	<dt> Efectos sonoros </dt>
-	<dd> Nicolas Cisco </dd>
-	
-</dl>
-
-</p>
-
-</article>
-<article id="Evoluci&oacute;n_Del_Proyecto">
-<span class="titulo">4. Evoluci&oacute;n del proyecto</span>
-
-
-<p>
-En primera instancia, siendo 3 en el grupo se planteo tener funcionando en 3 semanas cada una de las partes (el 3er integrante iba a ser el encargado del cliente en SDL.</p>
-<p>Al recibir la noticia de que no iba a seguir en la materia, a la 3er semana y sin nada funcionando nos propusimos que en la 5ta semana tanto servidor como editor debian estar listos. </p>
-<p>
-En la 5ta semana el editor estaba terminado y funcionando. El servidor en cambio estaba "terminado" pero sin cliente, es decir, no se sabía como iba a funcionar. </p>
-<p>En la 6ta semana, correspondiente a la preentrega, el estado era el mismo que una semana anterior.</p>
-<p>Fue durante la 7ta semana, el dia lunes 25 de noviembre, que tanto el cliente como el servidor funcionaban casi perfectamente, quedando así sólo la 8va semana para detalles </p>
-
 </article>
 
-<article id="Inconvenientes_Encontrados">
-	<span class="titulo"> 5. Inconvenientes encontrados</span>
-	Algunos de los inconvenientes a resaltar fueron:
-	<ul>
-		<li> La matriz contenedora del tablero fue pensada al revés de como GTK maneja las coordenadas. La propia se manejaba con sus filas y columnas imitando a una matriz matemática. Mientras que GTK trata a <i>GTK::Fixed</i> como un eje cartesiano en el 4to cuadrante. </li>
-		<li> JSon CPP no cuenta con <b>pkg-config</b> lo cual trajo dolores de cabeza a la hora de portarlo.</li>
-		<li>Para el editor se uso <b> Glade </b> el cual, debido a su forma de uso, no permite crear clases herederas de un <i>GTK::Widget</i> por lo que se optó por agregación en vez de herencia. </li>
-		<li>Para las imagenes de fondo toda la documentación hacía referencia a gtkmm 2.4, siendo esta incompatible con la utilizada (gtkmm 3.8), se optó por usar <b>CSS</b> soportado fácilmente por GTK </li>
-		<li> Las imagenes utilizadas al crear un mapa sólo pueden ser cuadradas, siendo esta la mejor opción para no tener problemas de blancos o de pérdida de aspecto </li> 
-	</ul>
-
+<article id="Código_fuente">
+<span class="titulo">6. Código fuente</span>
+<p> El código fuente del proyecto será adjuntado para mayor claridad </p>
 
 </article>
-<article id="An&aacute;lisis_De_Puntos_Pendientes">
-<span class="titulo">6. Análisis de puntos pendientes</span>
-<p>
-Algunas cosas que se podrían haber agregado y no fueron realizadas por falta de tiempo y no estaban explicitados en el enunciado:
-<ul> 
-	<li> Los efectos sonoros son por default y no pueden ser cambiados. </li> 
-	<li> El editor no tiene memoria, un archivo generado no puede ser editado mediante el programa si no editando el archivo con algún editor de texto. </li>
-	<li> Las imagenes que se quieran agregar sólo pueden ser cuadradas. No se encontró una solución que mantenga el aspecto, cubra todo el espacio necesario y a la vez no se superponga con otras imágenes (en el caso de las imágenes de las celdas). </li>
-</ul>
-</p>
-<p>
-</p>
-
-</article>
-
-
-<article id="Herramientas">
-<span class="titulo">7. Herramientas</span>
-<p>
-Las herramientas utilizadas para el desarrollo del proyecto fueron :
-<ul> 
-
-		<li><strong> Glade 3</strong> Como editor de interfaz gr&aacute;fica</li>
-		<li><strong> Git </strong> Como controlador de versiones</li> 
-		<li><strong> Doxygen 1.8 </strong> Como generador de documentaci&oacute;n </li> 
-		<li><strong> GDB & Valgrind</strong> Como debugger</li> 
-</ul>
-
-</p>
-
-
-</article>
-<article id="Conclusiones">
-
-
-<span class="titulo">8. Conclusiones</span>
-<p>
-En general el proyecto fue entretenido, con una dificultad normal para aquellas personas sin conocimientos en programación orientada a eventos y tal vez fácil para aquellas personas que sí lo hicieron. No se encontraron mayores complejidades en ningún momento, de ninguna índole, ya sean algorítmicas o humanas, debido tal vez a la buena organización, comunicación y afinidad entre los miembros del grupo. 
-</p>
-<p> Si bien el proyecto no fue siquiera diagramado durante las primeras 2 semanas de haberse propuesto y siendo un integrante menos, pudimos llegar correctamente en tiempo y forma con lo pautado aún cuando algunos de nuestros pares o superiores sugerían que eso no iba a ser posible. </p>
-<p> Como crítica constructiva dejaría de lado el uso de GTK para pasar a frameworks con mayor demanda en el mercado, como pueden ser <b> Qt </b> para el caso Open Source o <b> MFC </b> en caso de Windows. </p>
-<p> Otro punto a destacar es la libertad del enunciado. Durante toda la cursada los enunciados fueron exactos, inequívocos. En este caso, entendiendo que la naturaleza es otra, suponemos que  sería correcto limitar el libre albedrío, ya sea en cuanto a los requerimientos del sistema como a las herramientas que van a ser soportadas (con su respectiva versión) y cuales no.
-
-</article>
-
-<article id="Repositorio">
-
-<span class="titulo">Repositorio</span>
-<ul style="list-style-type: none;">
-<li> <a href= https://github.com/rburdet/CandyCrash>https://github.com/rburdet/CandyCra</a></li>
-</ul>
-</article>
-
-
 <!-- fin de contenido -->
 
 </div><!-- cierre contenedor_general -->
