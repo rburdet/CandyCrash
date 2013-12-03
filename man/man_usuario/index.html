@@ -89,7 +89,76 @@
 
 <article id="Forma_de_uso">
 <span class="titulo">3. Forma de uso</span>
+
+<p> Al abrir el juego Ud se encontrara con la siguiente imagen: </p>
+<img src="imagenes/conectate.jpg"/>
+
+<p> Para jugar Ud debe tener tener una cuenta. Si ya esta registrado asegurese de que el boton <b>Active para registrarse</b>  este desactivado. Luego coloque el <b>ip:puerto</b> al que quiera conectarse en el casillero <b> Ip:Puerto </b>. </p>
+<p>Por ejemplo 127.0.0.1:9000</p>
+<p>Luego coloque su nombre de usuario y su contrasena en los campos  <b>Usuario</b>  y <b>Password</b> respectivamente.</p> 
+<p> Luego presione <b> Conectar </b>  </p>
+<br> 
+<p> Si ud no tiene una cuenta, active el boton <b> Active para regisrarse </b> ingrese el nombre de usuario deseado y luego la contrasena que usara para conectarse cada vez que entre al juego en los campos <b> Usuario </b>  y <b> Password </b>  respectivamente. </p> 
+<p> Luego, desactivelo y procesa a conectarse con el usuario recientemente creado </p> 
+
+<br>
+<p> Una vez pasada la ventana de conexion Ud se encontrara con la siguiente imagen: </p>
+<img src="imagenes/pantallaprincipal.jpg"/>
+<p>  Aquí Ud puede: 
+<ol>
+	<li> Empezar una nueva partida </li>
+	<li> Unirse a una partida ya existente </li>
+</ol>
+<p> Procediendo de la siguiente manera : </p> 
+<ol> 
+	<li> En la pestaña <b> Crear Partida </b> presione actualizar. Esta accion listará todos los mapas disponibles con su respectivo nivel. Ud podrá elegir solo aquellos mapas que sean de un nivel igual o inferior al suyo. Una vez seleccionado, pulse <b> Crear Partida </b> . </li>
+	<li>En la pestana <b> Partidas </b> presione <b>Actualizar</b>. Esta accion listara todas las partidas creadas, indicando cuan llena esta la partida, nivel y nombre del mapa a jugar. Seleccione una y presione <b>Conectar</b> Recuerde que Ud podra elegir solo aquellas partidas que sean deun nivel igual o inferior al suyo. A continuación una imagen de esta ventana </li>
+</ol>
+</p>
+
+<img src="imagenes/unirse.jpg">
+
+<br> 
+<p> Una vez conectado a una partida Ud es redirigido a una sala con el siguiente formato : </p> 
+<img src= "imagenes/juego.jpg"> 
+<p> En esta instancia Ud ya esta conectado y esperando que empiece la partida. Aquí puede chatear con los demas jugadores conectado a esta misma partida, en ningún caso Ud podrá ver la identidad de quién escribe. Sólo el creador de la partida puede dar comienzo a la misma mediante el boton de <b> Empezar el juego </b> .
+En caso de querer abandonar la partida presione <b> Salir de la partida </b> .  <br> 
+
+<i> Aclaración: Si el creador de la partida abandona la partida, cualquiera de los jugadores puede dar comienzo. </i>  </p>
+<br>
+<p> Finalmente, cuando el creador de la partida empieza el juego, a todos los jugadores conectados a la partida se les muestra el tablero listo para jugar. </p> 
+<img src = "imagenes/candy.jpg"> 
+<p> El objetivo principal del juego es lograr ciertos patrones de colores y tipos de productos en celdas
+adyacentes. Dichas configuraciones se consiguen mediante el intercambio de los productos contenidos en
+celdas consecutivas. Los intercambios ocurren siempre de a pares de celdas donde el producto de la
+primera pasa a la segunda celda y viceversa. Las configuraciones o patrones están asociadas con ciertos
+puntajes y consecuencias </p> 
+<ul> 
+	<li>Tres Buttons del mismo color en línea: 10 puntos por cada uno. Los productos simplemente
+	desaparecerán.</li>
+	<li>  Cuatro Buttons del mismo color en línea: 20 puntos por cada uno. El producto cuyo movimiento haya producido la configuración será transformado en una MiniBar, orientada en el mismo sentido que los cuatro Buttons. Los otros Buttons desaparecerán. </li>
+	<li>Cinco Buttons del mismo color en línea: 30 puntos por cada uno. El producto cuyo movimiento
+	haya producido la configuración será transformado en una GoldenStar, mientras que los otros Buttons
+	desaparecerán. </li> 
+	<li>Más de tres productos del mismo color en línea, no todos Buttons: actuará del mismo modo que
+	si se tratara de Buttons, pero activando las MiniBars incluidas. Cada MiniBar destruirá toda la columna
+	o fila en la que se encuentre, dependiendo de su orientación.</li>
+</ul>
+
+<p>La GoldenStar sólo se activará mediante una acción directa del jugador, intentando intercambiarlo con un
+producto adyacente. El resultado de esta acción dependerá de cual sea este producto:</p>
+
+<ul>
+	<li>Un Button: eliminación de todos los productos del mismo color.</li>
+	<li>Una Minibar: eliminación de todos los productos del mismo color, además de la fila y columna que contengan a la minibar. </li>
+	<li>Una GoldenStar: eliminación de todos los productos contenidos en el tablero. </li>
+</ul>
+<p> En todos estos casos se darán 40 puntos por cada uno de los productos eliminados. La eliminación de productos dejará celdas vacías en el tablero, que serán llenadas mediante la caída de los productos presentes en las celdas superiores. Las celdas situadas “arriba del borde superior” se considerarán rellenas con productos aleatorios (sin considerar si estas combinaciones son estables o no). En caso de producirse una nueva configuración especial, el puntaje que corresponda será
+multiplicado por dos. El proceso se repite hasta que se llegue a una configuración estable y, mientras este proceso se repita, los jugadores no podrán realizar acciones.</p>
+<p>El juego terminará cuando no haya más acciones posibles (todos pierden) o cuando uno de los jugadores llegue al puntaje especificado (ese jugador pasará de nivel y los otros tendrán que reintentarlo). </p>
+
 </article>
+
 
 
 <article id="Apéndice_de_errores">
