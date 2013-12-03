@@ -73,17 +73,95 @@
 
 
 <span class="titulo">1. Instalación</span>
+<strong>Requerimientos</strong>
+<p>
+El programa tendria que  ser corrido en cualquier distribución de Linux sin problemas. Especialmente fue probado en:
+<ul>
+	<li> Fedora 19 </li>
+	<li> Ubuntu 13 </li>
+	<li> Arch Linux </li>
+	<li> Debian 7 </li> 
+	<li> Peppermint </li> 
+</ul>
+Sin tener problema alguno en ninguno de ellos. 
+</p>
+<p>
+Dependiendo de la distribución los paquetes necesarios para correr son:
+Comunes a todas las distribuciones:
+<ul>
+	<li><strong> JsonCPP >= 0.6.0 </strong></li>
+	<li><strong> Gtkmm 3.0 >= 3.8.1 </strong></li>
+	<li><strong> libasound2 >= 1.0.27.2 </strong></li>
+</ul>
 
+Fedora / Red Hat / CentOS:
+<ul> 
+	<li> <strong> alsa-lib-devel </strong> Para reproducción de sonidos </li>
+	<li> <strong> gtkmm30-devel.x86_64 </strong> Para compilar gtkmm en sistemas 64 bits</li> 
+	<li> <strong> gtkmm30.x86_64 </strong> Para correr gtkmm en sistemas 64 bits</li>
+	<li> <strong> gtkmm30-devel.i686 </strong>Para compilar gtkmm en sistemas 32 bits</li> 
+	<li> <strong> gtkmm30.i686 </strong> Para correr gtkmm en sistemas 32 bits</li>
+	<li> <strong> jsoncpp-devel.i686 </strong> Para compilar jsoncpp</li>
+	<li> <strong> jsoncpp.i686 </strong> Para correr jsoncpp</li>
+</ul>
+
+Ubuntu / Peppermint / Debian:
+<ul> 
+	<li> <strong> libasound2 </strong> Para reproducción de sonidos </li>
+	<li> <strong> libasound2-dev </strong> Para compilar sonidos </li>
+	<li> <strong> libgtkmm-3.0-1 </strong> Para correr gtkmm </li>
+	<li> <strong> libgtkmm-3.0-dev </strong>Para compilar gtkmm</li> 
+	<li> <strong> libjsoncpp0 </strong>Para correr jsoncpp</li> 
+	<li> <strong> libjsoncpp-dev </strong>Para compilar jsoncpp</li> 
+</ul>
+<div class="nota">
+	<p>En sistemas Ubuntu o derivados es posible que se nececite agregar el ppa de <a href="https://launchpad.net/~gnome3-team/+archive/gnome3">GNOME 3 Team</a> para satisfacer las depedencias.</p>
+</div>
+
+Arch Linux:
+<ul> 
+	<li> <strong> extra/alsa-lib </strong> Para reproducción de sonidos </li>
+	<li> <strong> extra/gtkmm3 </strong> Gtkmm </li>
+	<li> <strong> extra/jsoncpp </strong>Para correr jsoncpp</li> 
+</ul>
+</p>
+
+<strong> Instalación </strong>
+<p> Para la instalación basta con compilar el cliente.</p>
+<pre>
+<code>
+$ make clean client
+CXX cliente.ipwindow.o
+CXX cliente.tablerojuego.o
+CXX cliente.caramelo.o
+CXX cliente.main_window.o
+CXX cliente.sound_player.o
+CXX cliente.cliente.o
+CXX cliente.game.o
+CXX cliente.thread_listener.o
+CXX cliente.socket_connect.o
+CXX clientemain.o
+CXX common.thread.o
+CXX common.socket_io.o
+CXX common.md5.o
+CXX common.user_manager.o
+CXX common.logger.o
+CXX common.thread_socket.o
+CXX common.mutex.o
+CXX common.hmac.o
+CXX common.socket.o
+LD client
+$ ./client
+</code>
+</pre>
 </article>
-
-
-
 
 
 <article id="Configuración">
 
 
 <span class="titulo">2. Configuración</span> 
+<p>El cliente no posee archivos de configuración. La única configuración posible es la elección de ip del servidor y puerto. Esto se configura atraves de la pantalla de login (La descripción de dicha pantalla se desarrolla posteriormente).</p>
 
 </article>
 
