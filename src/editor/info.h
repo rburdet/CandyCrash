@@ -3,6 +3,9 @@
 
 #define NUMEROPIEZAS 16
 
+/** Clase para modelar las probabilidades
+ */
+
 class Info{
 	public:
 		Info();

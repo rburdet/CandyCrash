@@ -7,6 +7,8 @@
 #include <vector>
 #include "tablero.h"
 
+/** Clase abstracta para el manejo de probabilidades de celda y columna
+ */
 class Probs{
 	public:
 		Probs(Tablero* tablero, Glib::RefPtr<Gtk::Builder>& builder, 

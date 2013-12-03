@@ -8,6 +8,8 @@
 
 #define NUMEROPIEZAS 16
 
+/** Representacion de cada casillero del tablero
+ */
 class Celda{
 	public:
 		Celda(int x, int y);

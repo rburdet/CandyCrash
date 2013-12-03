@@ -6,6 +6,8 @@
 #include "tablero.h"
 #include "menu.h"
 
+/** Ventana del editor
+ */
 class MainWindow : public Gtk::Window{
 	public:
 		MainWindow();
@@ -16,6 +18,8 @@ class MainWindow : public Gtk::Window{
 		Gtk::Window * mainWindow;
 
 	private:
+		/** Cierra la ventana
+		 */
 		void cerrar();
 
 		Glib::RefPtr<Gtk::Builder> builder;

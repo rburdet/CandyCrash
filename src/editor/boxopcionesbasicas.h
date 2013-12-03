@@ -11,12 +11,18 @@
 #include "persistidor.h"
 #include "barraestado.h"
 
+/** Panel izquierdo 
+ */
 class BoxOpcionesBasicas{
 	public:
+		/** Constructor del panel izquierdo superior usado para la configuracion
+		 * basica del nivel
+		 * @param builder[in]: Encargado de levantar el widget desde el archivo
+		 * de glade.
+		 */
 		BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,Tablero* tablero);
 		~BoxOpcionesBasicas();
 
-		//TODO: encapsular bien
 		Glib::RefPtr<Gtk::Adjustment> adjustment_cordx;
 		Glib::RefPtr<Gtk::Adjustment> adjustment_cordy;
 		Glib::RefPtr<Gtk::Adjustment> adjustment_nivel;
@@ -34,6 +40,9 @@ class BoxOpcionesBasicas{
 		BarraEstado * barraEstado;
 
 		//Handlers
+		/** Handler para cuando se presiona el boton generar.
+		 * Serializa el mapa con toda la informacion puesta
+		 */
 		void on_button_clicked();
 
 		//Metodos

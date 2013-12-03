@@ -4,6 +4,8 @@
 #include <gtkmm.h>
 #include <string>
 
+/** Menu superior con las opciones de salir, about y help
+ */
 class Menu{
 	public:
 		explicit Menu(Glib::RefPtr<Gtk::Builder>& builder);
