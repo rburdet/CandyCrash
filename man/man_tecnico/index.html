@@ -89,7 +89,7 @@ El programa tendria que  ser corrido en cualquier distribución de Linux sin pro
 <ul>
 	<li> Fedora 19 </li>
 	<li> Ubuntu 13 </li>
-	<li> Arch </li>
+	<li> Arch Linux </li>
 	<li> Debian 7 </li> 
 	<li> Peppermint </li> 
 </ul>
@@ -99,7 +99,9 @@ Sin tener problema alguno en ninguno de ellos.
 Dependiendo de la distribución los paquetes necesarios para correr son:
 Comunes a todas las distribuciones:
 <ul>
-	<li><strong> JsonCPP </strong></li>
+	<li><strong> JsonCPP >= 0.6.0 </strong></li>
+	<li><strong> Gtkmm 3.0 >= 3.8.1 </strong></li>
+	<li><strong> libasound2 >= 1.0.27.2 </strong></li>
 </ul>
 
 Fedora / Red Hat / CentOS:
@@ -109,6 +111,28 @@ Fedora / Red Hat / CentOS:
 	<li> <strong> gtkmm30.x86_64 </strong> Para correr gtkmm en sistemas 64 bits</li>
 	<li> <strong> gtkmm30-devel.i686 </strong>Para compilar gtkmm en sistemas 32 bits</li> 
 	<li> <strong> gtkmm30.i686 </strong> Para correr gtkmm en sistemas 32 bits</li>
+	<li> <strong> jsoncpp-devel.i686 </strong> Para compilar jsoncpp</li>
+	<li> <strong> jsoncpp.i686 </strong> Para correr jsoncpp</li>
+</ul>
+
+Ubuntu / Peppermint / Debian:
+<ul> 
+	<li> <strong> libasound2 </strong> Para reproducción de sonidos </li>
+	<li> <strong> libasound2-dev </strong> Para compilar sonidos </li>
+	<li> <strong> libgtkmm-3.0-1 </strong> Para correr gtkmm </li>
+	<li> <strong> libgtkmm-3.0-dev </strong>Para compilar gtkmm</li> 
+	<li> <strong> libjsoncpp0 </strong>Para correr jsoncpp</li> 
+	<li> <strong> libjsoncpp-dev </strong>Para compilar jsoncpp</li> 
+</ul>
+<div class="nota">
+	<p>En sistemas Ubuntu o derivados es posible que se nececite agregar el ppa de <a href="https://launchpad.net/~gnome3-team/+archive/gnome3">GNOME 3 Team</a> para satisfacer las depedencias.</p>
+</div>
+
+Arch Linux:
+<ul> 
+	<li> <strong> extra/alsa-lib </strong> Para reproducción de sonidos </li>
+	<li> <strong> extra/gtkmm3 </strong> Gtkmm </li>
+	<li> <strong> extra/jsoncpp </strong>Para correr jsoncpp</li> 
 </ul>
 </p>
 
@@ -471,11 +495,11 @@ Son 3 las cosas más importantes de esta aplicación. Arriba a la izquierda se e
 <ul>
 		<li><strong>int getX(); </strong></li>
 		<li><strong>int getY();</strong></li>
-		<li><strong>Info* getInfo()</strong></li>;
-		<li><strong>void on_adj_changed(Gtk::SpinButton* spinbutton,int id)</strong> Al cambiar un spinbutton, se setea la probabilidad del caramelo correspondiente en esta celda</li>;
+		<li><strong>Info* getInfo();</strong></li>
+		<li><strong>void on_adj_changed(Gtk::SpinButton* spinbutton,int id);</strong> Al cambiar un spinbutton, se setea la probabilidad del caramelo correspondiente en esta celda</li>
 		<li><strong>void setImage(const std::string& fileName);</strong></li>
 		<li><strong>void setHueco();</strong></li>
-		<li><strong>bool isHueco()</strong></li>;
+		<li><strong>bool isHueco();</strong></li>
 		<li><strong>std::string getImage();	</strong></li>
 </ul>
 </p>
@@ -488,7 +512,7 @@ Son 3 las cosas más importantes de esta aplicación. Arriba a la izquierda se e
 <ul>
 		<li><strong>void on_adj_changed(Gtk::SpinButton* spinbutton,int id);</strong>Al cambiar un spinbutton, se setea la probabilidad del caramelo correspondiente en esta columna</li>
 		<li><strong>Gtk::Button* get_boton();</strong></li>
-		<li><strong>Info* getInfo();<strong></li>
+		<li><strong>Info* getInfo();</strong></li>
 </ul>
 </p>
 <br>
@@ -578,44 +602,48 @@ Los diagramas se adjuntaran por separado ya que fueron generados por Doxygen.
 
 <span> D. Descripción de archivos y procolos </span> 
 <p> Cuando un mapa se genera lo hace con la extension .map . Estos mapas estan en formato Json y tienen la siguiente forma (no se explicita todo el mapa para mayor prolijidad):
-{<br>
-	"nombre_de_mapa" : <br>
-	{<br>
-		"DIM" : <br>
-		{<br>
-			"X" : numero_filas,<br>
-			"Y" : numero_columnas<br>
-		},<br>
-		"celdas" : <br>
-		{<br>
-			"0" : <br>
-			{<br>
-				"0" : <br>
-				{<br>
-					"fondo" : "",<br>
-					"probabilidades" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]<br>
-				},<br>
-				"numero_filas" : <br>
-				{<br>
-					"fondo" : "",<br>
-					"probabilidades" : [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]<br>
-				},<br>
-			"numero_columnas" :<br>
-			{<br>
-				"0" : ....<br>
-			},<br>
-		},<br>
-		"columnas" : <br>
-		{<br>
-			"0" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],<br>
-			"numero_columnas" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]<br>
-		},<br>
-		"fondo" : "../imagenes/fondo.jpg",<br>
-		"max_jugadores" : 3,<br>
-		"nivel" : 2,<br>
-		"puntaje_para_ganar" : 10000<br>
-	}<br>
-}<br>
+<pre>
+<code>
+{
+	"nombre_de_mapa" : 
+	{
+		"DIM" : 
+		{
+			"X" : numero_filas,
+			"Y" : numero_columnas
+		},
+		"celdas" : 
+		{
+			"0" : 
+			{
+				"0" : 
+				{
+					"fondo" : "",
+					"probabilidades" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+				},
+				"numero_filas" : 
+				{
+					"fondo" : "",
+					"probabilidades" : [ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+				},
+			"numero_columnas" :
+			{
+				"0" : ....
+			},
+		},
+		"columnas" :
+		{
+			"0" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+			"numero_columnas" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+		},
+		"fondo" : "../imagenes/fondo.jpg",
+		"max_jugadores" : 3,
+		"nivel" : 2,
+		"puntaje_para_ganar" : 10000
+	}
+}
+</code>
+</pre>
 
 <article id="Comunes">
 <span class="titulo">6. Comunes </span>
