@@ -83,7 +83,7 @@ AC_ARG_WITH([pthread-lib-path],
   [PTHREAD_LIBS='-lpthread -pthread'])
 AC_SUBST([PTHREAD_LIBS])
 
-PKG_CHECK_MODULES([GTKMM3], [gtkmm-3.0 >= 3.0])
+PKG_CHECK_MODULES([GTKMM3], [gtkmm-3.0 >= 3.8])
 
 # distribute additional compiler and linker flags
 # --> set these variables instead of CXXFLAGS or LDFLAGS

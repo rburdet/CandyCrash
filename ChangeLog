@@ -1,0 +1,14 @@
+
+version 2.0
+
+ - separation of class definition and main function containing .cpp file
+ - libary has own namespace 'mylib'
+ - 'bin' subfolder for the binaries source files
+ - class member documentation in doxygen style
+ - better _LDADD linker dependency
+ - deprecated INCLUDES variable replaced with AM_CPPFLAGS
+ - configure.ac revisited
+
+version 1.0
+
+ - simple lib with one class and one depending binary
