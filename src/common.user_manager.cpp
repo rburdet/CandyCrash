@@ -2,9 +2,11 @@
 
 #include <fstream>
 #include <string>
+#include "common.logger.h"
 
 using std::ifstream;
 using std::ofstream;
+using std::string;
 
 UserManager::UserManager(const std::string &path) : path(path) {
 	ifstream ifs(this->path.c_str(), std::ifstream::in);
@@ -13,6 +15,8 @@ UserManager::UserManager(const std::string &path) : path(path) {
 		std::string str((std::istreambuf_iterator<char>(ifs)), 
 				std::istreambuf_iterator<char>());
 		reader.parse(str, this->users);
+	}else{
+		Logger::log(string("No se pudo abrir archivo: ") + path);
 	}
 	ifs.close();
 }

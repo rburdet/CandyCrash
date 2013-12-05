@@ -4,6 +4,7 @@
 #include "common.logger.h"
 #include "common.user_manager.h"
 #include "server.server.h"
+#include "common.path_manager.h"
 
 using std::cin;
 using std::string;
@@ -38,7 +39,8 @@ int main(int argc, char* argv[]){
 
 	cout << "Presione 'q' para cerrar" << endl;
 	Logger::init();
-
+	PathManager::init();
+	PathManager::chdir();
 	UserManager::init(string("./user_data.json"));
 
 	Server server(port);
