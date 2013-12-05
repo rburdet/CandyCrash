@@ -1,12 +1,5 @@
-
-This project is part of the autotools examples from 
-
-  http://www.bioinf.uni-freiburg.de/~mmann/
-  
-  by Martin Mann (c) 2009
-
-  
-  The following steps are needed now:
-  - run ./configure
-  - run make
-  - run ./src/helloWorld
+$ aclocal
+$ automake --add-missing
+$ autoconf
+$ ./configure
+$ make
