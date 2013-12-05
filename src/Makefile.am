@@ -9,10 +9,10 @@ AM_LDFLAGS = $(JSONCPP_LIBS) -std=c++0x @AM_LDFLAGS@
 ###############################################################################
 
 # the program to build (the names of the final binaries)
-bin_PROGRAMS = server cliente
+bin_PROGRAMS = candycrash_server candycrash_cliente
 
 # list of sources for the 'helloWorld' binary
-server_SOURCES = \
+candycrash_server_SOURCES = \
 	common.hmac.cpp \
 	common.logger.cpp \
 	common.md5.cpp \
@@ -30,7 +30,7 @@ server_SOURCES = \
 	server.thread_usuario.cpp \
 	server.cpp
 
-cliente_SOURCES = \
+candycrash_cliente_SOURCES = \
 	common.hmac.cpp \
 	common.logger.cpp \
 	common.md5.cpp \
@@ -54,10 +54,10 @@ cliente_SOURCES = \
 
 
 # the additional libraries needed to link
-server_CXXFLAGS = $(AM_CXXFLAGS) $(PTHREAD_CFLAGS)
-server_LDADD = $(PTHREAD_LIBS)
+candycrash_server_CXXFLAGS = $(AM_CXXFLAGS) $(PTHREAD_CFLAGS)
+candycrash_server_LDADD = $(PTHREAD_LIBS)
 
-cliente_CXXFLAGS = $(AM_CXXFLAGS) $(GTKMM3_CFLAGS) $(ASOUND_CFLAGS)
-cliente_LDADD = $(GTKMM3_LIBS) $(ASOUND_LIBS)
+candycrash_cliente_CXXFLAGS = $(AM_CXXFLAGS) $(GTKMM3_CFLAGS) $(ASOUND_CFLAGS)
+candycrash_cliente_LDADD = $(GTKMM3_LIBS) $(ASOUND_LIBS)
 
 ###############################################################################
