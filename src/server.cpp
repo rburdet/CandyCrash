@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <stdio.h>
 
 #include "common.logger.h"
 #include "common.user_manager.h"
