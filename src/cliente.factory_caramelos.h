@@ -7,7 +7,7 @@
 #include "cliente.star.h"
 #include "common.caramelos.h"
 
-#define DEFAULTIMAGEDIR "../imagenes/"
+#define DEFAULTIMAGEDIR "../share/candycrash/imagenes/"
 #define SIZE 50
 class CandyFactory{
 	public:
