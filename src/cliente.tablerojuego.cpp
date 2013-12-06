@@ -107,7 +107,7 @@ void TableroJuego::llenar(){
 				matrizCaramelos[i][j] = caramelo;
 				matrizCaramelosAux[i][j] = NULL;
 			}else if (idPieza == -1){
-				Gtk::Image* hueco = new Gtk::Image("../imagenes/hueco.png");
+				Gtk::Image* hueco = new Gtk::Image("../share/candycrash/imagenes/hueco.png");
 				hueco->show();
 				this->tablero.put(*(hueco),i*SIZE+25,j*SIZE+25);
 			}

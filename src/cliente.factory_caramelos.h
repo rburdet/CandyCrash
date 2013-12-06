@@ -33,7 +33,7 @@ class CandyFactory{
 					car = new Button(id,IMAGEDIR+"button_yellow.png",i,j);
 					break;
 				case RED_HORBAR:
-					car = new Bar(id,true,IMAGEDIR+IMAGEDIR+"bar_hor_red.png",i,j);
+					car = new Bar(id,true,IMAGEDIR+"bar_hor_red.png",i,j);
 					break;
 				case BLUE_HORBAR:
 					car = new Bar(id,true,IMAGEDIR+"bar_hor_blue.png",i,j);
