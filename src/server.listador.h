@@ -8,7 +8,7 @@
 #include <fstream>
 #include "common.logger.h"
 
-#define MAPA_PATH "../Mapas/"
+#define MAPA_PATH "../share/candycrash/Mapas/"
 #define MAPA_EXT ".map"
 
 /** Clase que se encarga de proveer metodos para traer informacion acerca de los mapas.

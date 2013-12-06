@@ -365,7 +365,7 @@
 			"6" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
 			"7" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
 		},
-		"fondo" : "../imagenes/fondos/stripes2.jpg",
+		"fondo" : "../share/candycrash/imagenes/fondos/stripes2.jpg",
 		"max_jugadores" : 2,
 		"nivel" : 1,
 		"puntaje_para_ganar" : 1000

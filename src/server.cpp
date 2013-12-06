@@ -42,7 +42,7 @@ int main(int argc, char* argv[]){
 	Logger::init();
 	PathManager::init();
 	PathManager::chdir();
-	UserManager::init(string("./user_data.json"));
+	UserManager::init(string("../share/candycrash/user_data.json"));
 
 	Server server(port);
 

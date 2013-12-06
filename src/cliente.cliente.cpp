@@ -21,12 +21,12 @@ Cliente::Cliente() : ventanaActual(NULL), listener(NULL){
 	// Agregamos el estilo
 	Glib::RefPtr< Gdk::Screen > screen = Gdk::Screen::get_default();
 	Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
-	cssprov->load_from_path("../imagenes/style.css");
+	cssprov->load_from_path("../share/candycrash/imagenes/style.css");
 	Gtk::StyleContext::add_provider_for_screen(screen, cssprov, 
 			GTK_STYLE_PROVIDER_PRIORITY_USER);
 
 	Glib::RefPtr< Gdk::Pixbuf > icon = 
-		Gdk::Pixbuf::create_from_file("../imagenes/star.png");
+		Gdk::Pixbuf::create_from_file("../share/candycrash/imagenes/star.png");
 	std::vector< Glib::RefPtr< Gdk::Pixbuf > > icon_list;
 	icon_list.push_back(icon);
 	Gtk::Window::set_default_icon_list(icon_list);
@@ -170,7 +170,7 @@ void Cliente::onLogin(int code, Json::Value& data){
 		ventanaActual->get_position(root_x, root_y);
 		ventanaActual->hide();
 		delete ventanaActual;
-		SoundPlayer::play("../sounds/service-login.wav");
+		SoundPlayer::play("../share/candycrash/sounds/service-login.wav");
 		MainWindow* ventana = new MainWindow;
 		this->ventanaActual = ventana;
 		this->ventanaActual->move(root_x, root_y);

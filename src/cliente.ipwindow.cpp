@@ -7,7 +7,7 @@ using std::string;
 Ipwindow::Ipwindow()
 	: m_VBox(Gtk::ORIENTATION_VERTICAL),
 	m_Button_conectar("Conectar"), m_check("Active para registrarse"), 
-	img("../imagenes/star_big.png") {
+	img("../share/candycrash/imagenes/star_big.png") {
 	set_size_request(350, 700);
 	set_title("Conectate");
 

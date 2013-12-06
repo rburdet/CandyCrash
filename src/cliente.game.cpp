@@ -146,7 +146,7 @@ void GameWindow::mensaje(Json::Value& data){
 			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = 
 				this->m_refTextBuffer1->get_insert();
 			this->m_TextView1.scroll_to(mark);
-			SoundPlayer::play("../sounds/message-new-instant.wav");
+			SoundPlayer::play("../share/candycrash/sounds/message-new-instant.wav");
 			break;
 		}
 		case EVENT_GAME_MSG:{
@@ -163,10 +163,10 @@ void GameWindow::mensaje(Json::Value& data){
 			Gtk::TextIter it = this->m_refTextBuffer1->end();
 			string line = data["line"].asString(); string text = "\n >> Se ";
 			if(event == EVENT_GAME_USER_RM){
-				SoundPlayer::play("../sounds/device-removed.wav");
+				SoundPlayer::play("../share/candycrash/sounds/device-removed.wav");
 				text +="des";
 			}else{
-				SoundPlayer::play("../sounds/device-added.wav");
+				SoundPlayer::play("../share/candycrash/sounds/device-added.wav");
 			}
 			text += "conecto "+data["user"]["user"].asString();
 			this->m_refTextBuffer1->insert(it, text);
@@ -229,7 +229,7 @@ void GameWindow::mensaje(Json::Value& data){
 				this->m_refTextBuffer1->get_insert();
 			this->m_TextView1.scroll_to(mark);
 
-			SoundPlayer::play("../sounds/complete.wav");
+			SoundPlayer::play("../share/candycrash/sounds/complete.wav");
 			break;
 		}
 
