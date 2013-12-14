@@ -1,4 +1,4 @@
-# this is example-file: src/bin/Makefile.am
+AUTOMAKE_OPTIONS = subdir-objects foreign
 
 # additional include pathes necessary to compile the C++ programs
 AM_CXXFLAGS = $(JSONCPP_CFLAGS) -std=c++0x @AM_CXXFLAGS@
@@ -9,103 +9,133 @@ AM_LDFLAGS = $(JSONCPP_LIBS) -std=c++0x @AM_LDFLAGS@
 ###############################################################################
 
 # the program to build (the names of the final binaries)
-bin_PROGRAMS = candycrash_server candycrash_cliente
+bin_PROGRAMS = candycrash-server candycrash-cliente candycrash-editor
 
 # list of sources for the 'helloWorld' binary
 candycrash_server_SOURCES = \
-	common.caramelos.h \
-	common.caramelos_movimientos.h \
-	common.events.h \
-	common.hmac.cpp \
-	common.hmac.h \
-	common.logger.cpp \
-	common.logger.h \
-	common.md5.cpp \
-	common.md5.h \
-	common.mutex.cpp \
-	common.mutex.h \
-	common.path_manager.cpp \
-	common.path_manager.h \
-	common.socket.cpp \
-	common.socket.h \
-	common.socket_io.cpp \
-	common.socket_io.h \
-	common.thread.cpp \
-	common.thread.h \
-	common.thread_socket.cpp \
-	common.thread_socket.h \
-	common.user_manager.cpp \
-	common.user_manager.h \
-	server.cpp \
-	server.listador.h \
-	server.partida.cpp \
-	server.partida.h \
-	server.partida_interface.h \
-	server.server.cpp \
-	server.server.h \
-	server.server_interface.h \
-	server.socket_listener.cpp \
-	server.socket_listener.h \
-	server.tablero.cpp \
-	server.tablero.h \
-	server.thread_usuario.cpp \
-	server.thread_usuario.h
+	common/common.caramelos.h \
+	common/common.caramelos_movimientos.h \
+	common/common.events.h \
+	common/common.hmac.cpp \
+	common/common.hmac.h \
+	common/common.logger.cpp \
+	common/common.logger.h \
+	common/common.md5.cpp \
+	common/common.md5.h \
+	common/common.mutex.cpp \
+	common/common.mutex.h \
+	common/common.path_manager.cpp \
+	common/common.path_manager.h \
+	common/common.socket.cpp \
+	common/common.socket.h \
+	common/common.socket_io.cpp \
+	common/common.socket_io.h \
+	common/common.thread.cpp \
+	common/common.thread.h \
+	common/common.thread_socket.cpp \
+	common/common.thread_socket.h \
+	common/common.user_manager.cpp \
+	common/common.user_manager.h \
+	server/server.cpp \
+	server/server.listador.h \
+	server/server.partida.cpp \
+	server/server.partida.h \
+	server/server.partida_interface.h \
+	server/server.server.cpp \
+	server/server.server.h \
+	server/server.server_interface.h \
+	server/server.socket_listener.cpp \
+	server/server.socket_listener.h \
+	server/server.tablero.cpp \
+	server/server.tablero.h \
+	server/server.thread_usuario.cpp \
+	server/server.thread_usuario.h
 
 
 candycrash_cliente_SOURCES = \
-	cliente.bar.h \
-	cliente.button.h \
-	cliente.caramelo.cpp \
-	cliente.caramelo.h \
-	cliente.cliente.cpp \
-	cliente.cliente.h \
-	cliente.cliente_interface.h \
-	cliente.factory_caramelos.h \
-	cliente.game.cpp \
-	cliente.game.h \
-	cliente.ipwindow.cpp \
-	cliente.ipwindow.h \
-	clientemain.cpp \
-	cliente.main_window.cpp \
-	cliente.main_window.h \
-	cliente.socket_connect.cpp \
-	cliente.socket_connect.h \
-	cliente.sound_player.cpp \
-	cliente.sound_player.h \
-	cliente.star.h \
-	cliente.tablerojuego.cpp \
-	cliente.tablerojuego.h \
-	cliente.thread_listener.cpp \
-	cliente.thread_listener.h \
-	cliente.window.h \
-	common.caramelos.h \
-	common.caramelos_movimientos.h \
-	common.events.h \
-	common.hmac.cpp \
-	common.hmac.h \
-	common.logger.cpp \
-	common.logger.h \
-	common.md5.cpp \
-	common.md5.h \
-	common.mutex.cpp \
-	common.mutex.h \
-	common.path_manager.cpp \
-	common.path_manager.h \
-	common.socket.cpp \
-	common.socket.h \
-	common.socket_io.cpp \
-	common.socket_io.h \
-	common.thread.cpp \
-	common.thread.h \
-	common.thread_socket.cpp \
-	common.thread_socket.h \
-	common.user_manager.cpp \
-	common.user_manager.h \
-	widgets/cliente.label_entry.h \
-	widgets/cliente.mapas_list.h \
-	widgets/cliente.menu_bar.h \
-	widgets/cliente.partidas_list.h \
-	widgets/cliente.usuarios_list.h
+	cliente/cliente.bar.h \
+	cliente/cliente.button.h \
+	cliente/cliente.caramelo.cpp \
+	cliente/cliente.caramelo.h \
+	cliente/cliente.cliente.cpp \
+	cliente/cliente.cliente.h \
+	cliente/cliente.cliente_interface.h \
+	cliente/cliente.factory_caramelos.h \
+	cliente/cliente.game.cpp \
+	cliente/cliente.game.h \
+	cliente/cliente.ipwindow.cpp \
+	cliente/cliente.ipwindow.h \
+	cliente/cliente.cpp \
+	cliente/cliente.main_window.cpp \
+	cliente/cliente.main_window.h \
+	cliente/cliente.socket_connect.cpp \
+	cliente/cliente.socket_connect.h \
+	cliente/cliente.sound_player.cpp \
+	cliente/cliente.sound_player.h \
+	cliente/cliente.star.h \
+	cliente/cliente.tablerojuego.cpp \
+	cliente/cliente.tablerojuego.h \
+	cliente/cliente.thread_listener.cpp \
+	cliente/cliente.thread_listener.h \
+	cliente/cliente.window.h \
+	common/common.caramelos.h \
+	common/common.caramelos_movimientos.h \
+	common/common.events.h \
+	common/common.hmac.cpp \
+	common/common.hmac.h \
+	common/common.logger.cpp \
+	common/common.logger.h \
+	common/common.md5.cpp \
+	common/common.md5.h \
+	common/common.mutex.cpp \
+	common/common.mutex.h \
+	common/common.path_manager.cpp \
+	common/common.path_manager.h \
+	common/common.socket.cpp \
+	common/common.socket.h \
+	common/common.socket_io.cpp \
+	common/common.socket_io.h \
+	common/common.thread.cpp \
+	common/common.thread.h \
+	common/common.thread_socket.cpp \
+	common/common.thread_socket.h \
+	common/common.user_manager.cpp \
+	common/common.user_manager.h \
+	cliente/widgets/cliente.label_entry.h \
+	cliente/widgets/cliente.mapas_list.h \
+	cliente/widgets/cliente.menu_bar.h \
+	cliente/widgets/cliente.partidas_list.h \
+	cliente/widgets/cliente.usuarios_list.h
+
+candycrash_editor_SOURCES = \
+	common/common.path_manager.cpp \
+	common/common.path_manager.h \
+	editor/barraestado.cpp \
+	editor/barraestado.h \
+	editor/boxopcionesbasicas.cpp \
+	editor/boxopcionesbasicas.h \
+	editor/celda.cpp \
+	editor/celda.h \
+	editor/columna.cpp \
+	editor/columna.h \
+	editor/generalprobs.cpp \
+	editor/generalprobs.h \
+	editor/info.cpp \
+	editor/info.h \
+	editor/main.cpp \
+	editor/mainwindow.cpp \
+	editor/mainwindow.h \
+	editor/menu.cpp \
+	editor/menu.h \
+	editor/noteprobabilidades.cpp \
+	editor/noteprobabilidades.h \
+	editor/persistidor.h \
+	editor/probceldas.cpp \
+	editor/probceldas.h \
+	editor/probcolumnas.cpp \
+	editor/probcolumnas.h \
+	editor/tablero.cpp \
+	editor/tablero.h
 
 
 
@@ -115,6 +145,10 @@ candycrash_server_LDADD = $(PTHREAD_LIBS)
 
 candycrash_cliente_CXXFLAGS = $(AM_CXXFLAGS) $(GTKMM3_CFLAGS) $(ASOUND_CFLAGS)
 candycrash_cliente_LDADD = $(GTKMM3_LIBS) $(ASOUND_LIBS)
+
+candycrash_editor_CXXFLAGS = $(AM_CXXFLAGS) $(GTKMM3_CFLAGS) $(ASOUND_CFLAGS)
+candycrash_editor_LDADD = $(GTKMM3_LIBS) $(ASOUND_LIBS)
+
 
 #candycrash_serverdir = $(prefix)/share/$(PACKAGE)/server/
 candycrash_serverdir = $(prefix)/share
@@ -178,5 +212,9 @@ nobase_dist_candycrash_cliente_DATA = \
 	../share/candycrash/sounds/service-logout.wav \
 	../share/candycrash/sounds/audio-volume-change.wav \
 	../share/candycrash/sounds/audio-channel-front-right.wav
+
+candycrash_editordir = $(prefix)/share
+nobase_dist_candycrash_editor_DATA = \
+	../share/candycrash/editor/Editor.glade
 
 ###############################################################################

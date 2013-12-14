@@ -1,4 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node2" href="$classWindow.html" title="{Window\n|# m_signal_mensaje\l|+ mensaje()\l+ Window()\l+ signal_mensaje()\l+ on_about()\l# _onClose()\l# onClose()\l# set_background_image()\l# dialog()\l# dialog()\l}" alt="" coords="9,5,183,200"/>
-<area shape="rect" id="node4" href="$classTableroJuego.html" title="{TableroJuego\n||+ TableroJuego()\l+ ~TableroJuego()\l+ dibujar()\l+ mensaje()\l}" alt="" coords="100,251,228,373"/>
-</map>

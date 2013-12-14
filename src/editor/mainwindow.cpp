@@ -7,7 +7,7 @@
 
 
 MainWindow::MainWindow(){
-	this->builder = Gtk::Builder::create_from_file("Editor.glade");
+	this->builder = Gtk::Builder::create_from_file("../share/candycrash/editor/Editor.glade");
 	this->builder->get_widget("window1",mainWindow);
 	this->tablero = new Tablero(this->builder);
 	this->boxOpcionesBasicas = new BoxOpcionesBasicas(this->builder,this->tablero);

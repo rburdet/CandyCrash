@@ -1,4 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node2" href="$classServerInterface.html" title="{ServerInterface\n||+ removeClient()\l+ newPartida()\l+ removePartida()\l+ listPartidas()\l+ connectPartidas()\l}" alt="" coords="4,13,139,149"/>
-<area shape="rect" id="node4" href="$classThread.html" title="{Thread\n||+ Thread()\l+ ~Thread()\l+ start()\l+ join()\l+ detach()\l# run()\l}" alt="" coords="164,6,255,157"/>
-</map>

@@ -10,7 +10,7 @@
 #define MAX_FILAS 14
 #define SIZE 40
 #define OFFSET 20
-#define HUECODIR "../../imagenes/hueco.png"
+#define HUECODIR "../share/candycrash/imagenes/hueco.png"
 
 #define MAXELEMENTOS 16
 
@@ -195,7 +195,8 @@ void Tablero::actualizarMatriz(int x, int y){
 		}
 	}
 	crearMatrizBotones(x,y);
-	point = new Gtk::Image("../../imagenes/dot.png");
+	point = new Gtk::Image("../share/candycrash/imagenes/dot.png");
+
 	this->tablero->put(*point,100000,100000);
 }
 

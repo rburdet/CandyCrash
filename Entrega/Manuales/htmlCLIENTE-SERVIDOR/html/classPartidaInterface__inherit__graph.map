@@ -1,3 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$classPartida.html" title="{Partida\n|# server\l# usuarios\l# usuarios_data\l# nivel\l# nombre\l# usuariosLock\l# estado\l# mapa\l# maxUsuarios\l# tableroLock\l# tablero\l# puntosMax\l|+ Partida()\l+ ~Partida()\l+ addUsuario()\l+ rmUsuario()\l+ getNivel()\l+ getUsuarios()\l+ getMaxUsuarios()\l+ getEstado()\l+ getNombre()\l+ mensaje()\l# broadcastMsj()\l# msjError()\l# msjError()\l}" alt="" coords="5,235,141,650"/>
-</map>

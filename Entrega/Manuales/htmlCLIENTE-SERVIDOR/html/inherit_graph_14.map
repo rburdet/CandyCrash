@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node1" href="$classWindow.html" title="Window" alt="" coords="5,81,75,108"/>
-<area shape="rect" id="node3" href="$classGameWindow.html" title="GameWindow" alt="" coords="123,5,227,32"/>
-<area shape="rect" id="node5" href="$classIpwindow.html" title="Ipwindow" alt="" coords="136,56,213,83"/>
-<area shape="rect" id="node7" href="$classMainWindow.html" title="MainWindow" alt="" coords="126,107,223,133"/>
-<area shape="rect" id="node9" href="$classTableroJuego.html" title="TableroJuego" alt="" coords="125,157,225,184"/>
-</map>

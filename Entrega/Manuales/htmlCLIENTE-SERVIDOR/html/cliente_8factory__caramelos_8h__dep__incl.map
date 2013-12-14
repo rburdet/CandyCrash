@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$cliente_8tablerojuego_8h.html" title="cliente.tablerojuego.h" alt="" coords="147,80,292,107"/>
-<area shape="rect" id="node5" href="$cliente_8game_8h.html" title="cliente.game.h" alt="" coords="88,155,195,181"/>
-<area shape="rect" id="node11" href="$cliente_8tablerojuego_8cpp.html" title="cliente.tablerojuego.cpp" alt="" coords="219,155,377,181"/>
-<area shape="rect" id="node7" href="$cliente_8cliente_8cpp.html" title="cliente.cliente.cpp" alt="" coords="5,229,131,256"/>
-<area shape="rect" id="node9" href="$cliente_8game_8cpp.html" title="cliente.game.cpp" alt="" coords="155,229,276,256"/>
-</map>

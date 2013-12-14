@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$boxopcionesbasicas_8h.html" title="boxopcionesbasicas.h" alt="" coords="850,80,1000,107"/>
-<area shape="rect" id="node17" href="$tablero_8h.html" title="tablero.h" alt="" coords="436,155,508,181"/>
-<area shape="rect" id="node40" href="$persistidor_8h.html" title="persistidor.h" alt="" coords="1048,155,1141,181"/>
-<area shape="rect" id="node49" href="$barraestado_8h.html" title="barraestado.h" alt="" coords="656,229,757,256"/>
-<area shape="rect" id="node28" href="$celda_8h.html" title="celda.h" alt="" coords="416,229,480,256"/>
-<area shape="rect" id="node35" href="$columna_8h.html" title="columna.h" alt="" coords="309,229,391,256"/>
-<area shape="rect" id="node33" href="$info_8h.html" title="info.h" alt="" coords="403,304,457,331"/>
-</map>

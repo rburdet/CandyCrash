@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$server_8partida_8h.html" title="server.partida.h" alt="" coords="123,80,233,107"/>
-<area shape="rect" id="node13" href="$server_8tablero_8cpp.html" title="server.tablero.cpp" alt="" coords="259,80,385,107"/>
-<area shape="rect" id="node5" href="$server_8server_8h.html" title="server.server.h" alt="" coords="53,155,163,181"/>
-<area shape="rect" id="node11" href="$server_8partida_8cpp.html" title="server.partida.cpp" alt="" coords="187,155,313,181"/>
-<area shape="rect" id="node7" href="$server_8cpp.html" title="server.cpp" alt="" coords="4,229,85,256"/>
-<area shape="rect" id="node9" href="$server_8server_8cpp.html" title="server.server.cpp" alt="" coords="111,229,233,256"/>
-</map>

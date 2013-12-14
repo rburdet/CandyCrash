@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node1" href="$classSocket.html" title="Socket" alt="" coords="6,31,69,57"/>
-<area shape="rect" id="node3" href="$classSocketIO.html" title="SocketIO" alt="" coords="124,5,201,32"/>
-<area shape="rect" id="node7" href="$classTCPSocket.html" title="TCPSocket" alt="" coords="117,56,208,83"/>
-<area shape="rect" id="node5" href="$classTCPSocketConnect.html" title="TCPSocketConnect" alt="" coords="256,5,395,32"/>
-<area shape="rect" id="node10" href="$classTCPSocketListener.html" title="TCPSocketListener" alt="" coords="257,56,393,83"/>
-</map>

@@ -1,5 +1,13 @@
-$ aclocal
-$ automake --add-missing
-$ autoconf
+CandyCrash
+==========
+
+El instalador esta armado con las autotools de gnu.
+
+Para compilar:
+$ ./autogen.sh
 $ ./configure
 $ make
+$ make install
+
+Para cambiar la ruta de instalacion, se le debe pasar al ./configure el parametro --prefix=<ruta>
+Para hacer un paquete de distribucion: make dist

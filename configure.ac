@@ -4,7 +4,9 @@
 AC_INIT([CandyCrash],[1.0],[rburdet@gmail.com ncis20@gmail.com])
 
 # check if the source folder is correct
-AC_CONFIG_SRCDIR([src/server.cpp])
+AC_CONFIG_SRCDIR([src/server/server.cpp])
+AC_CONFIG_SRCDIR([src/cliente/cliente.cpp])
+AC_CONFIG_SRCDIR([src/editor/main.cpp])
 
 # Checks for programs
 

@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node2" href="$classPartidaInterface.html" title="{PartidaInterface\n||+ addUsuario()\l+ rmUsuario()\l+ mensaje()\l+ getNivel()\l+ getUsuarios()\l+ getMaxUsuarios()\l+ getEstado()\l+ getNombre()\l}" alt="" coords="5,314,141,494"/>
-<area shape="rect" id="node6" href="$classTablero.html" title="{Tablero\n|# mapa\l# imagenFondo\l# tablero\l# probabilidades\l# nMapa\l# pathFondo\l# dim_x\l# dim_y\l# alto\l# ancho\l|+ Tablero()\l+ ~Tablero()\l+ movimiento()\l+ hayMovimientos()\l+ getTablero()\l# generar()\l# efectivizarCelda()\l# getMax()\l# movimientoValido()\l# hayMovimiento()\l# hayCombinacion()\l# calcularCoordenadas()\l# doStar()\l# esMismoColor()\l# num2str()\land 15 more...\l}" alt="" coords="252,189,415,619"/>
-<area shape="rect" id="node11" href="$classMutex.html" title="{Mutex\n||+ Mutex()\l+ ~Mutex()\l+ lock()\l+ unlock()\l}" alt="" coords="535,343,621,465"/>
-<area shape="rect" id="node14" href="$classServerInterface.html" title="{ServerInterface\n||+ removeClient()\l+ newPartida()\l+ removePartida()\l+ listPartidas()\l+ connectPartidas()\l}" alt="" coords="647,336,781,472"/>
-</map>

@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 
-#define DEFAULTIMAGEDIR "../../imagenes/"
+#define DEFAULTIMAGEDIR "../share/candycrash/imagenes/"
 #define WIDGETNAME "image"
 #define BUTTON "spinbutton"
 #define ADJUSTMENT "adjustment"

@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node1" href="$classServerInterface.html" title="ServerInterface" alt="" coords="6,5,117,32"/>
-<area shape="rect" id="node3" href="$classServer.html" title="Server" alt="" coords="187,5,247,32"/>
-<area shape="rect" id="node4" href="$classThread.html" title="Thread" alt="" coords="30,56,93,83"/>
-<area shape="rect" id="node7" href="$classThreadSocket.html" title="ThreadSocket" alt="" coords="166,56,269,83"/>
-<area shape="rect" id="node9" href="$classThreadListener.html" title="ThreadListener" alt="" coords="318,31,426,57"/>
-<area shape="rect" id="node11" href="$classThreadUsuario.html" title="ThreadUsuario" alt="" coords="319,81,425,108"/>
-</map>
