@@ -5,9 +5,14 @@ El instalador esta armado con las autotools de gnu.
 
 Para compilar:
 $ ./autogen.sh
+$ make
+
+Para hacer un paquete de distribucion: `make dist`. Esto generara un tar que sera el paquete.
+Para instalar el tar:
+$ tar xfv <archivo>
+$ cd <carpeta>
 $ ./configure
 $ make
 $ make install
 
-Para cambiar la ruta de instalacion, se le debe pasar al ./configure el parametro --prefix=<ruta>
-Para hacer un paquete de distribucion: make dist
+Para cambiar la ruta de instalacion se debe pasar --prefix=<ruta> al ./configure. Por defecto se usa '/usr/local'

@@ -4,6 +4,7 @@
 #include <gtkmm.h>
 #include <string>
 #include <vector>
+#include "../common/common.logger.h"
 
 /** Interfaz de ventana para todas las ventanas del cliente.
  */
@@ -48,13 +49,17 @@ class Window : public Gtk::Window {
 		}
 
 		void set_background_image(std::string path){
-			std::string style_sheet = ".image_bg { background-image: url('"+path+"');}";
-			Glib::RefPtr<Gtk::StyleContext> stylecontext = this->get_style_context();
-			Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
-			cssprov->load_from_data(style_sheet);
-			stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
-			stylecontext->add_class("image_bg");
-			stylecontext->context_save();
+			try{
+				std::string style_sheet = ".image_bg { background-image: url('"+path+"');}";
+				Glib::RefPtr<Gtk::StyleContext> stylecontext = this->get_style_context();
+				Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
+				cssprov->load_from_data(style_sheet);
+				stylecontext->add_provider(cssprov, GTK_STYLE_PROVIDER_PRIORITY_USER);
+				stylecontext->add_class("image_bg");
+				stylecontext->context_save();
+			} catch(Glib::Error err){
+				Logger::log("Error seteando el fondo: '"+path+"' \nError: '"+err.what()+"'");
+			}
 		}
 
 		bool dialog(const char* pri, const char* sec){

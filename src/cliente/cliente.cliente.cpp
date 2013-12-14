@@ -19,11 +19,15 @@ Cliente::Cliente() : ventanaActual(NULL), listener(NULL){
 	this->connTimeout = Glib::signal_timeout().connect(my_slot, 100);
 
 	// Agregamos el estilo
-	Glib::RefPtr< Gdk::Screen > screen = Gdk::Screen::get_default();
-	Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
-	cssprov->load_from_path("../share/candycrash/imagenes/style.css");
-	Gtk::StyleContext::add_provider_for_screen(screen, cssprov, 
-			GTK_STYLE_PROVIDER_PRIORITY_USER);
+	try {
+		Glib::RefPtr< Gdk::Screen > screen = Gdk::Screen::get_default();
+		Glib::RefPtr<Gtk::CssProvider> cssprov = Gtk::CssProvider::create();
+		cssprov->load_from_path("../share/candycrash/imagenes/style.css");
+		Gtk::StyleContext::add_provider_for_screen(screen, cssprov,
+				GTK_STYLE_PROVIDER_PRIORITY_USER);
+	} catch(Glib::Error err){
+		Logger::log("Error parseando el css: '"+err.what()+"'");
+	}
 
 	Glib::RefPtr< Gdk::Pixbuf > icon = 
 		Gdk::Pixbuf::create_from_file("../share/candycrash/imagenes/star.png");
