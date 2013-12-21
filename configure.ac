@@ -41,6 +41,13 @@ AC_LANG([C++])
 AC_HEADER_STDC
 AC_CHECK_HEADERS([string])
 AC_CHECK_HEADERS([iostream])
+AC_CHECK_HEADERS([stringstream])
+AC_CHECK_HEADERS([pthread.h])
+AC_CHECK_HEADERS([libgen.h])
+AC_CHECK_HEADERS([uinstd.h])
+AC_CHECK_HEADERS([errno.h])
+AC_CHECK_HEADERS([stdlib.h])
+AC_CHECK_HEADERS([stdio.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
@@ -59,18 +66,18 @@ AC_ARG_WITH([jsoncpp-lib-path],
   [JSONCPP_LIBS='-ljsoncpp'])
 AC_SUBST([JSONCPP_LIBS])
 
-AC_ARG_WITH([asound-include-path],
-  [AS_HELP_STRING([--with-asound-include-path],
-    [location of the asound headers, defaults to /usr/include])],
-  [ASOUND_CFLAGS="-I$withval"],
-  [ASOUND_CFLAGS='-I/usr/include'])
-AC_SUBST([ASOUND_CFLAGS])
-
-AC_ARG_WITH([asound-lib-path],
-  [AS_HELP_STRING([--with-asound-lib-path], [location of the asound libraries])],
-  [ASOUND_LIBS="-L$withval -lasound"],
-  [ASOUND_LIBS='-lasound'])
-AC_SUBST([ASOUND_LIBS])
+#AC_ARG_WITH([asound-include-path],
+#  [AS_HELP_STRING([--with-asound-include-path],
+#    [location of the asound headers, defaults to /usr/include])],
+#  [ASOUND_CFLAGS="-I$withval"],
+#  [ASOUND_CFLAGS='-I/usr/include'])
+#AC_SUBST([ASOUND_CFLAGS])
+#
+#AC_ARG_WITH([asound-lib-path],
+#  [AS_HELP_STRING([--with-asound-lib-path], [location of the asound libraries])],
+#  [ASOUND_LIBS="-L$withval -lasound"],
+#  [ASOUND_LIBS='-lasound'])
+#AC_SUBST([ASOUND_LIBS])
 
 AC_ARG_WITH([pthread-include-path],
   [AS_HELP_STRING([--with-pthread-include-path],
@@ -86,6 +93,8 @@ AC_ARG_WITH([pthread-lib-path],
 AC_SUBST([PTHREAD_LIBS])
 
 PKG_CHECK_MODULES([GTKMM3], [gtkmm-3.0 >= 3.8])
+PKG_CHECK_MODULES([GTKMM2], [gtkmm-2.4 >= 2.6])
+PKG_CHECK_MODULES([ASOUND], [alsa >= 1.0])
 
 # distribute additional compiler and linker flags
 # --> set these variables instead of CXXFLAGS or LDFLAGS

@@ -146,8 +146,8 @@ candycrash_server_LDADD = $(PTHREAD_LIBS)
 candycrash_cliente_CXXFLAGS = $(AM_CXXFLAGS) $(GTKMM3_CFLAGS) $(ASOUND_CFLAGS)
 candycrash_cliente_LDADD = $(GTKMM3_LIBS) $(ASOUND_LIBS)
 
-candycrash_editor_CXXFLAGS = $(AM_CXXFLAGS) $(GTKMM3_CFLAGS) $(ASOUND_CFLAGS)
-candycrash_editor_LDADD = $(GTKMM3_LIBS) $(ASOUND_LIBS)
+candycrash_editor_CXXFLAGS = $(AM_CXXFLAGS) $(GTKMM2_CFLAGS) $(ASOUND_CFLAGS)
+candycrash_editor_LDADD = $(GTKMM2_LIBS) $(ASOUND_LIBS)
 
 
 #candycrash_serverdir = $(prefix)/share/$(PACKAGE)/server/
