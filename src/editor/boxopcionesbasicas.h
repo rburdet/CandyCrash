@@ -26,6 +26,10 @@ class BoxOpcionesBasicas{
 		Glib::RefPtr<Gtk::Adjustment> adjustment_cordx;
 		Glib::RefPtr<Gtk::Adjustment> adjustment_cordy;
 		Glib::RefPtr<Gtk::Adjustment> adjustment_nivel;
+		void generar();
+		BarraEstado* getBarra();
+		std::string getNombre();
+		void cargar(const std::string& fileName);
 
 
 	private:
@@ -46,7 +50,6 @@ class BoxOpcionesBasicas{
 		void on_button_clicked();
 
 		//Metodos
-		std::string getNombre();
 		double getPuntaje();
 		double getJugadoresMax();
 		int getDimX();

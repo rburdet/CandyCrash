@@ -8,7 +8,7 @@
 #include <jsoncpp/json/writer.h>
 
 #define DEFAULT_MODE S_IRWXU | S_IRGRP |  S_IXGRP | S_IROTH | S_IXOTH
-#define DEFAULTDIR "../../Mapas"
+#define DEFAULTDIR "../share/candycrash/Mapas/"
 
 /** Clase encargada de volcar la informacion de los mapas a un archivo
  */
@@ -20,8 +20,8 @@ class Persistidor{
 		 * @param nombre: Nombre del mapa a persistir.
 		 */
 		static void persistir(Json::Value& nivel,const std::string& nombre){
-			mkdir(DEFAULTDIR, DEFAULT_MODE);
-			std::string aux = "../../Mapas/" + nombre + ".map";
+			//mkdir(DEFAULTDIR, DEFAULT_MODE);
+			std::string aux = DEFAULTDIR + nombre + ".map";
 			std::ofstream ofs(aux.c_str());
 			if (ofs){
 				ofs << nivel;

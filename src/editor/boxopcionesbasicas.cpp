@@ -63,6 +63,10 @@ int BoxOpcionesBasicas::getNivel(){
 }
 
 void BoxOpcionesBasicas::on_button_clicked(){
+	this->generar();
+}
+
+void BoxOpcionesBasicas::generar(){
 	const std::string& nombre = getNombre();
 	Json::Value puntaje_para_ganar = (int)getPuntaje();
 	Json::Value max_jugadores = (int)getJugadoresMax();
@@ -93,4 +97,12 @@ BoxOpcionesBasicas::~BoxOpcionesBasicas(){
 	delete spin_y;
 	delete spin_nivel;
 	delete barraEstado;
+}
+
+BarraEstado* BoxOpcionesBasicas::getBarra(){
+	return this->barraEstado;
+}
+
+void BoxOpcionesBasicas::cargar(const std::string& fileName){
+
 }

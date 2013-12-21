@@ -15,11 +15,14 @@ class BarraEstado{
 		explicit BarraEstado(Glib::RefPtr<Gtk::Builder>& builder);
 		~BarraEstado();
 
-		/**Muestra que mapa fue generado
-		 * @param entryArchivo[in]: Gtk::Entry contenedor del nombre del archivo
-		 * generado.
+		/**Senal para mostrar
 		 */
 		void onMostrar(Gtk::Entry* entryArchivo);
+
+		/**Muestra textoAMostrar en la barra de estados.
+		 */
+		void mostrar(const std::string& textoAMostrar);
+
 	private:
 		Gtk::Statusbar* barraEstado;
 };

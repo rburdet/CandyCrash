@@ -4,7 +4,7 @@
 #include <gtkmm.h>
 #include <string>
 
-/** Menu superior con las opciones de salir, about y help
+/** Menu superior que encapsula, about y help
  */
 class Menu{
 	public:

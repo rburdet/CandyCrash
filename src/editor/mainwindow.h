@@ -5,6 +5,7 @@
 #include "boxopcionesbasicas.h"
 #include "tablero.h"
 #include "menu.h"
+#include "menupersistidor.h"
 
 /** Ventana del editor
  */
@@ -26,6 +27,7 @@ class MainWindow : public Gtk::Window{
 		BoxOpcionesBasicas* boxOpcionesBasicas;
 		Tablero* tablero;
 		Menu* menu;
+		MenuPersistidor* menuPersistidor;
 		Gtk::ImageMenuItem* close;
 };
 
