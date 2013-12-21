@@ -26,6 +26,7 @@ class Ipwindow : public Window {
 	protected:
 		//Signal handlers:
 		void on_button_conectar();
+		void on_button_registrar();
 
 		//Child widgets:
 		Gtk::Box m_HBox;
@@ -40,8 +41,10 @@ class Ipwindow : public Window {
 		LabelEntry m_pass;
 
 		Gtk::Label m_text;
-		Gtk::CheckButton m_check;
+		//Gtk::CheckButton m_check;
 		Gtk::HBox m_Button_box;
+		Gtk::HBox but_box;
+		Gtk::Button m_Button_registrar;
 		Gtk::Button m_Button_conectar;
 		type_signal_conectar m_signal_conectar;
 

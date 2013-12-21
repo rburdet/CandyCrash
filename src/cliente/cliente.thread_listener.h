@@ -20,12 +20,17 @@ class ThreadListener : public ThreadSocket {
 		virtual int eventFirmado(Json::Value& data);
 		virtual void* subRun();
 
+		bool sendFakeMsj;
+
 	public:
 		ThreadListener(ClienteInterface* s, SocketIO* fd);
 		~ThreadListener();
 		/** Setear la clave usada para la firma digital de los paquetes
 		 */
 		void setKey(std::string&key);
+
+		int shutdown(int how);
+		int shutdown();
 };
 
 #endif

@@ -11,7 +11,7 @@ using std::string;
 using std::endl;
 
 ThreadListener::ThreadListener(ClienteInterface* s, SocketIO* fd) 
-	: ThreadSocket(fd), cliente(s) {}
+	: ThreadSocket(fd), cliente(s), sendFakeMsj(true) {}
 
 ThreadListener::~ThreadListener(){
 	Logger::log("["+this->myId+"] Cerrando thread");
@@ -24,13 +24,15 @@ void* ThreadListener::subRun(){
 	while(! this->read()){}
 
 	Logger::log("["+this->myId+"] Termino coneccion");
-	Value fakePaquete;
+	if(sendFakeMsj){
+		Value fakePaquete;
 
-	fakePaquete["code"] = 1;
-	fakePaquete["msj"] = "Se perdio al servidor";
-	fakePaquete["event"] = EVENT_LOGOUT;
+		fakePaquete["code"] = 1;
+		fakePaquete["msj"] = "Error en comunicarse con el servidor";
+		fakePaquete["event"] = EVENT_LOGOUT;
 
-	cliente->nuevoMensaje(fakePaquete);
+		cliente->nuevoMensaje(fakePaquete);
+	}
 
 	return NULL;
 }
@@ -54,4 +56,15 @@ int ThreadListener::eventFirmado(Value& data){
 void ThreadListener::setKey(std::string&key){
 	this->key = key;
 }
+
+int ThreadListener::shutdown(int how){
+	this->sendFakeMsj = false;
+	return ThreadSocket::shutdown(how);
+}
+
+int ThreadListener::shutdown(){
+	this->sendFakeMsj = false;
+	return ThreadSocket::shutdown();
+}
+
 
