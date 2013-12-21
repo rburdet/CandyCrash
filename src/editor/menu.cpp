@@ -16,7 +16,8 @@ void Menu::displayHelp(){
 	std::string aux = 
 		"Para crear un nivel satisfactoriamente Ud deberia seguir"
 		" los siguientes pasos:\n"
-		"\t 1. Insertar un nombre en el campo \"Nombre\".\n"
+		"\t 1. Insertar un nombre en el campo \"Nombre\". Tenga en cuenta que"
+		" el nombre del archivo generado y el nombre del mapa son iguales. \n"
 		"\t 2. Seleccionar un puntaje maximo para ganar el nivel. \n"
 		"\t 3. Seleccionar la cantidad maxima de jugadores que pueden jugar "
 		"ese nivel en la casilla \"Max Jug\".\n"

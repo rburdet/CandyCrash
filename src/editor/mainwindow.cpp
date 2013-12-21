@@ -4,6 +4,7 @@
 #include "probceldas.h"
 #include "probcolumnas.h"
 #include <iostream>
+#include "menupersistidor.h"
 
 
 MainWindow::MainWindow(){
@@ -15,6 +16,7 @@ MainWindow::MainWindow(){
 	builder->get_widget("quit",close);
 	ProbColumnas probColumnas(this->tablero,this->builder);
 	ProbCeldas probCeldas(this->tablero,this->builder);
+	this->menuPersistidor = new MenuPersistidor(this->boxOpcionesBasicas,this->builder);
 	close->signal_activate().connect(sigc::mem_fun(*this,&MainWindow::cerrar));
 }
 

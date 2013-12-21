@@ -135,7 +135,9 @@ candycrash_editor_SOURCES = \
 	editor/probcolumnas.cpp \
 	editor/probcolumnas.h \
 	editor/tablero.cpp \
-	editor/tablero.h
+	editor/tablero.h \
+	editor/menupersistidor.cpp \
+	editor/menupersistidor.h
 
 
 
