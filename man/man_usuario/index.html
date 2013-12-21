@@ -90,68 +90,102 @@ Dependiendo de la distribución los paquetes necesarios para correr son:
 Comunes a todas las distribuciones:
 <ul>
 	<li><strong> JsonCPP >= 0.6.0 </strong></li>
-	<li><strong> Gtkmm 3.0 >= 3.8.1 </strong></li>
-	<li><strong> libasound2 >= 1.0.27.2 </strong></li>
+	<li><strong> Gtkmm-3.0 >= 3.8 </strong></li>
+	<li><strong> Gtkmm-2.4 >= 2.6 </strong></li>
+	<li><strong> libasound2 >= 1.0 </strong></li>
 </ul>
+<div class="nota">
+	<p>Aunque el paquete se llame 'Gtkmm 3.0', no quiere decir que es la versi&oacute;n '3.0' del paquete gtkmm, sino que el mismo paquete se llama 'gtkmm-3.0'. La despendencias son la versi&oacute;n '3.8' del mismo. Lo mismo para 'Gtkmm-2.4', se requiere la versi&oacute; '2.6' del mismo.</p>
+</div>
 
-Fedora / Red Hat / CentOS:
+<strong>Fedora / Red Hat / CentOS:</strong>
 <ul> 
 	<li> <strong> alsa-lib-devel </strong> Para reproducción de sonidos </li>
 	<li> <strong> gtkmm30-devel.x86_64 </strong> Para compilar gtkmm en sistemas 64 bits</li> 
 	<li> <strong> gtkmm30.x86_64 </strong> Para correr gtkmm en sistemas 64 bits</li>
 	<li> <strong> gtkmm30-devel.i686 </strong>Para compilar gtkmm en sistemas 32 bits</li> 
 	<li> <strong> gtkmm30.i686 </strong> Para correr gtkmm en sistemas 32 bits</li>
+	<li> <strong> gtkmm24-devel.x86_64 </strong> Para correr gtkmm en sistemas 64 bits</li>
+	<li> <strong> gtkmm24.x86_64 </strong> Para correr gtkmm en sistemas 64 bits</li>
+	<li> <strong> gtkmm24-devel.i686 </strong>  Para compilar gtkmm en sistemas 32 bits</li>
+	<li> <strong> gtkmm24.i686 </strong>  Para compilar gtkmm en sistemas 32 bits</li>
 	<li> <strong> jsoncpp-devel.i686 </strong> Para compilar jsoncpp</li>
 	<li> <strong> jsoncpp.i686 </strong> Para correr jsoncpp</li>
 </ul>
+<strong>Intalaci&oacute;n de las dependencias</strong>
+<p> Para instalar las dependecias, se debe abrir una consola o terminal. Dependiendo del entorno gr&aacute;fico utilizado, esta se podr&aacute; abrir desde el me&uacute;, subsecci&oacute;n "Accesesorios", "Terminal". A continuaci&oacute;n se deber&aaute;n escribir los siguientes comandos:</p>
+<pre>
+<code>
+$ sudo yum install alsa-lib-devel gtkmm30-devel.i686 gtkmm30.i686 jsoncpp-devel.i686 jsoncpp.i686
+[sudo] password for xxxxxx:
+</code>
+</pre>
+<p> Se supuso la arquitectura <i>i686</i>, de poseer un sistema operativo de 64 bits, utilizar los paquetes de gtkmm con la terminaci&oacute;n x86_64. Para mayor informaci&oacute;n acerca de como utilizar el comando yum ver la documentaci&oacute;n de fedora: <i><a href="http://docs.fedoraproject.org/es-ES/Fedora/14/html/Software_Management_Guide/ch05s05.html#id3183918">http://docs.fedoraproject.org/es-ES/Fedora/14/html/Software_Management_Guide/ch05s05.html#id3183918</a></i>.</p>
+<p> Donde dice <i>xxxxxx</i> es el nombre de nuestro usuario. Ah&iacute; se solicitar&aacute; nuestra contrase&ntilde;a. Recordar que el usuario debe estar en el grupo <i>sudoers</i>, es decir, debe poder realizar tareas de administrador. De no poder ser asi, por favor, contactar con el administrador del sistema y pedirle que instale los paquetes aqui mencionados</p>
 
-Ubuntu / Peppermint / Debian:
+<strong>Ubuntu / Peppermint / Debian:</strong>
 <ul> 
 	<li> <strong> libasound2 </strong> Para reproducción de sonidos </li>
 	<li> <strong> libasound2-dev </strong> Para compilar sonidos </li>
 	<li> <strong> libgtkmm-3.0-1 </strong> Para correr gtkmm </li>
-	<li> <strong> libgtkmm-3.0-dev </strong>Para compilar gtkmm</li> 
+	<li> <strong> libgtkmm-3.0-dev </strong>Para compilar gtkmm</li>
+	<li> <strong> libgtkmm-2.4-1c2a </strong> Para correr gtkmm </li>
+	<li> <strong> libgtkmm-2.4-dev </strong>Para compilar gtkmm</li>
 	<li> <strong> libjsoncpp0 </strong>Para correr jsoncpp</li> 
-	<li> <strong> libjsoncpp-dev </strong>Para compilar jsoncpp</li> 
+	<li> <strong> libjsoncpp-dev </strong>Para compilar jsoncpp</li>
 </ul>
+
+<strong>Intalaci&oacute;n de las dependencias</strong>
+<p> Para instalar las dependecias, se debe abrir una consola o terminal. Dependiendo del entorno gr&aacute;fico utilizado, esta se podr&aacute; abrir desde el me&uacute;, subsecci&oacute;n "Accesesorios", "Terminal". A continuaci&oacute;n se deber&aaute;n escribir los siguientes comandos:</p>
+<pre>
+<code>
+$ sudo apt-get install libasound2 libasound2-dev libgtkmm-3.0-1 libgtkmm-3.0-dev libgtkmm-2.4-1c2a libgtkmm-2.4-dev libjsoncpp0 libjsoncpp-dev
+[sudo] password for xxxxxx:
+</code>
+</pre>
+<p> Donde dice <i>xxxxxx</i> es el nombre de nuestro usuario. Ah&iacute; se solicitar&aacute; nuestra contrase&ntilde;a. Recordar que el usuario debe estar en el grupo <i>sudoers</i>, es decir, debe poder realizar tareas de administrador. De no poder ser asi, por favor, contactar con el administrador del sistema y pedirle que instale los paquetes aqui mencionados</p>
 <div class="nota">
-	<p>En sistemas Ubuntu o derivados es posible que se nececite agregar el ppa de <a href="https://launchpad.net/~gnome3-team/+archive/gnome3">GNOME 3 Team</a> para satisfacer las depedencias.</p>
+	<p>En sistemas Ubuntu o derivados es posible que se nececite agregar el ppa de <a href="https://launchpad.net/~gnome3-team/+archive/gnome3">GNOME 3 Team</a> para satisfacer las depedencias. Para m&aacute;s informaci&oacute;n acerca de como hacer esto, ver: <i><a href="https://launchpad.net/~gnome3-team/+archive/gnome3#ppa-install">https://launchpad.net/~gnome3-team/+archive/gnome3#ppa-install</a></i></p>
 </div>
 
 Arch Linux:
 <ul> 
 	<li> <strong> extra/alsa-lib </strong> Para reproducción de sonidos </li>
-	<li> <strong> extra/gtkmm3 </strong> Gtkmm </li>
+	<li> <strong> extra/gtkmm3 </strong> Gtkmm 3.0 </li>
+	<li> <strong> extra/gtkmm </strong> Gtkmm 2.4 </li>
 	<li> <strong> extra/jsoncpp </strong>Para correr jsoncpp</li> 
 </ul>
-</p>
 
-<strong> Instalación </strong>
-<p> Para la instalación basta con compilar el cliente.</p>
+<strong>Intalaci&oacute;n de las dependencias</strong>
+<p> Para instalar las dependecias, se debe abrir una consola o terminal. Dependiendo del entorno gr&aacute;fico utilizado, esta se podr&aacute; abrir desde el me&uacute;, subsecci&oacute;n "Accesesorios", "Terminal". A continuaci&oacute;n se deber&aaute;n escribir los siguientes comandos:</p>
 <pre>
 <code>
-$ make clean client
-CXX cliente.ipwindow.o
-CXX cliente.tablerojuego.o
-CXX cliente.caramelo.o
-CXX cliente.main_window.o
-CXX cliente.sound_player.o
-CXX cliente.cliente.o
-CXX cliente.game.o
-CXX cliente.thread_listener.o
-CXX cliente.socket_connect.o
-CXX clientemain.o
-CXX common.thread.o
-CXX common.socket_io.o
-CXX common.md5.o
-CXX common.user_manager.o
-CXX common.logger.o
-CXX common.thread_socket.o
-CXX common.mutex.o
-CXX common.hmac.o
-CXX common.socket.o
-LD client
-$ ./client
+$ sudo pacman -Sy extra/alsa-lib extra/gtkmm3 extra/gtkmm extra/gtkmm extra/jsoncpp
+[sudo] password for xxxxxx:
+</code>
+</pre>
+<p> Donde dice <i>xxxxxx</i> es el nombre de nuestro usuario. Ah&iacute; se solicitar&aacute; nuestra contrase&ntilde;a. Recordar que el usuario debe estar en el grupo <i>sudoers</i>, es decir, debe poder realizar tareas de administrador. De no poder ser asi, por favor, contactar con el administrador del sistema y pedirle que instale los paquetes aqui mencionados</p>
+
+<strong> Instalación </strong>
+<p> El paquete fue construido con las herraminetas <i>autotools de gnu</i>. Actualmente, no hay paquetes espec&iacute;ificos para cada distribuci&oacute;n, se debe realizar la instalaci&oacute;n manual desde consola. El paquete trae tanto el servidor, cliente y editor de mapas. Si uno lo &uacute;nico que desea hacer es conectarse a un servidor para jugar, ignore el servidor y editor.</p>
+<p> Pasos a realizar:</p>
+<ol>
+	<li><strong>Abrir una consola o terminal</strong> si usted no sabe como realizar, lea la secci&oacute;n anterior, en la cual se explica como debe hacerlo.</li>
+	<li><strong>Dirigirse a la carpeta donde tiene el paquete <i>tar</i> del juego</strong>, en el ejemplo se supone que es '/home/usuario/Downloads'</li>
+	<li><strong>Descomprimir paquete</strong>, usted debe contar con el comando <i>tar</i>, se supone que el paquete se llama 'candycrash-1.0.tar.gz'</li>
+	<li><strong>Configurar instalaci&oacute;n y controlar dependencias</strong>, por defecto la ruta de instalaci&oacute;n es '/usr/local/', se supone que se quiere instalar en '/usr/'</li>
+	<li><strong>Compilar</strong></li>
+	<li><strong>Instalar</strong></li>
+</ol>
+<strong>Ejemplo:</strong>
+<pre>
+<code>
+$ cd /home/usuario/Downloads
+$ tar xfv candycrash-1.0.tar.gz
+$ cd candycrash-1.0
+$ ./configure --prefix=/usr
+$ make
+$ sudo make install
 </code>
 </pre>
 </article>
@@ -167,10 +201,9 @@ $ ./client
 
 <article id="Forma_de_uso">
 <span class="titulo">3. Forma de uso</span>
-
+<p> Para ejecutar el cliente, se debe ir hasta la carpeta donde se instal&oacute; y ejecutar el binario <i>'candycrash-cliente'</i>. Esto se puede realizar desde una terminal (utilizando el comando <i>cd</i> para ir cambiando de directorio), o desde el manejador de archivos de nuestra preferencia.</p>
 <p> Al abrir el juego Ud se encontrara con la siguiente imagen: </p>
 <img src="imagenes/conectate.jpg"/>
-
 <p> Para jugar Ud debe tener tener una cuenta. Si ya esta registrado asegurese de que el boton <b>Active para registrarse</b>  este desactivado. Luego coloque el <b>ip:puerto</b> al que quiera conectarse en el casillero <b> Ip:Puerto </b>. </p>
 <p>Por ejemplo 127.0.0.1:9000</p>
 <p>Luego coloque su nombre de usuario y su contrasena en los campos  <b>Usuario</b>  y <b>Password</b> respectivamente.</p> 
