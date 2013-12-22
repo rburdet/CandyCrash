@@ -4,11 +4,13 @@
 #define LASTIMAGE 32
 #define FIRSTBUTTON 21
 #define LASTBUTTON 36
+#define DEFAULTDIR "../share/candycrash/imagenes/"
 
 ProbCeldas::ProbCeldas(Tablero* tablero, Glib::RefPtr<Gtk::Builder>& builder)
 	: Probs(tablero ,builder,FIRSTIMAGE,LASTIMAGE,"framecelda"){
 	builder->get_widget("filechooser",fileChooser);
 	builder->get_widget("huecobutton",huecoButton);
+	fileChooser->set_current_folder(DEFAULTDIR);
 	fileChooser->signal_selection_changed().connect(sigc::bind(sigc::mem_fun
 				(tablero,&Tablero::on_image_changed_tablero),fileChooser));
 	huecoButton->signal_clicked().connect(sigc::mem_fun

@@ -84,8 +84,8 @@ void BoxOpcionesBasicas::generar(){
 	nivel[nombre]["puntaje_para_ganar"]=puntaje_para_ganar;
 	nivel[nombre]["max_jugadores"]=max_jugadores;
 	nivel[nombre]["nivel"] = nivelMax;
-	nivel[nombre]["DIM"]["X"] = dimX;
-	nivel[nombre]["DIM"]["Y"] = dimY;
+	nivel[nombre]["DIM"]["X"] = dimY;
+	nivel[nombre]["DIM"]["Y"] = dimX;
 	Persistidor::persistir(nivel,nombre);
 }
 
