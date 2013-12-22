@@ -18,15 +18,20 @@ class MainWindow : public Window {
 		virtual ~MainWindow();
 		void setText(std::string& str);
 		virtual void mensaje(Json::Value& data);
+		/** Metodo para actualizar la lista de partidas.
+		 */
+		void on_partidas(); // -> handler del actualizador de la lista de partidas
+
+		/** Metodo para actualizar la lista de mapas.
+		 */
+		void on_mapas(); // -> actualizador de lista de mapas
 
 	protected:
 		void onListGames(int code, Json::Value& data);
 		void onListMaps(int code, Json::Value& data);
 
 		//Signal handlers:
-		void on_partidas(); // -> handler del actualizador de la lista de partidas
 		void join_partidas(); // -> ... unirse a partida
-		void on_mapas(); // -> actualizador de lista de mapas
 		void on_crear_partida(); // -> crear partida
 
 		//Child widgets:

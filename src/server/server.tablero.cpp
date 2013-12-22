@@ -55,13 +55,11 @@ void Tablero::generar(){
 	stringstream ss,sy,sx;
 	ss << this->mapa["DIM"]["X"] << std::endl;
 	ss >> this->dim_x; 
-	this->alto = this->dim_x;
 	ss << this->mapa["DIM"]["Y"] << std::endl;
 	ss >> this->dim_y;
-	this->ancho =  this->dim_y;
-	for ( int i = 0 ; i < this->alto ; i++ ) {
+	for ( int i = 0 ; i < this->dim_y ; i++ ) {
 		sy<<i;
-		for ( int j = 0 ; j < this->ancho ; j++ ) {
+		for ( int j = 0 ; j < this->dim_x ; j++ ) {
 			Json::Value celda;
 			sx<<j;
 			celda = this->mapa["celdas"][sx.str()][sy.str()]["probabilidades"];

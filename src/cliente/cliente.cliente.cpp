@@ -127,10 +127,13 @@ bool Cliente::onTimeout(){
 			ventanaActual->get_position(root_x, root_y);
 			ventanaActual->hide();
 			delete ventanaActual;
-			this->ventanaActual = new MainWindow;
-			this->ventanaActual->move(root_x, root_y);
-			this->ventanaActual->signal_mensaje().connect(sigc::mem_fun(this, 
+			MainWindow* win = new MainWindow;
+			win->move(root_x, root_y);
+			win->signal_mensaje().connect(sigc::mem_fun(this, 
 						&Cliente::sendMsj));
+			win->on_partidas();
+			win->on_mapas();
+			this->ventanaActual = win;
 			break;
 		}
 
@@ -178,9 +181,11 @@ void Cliente::onLogin(int code, Json::Value& data){
 		delete ventanaActual;
 		SoundPlayer::play("../share/candycrash/sounds/service-login.wav");
 		MainWindow* ventana = new MainWindow;
-		this->ventanaActual = ventana;
-		this->ventanaActual->move(root_x, root_y);
 		ventana->signal_mensaje().connect(sigc::mem_fun(this, &Cliente::sendMsj));
+		ventana->move(root_x, root_y);
+		ventana->on_partidas();
+		ventana->on_mapas();
+		this->ventanaActual = ventana;
 	}else{
 		this->listener->shutdown();
 		this->listener->join();

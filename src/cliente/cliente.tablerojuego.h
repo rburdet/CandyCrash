@@ -37,12 +37,9 @@ class TableroJuego : public Window {
 		Gtk::Fixed tablero;
 		Gtk::Image imagenFondo;
 		Gtk::AspectFrame frameTablero;
-		//DEPRECATED:
 		int dimX;
 		int dimY;
-		//Ahora se usa esto:
-		int alto;
-		int ancho;
+		
 		Json::Value mapa;
 		std::string nMapa;
 

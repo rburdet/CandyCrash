@@ -345,7 +345,7 @@ void Tablero::deserializar(Json::Value& mapa){
 	Json::Value columnas = mapa[nombre]["columnas"];
 	deserializarCeldas(celdas);
 	deserializarColumnas(columnas);
-	this->imagenFondo = mapa[nombre]["fondo"];
+	this->imagenFondo = mapa[nombre]["fondo"].asString();
 }
 
 void Tablero::deserializarCeldas(Json::Value& celdas){
@@ -357,10 +357,10 @@ void Tablero::deserializarCeldas(Json::Value& celdas){
 			std::string imgPath;
 			Info* auxInfo = new Info();
 			streamColumna << j;
-			if ( (imgPath=celdas[streamColumna.str()][streamFila.str()]["fondo"]) != ""){
+			if ( (imgPath=celdas[streamColumna.str()][streamFila.str()]["fondo"].asString()) != ""){
 				matrizCeldas[i][j]->setImage(imgPath);
 			}
-			if (celdas[streamColumna.str()][streamFila.str()]["probabilidades"] == -1){
+			if (celdas[streamColumna.str()][streamFila.str()]["probabilidades"].asInt() == -1){
 				matrizCeldas[i][j]->setHueco();
 				putHueco(i*SIZE+OFFSET,j*SIZE+OFFSET);
 			}else{

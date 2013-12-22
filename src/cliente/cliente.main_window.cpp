@@ -106,6 +106,8 @@ MainWindow::MainWindow(){
 
 	show_all_children();
 	show_all();
+	this->on_partidas();
+	this->on_mapas();
 }
 
 MainWindow::~MainWindow(){

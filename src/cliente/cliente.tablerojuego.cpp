@@ -21,9 +21,7 @@ TableroJuego::TableroJuego(Json::Value mapa)
 	this->mapa = mapa;
 	this->nMapa = mapa["mapa"].asString();
 	dimX = getX();
-	alto = getX();
 	dimY = getY();
-	ancho = getY();
 	if (mapa["fondo"].asString() != ""){
 		Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_file
 			(mapa["fondo"].asString(),(dimX+1)*SIZE,(dimX+5)*SIZE); 
@@ -79,9 +77,9 @@ void TableroJuego::dibujarLineas(){
 void TableroJuego::llenar(){
 	std::stringstream sx,sy;
 	int idPieza;
-	for ( int j = 0 ; j < ancho ; j++ ) { // Itera en y
+	for ( int j = 0 ; j < dimY ; j++ ) { // Itera en y
 		sy<<j;
-		for ( int i = 0 ; i < alto ; i++ ) { // Itera en x
+		for ( int i = 0 ; i < dimX ; i++ ) { // Itera en x
 			sx<<i;
 			// this->mapa["celdas"][POS Y][POS X]
 			Json::Value celda = this->mapa["celdas"][sx.str()][sy.str()]["pieza"];

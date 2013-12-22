@@ -35,9 +35,6 @@ class Tablero {
 		std::string pathFondo;
 		int dim_x; 
 		int dim_y;
-		//Se cambia dim_x y dim_y por alto y ancho para mas coherencia
-		int alto;
-		int ancho;
 		void generar();
 		void efectivizarCelda(Json::Value& celda);
 		void getMax(double* arr,double& max, int& pos);
