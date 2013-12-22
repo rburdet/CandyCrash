@@ -17,6 +17,7 @@ class Celda{
 		int getX();
 		int getY();
 		Info* getInfo();
+		void setInfo(Info* nuevaInfo);
 		void on_adj_changed(Gtk::SpinButton* spinbutton,int id);
 		void setImage(const std::string& fileName);
 		void setHueco();

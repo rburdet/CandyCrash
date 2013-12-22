@@ -24,6 +24,10 @@ Info* Celda::getInfo(){
 	return this->probs;
 }
 
+void Celda::setInfo(Info* nuevaInfo){
+	this->probs = nuevaInfo;
+}
+
 Celda::~Celda(){
 	delete this->probs;
 }
@@ -43,3 +47,4 @@ void Celda::setHueco(){
 bool Celda::isHueco(){
 	return this->hueco;
 }
+

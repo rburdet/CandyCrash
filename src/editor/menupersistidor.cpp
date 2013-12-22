@@ -30,6 +30,7 @@ void MenuPersistidor::Guardar(){
 
 void MenuPersistidor::Abrir(){
 	Gtk::FileChooserDialog dialog("Abrir",Gtk::FILE_CHOOSER_ACTION_OPEN);
+	dialog.set_current_folder(DEFAULTDIR);
 	dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
 	dialog.add_button("Select", Gtk::RESPONSE_OK);
 	Gtk::FileFilter filter_text;
@@ -40,8 +41,8 @@ void MenuPersistidor::Abrir(){
 	switch (result){
 		case(Gtk::RESPONSE_OK):{
 			std::string fileName = dialog.get_filename();
-			this->settings->cargar(std::string(DEFAULTDIR)+fileName);
-			settings->getBarra()->mostrar("Se ha cargado " +std::string(DEFAULTDIR)+ fileName);	
+			this->settings->cargar(fileName);
+			settings->getBarra()->mostrar(std::string(DEFAULTDIR)+ fileName);	
 			break;
 		}
 		case(Gtk::RESPONSE_CANCEL):{

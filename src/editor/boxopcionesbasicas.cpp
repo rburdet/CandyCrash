@@ -3,6 +3,7 @@
 
 #define MIN_COLS 8
 #define MIN_FILAS 8
+#define MAPA_PATH "../share/candycrash/Mapas/"
 
 
 BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,
@@ -104,5 +105,58 @@ BarraEstado* BoxOpcionesBasicas::getBarra(){
 }
 
 void BoxOpcionesBasicas::cargar(const std::string& fileName){
+	Json::Value mapa;
+	levantarMapa(fileName,mapa);	
+	setNombre(mapa);
+	setPuntaje(mapa);
+	setMaxJug(mapa);
+	setNivel(mapa);
+	setX(mapa);
+	setY(mapa);
+	levantarTablero(mapa);
+}
 
+void BoxOpcionesBasicas::levantarMapa(const std::string& fileName, Json::Value& mapa){
+	std::string auxStr = fileName;
+	std::ifstream ifs;
+	ifs.open(auxStr.c_str());
+	if (ifs.is_open()){
+		std::stringstream ss;
+		Json::Reader reader;
+		std::string str((std::istreambuf_iterator<char>(ifs)), 
+				std::istreambuf_iterator<char>());
+		reader.parse(str, mapa);
+	ifs.close();
+	}
+}
+
+void BoxOpcionesBasicas::setNombre(const Json::Value& mapa){
+	Json::Value::Members keys = mapa.getMemberNames();
+	this->e_nombre->set_text(keys[0]);
+}
+
+void BoxOpcionesBasicas::setPuntaje(Json::Value& mapa){
+	this->s_puntaje->set_value(mapa[this->e_nombre->get_text()]["puntaje_para_ganar"].asDouble());
+}
+
+void BoxOpcionesBasicas::setMaxJug(Json::Value& mapa){
+	this->s_maxjug->set_value(mapa[this->e_nombre->get_text()]["max_jugadores"].asDouble());
+}
+
+void BoxOpcionesBasicas::setNivel(Json::Value& mapa){
+	this->spin_nivel->set_value(mapa[this->e_nombre->get_text()]["nivel"].asDouble());
+}
+
+void BoxOpcionesBasicas::setX(Json::Value& mapa){
+	this->spin_x->set_value(mapa[this->e_nombre->get_text()]["DIM"]["X"].asDouble());
+	this->tablero->setX((int)spin_x->get_value());
+}
+
+void BoxOpcionesBasicas::setY(Json::Value& mapa){
+	this->spin_y->set_value(mapa[this->e_nombre->get_text()]["DIM"]["Y"].asDouble());
+	this->tablero->setY((int)spin_y->get_value());
+}
+
+void BoxOpcionesBasicas::levantarTablero(Json::Value& mapa){
+	tablero->deserializar(mapa);
 }

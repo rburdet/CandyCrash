@@ -82,6 +82,18 @@ class Tablero{
 		typedef sigc::signal< void > type_signal_uncheck;
 		type_signal_uncheck signal_uncheck();
 
+		//Seters utiles para desarializacion
+		void setX(int x);
+		void setY(int y);
+
+		/** Deserializacion del tablero .
+		 */
+		void deserializar(Json::Value& mapa);
+		void deserializarCeldas(Json::Value& celdas);
+		void deserializarColumnas(Json::Value& columnas);
+
+
+
 	private:
 		//**************************************************//
 		//					ATRIBUTOS						//
@@ -157,6 +169,9 @@ class Tablero{
 
 		//Senal a emitir para el checkbutton cuando hago un click
 		type_signal_uncheck m_signal_uncheck;
+
+		void putHueco(int x , int y );
+
 };
 
 #endif

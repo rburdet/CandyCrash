@@ -63,7 +63,7 @@ class Listador{
 		}
 
 		/** Devuelve 0 si salio bien, o algun numero si error
-		(ponele qe no exista el mapa)
+		(por ejemplo si no existe el mapa)
 		*/
 		static int getMapa(std::string& fileName, Json::Value& mapa){
 			int ret = -1;

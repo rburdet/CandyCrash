@@ -319,10 +319,71 @@ void Tablero::on_image_fondo_changed_tablero(Gtk::FileChooser* fileChooser){
 void Tablero::on_check_button_tablero(){
 	if (this->celdaInteres)
 		this->celdaInteres->setHueco();
+	putHueco(this->celdaInteres->getY()*SIZE+OFFSET,this->celdaInteres->getX()*SIZE+OFFSET);
+}
+
+void Tablero::putHueco(int x , int y){
 	Gtk::Image* img = new Gtk::Image(HUECODIR);
 	img->set_size_request(SIZE,SIZE);
-	this->tablero->put(*img,this->celdaInteres->getY()*SIZE+OFFSET,
-			this->celdaInteres->getX()*SIZE+OFFSET);
+	this->tablero->put(*img,x,y);
 	img->show();
 }
 
+void Tablero::setX(int X){
+	this->cantFilas = X;
+}
+
+void Tablero::setY(int Y){
+	this->cantColumnas = Y;
+}
+
+void Tablero::deserializar(Json::Value& mapa){
+	actualizarMatriz(cantFilas, cantColumnas);
+	Json::Value::Members keys = mapa.getMemberNames();
+	std::string nombre= keys[0];
+	Json::Value celdas = mapa[nombre]["celdas"];
+	Json::Value columnas = mapa[nombre]["columnas"];
+	deserializarCeldas(celdas);
+	deserializarColumnas(columnas);
+	this->imagenFondo = mapa[nombre]["fondo"];
+}
+
+void Tablero::deserializarCeldas(Json::Value& celdas){
+	std::stringstream streamFila;
+	std::stringstream streamColumna;
+	for ( int i = 0 ; i < matrizCeldas.size() ; i++ ){
+		streamFila << i;
+		for ( int j = 0 ; j < matrizCeldas[0].size() ; j++ ){
+			std::string imgPath;
+			Info* auxInfo = new Info();
+			streamColumna << j;
+			if ( (imgPath=celdas[streamColumna.str()][streamFila.str()]["fondo"]) != ""){
+				matrizCeldas[i][j]->setImage(imgPath);
+			}
+			if (celdas[streamColumna.str()][streamFila.str()]["probabilidades"] == -1){
+				matrizCeldas[i][j]->setHueco();
+				putHueco(i*SIZE+OFFSET,j*SIZE+OFFSET);
+			}else{
+				for ( int k=0 ; k < 16 ; k++ ){
+					auxInfo->setProb_piezas(celdas[streamColumna.str()][streamFila.str()]["probabilidades"][k].asInt(),k);
+				}
+				matrizCeldas[i][j]->setInfo(auxInfo);
+			}
+			streamColumna.str("");
+		}
+		streamFila.str("");
+	}
+}
+
+void Tablero::deserializarColumnas(Json::Value& columnas){
+ std::stringstream ss;
+ for ( int i = 0 ; i < matrizCeldas[0].size() ; i++ ){
+	Info* auxInfo = new Info();
+	ss << i ;
+	for ( int j=0 ; j < 16 ; j++ ) {
+		auxInfo->setProb_piezas(columnas[ss.str()][j].asInt(),j);
+	}
+	this->columnas[i]->setInfo(auxInfo);
+	ss.str("");
+ }
+}

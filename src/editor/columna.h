@@ -20,6 +20,7 @@ class Columna{
 		void on_adj_changed(Gtk::SpinButton* spinbutton,int id);
 		Gtk::Button* get_boton();
 		Info* getInfo();
+		void setInfo(Info* nuevaInfo);
 	private:
 		Gtk::Button* boton;
 		int pos;

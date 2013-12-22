@@ -22,3 +22,7 @@ Info* Columna::getInfo(){
 	return this->probs;
 }
 
+
+void Columna::setInfo(Info* nuevaInfo){
+	this->probs = nuevaInfo;
+}

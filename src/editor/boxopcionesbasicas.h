@@ -55,6 +55,15 @@ class BoxOpcionesBasicas{
 		int getDimX();
 		int getDimY();
 		int getNivel();
+		void setNombre(const Json::Value& mapa);
+		void setPuntaje(Json::Value& mapa);
+		void setMaxJug(Json::Value& mapa);
+		void setNivel(Json::Value& mapa);
+		void setX(Json::Value& mapa);
+		void setY(Json::Value& mapa);
+		void levantarTablero(Json::Value& mapa);
+
+		void levantarMapa(const std::string& fileName, Json::Value& mapa);
 };
 
 #endif
