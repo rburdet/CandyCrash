@@ -67,28 +67,35 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 			Value connect_msje;
 			int ret = 0;
 
-			this->user = data.get("user", def).asString();
+			std::string tUser = data.get("user", def).asString();
 			this->key = data.get("pass", def).asString();
 
-			Logger::log("["+this->myId+"] Evento Login '"+this->user+"' '"+
+			Logger::log("["+this->myId+"] Evento Login '"+tUser+"' '"+
 					this->key+"'");
 			Value userData;
 			connect_msje["event"] = (int) EVENT_LOGIN;
-			UserManager::get(this->user, userData);
-			if(userData["user"] != this->user || userData["pass"] != this->key){
+			UserManager::get(tUser, userData);
+			if(userData["user"] != tUser || userData["pass"] != this->key){
 				Logger::log("["+this->myId+"] Error Login ");
-
-				connect_msje["msj"] = "login error";
+				connect_msje["msj"] = "Usuario inexistente o password invalida";
 				connect_msje["code"] = 1;
 				ret = 0;
 			}else{
-				Value ud;
-				ud["user"] = userData["user"];
-				ud["nivel"] = userData["nivel"];
-				connect_msje["msj"] = "login correcto";
-				connect_msje["code"] = 0;
-				connect_msje["user"] = ud;
-				ret = -1;
+				if(this->server->userConectado(tUser)){
+					Logger::log("["+this->myId+"] Error Login: ya se encontraba conectado ");
+					connect_msje["msj"] = "El usuario ya se encunetra conectado";
+					connect_msje["code"] = 1;
+					ret = 0;
+				}else{
+					Value ud;
+					ud["user"] = userData["user"];
+					ud["nivel"] = userData["nivel"];
+					connect_msje["msj"] = "login correcto";
+					connect_msje["code"] = 0;
+					connect_msje["user"] = ud;
+					this->user = tUser;
+					ret = -1;
+				}
 			}
 
 			if(this->write(connect_msje)){
@@ -329,4 +336,8 @@ int ThreadUsuario::onGetMaps(Json::Value& data, Json::Value& userData){
 		return 1;
 	}
 	return ret;
+}
+
+const std::string& ThreadUsuario::getUser(){
+	return this->user;
 }

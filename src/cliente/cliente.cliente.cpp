@@ -194,8 +194,6 @@ void Cliente::onLogin(int code, Json::Value& data){
 		//delete this->listener;
 		//this->listener = NULL;
 
-		std::cout << "Pepeee" << std::endl;
-
 		this->ventanaActual->mensaje(data);
 	}
 }

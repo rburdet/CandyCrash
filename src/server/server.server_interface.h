@@ -14,6 +14,7 @@ class ServerInterface {
 		//TODO:
 		virtual void listPartidas(int nivel, Json::Value& parts) = 0;
 		virtual PartidaInterface* connectPartidas(long id) = 0;
+		virtual bool userConectado(std::string& user) = 0;
 };
 
 #endif

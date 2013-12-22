@@ -58,6 +58,12 @@ class Server : public ServerInterface, public Thread {
 		 */
 		virtual void listPartidas(int nivel, Json::Value& parts);
 
+		/** Chequea si el usuario esta conectado.
+		 * @param user[in] usuario
+		 * @return bool true si esta conectado, false si no lo esta
+		 */
+		virtual bool userConectado(std::string& user);
+
 		/** 
 		 */
 		virtual PartidaInterface* connectPartidas(long id);
