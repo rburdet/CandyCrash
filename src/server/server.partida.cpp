@@ -213,8 +213,10 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 				if(puntos >= puntosMax){ // El jugador supero el puntage maximo?
 					Json::Value user_data;
 					UserManager::get(user["user"].asString(), user_data);
-					user_data["nivel"] = user_data["nivel"].asInt() +1;
-					UserManager::set(user_data);
+					if(this->nivel == user_data["nivel"].asInt()){
+						user_data["nivel"] = user_data["nivel"].asInt() +1;
+						UserManager::set(user_data);
+					}
 					this->estado = PARTIDA_TERMINADA;
 					end_send["user"] = user;
 					end_send["msg"] = "Gano "+user["user"].asString();
