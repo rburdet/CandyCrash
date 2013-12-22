@@ -6,7 +6,8 @@ using std::string;
 
 Ipwindow::Ipwindow()
 	: m_VBox(Gtk::ORIENTATION_VERTICAL),
-	m_Button_conectar("Conectar"), m_check("Active para registrarse"), 
+	m_Button_conectar("Conectar"), /*m_check("Active para registrarse"), */
+	m_Button_registrar("Registrar"),
 	img("../share/candycrash/imagenes/star_big.png") {
 	set_size_request(350, 700);
 	set_title("Conectate");
@@ -17,7 +18,7 @@ Ipwindow::Ipwindow()
 	menubar.signal_help().connect(sigc::mem_fun(*this,&Ipwindow::on_help));
 	menubar.signal_about().connect(sigc::mem_fun(*this,&Window::on_about));
 
-	m_Button_conectar.override_color(Gdk::RGBA("cornsilk"),Gtk::STATE_FLAG_NORMAL);
+	//m_Button_conectar.override_color(Gdk::RGBA("cornsilk"),Gtk::STATE_FLAG_NORMAL);
 	add(m_VBox);
 
 	m_VBox.pack_start(img, true, false, 0);
@@ -34,15 +35,20 @@ Ipwindow::Ipwindow()
 	m_VBox.pack_start(m_pass, true, false, 0);
 	m_pass.set_label(string("Password"));
 
-	m_VBox.pack_start(m_check, true, false, 0);
+	//m_VBox.pack_start(m_check, true, false, 0);
 
 	m_VBox.pack_start(m_text, true, true, 0);
 
 	m_VBox.add(m_HBox);
 
-	m_Button_box.pack_start(m_Button_conectar, true, true, 80);
+	but_box.pack_start(m_Button_conectar, true, true, 80);
+	but_box.pack_start(m_Button_registrar, true, true, 80);
+	m_Button_box.pack_start(but_box, true, true, 80);
 	m_Button_conectar.signal_clicked().connect(sigc::mem_fun(*this,
 				&Ipwindow::on_button_conectar));
+
+	m_Button_registrar.signal_clicked().connect(sigc::mem_fun(*this,
+				&Ipwindow::on_button_registrar));
 	m_VBox.pack_start(m_Button_box, true, false, 0);
 	m_Button_conectar.set_can_default();
 	m_Button_conectar.grab_default();
@@ -50,6 +56,11 @@ Ipwindow::Ipwindow()
 	Glib::RefPtr<Gtk::StyleContext> stylecontext =
 		m_Button_conectar.get_style_context();
 	stylecontext->add_class("btn");
+	stylecontext->context_save();
+
+	stylecontext =
+		m_Button_registrar.get_style_context();
+	stylecontext->add_class("btn1");
 	stylecontext->context_save();
 
 	show_all_children();
@@ -62,9 +73,20 @@ void Ipwindow::on_button_conectar(){
 	string ip = m_host.get_text();
 	string user = m_user.get_text();
 	string pass = m_pass.get_text();
-	bool active = m_check.get_active();
+	//bool active = m_check.get_active();
 	this->set_editable(false);
-	m_signal_conectar.emit(ip, user, pass, active);
+	//m_signal_conectar.emit(ip, user, pass, active);
+	m_signal_conectar.emit(ip, user, pass, false);
+}
+
+void Ipwindow::on_button_registrar(){
+	string ip = m_host.get_text();
+	string user = m_user.get_text();
+	string pass = m_pass.get_text();
+	//bool active = m_check.get_active();
+	this->set_editable(false);
+	//m_signal_conectar.emit(ip, user, pass, active);
+	m_signal_conectar.emit(ip, user, pass, true);
 }
 
 Ipwindow::type_signal_conectar Ipwindow::signal_conectar(){

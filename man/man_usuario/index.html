@@ -59,12 +59,6 @@
 
 	</div>
 
-<script>
-	var indices = document.getelementsbyclassname('indice_entrada');
-	for(var i=0, ind; ind=indices[i]; i++){
-		ind.innerhtml = ind.innerhtml.replace(/_/g, ' ');
-	}
-</script>
 </article>
 
 <!-- inicio contenido -->
@@ -75,7 +69,7 @@
 <span class="titulo">1. Instalación</span>
 <strong>Requerimientos</strong>
 <p>
-El programa tendria que  ser corrido en cualquier distribución de Linux sin problemas. Especialmente fue probado en:
+El programa tendria que  ser corrido en cualquier distribución de Linux sin problemas. Especialmente fue probado en:</p>
 <ul>
 	<li> Fedora 19 </li>
 	<li> Ubuntu 13 </li>
@@ -87,7 +81,7 @@ Sin tener problema alguno en ninguno de ellos.
 </p>
 <p>
 Dependiendo de la distribución los paquetes necesarios para correr son:
-Comunes a todas las distribuciones:
+Comunes a todas las distribuciones:</p>
 <ul>
 	<li><strong> JsonCPP >= 0.6.0 </strong></li>
 	<li><strong> Gtkmm-3.0 >= 3.8 </strong></li>
@@ -145,6 +139,7 @@ $ sudo apt-get install libasound2 libasound2-dev libgtkmm-3.0-1 libgtkmm-3.0-dev
 </pre>
 <p> Donde dice <i>xxxxxx</i> es el nombre de nuestro usuario. Ah&iacute; se solicitar&aacute; nuestra contrase&ntilde;a. Recordar que el usuario debe estar en el grupo <i>sudoers</i>, es decir, debe poder realizar tareas de administrador. De no poder ser asi, por favor, contactar con el administrador del sistema y pedirle que instale los paquetes aqui mencionados</p>
 <div class="nota">
+	<p>Para mayor informaci&oacute;n acerca de como usar el comando <i>'apt-get'</i> ver: <i><a href="https://help.ubuntu.com/community/AptGet/Howto">https://help.ubuntu.com/community/AptGet/Howto</a></i></p>
 	<p>En sistemas Ubuntu o derivados es posible que se nececite agregar el ppa de <a href="https://launchpad.net/~gnome3-team/+archive/gnome3">GNOME 3 Team</a> para satisfacer las depedencias. Para m&aacute;s informaci&oacute;n acerca de como hacer esto, ver: <i><a href="https://launchpad.net/~gnome3-team/+archive/gnome3#ppa-install">https://launchpad.net/~gnome3-team/+archive/gnome3#ppa-install</a></i></p>
 </div>
 
@@ -188,6 +183,9 @@ $ make
 $ sudo make install
 </code>
 </pre>
+<div class="nota">
+	<p>El comando <i>'./configure'</i> dar&aacute; mensajes de error de no contar con las depencias necesarias para la instaci&oacute;n.</p>
+</div>
 </article>
 
 
@@ -201,7 +199,7 @@ $ sudo make install
 
 <article id="Forma_de_uso">
 <span class="titulo">3. Forma de uso</span>
-<p> Para ejecutar el cliente, se debe ir hasta la carpeta donde se instal&oacute; y ejecutar el binario <i>'candycrash-cliente'</i>. Esto se puede realizar desde una terminal (utilizando el comando <i>cd</i> para ir cambiando de directorio), o desde el manejador de archivos de nuestra preferencia.</p>
+<p> Durante la instalaci&oacute;n se eligio la carpeta destino, para ejecutar el cliente, se debe ir hasta la carpeta donde se instal&oacute;, subcarpeta "bin",  y ejecutar el binario <i>'candycrash-cliente'</i>. Esto se puede realizar desde una terminal (utilizando el comando <i>cd</i> para ir cambiando de directorio), o desde el manejador de archivos de nuestra preferencia.</p>
 <p> Al abrir el juego Ud se encontrara con la siguiente imagen: </p>
 <img src="imagenes/conectate.jpg"/>
 <p> Para jugar Ud debe tener tener una cuenta. Si ya esta registrado asegurese de que el boton <b>Active para registrarse</b>  este desactivado. Luego coloque el <b>ip:puerto</b> al que quiera conectarse en el casillero <b> Ip:Puerto </b>. </p>

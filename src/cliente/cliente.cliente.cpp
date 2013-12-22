@@ -41,6 +41,7 @@ void Cliente::mostrarVentanaIP(){
 	ventanaActual = ventana;
 
 	ventana->signal_conectar().connect(sigc::mem_fun(this, &Cliente::conectar));
+
 }
 
 void Cliente::conectar(string ip, string user, string pass, bool check){
@@ -166,6 +167,7 @@ void Cliente::onLogout(int code, Json::Value& data){
 		ventanaActual = NULL;
 	}
 	this->mostrarVentanaIP();
+	this->ventanaActual->mensaje(data);
 }
 void Cliente::onLogin(int code, Json::Value& data){
 	if(!code){
@@ -186,6 +188,8 @@ void Cliente::onLogin(int code, Json::Value& data){
 		//this->listener->join();
 		//delete this->listener;
 		//this->listener = NULL;
+
+		std::cout << "Pepeee" << std::endl;
 
 		this->ventanaActual->mensaje(data);
 	}
