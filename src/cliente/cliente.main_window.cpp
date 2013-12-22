@@ -126,6 +126,10 @@ void MainWindow::join_partidas(){
 	int conectados, percentage;
 	std::string nombre;
 	this->m_TreeView.getSelected(nivel, id, nombre, conectados, percentage);
+
+	if(nivel == 0)
+		return;
+
 	val["event"] = EVENT_JOIN_GAME;
 	stringstream ss;
 	ss << id;
@@ -144,6 +148,8 @@ void MainWindow::on_crear_partida(){
 	string name;
 	int nivel;
 	this->m_TreeViewMapas.getSelected(nivel, name);
+	if(nivel == 0)
+		return;
 	val["event"] = EVENT_NEW_GAME;
 	val["nivel"] = nivel;
 	val["nombre"] = name;

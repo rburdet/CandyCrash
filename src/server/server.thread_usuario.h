@@ -31,6 +31,7 @@ class ThreadUsuario : public ThreadSocket {
 		int welcome();
 
 	public:
+		const std::string& getUser();
 		ThreadUsuario(ServerInterface* s, SocketIO* fd);
 		~ThreadUsuario();
 };

@@ -128,3 +128,15 @@ void Server::end(){
 	// la aplicacion se liberan los recursos.
 	sleep(1);
 }
+
+bool Server::userConectado(std::string& user){
+	this->clientesLock.lock();
+	for(unsigned int i=0; i < clientes.size(); i++){
+		if(user == this->clientes[i]->getUser()){
+			this->clientesLock.unlock();
+			return true;
+		}
+	}
+	this->clientesLock.unlock();
+	return false;
+}
