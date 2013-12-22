@@ -449,14 +449,15 @@ void TableroJuego::esfumar(Caramelo* caramelo){
 }
 
 bool TableroJuego::onOpacar(Caramelo* caramelo){
-	if (caramelo->visible()){
-		caramelo->opacar();
-		return true;
+	if (caramelo){
+		if (caramelo->visible()){
+			caramelo->opacar();
+			return true;
+		}
 	}
-	//delete caramelo;
-	//bajar();
-	this->movimientosCount--;
-	this->triggerMovimientos();
+		this->movimientosCount--;
+		this->triggerMovimientos();
+	
 	return false;
 }
 

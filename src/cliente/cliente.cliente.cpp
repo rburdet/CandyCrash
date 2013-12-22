@@ -83,64 +83,64 @@ bool Cliente::onTimeout(){
 	this->mensajesMutex.lock();
 	if(this->mensajes.empty()){
 		this->mensajesMutex.unlock();
-		return true;
-	}
-	data = this->mensajes.front();
-	this->mensajes.pop();
-	this->mensajesMutex.unlock();
-
-	// TODO: se podria pasar a una funcion
-	StaticString def("");
-	CommonEvents event = EVENT_NONE;
-	int code = -1;
-
-	if(data.get("event", def).isNumeric())
-		event = (CommonEvents) data.get("event", def).asInt();
-
-	if(data.get("code", def).isNumeric())
-		code = (CommonEvents) data.get("code", def).asInt();
-
-	//Json::StyledWriter writer;
-	//string output = writer.write(data);
-	//std::cout << output << std::endl;
-
-	switch(event){
-		case EVENT_LOGIN:
-			this->onLogin(code, data);
-			break;
-
-		case EVENT_LOGOUT:
-			this->onLogout(code, data);
-			break;
-
-		case EVENT_NEW_USER:
-			this->ventanaActual->mensaje(data);
-			break;
-
-		case EVENT_JOIN_GAME:
-		case EVENT_NEW_GAME:
-			this->onGame(code, data);
-			break;
-
-		case EVENT_LEAVE_GAME:{
-			int root_x, root_y;
-			ventanaActual->get_position(root_x, root_y);
-			ventanaActual->hide();
-			delete ventanaActual;
-			MainWindow* win = new MainWindow;
-			win->move(root_x, root_y);
-			win->signal_mensaje().connect(sigc::mem_fun(this, 
-						&Cliente::sendMsj));
-			win->on_partidas();
-			win->on_mapas();
-			this->ventanaActual = win;
-			break;
+			return true;
 		}
+		data = this->mensajes.front();
+		this->mensajes.pop();
+		this->mensajesMutex.unlock();
 
-		case EVENT_LIST_GAMES:
-		default:
-			Logger::log("Default. Redirecciono a ventana");
-			this->ventanaActual->mensaje(data);
+		// TODO: se podria pasar a una funcion
+		StaticString def("");
+		CommonEvents event = EVENT_NONE;
+		int code = -1;
+
+		if(data.get("event", def).isNumeric())
+			event = (CommonEvents) data.get("event", def).asInt();
+
+		if(data.get("code", def).isNumeric())
+			code = (CommonEvents) data.get("code", def).asInt();
+
+		//Json::StyledWriter writer;
+		//string output = writer.write(data);
+		//std::cout << output << std::endl;
+
+		switch(event){
+			case EVENT_LOGIN:
+				this->onLogin(code, data);
+				break;
+
+			case EVENT_LOGOUT:
+				this->onLogout(code, data);
+				break;
+
+			case EVENT_NEW_USER:
+				this->ventanaActual->mensaje(data);
+				break;
+
+			case EVENT_JOIN_GAME:
+			case EVENT_NEW_GAME:
+				this->onGame(code, data);
+				break;
+
+			case EVENT_LEAVE_GAME:{
+				int root_x, root_y;
+				ventanaActual->get_position(root_x, root_y);
+				ventanaActual->hide();
+				delete ventanaActual;
+				MainWindow* win = new MainWindow;
+				win->move(root_x, root_y);
+				win->signal_mensaje().connect(sigc::mem_fun(this, 
+							&Cliente::sendMsj));
+				win->on_partidas();
+				win->on_mapas();
+				this->ventanaActual = win;
+				break;
+			}
+
+			case EVENT_LIST_GAMES:
+			default:
+				Logger::log("Default. Redirecciono a ventana");
+				this->ventanaActual->mensaje(data);
 			break;
 	}
 

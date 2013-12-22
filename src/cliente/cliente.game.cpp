@@ -221,8 +221,18 @@ void GameWindow::mensaje(Json::Value& data){
 			//tableroJuego->hide();
 			//delete tableroJuego;
 			//tableroJuego = NULL;
-
+			
+			Gtk::MessageDialog dialog(*this, "FIN DEL JUEGO");
 			string msg = data["msg"].asString();
+			dialog.set_secondary_text(" \n"
+					"\t " + msg + "\t");
+			int result = dialog.run();
+			if ( result == Gtk::RESPONSE_OK ){
+				tableroJuego->hide();
+				Json::Value data;
+				data["event"] = EVENT_LEAVE_GAME;
+				this->m_signal_mensaje.emit(data);
+			}
 			Gtk::TextIter it = this->m_refTextBuffer1->end();
 			this->m_refTextBuffer1->insert(it, "\n >> Termino la partida\n>>"+msg);
 			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = 
