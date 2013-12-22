@@ -37,8 +37,16 @@ class ListaUsuarios : public Gtk::TreeView {
 		}
 
 		void getSelected(long &id, std::string & nombre, int & nivel, int &puntos){
+			id = 0;
+			nombre = "";
+			nivel = 0;
+			puntos = 0;
 			Glib::RefPtr<Gtk::TreeSelection> select = this->get_selection();
+			if(!select)
+				return;
 			Gtk::TreeModel::iterator store_iter = select->get_selected();
+			if(!store_iter)
+				return;
 			Gtk::TreeModel::Row row = *store_iter;
 			id = row[m_Columns.m_col_id];
 			nombre = row[m_Columns.m_col_nombre];

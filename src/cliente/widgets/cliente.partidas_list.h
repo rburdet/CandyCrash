@@ -63,8 +63,17 @@ class ListaPartidas : public Gtk::TreeView {
 
 		void getSelected(unsigned int & nivel, long& id, std::string & nombre, 
 				int &conectados, int &percentage){
+			nivel = 0;
+			nombre = "";
+			conectados = 0;
+			percentage = 0;
 			Glib::RefPtr<Gtk::TreeSelection> select = this->get_selection();
+			if(!select)
+				return;
 			Gtk::TreeModel::iterator store_iter = select->get_selected();
+
+			if(!store_iter)
+				return;
 			Gtk::TreeModel::Row row = *store_iter;
 			nivel = row[m_Columns.m_col_nivel];
 			id = row[m_Columns.m_col_id];
