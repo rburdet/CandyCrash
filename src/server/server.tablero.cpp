@@ -261,7 +261,7 @@ bool Tablero::movimientoValido(int x, int y, CaramelosMovimientos mov){
 	if(x == x2 && y == y2)
 		return false;
 
-	if(x2 < 0 || y2 < 0 || x2 >= this->dim_x || y2 >= this->dim_y)
+	if(x < 0 || y < 0 || x2 < 0 || y2 < 0 || x >= this->dim_x || y >= this->dim_y || x2 >= this->dim_x || y2 >= this->dim_y)
 		return false;
 
 	int carameloMovido = 
@@ -428,8 +428,8 @@ int Tablero::doStar(Caramelos carameloMovido, int x, int y,
 
 	if(carameloMovido == STAR && carameloMovido2 == STAR){
 		puntos += this->dim_y * this->dim_x * PUNTOS_ELEM_STAR;
-		for(int i=0 ; i < this->dim_y ; i++){ // X
-			for(int j=0 ; j < this->dim_x ; j++){ //Y
+		for(int i=0 ; i < this->dim_x ; i++){ // X
+			for(int j=0 ; j < this->dim_y ; j++){ //Y
 				if(this->tablero[this->num2str(i)][this->num2str(j)] != HUECO){
 					this->tablero[this->num2str(i)][this->num2str(j)] = RELLENAR;
 					movimientos.append(this->newMov(i, j, CARAMELO_MOV_LIMBO));
@@ -493,8 +493,8 @@ int Tablero::doStar(Caramelos carameloMovido, int x, int y,
 			case GREEN_BUTTON:
 			case PURPLE_BUTTON:
 			case YELLOW_BUTTON:
-				for ( int i=0 ; i < this->dim_y ; i++ ){ // X
-					for ( int j=0 ; j < this->dim_x ; j++ ){ // Y
+				for ( int i=0 ; i < this->dim_x ; i++ ){ // X
+					for ( int j=0 ; j < this->dim_y ; j++ ){ // Y
 						if (this->esMismoColor(elem_no, (Caramelos) 
 									this->tablero[this->num2str(i)]
 									[this->num2str(j)].asInt())){

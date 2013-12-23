@@ -34,8 +34,8 @@ TableroJuego::TableroJuego(Json::Value mapa)
 		this->tablero.put(imagenFondo,0,0);
 	}
 	//imagenFondo.set_size_request(dimY*SIZE,dimX*SIZE);
-	set_size_request(dimY*SIZE,dimX*SIZE);
-	this->tablero.set_size_request(dimY*SIZE,dimX*SIZE);
+	set_size_request(dimX*SIZE,dimY*SIZE);
+	this->tablero.set_size_request(dimX*SIZE,dimY*SIZE);
 	frameTablero.add(this->tablero);
 	//this->dibujarLineas();
 	this->crearMatrices();
@@ -345,6 +345,13 @@ void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
 		this->matrizCaramelos[x][y] = NULL;
 	}
 
+	if( xf >= this->dimX || yf >= this->dimX || x >= this->dimX || y >= this->dimY){
+		std::cout << "[Error] Posiciones invalidas :: TableroJuego::moveCaramelo(x=" << x << ", y=" << y << ", xf=" << xf << ", yf=" << yf << ")" << std::endl;
+		this->movimientosCount--;
+		this->triggerMovimientos();
+		return;
+	}
+
 	if (xf < 0 || yf < 0){
 		if(m){
 			this->esfumar(m);
@@ -459,9 +466,10 @@ bool TableroJuego::onOpacar(Caramelo* caramelo){
 			return true;
 		}
 	}
-		this->movimientosCount--;
-		this->triggerMovimientos();
-	
+
+	this->movimientosCount--;
+	this->triggerMovimientos();
+
 	return false;
 }
 

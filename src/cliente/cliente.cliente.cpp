@@ -75,6 +75,7 @@ void Cliente::nuevoMensaje(Json::Value& msj){
 	this->mensajesMutex.lock();
 	this->mensajes.push(msj);
 	this->mensajesMutex.unlock();
+	//std::cout << msj << std::endl;
 }
 
 bool Cliente::onTimeout(){
