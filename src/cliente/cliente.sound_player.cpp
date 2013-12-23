@@ -19,6 +19,8 @@ using std::string;
 
 std::map<std::string, std::time_t> SoundPlayer::archs;
 
+bool SoundPlayer::isMuted = false;
+
 /* Cabecera de archivo wave:
  * http://www.topherlee.com/software/pcm-tut-wavformat.html
  */
@@ -53,6 +55,9 @@ bool SoundPlayer::play(const char* str){
 }
 
 bool SoundPlayer::play(const std::string & str){
+	if(SoundPlayer::isMuted)
+		return true;
+
 	std::time_t now = std::time(NULL);
 	if((SoundPlayer::archs).find(str) != (SoundPlayer::archs).end()){
 		if(now == (SoundPlayer::archs)[str])
@@ -216,3 +221,17 @@ void* SoundPlayer::wav_runner(void* arg) {
 	free(args);
 }
 
+void SoundPlayer::mute(){
+	SoundPlayer::isMuted = true;
+}
+
+void SoundPlayer::unmute(){
+	SoundPlayer::isMuted = false;
+}
+
+void SoundPlayer::togglemute(){
+	if(SoundPlayer::isMuted)
+		SoundPlayer::isMuted = false;
+	else
+		SoundPlayer::isMuted = true;
+}

@@ -13,6 +13,7 @@ class SoundPlayer {
 		SoundPlayer();
 		~SoundPlayer();
 		static bool play_wave(const std::string& str);
+		static bool isMuted;
 		//static SoundPlayer* me;
 		/** Guarda usando de clave el path, la hora de cunado fue reproducido. Se usa para ignorar archivos iguales si se reproducen en el mismo momento
 		 */
@@ -28,6 +29,9 @@ class SoundPlayer {
 		 */
 		static bool play(const std::string& str);
 		static bool play(const char* str);
+		static void mute();
+		static void unmute();
+		static void togglemute();
 };
 
 

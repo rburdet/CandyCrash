@@ -24,7 +24,7 @@ Tablero::Tablero(Glib::RefPtr<Gtk::Builder>& builder){
 	cantFilas=MIN_FILAS;
 	cantColumnas=MIN_COLS;
 	agregarFilas(cantFilas);
-	agregarColumnas(cantColumnas);
+	agregarColumnas(cantColumnas+1);
 	ultFilClick=MAX_FILAS;
 	ultColClick=MAX_COLS;
 	celdaInteres=NULL;
