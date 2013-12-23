@@ -375,7 +375,7 @@ void Tablero::deserializarCeldas(Json::Value& celdas){
 			}
 			if (!celdas[streamColumna.str()][streamFila.str()]["probabilidades"].isArray()){
 				matrizCeldas[i][j]->setHueco();
-				putHueco(i*SIZE+OFFSET,j*SIZE+OFFSET);
+				putHueco(j*SIZE+OFFSET,i*SIZE+OFFSET);
 			}else{
 				for ( int k=0 ; k < 16 ; k++ ){
 					auxInfo->setProb_piezas(celdas[streamColumna.str()][streamFila.str()]["probabilidades"][k].asInt(),k);
@@ -390,7 +390,7 @@ void Tablero::deserializarCeldas(Json::Value& celdas){
 
 void Tablero::deserializarColumnas(Json::Value& columnas){
  std::stringstream ss;
- for ( int i = 0 ; i < matrizCeldas[0].size() ; i++ ){
+ for ( int i = 0 ; i < matrizCeldas.size() ; i++ ){
 	Info* auxInfo = new Info();
 	ss << i ;
 	for ( int j=0 ; j < 16 ; j++ ) {

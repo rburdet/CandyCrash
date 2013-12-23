@@ -6,21 +6,16 @@
 
 MenuPersistidor::MenuPersistidor(BoxOpcionesBasicas* aPersistir, Glib::RefPtr<Gtk::Builder>& builder){
 	this->settings=aPersistir;
-	builder->get_widget("Nuevo",itemNuevo);
 	builder->get_widget("Abrir",itemAbrir);
 	builder->get_widget("Guardar",itemGuardar);
-	//builder->get_widget("Guardar_Como",itemGuardar_Como);
-	itemNuevo->signal_activate().connect(sigc::mem_fun(*this,&MenuPersistidor::Nuevo));
 	itemAbrir->signal_activate().connect(sigc::mem_fun(*this,&MenuPersistidor::Abrir));
 
 	itemGuardar->signal_activate().connect(sigc::mem_fun(*this,&MenuPersistidor::Guardar));
-	//itemGuardar_Como->signal_activate().connect(sigc::mem_fun(*this,&MenuPersistidor::Guardar_Como));
 	
 }
 
 void MenuPersistidor::Guardar(){
 	if (settings->getNombre() == ""){
-		//TODO: Llamar a Save As
 	}else{
 		settings->getBarra()->mostrar("Se ha guardado " +std::string(DEFAULTDIR)+ settings->getNombre());	
 	}
@@ -53,15 +48,3 @@ void MenuPersistidor::Abrir(){
 		}
 	}
 }
-
-//void MenuPersistidor::Guardar_Como(){
-//	Gtk::FileChooserDialog dialog("Guardar Como",Gtk::FILE_CHOOSER_ACTION_SAVE);
-//	dialog.add_button(Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
-//	dialog.add_button("Select", Gtk::RESPONSE_OK);
-//	dialog.run();
-//	this->settings->generar();
-//}
-
-
-void MenuPersistidor::Nuevo(){}
-

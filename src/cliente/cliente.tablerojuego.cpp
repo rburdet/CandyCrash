@@ -2,6 +2,7 @@
 #include <algorithm>
 #include "../common/common.events.h"
 #include "../common/common.caramelos_movimientos.h"
+#include "cliente.sound_player.h"
 
 #define TIMEOUT_TIME (20)
 
@@ -355,10 +356,14 @@ void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
 	if (xf < 0 || yf < 0){
 		if(m){
 			this->esfumar(m);
+			if (sonidoDestruir != "")
+				SoundPlayer::play(sonidoDestruir);
 		}else{
 			std::cout << "ES NULL" << std::endl;
 			this->movimientosCount--;
 			this->triggerMovimientos();
+			if (sonidoMov != "")
+				SoundPlayer::play(sonidoMov);
 		}
 	}else{
 		if (this->matrizCaramelos[xf][yf] != NULL)

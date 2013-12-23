@@ -151,12 +151,12 @@ void BoxOpcionesBasicas::setNivel(Json::Value& mapa){
 }
 
 void BoxOpcionesBasicas::setX(Json::Value& mapa){
-	this->spin_x->set_value(mapa[this->e_nombre->get_text()]["DIM"]["X"].asDouble());
+	this->spin_x->set_value(mapa[this->e_nombre->get_text()]["DIM"]["Y"].asDouble());
 	this->tablero->setX((int)spin_x->get_value());
 }
 
 void BoxOpcionesBasicas::setY(Json::Value& mapa){
-	this->spin_y->set_value(mapa[this->e_nombre->get_text()]["DIM"]["Y"].asDouble());
+	this->spin_y->set_value(mapa[this->e_nombre->get_text()]["DIM"]["X"].asDouble());
 	this->tablero->setY((int)spin_y->get_value());
 }
 

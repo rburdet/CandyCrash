@@ -21,7 +21,6 @@ class MenuPersistidor{
 		Gtk::ImageMenuItem* itemGuardar;
 		//Gtk::ImageMenuItem* itemGuardar_Como;
 		BoxOpcionesBasicas* settings;
-		void Nuevo();
 		void Abrir();
 		void Guardar();
 		//void Guardar_Como();
