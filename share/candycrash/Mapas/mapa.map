@@ -409,8 +409,8 @@
 		"puntaje_para_ganar" : 1000,
 		"sonidos" : 
 		{
-			"destruir" : "",
-			"mover" : ""
+			"destruir" : "../share/candycrash/sounds/camera-shutter.wav",
+			"mover" : "../share/candycrash/sounds/dialog-information.wav"
 		}
 	}
 }
