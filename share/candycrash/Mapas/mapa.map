@@ -13,7 +13,7 @@
 			{
 				"0" : 
 				{
-					"fondo" : "",
+					"fondo" : "../share/candycrash/imagenes/fondos/paradise.jpg",
 					"probabilidades" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
 				},
 				"1" : 

@@ -17,7 +17,12 @@ TableroJuego::TableroJuego(Json::Value mapa)
 			false //ignorar el aspect del hijo
 		)
 	{
-	//set_size_request(800,600);
+
+	Glib::RefPtr<Gtk::StyleContext> stylecontext =
+		this->get_style_context();
+	stylecontext->add_class("TableroJuego");
+	stylecontext->context_save();
+
 	set_title("CandyCrush");
 	this->mapa = mapa;
 	this->nMapa = mapa["mapa"].asString();
@@ -25,14 +30,18 @@ TableroJuego::TableroJuego(Json::Value mapa)
 	dimY = getY();
 	this->sonidoMov = mapa["sonidos"]["mover"].asString();
 	this->sonidoDestruir = mapa["sonidos"]["destruir"].asString();
-	std::cout << sonidoMov << std::endl;
-	std::cout << sonidoDestruir << std::endl;
+	//std::cout << sonidoMov << std::endl;
+	//std::cout << sonidoDestruir << std::endl;
 	if (mapa["fondo"].asString() != ""){
-		Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_file
-			(mapa["fondo"].asString(),(dimX+1)*SIZE,(dimX+5)*SIZE); 
-		imagenFondo.set(pixbuf);
-		imagenFondo.show();
-		this->tablero.put(imagenFondo,0,0);
+		try{
+			Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_file
+				(mapa["fondo"].asString(),(dimX+1)*SIZE,(dimX+5)*SIZE); 
+			imagenFondo.set(pixbuf);
+			imagenFondo.show();
+			this->tablero.put(imagenFondo,0,0);
+		} catch(Glib::Error err){
+			std::cout << "Error leyendo fondo de mapa imagen: '" << mapa["fondo"].asString() << "'" << std::endl;
+		}
 	}
 	//imagenFondo.set_size_request(dimY*SIZE,dimX*SIZE);
 	set_size_request(dimX*SIZE,dimY*SIZE);
@@ -88,23 +97,27 @@ void TableroJuego::llenar(){
 			sx<<i;
 			// this->mapa["celdas"][POS Y][POS X]
 			Json::Value celda = this->mapa["celdas"][sx.str()][sy.str()]["pieza"];
-			Json::Value celdaFondo = this->mapa["celdas"][sx.str()][sy.str()]["fondo"];
+			std::string  celdaFondo = this->mapa["celdas"][sx.str()][sy.str()]["fondo"].asString();
 			std::stringstream auxStream;
 			auxStream << celda;
 			auxStream>>idPieza;
 			auxStream.str("");
 			if (idPieza !=-1){
-				if (celdaFondo!=""){
-					Glib::RefPtr<Gdk::Pixbuf> pixbuf = 
-						Gdk::Pixbuf::create_from_file(celdaFondo.asString(),SIZE,SIZE); 
-					Gtk::Image* imgFondo = new Gtk::Image(pixbuf);
-					imgFondo->show();
-					this->tablero.put(*imgFondo,i*SIZE+20,j*SIZE+20);
+				if (celdaFondo != ""){
+					try{
+						Glib::RefPtr<Gdk::Pixbuf> pixbuf = 
+							Gdk::Pixbuf::create_from_file(celdaFondo,SIZE,SIZE); 
+						Gtk::Image* imgFondo = new Gtk::Image(pixbuf);
+						imgFondo->show();
+						this->tablero.put(*imgFondo,i*SIZE+20,j*SIZE+20);
+					} catch(Glib::Error err){
+						std::cout << "Error leyendo fondo de celda x: " << i << " y: " << j << "imagen: '" << celdaFondo << "'" << std::endl;
+					}
 				}
 				Caramelo* caramelo = CandyFactory::crearCaramelo(idPieza,i,j);
 				caramelo->show_all();
 				this->tablero.put(*(static_cast
-							<Gtk::Button*>(caramelo)),i*SIZE+20,j*SIZE+20);
+							<Gtk::Widget*>(caramelo)),i*SIZE+20,j*SIZE+20);
 				caramelo->setXPos(i*SIZE+20);
 				caramelo->setYPos(j*SIZE+20);
 				matrizCaramelos[i][j] = caramelo;
@@ -325,9 +338,9 @@ void TableroJuego::onMovimiento(Json::Value& data){
 			caramelo->setXPos(x*SIZE+20);
 			caramelo->setYPos(y*SIZE+20);
 			caramelo->set_opacity(0);
-			this->tablero.put(*(static_cast<Gtk::Button*>(caramelo)),x*SIZE+20
+			this->tablero.put(*(static_cast<Gtk::Widget*>(caramelo)),x*SIZE+20
 					,y*SIZE+20);
-			caramelo->show();
+			caramelo->show_all();
 			this->matrizCaramelosAux[x][y] = this->matrizCaramelos[x][y];
 			this->matrizCaramelos[x][y] = caramelo;
 			caramelo->signal_clicked().connect(sigc::bind(sigc::mem_fun(this,
@@ -362,8 +375,6 @@ void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
 			std::cout << "ES NULL" << std::endl;
 			this->movimientosCount--;
 			this->triggerMovimientos();
-			if (sonidoMov != "")
-				SoundPlayer::play(sonidoMov);
 		}
 	}else{
 		if (this->matrizCaramelos[xf][yf] != NULL)
@@ -373,6 +384,9 @@ void TableroJuego::moveCaramelo(int x, int y, int xf, int yf){
 		this->moverPieza(m, xf, yf);
 		this->matrizCaramelos[xf][yf]->setX(xf);
 		this->matrizCaramelos[xf][yf]->setY(yf);
+
+		if (sonidoMov != "")
+			SoundPlayer::play(sonidoMov);
 	}
 }
 
@@ -399,6 +413,8 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final,
 		this->triggerMovimientos();
 		return false;
 	}
+
+	car->raiseMe();
 
 	int x = car->getXPos();
 	if (x > x_final){
@@ -431,8 +447,7 @@ bool TableroJuego::animationMove(Caramelo* car, int x_final, int y_final,
 	}
 	car->setXPos(x);
 	car->setYPos(y);
-	car->get_window()->raise();
-	this->tablero.move(*(static_cast<Gtk::Button*>(car)), x, y);
+	this->tablero.move(*(static_cast<Gtk::Widget*>(car)), x, y);
 	car->setMoviendo(ret, x_final, y_final);
 	if (ret == false){
 		this->movimientosCount--;
@@ -454,6 +469,7 @@ bool TableroJuego::onAclarar(Caramelo* caramelo){
 		return false;
 	}
 
+	caramelo->raiseMe();
 	caramelo->hacerAparecer();
 	return true;
 }

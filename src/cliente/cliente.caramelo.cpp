@@ -14,8 +14,15 @@ Caramelo::Caramelo(int idCaramelo, const std::string& imgDir,int i, int j) :
 	this->idCaramelo = idCaramelo;
 	this->set_relief(Gtk::RELIEF_NONE);
 	this->image.set_size_request(SIZE,SIZE);
-	this->set_image(image);
+	//this->set_image(image);
+	this->add(image);
 	this->show();
+	this->signal_button_press_event().connect(
+		sigc::mem_fun(
+			this,
+			&Caramelo::onButtonPressEvent
+		)
+	);
 }
 
 int Caramelo::getX(){
@@ -85,4 +92,35 @@ bool Caramelo::visible(){
 
 bool Caramelo::fullyVisible(){
 	return (this->get_opacity()==1);
+}
+
+bool Caramelo::onButtonPressEvent(GdkEventButton *event){
+	this->m_signal_clicked.emit();
+	return true;
+}
+
+Caramelo::type_signal_clicked Caramelo::signal_clicked(){
+	return this->m_signal_clicked;
+}
+
+void Caramelo::set_relief(Gtk::ReliefStyle newstyle){
+
+	Glib::RefPtr<Gtk::StyleContext> stylecontext =
+		this->get_style_context();
+
+	switch(newstyle){
+		case Gtk::RELIEF_NORMAL:
+			stylecontext->add_class("event_box_relief_normal");
+			break;
+		default:
+			stylecontext->remove_class("event_box_relief_normal");
+			break;
+	}
+
+	stylecontext->context_save();
+	this->queue_draw();
+};
+
+void Caramelo::raiseMe(){
+	this->get_window()->raise();
 }

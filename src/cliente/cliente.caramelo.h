@@ -6,7 +6,7 @@
 #include "../common/common.caramelos.h"
 #include <iostream>
 
-class Caramelo : public Gtk::Button{
+class Caramelo : public Gtk::EventBox{
 	public:
 		Caramelo(int idCaramelo, const std::string& imageName,int i, int j);
 		virtual ~Caramelo(){}
@@ -34,6 +34,11 @@ class Caramelo : public Gtk::Button{
 		void setXPos(int x);
 		void setY(int y);
 		void setYPos(int y);
+		void set_relief(Gtk::ReliefStyle newstyle);
+		void raiseMe();
+
+		typedef sigc::signal<void> type_signal_clicked;
+		type_signal_clicked signal_clicked();
 
 	private:
 		int x;
@@ -45,6 +50,9 @@ class Caramelo : public Gtk::Button{
 		bool moviendo;
 		int x_mov;
 		int y_mov;
+
+		bool onButtonPressEvent(GdkEventButton *event);
+		type_signal_clicked m_signal_clicked;
 };
 
 #endif

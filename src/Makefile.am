@@ -162,9 +162,9 @@ candycrash_editor_LDADD = $(GTKMM2_LIBS) $(ASOUND_LIBS)
 
 #candycrash_serverdir = $(prefix)/share/$(PACKAGE)/server/
 candycrash_serverdir = $(prefix)/share
-nobase_dist_candycrash_server_DATA = \
-	../share/candycrash/Mapas/posta.map \
-	../share/candycrash/Mapas/preentrega.map
+#nobase_dist_candycrash_server_DATA = \
+#	../share/candycrash/Mapas/posta.map \
+#	../share/candycrash/Mapas/preentrega.map
 
 #candycrash_clientedir = $(prefix)/share/$(PACKAGE)/cliente/
 candycrash_clientedir = $(prefix)/share
