@@ -5,7 +5,7 @@
 #define FIRSTBUTTON 1
 #define LASTBUTTON 16 
 
-#define DEFAULTDIR "../share/candycrash/imagenes/"
+#define DEFAULTDIR "../share/candycrash/imagenes/fondos/"
 ProbColumnas::ProbColumnas(Tablero* tablero ,Glib::RefPtr<Gtk::Builder>& 
 		builder) : Probs(tablero, builder,FIRSTIMAGE,LASTIMAGE,"framecolumnas"){
 	cargarBotones(builder,FIRSTBUTTON,LASTBUTTON);

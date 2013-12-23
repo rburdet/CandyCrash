@@ -5,12 +5,14 @@
 #include <string>
 
 #define MAX_COLS 14
-#define MIN_COLS 8
-#define MIN_FILAS 8
+#define MIN_COLS 7
+#define MIN_FILAS 7
 #define MAX_FILAS 14
 #define SIZE 40
 #define OFFSET 20
 #define HUECODIR "../share/candycrash/imagenes/hueco.png"
+#define DEFAULTPATH "../share/candycrash/Mapas/"
+#define DEFAULTIMGPATH "../share/candycrash/imagenes/"
 
 #define MAXELEMENTOS 16
 
@@ -303,7 +305,12 @@ void Tablero::jsonCeldas(Json::Value& nivel,const std::string& nombre){
 
 
 void Tablero::on_image_changed_tablero(Gtk::FileChooser* fileChooser){
-	this->celdaInteres->setImage(fileChooser->get_filename());
+	std::string path;
+	unsigned int aux; 
+	aux = fileChooser->get_filename().find_last_of("/\\");
+	path=fileChooser->get_filename().substr(aux+1);
+	path = std::string(DEFAULTIMGPATH)+ path;
+	this->celdaInteres->setImage(path);
 	Gtk::Image* img = new Gtk::Image(fileChooser->get_filename());
 	img->set_size_request(SIZE,SIZE);
 	this->tablero->put(*img,this->celdaInteres->getY()*SIZE+OFFSET,
@@ -313,7 +320,12 @@ void Tablero::on_image_changed_tablero(Gtk::FileChooser* fileChooser){
 
 
 void Tablero::on_image_fondo_changed_tablero(Gtk::FileChooser* fileChooser){
-	this->imagenFondo = fileChooser->get_filename();
+	std::string path;
+	unsigned int aux; 
+	aux = fileChooser->get_filename().find_last_of("/\\");
+	path=fileChooser->get_filename().substr(aux+1);
+	path = std::string(DEFAULTIMGPATH) +"fondos/" + path;
+	this->imagenFondo = path;
 }
 
 void Tablero::on_check_button_tablero(){
@@ -346,6 +358,7 @@ void Tablero::deserializar(Json::Value& mapa){
 	deserializarCeldas(celdas);
 	deserializarColumnas(columnas);
 	this->imagenFondo = mapa[nombre]["fondo"].asString();
+	std::cout << " voy a levantar mapa 5" << std::endl;
 }
 
 void Tablero::deserializarCeldas(Json::Value& celdas){
@@ -360,7 +373,7 @@ void Tablero::deserializarCeldas(Json::Value& celdas){
 			if ( (imgPath=celdas[streamColumna.str()][streamFila.str()]["fondo"].asString()) != ""){
 				matrizCeldas[i][j]->setImage(imgPath);
 			}
-			if (celdas[streamColumna.str()][streamFila.str()]["probabilidades"].asInt() == -1){
+			if (!celdas[streamColumna.str()][streamFila.str()]["probabilidades"].isArray()){
 				matrizCeldas[i][j]->setHueco();
 				putHueco(i*SIZE+OFFSET,j*SIZE+OFFSET);
 			}else{
@@ -383,7 +396,8 @@ void Tablero::deserializarColumnas(Json::Value& columnas){
 	for ( int j=0 ; j < 16 ; j++ ) {
 		auxInfo->setProb_piezas(columnas[ss.str()][j].asInt(),j);
 	}
-	this->columnas[i]->setInfo(auxInfo);
+	if (auxInfo)
+		this->columnas[i]->setInfo(auxInfo);
 	ss.str("");
  }
 }
