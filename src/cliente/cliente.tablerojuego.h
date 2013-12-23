@@ -42,6 +42,8 @@ class TableroJuego : public Window {
 		
 		Json::Value mapa;
 		std::string nMapa;
+		std::string sonidoMov;
+		std::string sonidoDestruir;
 
 		// TODO: meow meowww meow, es decir, no se esta usando,, jaja
 		std::vector<std::vector<Gtk::Image*> > matrizFondos;

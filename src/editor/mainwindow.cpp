@@ -11,11 +11,12 @@ MainWindow::MainWindow(){
 	this->builder = Gtk::Builder::create_from_file("../share/candycrash/editor/Editor.glade");
 	this->builder->get_widget("window1",mainWindow);
 	this->tablero = new Tablero(this->builder);
-	this->boxOpcionesBasicas = new BoxOpcionesBasicas(this->builder,this->tablero);
+	Sonidos* sonidos = new Sonidos(this->builder);
+	this->boxOpcionesBasicas = new BoxOpcionesBasicas(this->builder,this->tablero,sonidos);
 	this->menu = new Menu(this->builder);
 	builder->get_widget("quit",close);
 	ProbColumnas probColumnas(this->tablero,this->builder);
-	ProbCeldas probCeldas(this->tablero,this->builder);
+	ProbCeldas probCeldas(this->tablero,this->builder); 
 	this->menuPersistidor = new MenuPersistidor(this->boxOpcionesBasicas,this->builder);
 	close->signal_activate().connect(sigc::mem_fun(*this,&MainWindow::cerrar));
 }

@@ -134,6 +134,14 @@ candycrash_editor_SOURCES = \
 	editor/probceldas.h \
 	editor/probcolumnas.cpp \
 	editor/probcolumnas.h \
+	editor/sonidos.cpp \
+	editor/sonidos.h \
+	cliente/cliente.sound_player.cpp \
+	cliente/cliente.sound_player.h \
+	common/common.logger.cpp \
+	common/common.logger.h \
+	common/common.mutex.cpp \
+	common/common.mutex.h \
 	editor/tablero.cpp \
 	editor/tablero.h \
 	editor/menupersistidor.cpp \

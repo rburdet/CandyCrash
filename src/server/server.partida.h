@@ -24,6 +24,8 @@ class Partida : public PartidaInterface {
 		int maxUsuarios;
 		Mutex tableroLock;
 		Tablero* tablero;
+		std::string sonidoMov;
+		std::string sonidoDestruir;
 
 		/** Envia msj a todos los usuarios de la partida
 		 */

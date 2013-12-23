@@ -33,6 +33,8 @@ class Tablero {
 		Json::Value probabilidades;
 		std::string nMapa;
 		std::string pathFondo;
+		std::string sonidoMov;
+		std::string sonidoDestruir;
 		int dim_x; 
 		int dim_y;
 		void generar();

@@ -22,6 +22,10 @@ TableroJuego::TableroJuego(Json::Value mapa)
 	this->nMapa = mapa["mapa"].asString();
 	dimX = getX();
 	dimY = getY();
+	this->sonidoMov = mapa["sonidos"]["mover"].asString();
+	this->sonidoDestruir = mapa["sonidos"]["destruir"].asString();
+	std::cout << sonidoMov << std::endl;
+	std::cout << sonidoDestruir << std::endl;
 	if (mapa["fondo"].asString() != ""){
 		Glib::RefPtr<Gdk::Pixbuf> pixbuf = Gdk::Pixbuf::create_from_file
 			(mapa["fondo"].asString(),(dimX+1)*SIZE,(dimX+5)*SIZE); 

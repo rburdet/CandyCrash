@@ -1,13 +1,13 @@
 #include "boxopcionesbasicas.h"
 #include <string>
 
-#define MIN_COLS 8
-#define MIN_FILAS 8
+#define MIN_COLS 7
+#define MIN_FILAS 7
 #define MAPA_PATH "../share/candycrash/Mapas/"
 
 
 BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,
-		Tablero* tablero){
+		Tablero* tablero,Sonidos* sonidos){
 	builder->get_widget("e_maxjug",s_maxjug);
 	builder->get_widget("s_puntaje",s_puntaje);
 	builder->get_widget("e_nombre",e_nombre);
@@ -15,6 +15,7 @@ BoxOpcionesBasicas::BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,
 	builder->get_widget("spin_x",spin_x);
 	builder->get_widget("spin_y",spin_y);
 	builder->get_widget("spinbuttonnivel",spin_nivel);
+	this->sonidos = sonidos;
 	this->barraEstado = new BarraEstado(builder);
 	this->tablero=tablero;
 	Glib::RefPtr<Gtk::Adjustment> adjustment_cordx = 
@@ -86,6 +87,8 @@ void BoxOpcionesBasicas::generar(){
 	nivel[nombre]["nivel"] = nivelMax;
 	nivel[nombre]["DIM"]["X"] = dimY;
 	nivel[nombre]["DIM"]["Y"] = dimX;
+	//Persistencia del sonido: 
+	this->sonidos->jsonSonidos(nivel,nombre);
 	Persistidor::persistir(nivel,nombre);
 }
 

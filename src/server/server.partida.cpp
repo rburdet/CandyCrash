@@ -24,6 +24,8 @@ Partida::Partida(ServerInterface* server, int nivel, string& nombre) :
 	}
 	this->maxUsuarios = this->mapa["max_jugadores"].asInt();
 	this->puntosMax = this->mapa["puntaje_para_ganar"].asInt();
+	this->sonidoMov = this->mapa["sonidos"]["mover"].asString();
+	this->sonidoDestruir = this->mapa["sonidos"]["destruir"].asString();
 }
 
 Partida::~Partida() {

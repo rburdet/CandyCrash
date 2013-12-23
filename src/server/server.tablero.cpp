@@ -33,6 +33,8 @@ Tablero::Tablero(string path){
 			this->mapa = data[this->nMapa];
 			this->probabilidades = this->mapa["columnas"];
 			this->imagenFondo = this->mapa["fondo"];
+			this->sonidoMov = this->mapa["sonidos"]["mover"].asString();
+			this->sonidoDestruir = this->mapa["sonidos"]["destruir"].asString();
 			this->pathFondo=imagenFondo.asString();
 			this->generar();
 			// Sacamos las combinaciones iniciales
@@ -940,6 +942,8 @@ Json::Value Tablero::getTablero(){
 	ret["DIM"]["Y"] = this->dim_y;
 	ret["mapa"] = this->nMapa;
 	ret["fondo"] = this->pathFondo;
+	ret["sonidos"]["mover"] = this->sonidoMov;
+	ret["sonidos"]["destruir"] = this->sonidoDestruir;
 	Json::Value::Members keys = this->mapa["celdas"].getMemberNames();
 	for ( int i=0 ; i < keys.size() ; i++ ){
 		Json::Value::Members innerkeys = this->mapa["celdas"][keys[i]].

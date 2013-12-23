@@ -10,6 +10,7 @@
 #include "tablero.h"
 #include "persistidor.h"
 #include "barraestado.h"
+#include "sonidos.h"
 
 /** Panel izquierdo 
  */
@@ -20,7 +21,7 @@ class BoxOpcionesBasicas{
 		 * @param builder[in]: Encargado de levantar el widget desde el archivo
 		 * de glade.
 		 */
-		BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,Tablero* tablero);
+		BoxOpcionesBasicas(Glib::RefPtr<Gtk::Builder>& builder,Tablero* tablero,Sonidos* sonidos);
 		~BoxOpcionesBasicas();
 
 		Glib::RefPtr<Gtk::Adjustment> adjustment_cordx;
@@ -41,6 +42,7 @@ class BoxOpcionesBasicas{
 		Gtk::SpinButton * spin_y;
 		Gtk::SpinButton * spin_nivel;
 		Tablero* tablero;
+		Sonidos* sonidos;
 		BarraEstado * barraEstado;
 
 		//Handlers
