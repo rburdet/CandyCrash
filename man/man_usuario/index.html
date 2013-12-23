@@ -199,16 +199,16 @@ $ sudo make install
 
 <article id="Forma_de_uso">
 <span class="titulo">3. Forma de uso</span>
+<strong> Cliente </strong>
 <p> Durante la instalaci&oacute;n se eligio la carpeta destino, para ejecutar el cliente, se debe ir hasta la carpeta donde se instal&oacute;, subcarpeta "bin",  y ejecutar el binario <i>'candycrash-cliente'</i>. Esto se puede realizar desde una terminal (utilizando el comando <i>cd</i> para ir cambiando de directorio), o desde el manejador de archivos de nuestra preferencia.</p>
 <p> Al abrir el juego Ud se encontrara con la siguiente imagen: </p>
 <img src="imagenes/conectate.jpg"/>
-<p> Para jugar Ud debe tener tener una cuenta. Si ya esta registrado asegurese de que el boton <b>Active para registrarse</b>  este desactivado. Luego coloque el <b>ip:puerto</b> al que quiera conectarse en el casillero <b> Ip:Puerto </b>. </p>
+<p> Para jugar Ud debe tener tener una cuenta. Si ya esta registrado coloque el <b>ip:puerto</b> al que quiera conectarse en el casillero <b> Ip:Puerto </b>. </p>
 <p>Por ejemplo 127.0.0.1:9000</p>
 <p>Luego coloque su nombre de usuario y su contrasena en los campos  <b>Usuario</b>  y <b>Password</b> respectivamente.</p> 
 <p> Luego presione <b> Conectar </b>  </p>
 <br> 
-<p> Si ud no tiene una cuenta, active el boton <b> Active para regisrarse </b> ingrese el nombre de usuario deseado y luego la contrasena que usara para conectarse cada vez que entre al juego en los campos <b> Usuario </b>  y <b> Password </b>  respectivamente. </p> 
-<p> Luego, desactivelo y procesa a conectarse con el usuario recientemente creado </p> 
+<p> Si ud no tiene una cuenta, ingrese el nombre de usuario deseado y luego la contrasena que usara para conectarse cada vez que entre al juego en los campos <b> Usuario </b>  y <b> Password </b>  respectivamente, luego presione <b> Registrar </b>. </p> 
 
 <br>
 <p> Una vez pasada la ventana de conexion Ud se encontrara con la siguiente imagen: </p>
@@ -265,7 +265,35 @@ producto adyacente. El resultado de esta acción dependerá de cual sea este pro
 <p> En todos estos casos se darán 40 puntos por cada uno de los productos eliminados. La eliminación de productos dejará celdas vacías en el tablero, que serán llenadas mediante la caída de los productos presentes en las celdas superiores. Las celdas situadas “arriba del borde superior” se considerarán rellenas con productos aleatorios (sin considerar si estas combinaciones son estables o no). En caso de producirse una nueva configuración especial, el puntaje que corresponda será
 multiplicado por dos. El proceso se repite hasta que se llegue a una configuración estable y, mientras este proceso se repita, los jugadores no podrán realizar acciones.</p>
 <p>El juego terminará cuando no haya más acciones posibles (todos pierden) o cuando uno de los jugadores llegue al puntaje especificado (ese jugador pasará de nivel y los otros tendrán que reintentarlo). </p>
+<br>
+<strong> Servidor </strong>
+<p> Procediendo como con el cliente, ejecute <i> candycrash-server [puerto] </i> donde se recomienda que [puerto] sea un numero mayor a 5000. Ejemplo : <b>./candycrasg-server 9000 </b>. Esta aplicación es una aplicación de consola y soporta conexiones multijugador </p>
+<br>
+<strong> Editor </strong>
+<p>
+De la misma forma, para ejecutar el Editor: <i> candycrash-editor </i> lo llevará a la aplicación que se muestra a continuación: </p>
+<img src = "imagenes/editor.jpg"> 
+<p>
+Para crear un nivel satisfactoriamente Ud deberia seguir los siguientes pasos:
+<ol>
+	<li>Insertar un nombre en el campo <b>Nombre</b>. Tenga en cuenta que el nombre del archivo generado y el nombre del mapa son iguales. </li>
+	<li> Seleccionar un puntaje maximo para ganar el nivel. </li>
+	<li> Seleccionar la cantidad maxima de jugadores que pueden jugar ese nivel en la casilla <b>Max Jug</b>. </li>
+	<li> Seleccionar el nivel del mapa a jugar en la casilla <b>Nivel</b>. </li>
+	<li> Seleccionar la cantidad de filas ( X ) y columnas ( Y ).</li>
+</ol>
+</p>
 
+<p>Para elegir las probabilidades Ud puede hacerlo mediante columnas o seleccionando cada celda en particular y eligiendo valores para cualquiera de los 16 caramelos, la probabilidad insertada para cada celda solo sera para una configuracion inicial dado que el regimen de aparicion durante el juego sera a traves de la probabilidad indicada para cada columna. </p> 
+<p>Ud puede elegir una imagen de fondo para el tablero, bajo la pestana <b>Columnas</b> en el selector de archivos indicado por <b>Fondo</b> . Tambien puede elegir una imagen de fondo para cada celda, o si quiere , un hueco para esa celda. Para eso tiene que presionar bajo la pestana <b>Celdas</b> el selector de archivo o el boton <b>Hueco</b> respectivamente.</p>
+<p> También puede hacer selección del sonido que se ejecutará cuando se haga un cambio de pieza o cuando haya destrucción de piezas existentes. Para esto busque bajo la pestaña <b> Sonidos </b> y seleccione un sonido.
+<br><br>
+<p>Aclaración:</p>
+<p> Las probabilidades se computaran como numeros y no como porcentajes. Por ejemplo teniendo 13 para el boton rojo, 13 para un bar horizontal verde y 13 para un bar vertical amarillo significa que ambos van a tener la misma probabilidad de aparecer. </p>
+
+<div class="nota">
+	<p>Los archivos de imagenes o sonidos que se fueran a utilizar deben ser seleccionados de la carpeta que se abre por defecto cuando uno presiona el boton. Cambiar de carpeta y usar otros archivos inhabilita la portabilidad.</p>
+</div>
 </article>
 
 
