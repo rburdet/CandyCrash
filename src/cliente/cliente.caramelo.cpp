@@ -80,7 +80,7 @@ void Caramelo::hacerAparecer(){
 }
 
 bool Caramelo::visible(){
-	return (this->get_opacity()!=-1);
+	return (this->get_opacity()!=0);
 }
 
 bool Caramelo::fullyVisible(){

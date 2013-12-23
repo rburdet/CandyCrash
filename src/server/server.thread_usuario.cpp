@@ -112,30 +112,30 @@ int ThreadUsuario::eventNoFirmado(Value& data){
 			int ret = 0;
 			retMsj["event"] = EVENT_NEW_USER;
 
-			this->user = data.get("user", def).asString();
+			std::string tUser = data.get("user", def).asString();
 			this->key = data.get("pass", def).asString();
-			Logger::log("["+this->myId+"] Evento new user '"+this->user+"' '"
+			Logger::log("["+this->myId+"] Evento new user '"+tUser+"' '"
 					+this->key+"'");
 
 			Value userData;
-			UserManager::get(this->user, userData);
-			if(userData.isNull() && this->user != string("") && 
+			UserManager::get(tUser, userData);
+			if(userData.isNull() && tUser != string("") && 
 					this->key != string("")){ // No existe usuario, se puede crear
 				Value newUser;
-				newUser["user"] = this->user;
+				newUser["user"] = tUser;
 				newUser["pass"] = this->key;
 				newUser["nivel"] = 1;
 				UserManager::set(newUser);
 
 				retMsj["msj"] = "usuario creado correctamente";
 				retMsj["code"] = 0;
-				retMsj["user"] = this->user;;
+				retMsj["user"] = tUser;
 				retMsj["pass"] = this->key;
 				ret = -1;
 			}else{
 				retMsj["msj"] = "error creando usuario";
 				retMsj["code"] = 1;
-				ret = 0;
+				ret = -1;
 			}
 
 			if(this->write(retMsj)){
