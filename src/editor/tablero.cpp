@@ -56,7 +56,7 @@ void Tablero::on_cordx_changed(Gtk::SpinButton* spin_x){
 		borrarSeps(cantFilas,FILAS);
 	}
 	cantFilas=X;
-	actualizarMatriz(cantFilas-1,cantColumnas-1);
+	actualizarMatriz(cantFilas-1,cantColumnas);
 }
 
 void Tablero::on_cordy_changed(Gtk::SpinButton* spin_y){
@@ -69,7 +69,7 @@ void Tablero::on_cordy_changed(Gtk::SpinButton* spin_y){
 		borrarSeps(cantColumnas,COLUMNAS);
 	}
 	cantColumnas=Y;
-	actualizarMatriz(cantFilas-1,cantColumnas-1);
+	actualizarMatriz(cantFilas,cantColumnas-1);
 }
 
 void Tablero::alargarFilas(int Y){
