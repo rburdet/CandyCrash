@@ -193,7 +193,10 @@ $ sudo make install
 
 
 <span class="titulo">2. Configuración</span> 
+<p>El juego guarda todos los archivos necesarios en <i>$PREFIX/share/candycrash/</i>, donde <i>$PREFIX</i> es el directorio de instalaci&oacute;n elegido.</p>
 <p>El cliente no posee archivos de configuración. La única configuración posible es la elección de ip del servidor y puerto. Esto se configura atraves de la pantalla de login (La descripción de dicha pantalla se desarrolla posteriormente).</p>
+<p>En lo que respecta al servidor, este utiliza un archivo con la informaci&oacute;n de los usuarios llamado <i>userdata.json</i>, este esta ubicado en la ruta dicha anteriormente. Es muy importante que el servidor se ejecute con un usuario que tenga permisos para escribir en esa carpeta y pueda editar el archivo. De lo contrario, el comportamiento del servidor ser&aacute; indeterminado.</p>
+<p>Adem&aacute;s, habr&aacute; una subcarpeta llamada <i>Mapas</i> que contendr&aacute; toda la informaci&oacute; acerca de los mapas.</p>
 
 </article>
 
@@ -268,6 +271,9 @@ multiplicado por dos. El proceso se repite hasta que se llegue a una configuraci
 <br>
 <strong> Servidor </strong>
 <p> Procediendo como con el cliente, ejecute <i> candycrash-server [puerto] </i> donde se recomienda que [puerto] sea un numero mayor a 5000. Ejemplo : <b>./candycrasg-server 9000 </b>. Esta aplicación es una aplicación de consola y soporta conexiones multijugador </p>
+<div class="nota">
+	<p>Dependiendo de donde se instal&oacute; el servidor se puede llegar a nececitar permisos de <i>administrador</i> para correrlo. En el ejemplo de instalaci&oacute;n se eligio la carpeta <i>/usr</i>, entonces el archivo de usuarios estar&aacute; en <i>/usr/share/candycrash/userdata.json</i>, el usuario que ejecute el servidor debe tener permisos para crear archivos en ese directorio y para poder editar ese archivo. De no tenerlos, el comportamiento de la aplicaci&oacute;n es indeterminado.</p>
+</div>
 <br>
 <strong> Editor </strong>
 <p>
