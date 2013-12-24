@@ -164,9 +164,12 @@ candycrash_editor_LDADD = $(GTKMM2_LIBS) $(ASOUND_LIBS)
 
 #candycrash_serverdir = $(prefix)/share/$(PACKAGE)/server/
 candycrash_serverdir = $(prefix)/share
-#nobase_dist_candycrash_server_DATA = \
-#	../share/candycrash/Mapas/posta.map \
-#	../share/candycrash/Mapas/preentrega.map
+nobase_dist_candycrash_server_DATA = \
+	../share/candycrash/Mapas/mapa.map \
+	../share/candycrash/Mapas/mapa2.map \
+	../share/candycrash/Mapas/mapa3.map \
+	../share/candycrash/Mapas/mapa4.map \
+	../share/candycrash/Mapas/mapa5.map
 
 #candycrash_clientedir = $(prefix)/share/$(PACKAGE)/cliente/
 candycrash_clientedir = $(prefix)/share
@@ -177,7 +180,6 @@ nobase_dist_candycrash_cliente_DATA = \
 	../share/candycrash/imagenes/fondo.jpg \
 	../share/candycrash/imagenes/button_blue.png \
 	../share/candycrash/imagenes/hueco.png \
-	../share/candycrash/imagenes/nohueco.png \
 	../share/candycrash/imagenes/button_green.png \
 	../share/candycrash/imagenes/bar_vert_purple.png \
 	../share/candycrash/imagenes/dot.png \
@@ -228,6 +230,7 @@ nobase_dist_candycrash_cliente_DATA = \
 
 candycrash_editordir = $(prefix)/share
 nobase_dist_candycrash_editor_DATA = \
+	../share/candycrash/imagenes/nohueco.png \
 	../share/candycrash/editor/Editor.glade
 
 ###############################################################################
