@@ -177,6 +177,7 @@ nobase_dist_candycrash_cliente_DATA = \
 	../share/candycrash/imagenes/fondo.jpg \
 	../share/candycrash/imagenes/button_blue.png \
 	../share/candycrash/imagenes/hueco.png \
+	../share/candycrash/imagenes/nohueco.png \
 	../share/candycrash/imagenes/button_green.png \
 	../share/candycrash/imagenes/bar_vert_purple.png \
 	../share/candycrash/imagenes/dot.png \

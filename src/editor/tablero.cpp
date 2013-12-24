@@ -11,6 +11,7 @@
 #define SIZE 40
 #define OFFSET 20
 #define HUECODIR "../share/candycrash/imagenes/hueco.png"
+#define NOHUECODIR "../share/candycrash/imagenes/nohueco.png"
 #define DEFAULTPATH "../share/candycrash/Mapas/"
 #define DEFAULTIMGPATH "../share/candycrash/imagenes/"
 
@@ -162,6 +163,10 @@ bool Tablero::on_click_tablero(GdkEventButton* event){
 	this->tablero->get_pointer(x,y); 
 	fila = (y-OFFSET)/SIZE;
 	columna = (x-OFFSET)/SIZE;
+	if ( x > (cantColumnas *SIZE + OFFSET))
+		return false;
+	if ( y > (cantFilas *SIZE + OFFSET))
+		return false;
 	if (ultFilClick==fila && ultColClick==columna){
 		return false;
 		//No hago nada
@@ -329,13 +334,24 @@ void Tablero::on_image_fondo_changed_tablero(Gtk::FileChooser* fileChooser){
 }
 
 void Tablero::on_check_button_tablero(){
-	if (this->celdaInteres)
-		this->celdaInteres->setHueco();
-	putHueco(this->celdaInteres->getY()*SIZE+OFFSET,this->celdaInteres->getX()*SIZE+OFFSET);
+	if (this->celdaInteres){
+		if (!this->celdaInteres->isHueco()){
+			this->celdaInteres->setHueco();
+			putHueco(this->celdaInteres->getY()*SIZE+OFFSET,this->celdaInteres->getX()*SIZE+OFFSET, true);
+		}else{
+			this->celdaInteres->setNoHueco();
+			putHueco(this->celdaInteres->getY()*SIZE+OFFSET,this->celdaInteres->getX()*SIZE+OFFSET,false);
+		}
+	}
 }
 
-void Tablero::putHueco(int x , int y){
-	Gtk::Image* img = new Gtk::Image(HUECODIR);
+void Tablero::putHueco(int x , int y,bool poner){
+	Gtk::Image* img;
+	if (poner)
+		 img = new Gtk::Image(HUECODIR);
+	else{
+		 img = new Gtk::Image(NOHUECODIR);
+	}
 	img->set_size_request(SIZE,SIZE);
 	this->tablero->put(*img,x,y);
 	img->show();
@@ -375,7 +391,7 @@ void Tablero::deserializarCeldas(Json::Value& celdas){
 			}
 			if (!celdas[streamColumna.str()][streamFila.str()]["probabilidades"].isArray()){
 				matrizCeldas[i][j]->setHueco();
-				putHueco(j*SIZE+OFFSET,i*SIZE+OFFSET);
+				putHueco(j*SIZE+OFFSET,i*SIZE+OFFSET,true);
 			}else{
 				for ( int k=0 ; k < 16 ; k++ ){
 					auxInfo->setProb_piezas(celdas[streamColumna.str()][streamFila.str()]["probabilidades"][k].asInt(),k);

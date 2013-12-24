@@ -170,7 +170,7 @@ class Tablero{
 		//Senal a emitir para el checkbutton cuando hago un click
 		type_signal_uncheck m_signal_uncheck;
 
-		void putHueco(int x , int y );
+		void putHueco(int x , int y ,bool poner);
 
 };
 
