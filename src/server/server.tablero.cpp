@@ -940,6 +940,7 @@ Json::Value Tablero::getTablero(){
 	Json::Value ret;
 	ret["DIM"]["X"] = this->dim_x;
 	ret["DIM"]["Y"] = this->dim_y;
+	ret["nivel"] = this->mapa["nivel"].asInt();
 	ret["mapa"] = this->nMapa;
 	ret["fondo"] = this->pathFondo;
 	ret["sonidos"]["mover"] = this->sonidoMov;

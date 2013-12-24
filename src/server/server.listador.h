@@ -17,7 +17,7 @@ class Listador{
 	public:
 		/** Devuelve un objeto (hash) con: { nombre de archivo : nivel del mapa, }
 		 */
-		static Json::Value listar(){
+		static Json::Value listar(int nivel=-1){
 			DIR* dir;
 			struct dirent entry;
 			struct dirent * result;
@@ -30,6 +30,10 @@ class Listador{
 						std::string fname = std::string(entry.d_name);
 						if(fname.find(MAPA_EXT) != std::string::npos){
 							std::string fileName(entry.d_name);
+							int tNivel = getNivel(fileName);;
+							if(nivel != -1 && tNivel != nivel)
+								continue;
+
 							file[fileName] = getNivel(fileName);
 						}
 				}

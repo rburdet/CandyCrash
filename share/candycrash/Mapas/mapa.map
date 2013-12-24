@@ -404,7 +404,7 @@
 			"9" : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
 		},
 		"fondo" : "",
-		"max_jugadores" : 1,
+		"max_jugadores" : 3,
 		"nivel" : 1,
 		"puntaje_para_ganar" : 1000,
 		"sonidos" : 

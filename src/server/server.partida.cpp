@@ -210,6 +210,7 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 				Json::Value end_send;
 				end_send["event"] = EVENT_GAME_END;
 				end_send["code"] = 0;
+				end_send["nivel"] = this->nivel;
 
 				// Me tengo que fijar si se termino el juego
 				if(puntos >= puntosMax){ // El jugador supero el puntage maximo?
@@ -222,7 +223,18 @@ int Partida::mensaje(Json::Value& data, ThreadSocket* u){
 					this->estado = PARTIDA_TERMINADA;
 					end_send["user"] = user;
 					end_send["msg"] = "Gano "+user["user"].asString();
-					this->broadcastMsj(end_send);
+					end_send["ganaste"] = 1;
+					u->write(end_send);
+					end_send["ganaste"] = 0;
+					this->usuariosLock.lock();
+					for(unsigned int i=0; i < this->usuarios.size(); i++){
+						if(this->usuarios[i] != u){
+							if(this->usuarios[i]->write(end_send))
+								Logger::log("[Partida] Error broadcasteando mensaje.");
+						}
+					}
+					this->usuariosLock.unlock();
+					//this->broadcastMsj(end_send);
 				}else if (!this->tablero->hayMovimientos()){ 
 					this->estado = PARTIDA_TERMINADA;
 					end_send["code"] = 1;

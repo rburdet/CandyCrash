@@ -78,6 +78,8 @@ candycrash_cliente_SOURCES = \
 	cliente/cliente.thread_listener.cpp \
 	cliente/cliente.thread_listener.h \
 	cliente/cliente.window.h \
+	cliente/cliente.nivel_siguiente.h \
+	cliente/cliente.nivel_siguiente.cpp \
 	common/common.caramelos.h \
 	common/common.caramelos_movimientos.h \
 	common/common.events.h \

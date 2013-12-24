@@ -8,6 +8,7 @@
 #include "widgets/cliente.menu_bar.h"
 #include "cliente.tablerojuego.h"
 #include "widgets/cliente.usuarios_list.h"
+#include "cliente.nivel_siguiente.h"
 
 /** Ventana de espera antes de que se mande la partida a jugar.
  * Basicamente es un chat
@@ -44,6 +45,11 @@ class GameWindow : public Window {
 		Gtk::Button button_start;
 		Gtk::Button button_salir;
 		TableroJuego* tableroJuego;
+
+		NivSigWindow* ventanaSiguiente;
+
+		void on_crear_sig(std::string name, int nivel);
+		void on_cerrar_sig();
 
 	private:
 		void on_help();

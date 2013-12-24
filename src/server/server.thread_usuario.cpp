@@ -328,8 +328,11 @@ int ThreadUsuario::onGetMaps(Json::Value& data, Json::Value& userData){
 	retMsj["event"] = EVENT_GET_MAPS;
 	retMsj["msj"] = "Ok";
 	retMsj["code"] = 0;
+	int nivel = -1;
+	if(data["nivel"].asInt())
+		nivel = data["nivel"].asInt();
 
-	retMsj["mapas"] = Listador::listar();
+	retMsj["mapas"] = Listador::listar(nivel);
 
 	if(this->write(retMsj)){
 		Logger::log("["+this->myId+"] Error escribiendo el mensaje de nueva partida");

@@ -10,6 +10,7 @@ using Json::StaticString;
 using Json::Value;
 
 GameWindow::GameWindow() {
+	this->ventanaSiguiente = NULL;
 	this->set_title("Juego");
 	this->set_size_request(350, 350);
 
@@ -96,6 +97,12 @@ GameWindow::~GameWindow(){
 		tableroJuego->hide();
 		delete tableroJuego;
 		tableroJuego = NULL;
+	}
+
+	if(ventanaSiguiente){
+		ventanaSiguiente->hide();
+		delete ventanaSiguiente;
+		ventanaSiguiente = NULL;
 	}
 }
 
@@ -222,17 +229,17 @@ void GameWindow::mensaje(Json::Value& data){
 			//delete tableroJuego;
 			//tableroJuego = NULL;
 			
-			Gtk::MessageDialog dialog(*this, "FIN DEL JUEGO");
+			//Gtk::MessageDialog dialog(*this, "FIN DEL JUEGO");
 			string msg = data["msg"].asString();
-			dialog.set_secondary_text(" \n"
-					"\t " + msg + "\t");
-			int result = dialog.run();
-			if ( result == Gtk::RESPONSE_OK ){
-				tableroJuego->hide();
-				Json::Value data;
-				data["event"] = EVENT_LEAVE_GAME;
-				this->m_signal_mensaje.emit(data);
-			}
+			//dialog.set_secondary_text(" \n"
+			//		"\t " + msg + "\t");
+			//int result = dialog.run();
+			//if ( result == Gtk::RESPONSE_OK ){
+			//	tableroJuego->hide();
+			//	Json::Value data;
+			//	data["event"] = EVENT_LEAVE_GAME;
+			//	this->m_signal_mensaje.emit(data);
+			//}
 			Gtk::TextIter it = this->m_refTextBuffer1->end();
 			this->m_refTextBuffer1->insert(it, "\n >> Termino la partida\n>>"+msg);
 			Glib::RefPtr< Gtk::TextBuffer::Mark > mark = 
@@ -240,7 +247,32 @@ void GameWindow::mensaje(Json::Value& data){
 			this->m_TextView1.scroll_to(mark);
 
 			SoundPlayer::play("../share/candycrash/sounds/complete.wav");
+			if(data["ganaste"].asInt()){
+				this->ventanaSiguiente = new NivSigWindow;
+				this->ventanaSiguiente->signal_salir().connect(sigc::mem_fun(*this, &GameWindow::on_cerrar_sig));
+				this->ventanaSiguiente->signal_crear().connect(sigc::mem_fun(*this, &GameWindow::on_crear_sig));
+				Json::Value msje;
+				msje["event"] = EVENT_GET_MAPS;
+				msje["nivel"] = data["nivel"].asInt()+1;
+				m_signal_mensaje.emit(msje);
+				if(tableroJuego){
+					int x, y;
+					tableroJuego->get_position(x, y);
+					this->ventanaSiguiente->move(x, y);
+				}
+			}else{
+				Gtk::MessageDialog dialog(*this, "FIN DEL JUEGO");
+				dialog.set_secondary_text("Perdiste \n"
+					"\t " + msg + "\t");
+				dialog.run();
+			}
 			break;
+		}
+
+		case EVENT_GET_MAPS: {
+			if(this->ventanaSiguiente){
+				this->ventanaSiguiente->mensaje(data);
+			}
 		}
 
 		default:
@@ -288,4 +320,22 @@ void GameWindow::on_help(){
 		"Aclaracion: Si el creador de la partida abandona la partida, cualquiera"
 		" de los jugadores puede dar comienzo.");
 		dialog.run();
+}
+
+void GameWindow::on_cerrar_sig(){
+	this->ventanaSiguiente->hide();
+	delete this->ventanaSiguiente;
+	this->ventanaSiguiente = NULL;
+}
+
+void GameWindow::on_crear_sig(std::string name, int nivel){
+	this->ventanaSiguiente->hide();
+	delete this->ventanaSiguiente;
+	this->ventanaSiguiente = NULL;
+	this->on_salir_game();
+	Json::Value val;
+	val["event"] = EVENT_NEW_GAME;
+	val["nivel"] = nivel;
+	val["nombre"] = name;
+	m_signal_mensaje.emit(val);
 }
