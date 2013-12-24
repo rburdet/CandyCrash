@@ -234,13 +234,15 @@ void Tablero::on_adj_changed_tablero(Gtk::SpinButton* spinbutton,int id){
 //}
 
 void Tablero::cambiarButons(){
-	for ( unsigned int i = 0 ; i < butonsCambiados.size() ; i++ ){
-		//butonsCambiados[i]->set_value(0.00);
-		if (matrizButons[celdaInteres->getX()][celdaInteres->getY()][i]){
-			butonsCambiados[i]->set_value
-				(matrizButons[celdaInteres->getX()][celdaInteres->getY()][i]);
-		}else if (butonsCambiados[i]){
-			butonsCambiados[i]->set_value(0);
+	if (celdaInteres){
+		for ( unsigned int i = 0 ; i < butonsCambiados.size() ; i++ ){
+			//butonsCambiados[i]->set_value(0.00);
+			if (matrizButons[celdaInteres->getX()][celdaInteres->getY()][i]){
+				butonsCambiados[i]->set_value
+					(matrizButons[celdaInteres->getX()][celdaInteres->getY()][i]);
+			}else if (butonsCambiados[i]){
+				butonsCambiados[i]->set_value(0);
+			}
 		}
 	}
 	//butonsCambiados.clear();
