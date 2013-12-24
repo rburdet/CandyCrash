@@ -109,6 +109,7 @@ bool SoundPlayer::play_wave(const std::string & str){
 
 	pthread_t me;
 	pthread_create(&me, NULL, SoundPlayer::wav_runner, args);
+	pthread_detach(me);
 	return true;
 }
 

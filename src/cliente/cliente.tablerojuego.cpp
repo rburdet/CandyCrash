@@ -3,6 +3,7 @@
 #include "../common/common.events.h"
 #include "../common/common.caramelos_movimientos.h"
 #include "cliente.sound_player.h"
+#include <sstream>
 
 #define TIMEOUT_TIME (20)
 
@@ -10,7 +11,7 @@ TableroJuego::TableroJuego(Json::Value mapa)
 	:	tablero(),
 		imagenFondo(),
 		frameTablero(
-			mapa["mapa"].asString(),
+			"",
 			Gtk::ALIGN_CENTER,
 			Gtk::ALIGN_END, //Eje y
 			1.0, //Aspecto
@@ -22,6 +23,10 @@ TableroJuego::TableroJuego(Json::Value mapa)
 		this->get_style_context();
 	stylecontext->add_class("TableroJuego");
 	stylecontext->context_save();
+
+	std::stringstream ss;
+	ss << mapa["mapa"].asString() << " (" << mapa["puntaje_para_ganar"].asInt() << ")";
+	frameTablero.set_label(ss.str());
 
 	set_title("CandyCrush");
 	this->mapa = mapa;

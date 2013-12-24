@@ -269,6 +269,10 @@ bool Tablero::movimientoValido(int x, int y, CaramelosMovimientos mov){
 	int carameloMovido2 =
 		this->tablero[this->num2str(x2)][this->num2str(y2)].asInt();
 
+	// Si alguno de esos caramelos es un HUECO, ya es un movimeinto invalido
+	if(carameloMovido == HUECO || carameloMovido2 == HUECO)
+		return false;
+
 	// Si alguno de esos caramelos es un STAR, ya es un movimeinto valido
 	if(carameloMovido == STAR || carameloMovido2 == STAR)
 		return true;
@@ -943,6 +947,7 @@ Json::Value Tablero::getTablero(){
 	ret["nivel"] = this->mapa["nivel"].asInt();
 	ret["mapa"] = this->nMapa;
 	ret["fondo"] = this->pathFondo;
+	ret["puntaje_para_ganar"] = this->mapa["puntaje_para_ganar"];
 	ret["sonidos"]["mover"] = this->sonidoMov;
 	ret["sonidos"]["destruir"] = this->sonidoDestruir;
 	Json::Value::Members keys = this->mapa["celdas"].getMemberNames();
