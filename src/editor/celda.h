@@ -21,6 +21,7 @@ class Celda{
 		void on_adj_changed(Gtk::SpinButton* spinbutton,int id);
 		void setImage(const std::string& fileName);
 		void setHueco();
+		void setNoHueco();
 		bool isHueco();
 		std::string getImage();
 	private:

@@ -44,6 +44,10 @@ void Celda::setHueco(){
 	this->hueco=true;
 }
 
+void Celda::setNoHueco(){
+	this->hueco=false;
+}
+
 bool Celda::isHueco(){
 	return this->hueco;
 }
